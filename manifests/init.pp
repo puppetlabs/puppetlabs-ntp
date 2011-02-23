@@ -30,10 +30,7 @@
 #   }
 #
 # [Remember: No empty lines between comments and class definition]
-class ntp($servers=[ "0.debian.pool.ntp.org iburst",
-                     "1.debian.pool.ntp.org iburst",
-                     "2.debian.pool.ntp.org iburst",
-                     "3.debian.pool.ntp.org iburst",],
+class ntp($servers="UNSET",
           $ensure="running",
           $autoupdate=false
 ) {
@@ -57,6 +54,28 @@ class ntp($servers=[ "0.debian.pool.ntp.org iburst",
       $svc_name   = "ntp"
       $config     = "/etc/ntp.conf"
       $config_tpl = "ntp.conf.debian.erb"
+      if ($servers == "UNSET") {
+        $servers_real = [ "0.debian.pool.ntp.org iburst",
+                          "1.debian.pool.ntp.org iburst",
+                          "2.debian.pool.ntp.org iburst",
+                          "3.debian.pool.ntp.org iburst", ]
+      } else {
+        $servers_real = $servers
+      }
+    }
+    centos, redhat, oel: {
+      $supported  = true
+      $pkg_name   = [ "ntp" ]
+      $svc_name   = "ntpd"
+      $config     = "/etc/ntp.conf"
+      $config_tpl = "ntp.conf.el.erb"
+      if ($servers == "UNSET") {
+        $servers_real = [ "0.centos.pool.ntp.org",
+                          "1.centos.pool.ntp.org",
+                          "2.centos.pool.ntp.org", ]
+      } else {
+        $servers_real = $servers
+      }
     }
     default: {
       $supported = false

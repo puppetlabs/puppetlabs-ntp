@@ -14,9 +14,11 @@ restrict -6 ::1
 
 # Use public servers from the pool.ntp.org project.
 # Please consider joining the pool (http://www.pool.ntp.org/join.html).
-server 0.centos.pool.ntp.org
-server 1.centos.pool.ntp.org
-server 2.centos.pool.ntp.org
+
+# Managed by puppet class { "ntp": servers => [ ... ] }
+<% servers_real.each do |server| -%>
+server <%= server %>
+<% end -%>
 
 #broadcast 192.168.1.255 key 42		# broadcast server
 #broadcastclient			# broadcast client
