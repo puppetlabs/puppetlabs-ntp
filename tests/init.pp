@@ -1,1 +1,5 @@
-include ntp
+node default {
+
+  class { "ntp": }
+
+}
