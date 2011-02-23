@@ -7,6 +7,7 @@
 #
 #   Tested platforms:
 #    - Debian 6.0 Squeeze
+#    - CentOS 5.4
 #
 # Parameters:
 #
@@ -23,7 +24,10 @@
 #
 # Sample Usage:
 #
-#   class { "ntp": servers => [ 'time.apple.com' ] }
+#   class { "ntp":
+#     servers    => [ 'time.apple.com' ],
+#     autoupdate => false,
+#   }
 #
 # [Remember: No empty lines between comments and class definition]
 class ntp($servers=[ "0.debian.pool.ntp.org iburst",
