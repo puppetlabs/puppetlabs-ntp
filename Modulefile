@@ -1,11 +1,11 @@
 name    'puppetlabs-ntp'
-version '1.0.2'
-source 'git://github.com/puppetlabs/jeffmccune-ntp'
-author 'Jeff McCune'
-license 'BSD 3-Clause'
+version '0.0.3'
+source 'git://github.com/puppetlabs/puppetlabs-ntp'
+author 'Puppet Labs'
+license 'Apache Version 2.0'
 summary 'NTP Module'
 description 'NTP Module for Debian, Ubuntu, CentOS, RHEL, OEL'
-project_page 'http://github.com/puppetlabs/jeffmccune-ntp'
+project_page 'http://github.com/puppetlabs/puppetlabs-ntp'
 
 ## Add dependencies, if any:
-# dependency 'username/name', '>= 1.2.0'
+dependency 'puppetlabs/stdlib', '>= 0.1.6'
