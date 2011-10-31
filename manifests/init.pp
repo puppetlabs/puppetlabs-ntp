@@ -35,7 +35,7 @@ class ntp($servers="UNSET",
           $ensure="running",
           $autoupdate=false
 ) {
-
+  include ntp::params
   if ! ($ensure in [ "running", "stopped" ]) {
     fail("ensure parameter must be running or stopped")
   }
@@ -48,65 +48,32 @@ class ntp($servers="UNSET",
     fail("autoupdate parameter must be true or false")
   }
 
-  case $operatingsystem {
-    debian, ubuntu: {
-      $supported  = true
-      $pkg_name   = [ "ntp" ]
-      $svc_name   = "ntp"
-      $config     = "/etc/ntp.conf"
-      $config_tpl = "ntp.conf.debian.erb"
-      if ($servers == "UNSET") {
-        $servers_real = [ "0.debian.pool.ntp.org iburst",
-                          "1.debian.pool.ntp.org iburst",
-                          "2.debian.pool.ntp.org iburst",
-                          "3.debian.pool.ntp.org iburst", ]
-      } else {
-        $servers_real = $servers
-      }
-    }
-    centos, redhat, oel, linux: {
-      $supported  = true
-      $pkg_name   = [ "ntp" ]
-      $svc_name   = "ntpd"
-      $config     = "/etc/ntp.conf"
-      $config_tpl = "ntp.conf.el.erb"
-      if ($servers == "UNSET") {
-        $servers_real = [ "0.centos.pool.ntp.org",
-                          "1.centos.pool.ntp.org",
-                          "2.centos.pool.ntp.org", ]
-      } else {
-        $servers_real = $servers
-      }
-    }
-    default: {
-      $supported = false
-      notify { "${module_name}_unsupported":
-        message => "The ${module_name} module is not supported on ${operatingsystem}",
-      }
-    }
+  if ($servers == "UNSET") {
+    $servers_real = $ntp::params::servers_default
   }
 
-  if ($supported == true) {
+  if ($ntp::params::supported == true) {
 
-    package { $pkg_name:
+    package { 'ntp':
+      name   => $ntp::params::pkg_name,
       ensure => $package_ensure,
     }
 
-    file { $config:
+    file { $ntp::params::config:
       ensure => file,
       owner  => 0,
       group  => 0,
       mode   => 0644,
-      content => template("${module_name}/${config_tpl}"),
-      require => Package[$pkg_name],
+      content => template("${module_name}/${ntp::params::config_tpl}"),
+      require => Package['ntp'],
     }
 
     service { "ntp":
       ensure     => $ensure,
-      name       => $svc_name,
+      name       => $ntp::params::svc_name,
       hasstatus  => true,
       hasrestart => true,
-      subscribe  => [ Package[$pkg_name], File[$config] ],
+      subscribe  => [ Package['ntp'], File[$ntp::params::config] ],
     }
 
   }
