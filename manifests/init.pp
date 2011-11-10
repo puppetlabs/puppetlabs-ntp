@@ -8,6 +8,7 @@
 #   Tested platforms:
 #    - Debian 6.0 Squeeze
 #    - CentOS 5.4
+#    - Amazon Linux 2011.09
 #
 # Parameters:
 #
