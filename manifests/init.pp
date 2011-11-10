@@ -63,7 +63,7 @@ class ntp($servers="UNSET",
         $servers_real = $servers
       }
     }
-    centos, redhat, oel: {
+    centos, redhat, oel, linux: {
       $supported  = true
       $pkg_name   = [ "ntp" ]
       $svc_name   = "ntpd"
