@@ -1,2 +1,5 @@
+2011-11-10 Dan Bode <dan@puppetlabs.com> - 0.0.4
+Add Amazon Linux as a supported platform
+Add unit tests
 2011-06-16 Jeff McCune <jeff@puppetlabs.com> - 0.0.3
 Initial release under puppetlabs
