@@ -11,7 +11,7 @@ class ntp::params {
                            "2.debian.pool.ntp.org iburst",
                            "3.debian.pool.ntp.org iburst", ]
     }
-    centos, redhat, oel linux: {
+    centos, redhat, oel, linux: {
       $supported       = true
       $pkg_name        = [ "ntp" ]
       $svc_name        = "ntpd"
