@@ -48,7 +48,7 @@ class ntp($servers="UNSET",
     fail("autoupdate parameter must be true or false")
   }
 
-  case $operatingsystem {
+  case $::operatingsystem {
     debian, ubuntu: {
       $supported  = true
       $pkg_name   = [ "ntp" ]
@@ -81,7 +81,7 @@ class ntp($servers="UNSET",
     default: {
       $supported = false
       notify { "${module_name}_unsupported":
-        message => "The ${module_name} module is not supported on ${operatingsystem}",
+        message => "The ${module_name} module is not supported on ${::operatingsystem}",
       }
     }
   }
