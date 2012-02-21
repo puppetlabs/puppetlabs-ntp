@@ -1,3 +1,5 @@
+2012-02-21 Steve Huff <shuff@vecna.org> - 0.0.5
+Automatically add "tinker panic" config on VM guests
 2011-11-10 Dan Bode <dan@puppetlabs.com> - 0.0.4
 Add Amazon Linux as a supported platform
 Add unit tests
