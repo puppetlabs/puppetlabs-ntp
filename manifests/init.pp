@@ -88,10 +88,11 @@ class ntp($servers="UNSET",
 
   if ($supported == true) {
 
-    $tinker_panic = $is_virtual ? {
-      true    => "tinker panic 0",
-      default => "#"
-    }
+    #$tinker_panic = $is_virtual ? {
+    #  true    => "tinker panic 0",
+    #  default => undef
+    #}
+    $tinker_panic = "tinker panic 0"
 
     package { $pkg_name:
       ensure => $package_ensure,
