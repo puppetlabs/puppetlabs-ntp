@@ -1,5 +1,8 @@
 <% if @is_virtual -%>
+# Keep ntpd from panicking in the event of a large clock skew
+# when a VM guest is suspended and resumed.
 tinker panic 0
+
 <% end -%>
 # Permit time synchronization with our time source, but do not
 # permit the source to query or modify the service on this system.
