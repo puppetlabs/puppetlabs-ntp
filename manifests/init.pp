@@ -86,12 +86,12 @@ class ntp($servers="UNSET",
     }
   }
 
-  $tinker_panic = $is_virtual ? {
-    true    => "tinker panic 0",
-    default => "#"
-  }
-
   if ($supported == true) {
+
+    $tinker_panic = $is_virtual ? {
+      true    => "tinker panic 0",
+      default => "#"
+    }
 
     package { $pkg_name:
       ensure => $package_ensure,
