@@ -1,4 +1,6 @@
-<%= tinker_panic -%>
+<% if @is_virtual -%>
+tinker panic 0
+<% end -%>
 # Permit time synchronization with our time source, but do not
 # permit the source to query or modify the service on this system.
 restrict default kod nomodify notrap nopeer noquery
