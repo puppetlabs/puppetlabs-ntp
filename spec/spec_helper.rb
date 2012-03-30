@@ -11,9 +11,11 @@ RSpec.configure do |c|
     Dir.mkdir(manifestdir)
     FileUtils.touch(File.join(manifestdir, "site.pp"))
     Puppet[:confdir] = @puppetdir
+    Puppet.settings.send(:initialize_everything_for_tests) unless Puppet.version =~ /^2\.6/
   end
 
   c.after :each do
+    Puppet.settings.send(:clear_everything_for_tests) unless Puppet.version =~ /^2\.6/
     FileUtils.remove_entry_secure(@puppetdir)
   end
 
