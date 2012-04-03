@@ -66,9 +66,13 @@ describe 'ntp' do
           params[:ensure] = 'stopped'
           subject.should contain_service('ntp').with_ensure('stopped')
         end
-        it 'should allow package ensure to be overridden' do
-          params[:autoupdate] = true
+        it 'should allow package ensure to be latest' do
+          params[:version] = 'latest'
           subject.should contain_package('ntp').with_ensure('latest')
+        end
+        it 'should allow package ensure to be specific version' do
+          params[:version] = '1:4.2.6.p2+dfsg-1+b1'
+          subject.should contain_package('ntp').with_ensure('1:4.2.6.p2+dfsg-1+b1')
         end
       end
     end
