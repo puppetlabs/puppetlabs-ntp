@@ -9,6 +9,7 @@
 #    - Debian 6.0 Squeeze
 #    - CentOS 5.4
 #    - Amazon Linux 2011.09
+#    - FreeBSD 9.0
 #
 # Parameters:
 #
@@ -78,6 +79,21 @@ class ntp($servers="UNSET",
         $servers_real = $servers
       }
     }
+    freebsd: {
+      $supported  = true
+      $pkg_name   = [".*/net/ntp"]
+      $svc_name   = "ntpd"
+      $config     = "/etc/ntp.conf"
+      $config_tpl = "ntp.conf.freebsd.erb"
+      if ($servers == "UNSET") {
+        $servers_real = [ "0.freebsd.pool.ntp.org iburst maxpoll 9",
+                          "1.freebsd.pool.ntp.org iburst maxpoll 9",
+                          "2.freebsd.pool.ntp.org iburst maxpoll 9",
+                          "3.freebsd.pool.ntp.org iburst maxpoll 9", ]
+      } else {
+        $servers_real = $servers
+      }
+    }
     default: {
       $supported = false
       notify { "${module_name}_unsupported":
@@ -88,7 +104,8 @@ class ntp($servers="UNSET",
 
   if ($supported == true) {
 
-    package { $pkg_name:
+    package { "ntp":
+      name   =>  $pkg_name,
       ensure => $package_ensure,
     }
 
