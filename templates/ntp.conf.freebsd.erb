@@ -1,0 +1,23 @@
+#
+# $FreeBSD: release/9.0.0/etc/ntp.conf 195652 2009-07-13 05:51:33Z dwmalone $
+#
+# Default NTP servers for the FreeBSD operating system.
+#
+# Don't forget to enable ntpd in /etc/rc.conf with:
+# ntpd_enable="YES"
+#
+# The driftfile is by default /var/db/ntpd.drift, check
+# /etc/defaults/rc.conf on how to change the location.
+#
+#
+# See http://www.pool.ntp.org/ for details. Note, the pool encourages
+# users with a static IP and good upstream NTP servers to add a server
+# to the pool. See http://www.pool.ntp.org/join.html if you are interested.
+#
+# The option `iburst' is used for faster initial synchronisation.
+# The option `maxpoll 9' is used to prevent PLL/FLL flipping on FreeBSD.
+#
+# Managed by puppet class { "ntp": servers => [ ... ] }
+<% [servers_real].flatten.each do |server| -%>
+server <%= server %>
+<% end -%>
