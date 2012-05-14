@@ -1,23 +1,10 @@
 require 'puppet'
 require 'rspec-puppet'
-require 'tmpdir'
+require 'puppet_spec_helper'
+
+fixture_dir = File.join(dir = File.expand_path(File.dirname(__FILE__)), "fixtures")
 
 RSpec.configure do |c|
-  c.before :each do
-    # Create a temporary puppet confdir area and temporary site.pp so
-    # when rspec-puppet runs we don't get a puppet error.
-    @puppetdir = Dir.mktmpdir("ntp")
-    manifestdir = File.join(@puppetdir, "manifests")
-    Dir.mkdir(manifestdir)
-    FileUtils.touch(File.join(manifestdir, "site.pp"))
-    Puppet[:confdir] = @puppetdir
-    Puppet.settings.send(:initialize_everything_for_tests) unless Puppet.version =~ /^2\.6/
-  end
-
-  c.after :each do
-    Puppet.settings.send(:clear_everything_for_tests) unless Puppet.version =~ /^2\.6/
-    FileUtils.remove_entry_secure(@puppetdir)
-  end
-
-  c.module_path = File.join(File.dirname(__FILE__), '../../')
+  c.module_path = File.join(fixture_dir, 'modules')
+  c.manifest_dir = File.join(fixture_dir, 'manifests')
 end
