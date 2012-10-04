@@ -9,6 +9,7 @@
 #    - Debian 6.0 Squeeze
 #    - CentOS 5.4
 #    - Amazon Linux 2011.09
+#    - Amazon Linux 2012.03
 #    - FreeBSD 9.0
 #
 # Parameters:
@@ -65,16 +66,28 @@ class ntp($servers='UNSET',
         $servers_real = $servers
       }
     }
-    centos, redhat, oel, linux, fedora: {
+    redhat, centos, scientific, fedora, amazon, oel, linux: { 
       $supported  = true
       $pkg_name   = [ 'ntp' ]
       $svc_name   = 'ntpd'
       $config     = '/etc/ntp.conf'
       $config_tpl = 'ntp.conf.el.erb'
+
+      if $operatingsystem == "RedHat" {
+        $os = "rhel"
+      }
+      elsif $operatingsystem == "Scientific" {
+        $os = "centos"
+      }
+      else {
+        $os = inline_template("<%= operatingsystem.downcase -%>")
+      }
+
       if ($servers == 'UNSET') {
-        $servers_real = [ '0.centos.pool.ntp.org',
-                          '1.centos.pool.ntp.org',
-                          '2.centos.pool.ntp.org', ]
+        $servers_real = [ '0.$os.pool.ntp.org',
+                          '1.$os.pool.ntp.org',
+                          '2.$os.pool.ntp.org',
+                          '3.$os.pool.ntp.org', ]
       } else {
         $servers_real = $servers
       }

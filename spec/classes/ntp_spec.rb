@@ -12,7 +12,7 @@ describe 'ntp' do
   describe 'test platform specific resources' do
 
     debianish = ['debian', 'ubuntu']
-    redhatish = ['centos', 'redhat', 'oel', 'linux']
+    redhatish = ['redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oel', 'linux']
     bsdish    = ['freebsd']
 
     debianish.each do |os|
@@ -43,9 +43,10 @@ describe 'ntp' do
         it 'should use the redhat ntp servers by default' do
           content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
           expected_lines = [
-           'server 0.centos.pool.ntp.org',
-           'server 1.centos.pool.ntp.org',
-           'server 2.centos.pool.ntp.org']
+           'server 0.$os.pool.ntp.org',
+           'server 1.$os.pool.ntp.org',
+           'server 2.$os.pool.ntp.org',
+           'server 3.$os.pool.ntp.org']
           (content.split("\n") & expected_lines).should == expected_lines
         end
       end
