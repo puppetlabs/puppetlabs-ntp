@@ -84,10 +84,10 @@ class ntp($servers='UNSET',
       }
 
       if ($servers == 'UNSET') {
-        $servers_real = [ '0.$os_lower.pool.ntp.org',
-                          '1.$os_lower.pool.ntp.org',
-                          '2.$os_lower.pool.ntp.org',
-                          '3.$os_lower.pool.ntp.org', ]
+        $servers_real = [ '0.$os.pool.ntp.org',
+                          '1.$os.pool.ntp.org',
+                          '2.$os.pool.ntp.org',
+                          '3.$os.pool.ntp.org', ]
       } else {
         $servers_real = $servers
       }
