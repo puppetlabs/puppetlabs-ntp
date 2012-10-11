@@ -1,6 +1,6 @@
 # /etc/ntp.conf, configuration for ntpd; see ntp.conf(5) for help
 
-<% if @is_virtual -%>
+<% if @is_virtual == "true" -%>
 # Keep ntpd from panicking in the event of a large clock skew
 # when a VM guest is suspended and resumed.
 tinker panic 0
