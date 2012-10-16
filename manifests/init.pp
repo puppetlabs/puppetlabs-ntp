@@ -51,7 +51,6 @@ class ntp($servers='UNSET',
 
   case $::operatingsystem {
     debian, ubuntu: {
-      $supported  = true
       $pkg_name   = [ 'ntp' ]
       $svc_name   = 'ntp'
       $config     = '/etc/ntp.conf'
@@ -66,7 +65,6 @@ class ntp($servers='UNSET',
       }
     }
     centos, redhat, oel, linux, fedora, Amazon: {
-      $supported  = true
       $pkg_name   = [ 'ntp' ]
       $svc_name   = 'ntpd'
       $config     = '/etc/ntp.conf'
@@ -80,7 +78,6 @@ class ntp($servers='UNSET',
       }
     }
     freebsd: {
-      $supported  = true
       $pkg_name   = ['.*/net/ntp']
       $svc_name   = 'ntpd'
       $config     = '/etc/ntp.conf'
@@ -95,14 +92,9 @@ class ntp($servers='UNSET',
       }
     }
     default: {
-      $supported = false
-      notify { "${module_name}_unsupported":
-        message => "The ${module_name} module is not supported on ${::operatingsystem}",
-      }
+       fail("The ${module_name} module is not supported on ${::operatingsystem}")
     }
   }
-
-  if ($supported == true) {
 
     package { 'ntp':
       ensure => $package_ensure,
@@ -125,5 +117,4 @@ class ntp($servers='UNSET',
       hasrestart => true,
       subscribe  => [ Package[$pkg_name], File[$config] ],
     }
-  }
 }
