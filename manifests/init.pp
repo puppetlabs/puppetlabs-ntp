@@ -79,6 +79,21 @@ class ntp($servers='UNSET',
         $servers_real = $servers
       }
     }
+    sles, sled, suse, opensuse: {
+      $supported  = true
+      $pkg_name   = [ 'ntp' ]
+      $svc_name   = 'ntp'
+      $config     = '/etc/ntp.conf'
+      $config_tpl = 'ntp.conf.suse.erb'
+      if ($servers == 'UNSET') {
+        $servers_real = [ '0.opensuse.pool.ntp.org',
+                          '1.opensuse.pool.ntp.org',
+                          '2.opensuse.pool.ntp.org',
+                          '3.opensuse.pool.ntp.org', ]
+      } else {
+        $servers_real = $servers
+      }
+    }
     freebsd: {
       $supported  = true
       $pkg_name   = ['.*/net/ntp']
