@@ -43,6 +43,23 @@ describe 'ntp' do
       end
     end
 
+    describe "for operating system family SuSE" do
+
+      let(:params) {{}}
+      let(:facts) { { :osfamily => 'suse' } }
+
+      it { should contain_service('ntp').with_name('ntp') }
+      it 'should use the redhat ntp servers by default' do
+        content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
+        expected_lines = [
+         'server 0.opensuse.pool.ntp.org',
+         'server 1.opensuse.pool.ntp.org',
+         'server 2.opensuse.pool.ntp.org',
+         'server 3.opensuse.pool.ntp.org']
+        (content.split("\n") & expected_lines).should == expected_lines
+      end
+    end
+
     describe "for operating system family FreeBSD" do
 
       let(:params) {{}}
@@ -51,7 +68,7 @@ describe 'ntp' do
       it { should contain_service('ntp').with_name('ntpd') }
       it 'should use the freebsd ntp servers by default' do
         content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
-        expected_lines = [ 
+        expected_lines = [
           "server 0.freebsd.pool.ntp.org iburst maxpoll 9",
           "server 1.freebsd.pool.ntp.org iburst maxpoll 9",
           "server 2.freebsd.pool.ntp.org iburst maxpoll 9",
@@ -71,7 +88,7 @@ describe 'ntp' do
 
     end
 
-    ['Debian', 'RedHat', 'FreeBSD'].each do |osfamily|
+    ['Debian', 'RedHat','SuSE', 'FreeBSD'].each do |osfamily|
       describe "for operating system family #{osfamily}" do
 
         let(:facts) { { :osfamily => osfamily } }

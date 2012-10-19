@@ -86,6 +86,21 @@ class ntp($servers='UNSET',
         $servers_real = $servers
       }
     }
+    SuSE: {
+      $supported  = true
+      $pkg_name   = [ 'ntp' ]
+      $svc_name   = 'ntp'
+      $config     = '/etc/ntp.conf'
+      $config_tpl = 'ntp.conf.suse.erb'
+      if ($servers == 'UNSET') {
+        $servers_real = [ '0.opensuse.pool.ntp.org',
+                          '1.opensuse.pool.ntp.org',
+                          '2.opensuse.pool.ntp.org',
+                          '3.opensuse.pool.ntp.org', ]
+      } else {
+        $servers_real = $servers
+      }
+    }
     FreeBSD: {
       $supported  = true
       $pkg_name   = ['.*/net/ntp']
@@ -102,13 +117,13 @@ class ntp($servers='UNSET',
       }
     }
     default: {
-       fail("The ${module_name} module is not supported on ${::osfamily} based systems")
+      fail("The ${module_name} module is not supported on ${::osfamily} based systems")
     }
   }
 
   package { 'ntp':
-    name   =>  $pkg_name,
     ensure => $package_ensure,
+    name   => $pkg_name,
   }
 
   file { $config:
