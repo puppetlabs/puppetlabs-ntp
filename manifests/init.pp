@@ -56,8 +56,9 @@ class ntp($servers='UNSET',
     fail('autoupdate parameter must be true or false')
   }
 
-  case $::operatingsystem {
-    debian, ubuntu: {
+  case $::osfamily {
+    Debian: {
+      $supported  = true
       $pkg_name   = [ 'ntp' ]
       $svc_name   = 'ntp'
       $config     = '/etc/ntp.conf'
@@ -71,7 +72,8 @@ class ntp($servers='UNSET',
         $servers_real = $servers
       }
     }
-    centos, redhat, oel, linux, fedora, Amazon: {
+    RedHat: {
+      $supported  = true
       $pkg_name   = [ 'ntp' ]
       $svc_name   = 'ntpd'
       $config     = '/etc/ntp.conf'
@@ -84,7 +86,8 @@ class ntp($servers='UNSET',
         $servers_real = $servers
       }
     }
-    freebsd: {
+    FreeBSD: {
+      $supported  = true
       $pkg_name   = ['.*/net/ntp']
       $svc_name   = 'ntpd'
       $config     = '/etc/ntp.conf'
@@ -99,7 +102,7 @@ class ntp($servers='UNSET',
       }
     }
     default: {
-       fail("The ${module_name} module is not supported on ${::operatingsystem}")
+       fail("The ${module_name} module is not supported on ${::osfamily} based systems")
     }
   }
 
