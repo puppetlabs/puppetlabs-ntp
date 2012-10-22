@@ -96,25 +96,25 @@ class ntp($servers='UNSET',
     }
   }
 
-    package { 'ntp':
-      ensure => $package_ensure,
-      name   => $pkg_name,
-    }
+  package { 'ntp':
+    name   =>  $pkg_name,
+    ensure => $package_ensure,
+  }
 
-    file { $config:
-      ensure  => file,
-      owner   => 0,
-      group   => 0,
-      mode    => '0644',
-      content => template("${module_name}/${config_tpl}"),
-      require => Package[$pkg_name],
-    }
+  file { $config:
+    ensure  => file,
+    owner   => 0,
+    group   => 0,
+    mode    => '0644',
+    content => template("${module_name}/${config_tpl}"),
+    require => Package[$pkg_name],
+  }
 
-    service { 'ntp':
-      ensure     => $ensure,
-      name       => $svc_name,
-      hasstatus  => true,
-      hasrestart => true,
-      subscribe  => [ Package[$pkg_name], File[$config] ],
-    }
+  service { 'ntp':
+    ensure     => $ensure,
+    name       => $svc_name,
+    hasstatus  => true,
+    hasrestart => true,
+    subscribe  => [ Package[$pkg_name], File[$config] ],
+  }
 }
