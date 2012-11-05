@@ -105,8 +105,8 @@ class ntp($servers='UNSET',
   if ($supported == true) {
 
     package { 'ntp':
-      name   =>  $pkg_name,
       ensure => $package_ensure,
+      name   => $pkg_name,
     }
 
     file { $config:
