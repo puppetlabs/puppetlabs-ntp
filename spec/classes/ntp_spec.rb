@@ -60,7 +60,7 @@ describe 'ntp' do
         it { should contain_service('ntp').with_name('ntpd') }
         it 'should use the freebsd ntp servers by default' do
           content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
-          expected_lines = [ 
+          expected_lines = [
             "server 0.freebsd.pool.ntp.org iburst maxpoll 9",
             "server 1.freebsd.pool.ntp.org iburst maxpoll 9",
             "server 2.freebsd.pool.ntp.org iburst maxpoll 9",
@@ -68,6 +68,17 @@ describe 'ntp' do
           (content.split("\n") & expected_lines).should == expected_lines
         end
       end
+
+      describe "for operating system unsupported" do
+        let(:facts) {{
+          :operatingsystem  => 'unsupported',
+        }}
+
+        it { expect{ subject }.to raise_error(
+          /^The ntp module is not supported on unsupported/
+        )}
+      end
+
     end
 
     (redhatish + debianish + bsdish).each do |os|
