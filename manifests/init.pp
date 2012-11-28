@@ -18,6 +18,12 @@
 #                '2.debian.pool.ntp.org iburst',
 #                '3.debian.pool.ntp.org iburst', ]
 #
+#   $restrict = true
+#     Whether to restrict ntp daemons from allowing others to use as a server.
+#
+#   $autoupdate = false
+#     Whether to update the ntp package automatically or not.
+#
 # Actions:
 #
 #  Installs, configures, and manages the ntp service.
@@ -34,6 +40,7 @@
 # [Remember: No empty lines between comments and class definition]
 class ntp($servers='UNSET',
           $ensure='running',
+          $restrict=true,
           $autoupdate=false
 ) {
 
