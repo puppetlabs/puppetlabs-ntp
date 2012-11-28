@@ -30,6 +30,7 @@ filegen clockstats file clockstats type day enable
 server <%= server %>
 <% end -%>
 
+<% if @restrict -%>
 # Access control configuration; see /usr/share/doc/ntp-doc/html/accopt.html for
 # details.  The web page <http://support.ntp.org/bin/view/Support/AccessRestrictions>
 # might also be helpful.
@@ -50,6 +51,7 @@ restrict ::1
 # cryptographically authenticated.
 #restrict 192.168.123.0 mask 255.255.255.0 notrust
 
+<% end -%>
 
 # If you want to provide time to your local subnet, change the next line.
 # (Again, the address is an example only.)
