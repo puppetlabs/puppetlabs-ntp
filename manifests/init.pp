@@ -24,6 +24,9 @@
 #   $autoupdate = false
 #     Whether to update the ntp package automatically or not.
 #
+#   $enable = true
+#     Automatically start ntp deamon on boot.
+#
 # Actions:
 #
 #  Installs, configures, and manages the ntp service.
@@ -40,7 +43,7 @@
 # [Remember: No empty lines between comments and class definition]
 class ntp($servers='UNSET',
           $ensure='running',
-          $enable='true',
+          $enable=true,
           $restrict=true,
           $autoupdate=false
 ) {
@@ -118,13 +121,12 @@ class ntp($servers='UNSET',
     require => Package[$pkg_name],
   }
 
-    service { 'ntp':
-      ensure     => $ensure,
-      enable     => $enable,
-      name       => $svc_name,
-      hasstatus  => true,
-      hasrestart => true,
-      subscribe  => [ Package[$pkg_name], File[$config] ],
-    }
+  service { 'ntp':
+    ensure     => $ensure,
+    enable     => $enable,
+    name       => $svc_name,
+    hasstatus  => true,
+    hasrestart => true,
+    subscribe  => [ Package[$pkg_name], File[$config] ],
   }
 }
