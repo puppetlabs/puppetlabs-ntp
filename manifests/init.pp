@@ -89,7 +89,7 @@ class ntp($servers='UNSET',
       }
     }
     freebsd: {
-      $pkg_name   = ['.*/net/ntp']
+      $pkg_name   = ['net/ntp']
       $svc_name   = 'ntpd'
       $config     = '/etc/ntp.conf'
       $config_tpl = 'ntp.conf.freebsd.erb'
