@@ -4,6 +4,7 @@
 tinker panic 0
 
 <% end -%>
+<% if @restrict -%>
 # Permit time synchronization with our time source, but do not
 # permit the source to query or modify the service on this system.
 restrict default kod nomodify notrap nopeer noquery
@@ -18,6 +19,7 @@ restrict -6 ::1
 # Hosts on local network are less restricted.
 #restrict 192.168.1.0 mask 255.255.255.0 nomodify notrap
 
+<% end -%>
 # Use public servers from the pool.ntp.org project.
 # Please consider joining the pool (http://www.pool.ntp.org/join.html).
 
