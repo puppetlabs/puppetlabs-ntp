@@ -1,5 +1,5 @@
 name    'puppetlabs-ntp'
-version '0.1.0'
+version '0.2.0'
 source 'git://github.com/puppetlabs/puppetlabs-ntp'
 author 'Puppet Labs'
 license 'Apache Version 2.0'
