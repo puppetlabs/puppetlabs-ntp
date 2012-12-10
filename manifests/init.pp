@@ -60,8 +60,9 @@ class ntp($servers='UNSET',
     fail('autoupdate parameter must be true or false')
   }
 
-  case $::operatingsystem {
-    debian, ubuntu: {
+  case $::osfamily {
+    Debian: {
+      $supported  = true
       $pkg_name   = [ 'ntp' ]
       $svc_name   = 'ntp'
       $config     = '/etc/ntp.conf'
@@ -75,7 +76,8 @@ class ntp($servers='UNSET',
         $servers_real = $servers
       }
     }
-    centos, redhat, oel, linux, fedora, Amazon: {
+    RedHat: {
+      $supported  = true
       $pkg_name   = [ 'ntp' ]
       $svc_name   = 'ntpd'
       $config     = '/etc/ntp.conf'
@@ -88,7 +90,23 @@ class ntp($servers='UNSET',
         $servers_real = $servers
       }
     }
-    freebsd: {
+    SuSE: {
+      $supported  = true
+      $pkg_name   = [ 'ntp' ]
+      $svc_name   = 'ntp'
+      $config     = '/etc/ntp.conf'
+      $config_tpl = 'ntp.conf.suse.erb'
+      if ($servers == 'UNSET') {
+        $servers_real = [ '0.opensuse.pool.ntp.org',
+                          '1.opensuse.pool.ntp.org',
+                          '2.opensuse.pool.ntp.org',
+                          '3.opensuse.pool.ntp.org', ]
+      } else {
+        $servers_real = $servers
+      }
+    }
+    FreeBSD: {
+      $supported  = true
       $pkg_name   = ['.*/net/ntp']
       $svc_name   = 'ntpd'
       $config     = '/etc/ntp.conf'
@@ -103,13 +121,13 @@ class ntp($servers='UNSET',
       }
     }
     default: {
-       fail("The ${module_name} module is not supported on ${::operatingsystem}")
+      fail("The ${module_name} module is not supported on ${::osfamily} based systems")
     }
   }
 
   package { 'ntp':
-    name   =>  $pkg_name,
     ensure => $package_ensure,
+    name   => $pkg_name,
   }
 
   file { $config:
