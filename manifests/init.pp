@@ -51,7 +51,6 @@ class ntp($servers='UNSET',
 
   case $::operatingsystem {
     debian, ubuntu: {
-      $supported  = true
       $pkg_name   = [ 'ntp' ]
       $svc_name   = 'ntp'
       $config     = '/etc/ntp.conf'
@@ -66,7 +65,6 @@ class ntp($servers='UNSET',
       }
     }
     centos, redhat, oel, linux, fedora, Amazon: {
-      $supported  = true
       $pkg_name   = [ 'ntp' ]
       $svc_name   = 'ntpd'
       $config     = '/etc/ntp.conf'
@@ -80,7 +78,6 @@ class ntp($servers='UNSET',
       }
     }
     freebsd: {
-      $supported  = true
       $pkg_name   = ['.*/net/ntp']
       $svc_name   = 'ntpd'
       $config     = '/etc/ntp.conf'
@@ -95,35 +92,29 @@ class ntp($servers='UNSET',
       }
     }
     default: {
-      $supported = false
-      notify { "${module_name}_unsupported":
-        message => "The ${module_name} module is not supported on ${::operatingsystem}",
-      }
+       fail("The ${module_name} module is not supported on ${::operatingsystem}")
     }
   }
 
-  if ($supported == true) {
+  package { 'ntp':
+    name   =>  $pkg_name,
+    ensure => $package_ensure,
+  }
 
-    package { 'ntp':
-      ensure => $package_ensure,
-      name   => $pkg_name,
-    }
+  file { $config:
+    ensure  => file,
+    owner   => 0,
+    group   => 0,
+    mode    => '0644',
+    content => template("${module_name}/${config_tpl}"),
+    require => Package[$pkg_name],
+  }
 
-    file { $config:
-      ensure  => file,
-      owner   => 0,
-      group   => 0,
-      mode    => '0644',
-      content => template("${module_name}/${config_tpl}"),
-      require => Package[$pkg_name],
-    }
-
-    service { 'ntp':
-      ensure     => $ensure,
-      name       => $svc_name,
-      hasstatus  => true,
-      hasrestart => true,
-      subscribe  => [ Package[$pkg_name], File[$config] ],
-    }
+  service { 'ntp':
+    ensure     => $ensure,
+    name       => $svc_name,
+    hasstatus  => true,
+    hasrestart => true,
+    subscribe  => [ Package[$pkg_name], File[$config] ],
   }
 }
