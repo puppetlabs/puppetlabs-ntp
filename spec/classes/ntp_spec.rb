@@ -49,7 +49,7 @@ describe 'ntp' do
       let(:facts) { { :osfamily => 'suse' } }
 
       it { should contain_service('ntp').with_name('ntp') }
-      it 'should use the redhat ntp servers by default' do
+      it 'should use the opensuse ntp servers by default' do
         content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
         expected_lines = [
          'server 0.opensuse.pool.ntp.org',
