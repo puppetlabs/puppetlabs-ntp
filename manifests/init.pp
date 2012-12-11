@@ -120,6 +120,20 @@ class ntp($servers='UNSET',
         $servers_real = $servers
       }
     }
+    Archlinux: {
+      $supported  = true
+      $pkg_name   = ['ntp']
+      $svc_name   = 'ntpd'
+      $config     = '/etc/ntp.conf'
+      $config_tpl = 'ntp.conf.archlinux.erb'
+      if ($servers == 'UNSET') {
+        $servers_real = [ '0.pool.ntp.org',
+                          '1.pool.ntp.org',
+                          '2.pool.ntp.org', ]
+      } else {
+        $servers_real = $servers
+      }
+    }
     default: {
       fail("The ${module_name} module is not supported on ${::osfamily} based systems")
     }

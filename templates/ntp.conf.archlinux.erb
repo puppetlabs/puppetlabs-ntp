@@ -1,0 +1,30 @@
+# With the default settings below, ntpd will only synchronize your clock.
+#
+# For details, see:
+# - the ntp.conf man page
+# - http://support.ntp.org/bin/view/Support/GettingStarted
+# - https://wiki.archlinux.org/index.php/Network_Time_Protocol_daemon
+
+<% if @is_virtual == "true" -%>
+# Keep ntpd from panicking in the event of a large clock skew
+# when a VM guest is suspended and resumed.
+tinker panic 0
+
+<% end -%>
+
+# Managed by puppet class { "ntp": servers => [ ... ] }
+<% [servers_real].flatten.each do |server| -%>
+server <%= server %>
+<% end -%>
+
+# Only allow read-only access from localhost
+restrict default noquery nopeer
+restrict 127.0.0.1
+restrict ::1
+
+# Location of drift and log files
+driftfile /var/lib/ntp/ntp.drift
+logfile /var/log/ntp.log
+
+# NOTE: If you run dhcpcd and have lines like 'restrict' and 'fudge' appearing
+# here, be sure to add '-Y -N' to the dhcpcd_ethX variables in /etc/conf.d/net
