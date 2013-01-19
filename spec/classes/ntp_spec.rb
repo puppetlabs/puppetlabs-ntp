@@ -86,23 +86,24 @@ describe 'ntp' do
         )}
       end
 
-      describe "for operating system Archlinux" do
+    end
 
-        let(:params) {{}}
-        let(:facts) { { :operatingsystem => 'Archlinux' } }
+    describe "for operating system Archlinux" do
 
-        it { should contain_service('ntp').with_name('ntpd') }
+      let(:params) {{}}
+      let(:facts) { { :operatingsystem => 'Archlinux',
+                      :osfamily        => 'Linux' } }
 
-        it 'should use the NTP pool servers by default' do
-          content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
-          expected_lines = [
-            "server 0.pool.ntp.org",
-            "server 1.pool.ntp.org",
-            "server 2.pool.ntp.org"]
-          (content.split("\n") & expected_lines).should == expected_lines
-        end
+      it { should contain_service('ntp').with_name('ntpd') }
+
+      it 'should use the NTP pool servers by default' do
+        content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
+        expected_lines = [
+          "server 0.pool.ntp.org",
+          "server 1.pool.ntp.org",
+          "server 2.pool.ntp.org"]
+        (content.split("\n") & expected_lines).should == expected_lines
       end
-
     end
 
 

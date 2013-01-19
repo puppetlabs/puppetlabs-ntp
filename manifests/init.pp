@@ -10,6 +10,7 @@
 #    - CentOS 5.4
 #    - Amazon Linux 2011.09
 #    - FreeBSD 9.0
+#    - Archlinux
 #
 # Parameters:
 #
@@ -120,6 +121,27 @@ class ntp($servers='UNSET',
         $servers_real = $servers
       }
     }
+
+    Linux: {
+      if ($::operatingsystem == 'Archlinux') {
+        $supported = true
+        $pkg_name = ['ntpd']
+        $svc_name = 'ntpd'
+        $config = '/etc/ntp.conf'
+        $config_tpl = 'ntp.conf.archlinux.erb'
+
+        if ($servers == 'UNSET') {
+          $servers_real = [ '0.pool.ntp.org',
+                            '1.pool.ntp.org',
+                            '2.pool.ntp.org' ]
+        } else {
+          $servers_real = $servers
+        }
+      } else {
+        fail("The ${module_name} module is not supported on an ${::operatingsystem} system")
+      }
+    }
+
     default: {
       fail("The ${module_name} module is not supported on ${::osfamily} based systems")
     }
