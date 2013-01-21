@@ -125,7 +125,7 @@ class ntp($servers='UNSET',
     Linux: {
       if ($::operatingsystem == 'Archlinux') {
         $supported = true
-        $pkg_name = ['ntpd']
+        $pkg_name = ['ntp']
         $svc_name = 'ntpd'
         $config = '/etc/ntp.conf'
         $config_tpl = 'ntp.conf.archlinux.erb'
