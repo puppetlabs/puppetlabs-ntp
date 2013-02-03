@@ -1,5 +1,7 @@
 # NTP #
 
+[![Build Status](https://travis-ci.org/puppetlabs/puppetlabs-ntp.png?branch=master)](https://travis-ci.org/puppetlabs/puppetlabs-ntp)
+
 Manage the NTP service.
 
 This module has been built and tested using Puppet 2.6.x
