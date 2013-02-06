@@ -5,13 +5,13 @@ NTP
 Overview
 --------
 
-The NTP module installs, configures, and manages the network time service on RedHat and Debian based systems.
+The NTP module installs, configures, and manages the network time service.
 
 
 Module Description
 -------------------
 
-The NTP module utilizes Puppet to install, configure, and then manage your Network Time Protocol service. The module allows you to setup and manage time settings across many servers from one place. 
+The NTP module allows Puppet to install, configure, and then manage your Network Time Protocol service. The module allows you to setup and manage time settings across many servers from one place. 
 
 Setup
 -----
@@ -69,7 +69,7 @@ This parameter allows you to choose whether to automatically start ntp daemon on
 Limitations
 ------------
 
-This module has been built and tested using Puppet 2.6.x.
+This module has been built and tested using Puppet 2.6.x, 2.7, and 3.x.
 
 The module has been tested on:
 
