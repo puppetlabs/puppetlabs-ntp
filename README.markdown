@@ -1,6 +1,6 @@
 
 NTP
-=========
+====
 
 Overview
 --------
@@ -33,7 +33,7 @@ To setup NTP on a server
 Usage
 ------
 
-When making changes to your configuration of NTP, you may need to stop and restart the NTP service. To keep the ntp service stopped, pass ensure => stopped to the class:
+When making changes to your configuration of NTP, you may need to stop and restart the ntp service. To keep the ntp service stopped, pass ensure => stopped to the class:
 
     class { ntp:
       ensure     => running,
@@ -47,6 +47,7 @@ The `ntp` class has several parameters to assist configuration of the ntp servic
 **Parameters within `ntp`**
 
 ####`servers`
+
 NTP will use your operating system's default server if this parameter is left unspecified. This parameter accepts an array of servers,
     
     class { 'ntp':
@@ -57,12 +58,15 @@ NTP will use your operating system's default server if this parameter is left un
     }
 
 ####`restrict`
+
 This parameter specifies whether to restrict ntp daemons from allowing others to use as a server.
 
 ####`autoupdate`
+
 This parameter is used to determine whether the ntp package will be updated automatically or not.
 
 ####`enable` 
+
 This parameter allows you to choose whether to automatically start ntp daemon on boot.
 
 
