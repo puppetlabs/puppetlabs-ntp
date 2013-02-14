@@ -43,6 +43,47 @@ describe 'ntp' do
       end
     end
 
+    describe "for operating system family Linux/Amazon" do
+
+      let(:params) {{}}
+      let(:facts) { { :osfamily => 'Linux', :operatingsystem => 'Amazon' } }
+
+      it { should contain_service('ntp').with_name('ntpd') }
+      it 'should use the amazon ntp servers by default' do
+        content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
+        expected_lines = [
+         'server 0.amazon.pool.ntp.org iburst',
+         'server 1.amazon.pool.ntp.org iburst',
+         'server 2.amazon.pool.ntp.org iburst',
+         'server 3.amazon.pool.ntp.org iburst']
+        (content.split("\n") & expected_lines).should == expected_lines
+      end
+
+      it { should contain_file('/etc/ntp.conf').with_owner('0') }
+      it { should contain_file('/etc/ntp.conf').with_group('0') }
+      it { should contain_file('/etc/ntp.conf').with_mode('0644') }
+      it { should contain_package('ntp').with_ensure('present') }
+      it { should contain_service('ntp').with_ensure('running') }
+      it { should contain_service('ntp').with_hasstatus(true) }
+      it { should contain_service('ntp').with_hasrestart(true) }
+      it 'should allow service ensure to be overridden' do
+        params[:ensure] = 'stopped'
+        subject.should contain_service('ntp').with_ensure('stopped')
+      end
+      it 'should allow package ensure to be overridden' do
+        params[:autoupdate] = true
+        subject.should contain_package('ntp').with_ensure('latest')
+      end
+
+      describe "for unsupported operating system" do
+        let(:facts) { { :osfamily => 'Linux', :operatingsystem => 'unsupported' } }
+
+        it { expect{ subject }.to raise_error(
+          /^The ntp module only supports Amazon os in the osfamily: Linux/
+        )}
+      end
+    end
+
     describe "for operating system family SuSE" do
 
       let(:params) {{}}
@@ -75,17 +116,16 @@ describe 'ntp' do
           "server 3.freebsd.pool.ntp.org iburst maxpoll 9"]
         (content.split("\n") & expected_lines).should == expected_lines
       end
+    end
 
-      describe "for operating system family unsupported" do
-        let(:facts) {{
-          :osfamily  => 'unsupported',
-        }}
+    describe "for operating system family unsupported" do
+      let(:facts) {{
+        :osfamily  => 'unsupported',
+      }}
 
-        it { expect{ subject }.to raise_error(
-          /^The ntp module is not supported on unsupported based systems/
-        )}
-      end
-
+      it { expect{ subject }.to raise_error(
+        /^The ntp module is not supported on unsupported based systems/
+      )}
     end
 
     ['Debian', 'RedHat','SuSE', 'FreeBSD'].each do |osfamily|

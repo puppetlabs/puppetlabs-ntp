@@ -120,6 +120,26 @@ class ntp($servers='UNSET',
         $servers_real = $servers
       }
     }
+    Linux: {
+      if($::operatingsystem == "Amazon") {
+        $supported  = true
+        $pkg_name   = ['ntp']
+        $svc_name   = 'ntpd'
+        $config     = '/etc/ntp.conf'
+        $config_tpl = 'ntp.conf.amazon.erb'
+        if ($servers == 'UNSET') {
+          $servers_real = [ '0.amazon.pool.ntp.org iburst',
+                            '1.amazon.pool.ntp.org iburst',
+                            '2.amazon.pool.ntp.org iburst',
+                            '3.amazon.pool.ntp.org iburst', ]
+        } else {
+          $servers_real = $servers
+        }
+      }
+      else {
+        fail("The ${module_name} module only supports Amazon os in the osfamily: ${::osfamily}")
+      }
+    }
     default: {
       fail("The ${module_name} module is not supported on ${::osfamily} based systems")
     }
