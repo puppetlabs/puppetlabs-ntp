@@ -83,3 +83,32 @@ keys /etc/ntp.keys		# path for keys file
 trustedkey 1			# define trusted keys
 requestkey 1			# key (7) for accessing server variables
 # controlkey 15			# key (6) for accessing server variables
+
+<% if @broadcast != 'UNSET' -%>
+<%     [broadcast].flatten.each do |to| -%>
+broadcast <%= to %>
+<%     end -%>
+
+<% end -%>
+<% if @broadcastclient -%>
+broadcastclient
+
+<% end -%>
+<% if @multicastclient != 'UNSET' -%>
+<%     [multicastclient].flatten.each do |to| -%>
+multicastclient <%= to %>
+<%     end -%>
+
+<% end -%>
+<% if @manycastserver != 'UNSET' -%>
+<%     [manycastserver].flatten.each do |to| -%>
+manycastserver <%= to %>
+<%     end -%>
+
+<% end -%>
+<% if @manycastclient != 'UNSET' -%>
+<%     [manycastclient].flatten.each do |to| -%>
+manycastclient <%= to %>
+<%     end -%>
+
+<% end -%>

@@ -28,12 +28,40 @@ restrict -6 ::1
 server <%= server %>
 <% end -%>
 
+<% if @broadcast != 'UNSET' -%>
+<%     [broadcast].flatten.each do |to| -%>
+broadcast <%= to %>
+<%     end -%>
+<% else -%>
 #broadcast 192.168.1.255 key 42		# broadcast server
+<% end -%>
+<% if @broadcastclient -%>
+broadcastclient				# broadcast client
+<% else -%>
 #broadcastclient			# broadcast client
+<% end -%>
 #broadcast 224.0.1.1 key 42		# multicast server
+<% if @multicastclient != 'UNSET' -%>
+<%     [multicastclient].flatten.each do |to| -%>
+multicastclient <%= to %>
+<%     end -%>
+<% else -%>
 #multicastclient 224.0.1.1		# multicast client
+<% end -%>
+<% if @manycastserver != 'UNSET' -%>
+<%     [manycastserver].flatten.each do |to| -%>
+manycastserver <%= to %>
+<%     end -%>
+<% else -%>
 #manycastserver 239.255.254.254		# manycast server
+<% end -%>
+<% if @manycastclient != 'UNSET' -%>
+<%     [manycastclient].flatten.each do |to| -%>
+manycastclient <%= to %>
+<%     end -%>
+<% else -%>
 #manycastclient 239.255.254.254 key 42	# manycast client
+<% end -%>
 
 # Undisciplined Local Clock. This is a fake driver intended for backup
 # and when no outside source of synchronized time is available. 

@@ -41,11 +41,16 @@
 #   }
 #
 # [Remember: No empty lines between comments and class definition]
-class ntp($servers='UNSET',
-          $ensure='running',
-          $enable=true,
-          $restrict=true,
-          $autoupdate=false
+class ntp($servers=hiera('ntp_servers','UNSET'),
+          $ensure=hiera('ntp_ensure','running'),
+          $enable=hiera('ntp_enable',true),
+          $restrict=hiera('ntp_restrict',true),
+          $autoupdate=hiera('ntp_autoupdate',false),
+          $broadcastclient=hiera('ntp_broadcastclient',false),
+          $broadcast=hiera('ntp_broadcast','UNSET'),
+          $multicastclient=hiera('ntp_multicastclient','UNSET'),
+          $manycastclient=hiera('ntp_manycastclient','UNSET'),
+          $manycastserver=hiera('ntp_manycastserver','UNSET')
 ) {
 
   if ! ($ensure in [ 'running', 'stopped' ]) {
