@@ -1,13 +1,14 @@
 ntp
 ====
 
-[![Build Status](https://travis-ci.org/puppetlabs/puppetlabs-ntp.png?branch=master)](https://travis-ci.org/puppetlabs/puppetlabs-ntp)
+[![Build Status](https://travis-ci.org/mthibaut/puppetlabs-ntp.png?branch=master)](https://travis-ci.org/mthibaut/puppetlabs-ntp)
 
 
 Overview
 --------
 
 The NTP module installs, configures, and manages the network time service.
+It allows the use of hiera to store configuration items.
 
 
 Module Description
