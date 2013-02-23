@@ -108,6 +108,12 @@ describe 'ntp' do
           params[:autoupdate] = true
           subject.should contain_package('ntp').with_ensure('latest')
         end
+        it 'should allow template to be overridden' do
+          params[:config_template] = 'my_ntp/ntp.conf.my'
+          content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
+          expected_lines = ['server foobar']
+          (content.split("\n") & expected_lines).should == expected_lines
+        end
       end
     end
   end

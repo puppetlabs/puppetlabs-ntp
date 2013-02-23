@@ -27,6 +27,9 @@
 #   $enable = true
 #     Automatically start ntp deamon on boot.
 #
+#   $template = '${module_name}/${config_tpl}'
+#     Override with your own explicit template.
+#
 # Actions:
 #
 #  Installs, configures, and manages the ntp service.
@@ -45,6 +48,7 @@ class ntp($servers='UNSET',
           $ensure='running',
           $enable=true,
           $restrict=true,
+          $config_template=undef,
           $autoupdate=false
 ) {
 
@@ -125,6 +129,12 @@ class ntp($servers='UNSET',
     }
   }
 
+  if ($config_template == undef) {
+    $template_real = "${module_name}/${config_tpl}"
+  } else {
+    $template_real = $config_template
+  }
+
   package { 'ntp':
     ensure => $package_ensure,
     name   => $pkg_name,
@@ -135,7 +145,7 @@ class ntp($servers='UNSET',
     owner   => 0,
     group   => 0,
     mode    => '0644',
-    content => template("${module_name}/${config_tpl}"),
+    content => template($template_real),
     require => Package[$pkg_name],
   }
 
