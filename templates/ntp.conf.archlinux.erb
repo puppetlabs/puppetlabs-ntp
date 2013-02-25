@@ -1,0 +1,24 @@
+# With the default settings below, ntpd will only synchronize your clock.
+#
+# For details, see:
+# - the ntp.conf man page
+# - http://support.ntp.org/bin/view/Support/GettingStarted
+# - https://wiki.archlinux.org/index.php/Network_Time_Protocol_daemon
+
+# Associate to public NTP pool servers; see http://www.pool.ntp.org/
+<% [servers_real].flatten.each do |server| -%>
+server <%= server %>
+<% end -%>
+
+<% if @restrict -%>
+# Only allow read-only access from localhost
+restrict default noquery nopeer
+restrict 127.0.0.1
+restrict ::1
+<% end -%>
+
+# Location of drift file
+driftfile /var/lib/ntp/ntp.drift
+
+# NOTE: If you run dhcpcd and have lines like 'restrict' and 'fudge' appearing
+# here, be sure to add '-Y -N' to the dhcpcd_ethX variables in /etc/conf.d/net
