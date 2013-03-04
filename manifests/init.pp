@@ -65,7 +65,7 @@ class ntp($servers='UNSET',
         $servers_real = $servers
       }
     }
-    centos, redhat, oel, linux, fedora: {
+    centos, redhat, oel, linux: {
       $supported  = true
       $pkg_name   = [ 'ntp' ]
       $svc_name   = 'ntpd'
@@ -90,6 +90,21 @@ class ntp($servers='UNSET',
                           '1.freebsd.pool.ntp.org iburst maxpoll 9',
                           '2.freebsd.pool.ntp.org iburst maxpoll 9',
                           '3.freebsd.pool.ntp.org iburst maxpoll 9', ]
+      } else {
+        $servers_real = $servers
+      }
+    }
+    fedora: {
+      $supported  = true
+      $pkg_name   = [ "ntp" ]
+      $svc_name   = "ntpd"
+      $config     = "/etc/ntp.conf"
+      $config_tpl = "ntp.conf.el.erb"
+      if ($servers == "UNSET") {
+        $servers_real = [ "0.fedora.pool.ntp.org",
+                          "1.fedora.pool.ntp.org",
+                          "2.fedora.pool.ntp.org",
+                          "3.fedora.pool.ntp.org", ]
       } else {
         $servers_real = $servers
       }

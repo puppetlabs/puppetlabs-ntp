@@ -14,6 +14,7 @@ describe 'ntp' do
     debianish = ['debian', 'ubuntu']
     redhatish = ['centos', 'redhat', 'oel', 'linux']
     bsdish    = ['freebsd']
+    fedoraish = ['fedora']
 
     debianish.each do |os|
       describe "for operating system #{os}" do
@@ -70,7 +71,26 @@ describe 'ntp' do
       end
     end
 
-    (redhatish + debianish + bsdish).each do |os|
+    fedoraish.each do |os|
+      describe "for operating system #{os}" do
+
+        let(:params) {{}}
+        let(:facts) { { :operatingsystem => os } }
+
+        it { should contain_service('ntp').with_name('ntpd') }
+        it 'should use the redhat ntp servers by default' do
+          content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
+          expected_lines = [
+           'server 0.fedora.pool.ntp.org',
+           'server 1.fedora.pool.ntp.org',
+           'server 2.fedora.pool.ntp.org',
+           'server 3.fedora.pool.ntp.org']
+          (content.split("\n") & expected_lines).should == expected_lines
+        end
+      end
+    end
+
+    (redhatish + debianish + bsdish + fedoraish).each do |os|
       describe "for operating system #{os}" do
 
         let(:facts) { { :operatingsystem => os } }
