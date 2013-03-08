@@ -71,6 +71,10 @@ This parameter is used to determine whether the ntp package will be updated auto
 
 This parameter allows you to choose whether to automatically start ntp daemon on boot.
 
+####`template`
+
+This parameter allows you to explicitly override the template used.
+
 
 Limitations
 ------------
