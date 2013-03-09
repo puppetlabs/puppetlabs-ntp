@@ -108,10 +108,14 @@ describe 'ntp' do
     end
 
 
-    ['Debian', 'RedHat','SuSE', 'FreeBSD'].each do |osfamily|
+    ['Debian', 'RedHat','SuSE', 'FreeBSD', 'Linux'].each do |osfamily|
       describe "for operating system family #{osfamily}" do
 
-        let(:facts) { { :osfamily => osfamily } }
+        facts = Hash.new
+        if osfamily == 'Linux'
+          facts[:operatingsystem]='Archlinux'
+        end
+        let(:facts) { { :osfamily => osfamily }.merge(facts) }
 
         it { should contain_file('/etc/ntp.conf').with_owner('0') }
         it { should contain_file('/etc/ntp.conf').with_group('0') }
