@@ -88,6 +88,22 @@ describe 'ntp' do
 
     end
 
+    describe "for virtual machines" do
+
+      let(:params) {{}}
+      let(:facts) { { :operatingsystem => 'Archlinux',
+                      :osfamily        => 'Linux',
+                      :isvirtual       => 'false' } }
+
+      it 'should not use local clock as a time source' do
+        content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
+        expected_lines = [
+          'server  127.127.1.0  # local clock',
+          'fudge  127.127.1.0 stratum 10' ]
+        (content.split("\n") & expected_lines).should_not == expected_lines
+      end
+    end
+
     describe "for operating system Archlinux" do
 
       let(:params) {{}}
