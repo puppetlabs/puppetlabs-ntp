@@ -49,12 +49,24 @@ class ntp($servers='UNSET',
           $ensure='running',
           $enable=true,
           $restrict=true,
+          $panic=undef,
           $config_template=undef,
           $autoupdate=false
 ) {
 
   if ! ($ensure in [ 'running', 'stopped' ]) {
     fail('ensure parameter must be running or stopped')
+  }
+
+  if $panic == undef {
+    $tinker_panic = $::is_virtual ? {
+      'true'  => false,
+      default => true,
+    }
+  } elsif $panic == true or $panic == false{
+    $tinker_panic = $panic
+  } else {
+    fail('panic parameter must be undef, true or false')
   }
 
   if $autoupdate == true {
