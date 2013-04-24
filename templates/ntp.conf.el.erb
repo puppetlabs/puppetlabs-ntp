@@ -4,11 +4,9 @@
 tinker panic 0
 
 <% end -%>
-<% if @restrict -%>
-# Permit time synchronization with our time source, but do not
-# permit the source to query or modify the service on this system.
-restrict default kod nomodify notrap nopeer noquery
-restrict -6 default kod nomodify notrap nopeer noquery
+<% restrict.each do |rline| -%>
+restrict <%= rline %>
+<% end -%>
 
 # Permit all access over the loopback interface.  This could
 # be tightened as well, but to do so would effect some of
@@ -16,24 +14,12 @@ restrict -6 default kod nomodify notrap nopeer noquery
 restrict 127.0.0.1 
 restrict -6 ::1
 
-# Hosts on local network are less restricted.
-#restrict 192.168.1.0 mask 255.255.255.0 nomodify notrap
-
 <% end -%>
-# Use public servers from the pool.ntp.org project.
-# Please consider joining the pool (http://www.pool.ntp.org/join.html).
 
 # Managed by puppet class { "ntp": servers => [ ... ] }
 <% [servers_real].flatten.each do |server| -%>
 server <%= server %>
 <% end -%>
-
-#broadcast 192.168.1.255 key 42		# broadcast server
-#broadcastclient			# broadcast client
-#broadcast 224.0.1.1 key 42		# multicast server
-#multicastclient 224.0.1.1		# multicast client
-#manycastserver 239.255.254.254		# manycast server
-#manycastclient 239.255.254.254 key 42	# manycast client
 
 <% if @is_virtual == "false" -%>
 # Undisciplined Local Clock. This is a fake driver intended for backup
@@ -51,12 +37,3 @@ driftfile /var/lib/ntp/drift
 # Key file containing the keys and key identifiers used when operating
 # with symmetric key cryptography. 
 keys /etc/ntp/keys
-
-# Specify the key identifiers which are trusted.
-#trustedkey 4 8 42
-
-# Specify the key identifier to use with the ntpdc utility.
-#requestkey 8
-
-# Specify the key identifier to use with the ntpq utility.
-#controlkey 8

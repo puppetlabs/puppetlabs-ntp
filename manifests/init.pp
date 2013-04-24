@@ -19,8 +19,9 @@
 #                '2.debian.pool.ntp.org iburst',
 #                '3.debian.pool.ntp.org iburst', ]
 #
-#   $restrict = true
-#     Whether to restrict ntp daemons from allowing others to use as a server.
+#   $restrict = [ '192.128.0.0 mask 255.225.255.0 nomodify notrap',
+#                 '192.128.2.0 mask 255.225.255.0 nomodify notrap']
+#     The restrict lines which will appear in the config file.
 #
 #   $autoupdate = false
 #     Whether to update the ntp package automatically or not.
@@ -48,7 +49,7 @@
 class ntp($servers='UNSET',
           $ensure='running',
           $enable=true,
-          $restrict=true,
+          $restrict=[]
           $config_template=undef,
           $autoupdate=false
 ) {
