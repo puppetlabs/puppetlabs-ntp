@@ -10,12 +10,9 @@
 server <%= server %>
 <% end -%>
 
-<% if @restrict -%>
-# Only allow read-only access from localhost
-restrict default noquery nopeer
-restrict 127.0.0.1
-restrict ::1
-<% end -%>
+<% restrict.each do |rline| -%>
+restrict <%= rline %>
+<% end -%> 
 
 # Location of drift file
 driftfile /var/lib/ntp/ntp.drift
