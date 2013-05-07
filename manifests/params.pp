@@ -5,7 +5,7 @@ class ntp::params {
       $package = 'ntp'
       $service = 'ntp'
       $config_file = '/etc/ntp.conf'
-      $config_template = 'ntpd.conf.debian.erb'
+      $config_template = 'ntp.conf.debian.erb'
       $servers = [ '0.debian.pool.ntp.org iburst',
                    '1.debian.pool.ntp.org iburst',
                    '2.debian.pool.ntp.org iburst'
