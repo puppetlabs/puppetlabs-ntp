@@ -54,6 +54,8 @@ class ntp($servers='UNSET',
           $servers = undef
 ) {
 
+  include ::ntp::params
+
   if ! ($ensure in [ 'running', 'stopped' ]) {
     fail('ensure parameter must be running or stopped')
   }
