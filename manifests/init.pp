@@ -91,7 +91,7 @@ class ntp($servers='UNSET',
     group   => 0,
     mode    => '0644',
     content => template($template_real),
-    require => Package[$::ntp::param::package],
+    require => Package[$::ntp::params::package],
   }
 
   service { $::ntp::params::service:
