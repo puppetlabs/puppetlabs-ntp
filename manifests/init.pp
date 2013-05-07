@@ -60,7 +60,7 @@ class ntp($servers='UNSET',
     fail('ensure parameter must be running or stopped')
   }
 
-  if $autoupdate == true {
+  if true == $autoupdate {
     $package_ensure = latest
   } elsif $autoupdate == false {
     $package_ensure = present
@@ -68,9 +68,13 @@ class ntp($servers='UNSET',
     fail('autoupdate parameter must be true or false')
   }
 
-  if undef == $servers { $servers = $::ntp::params::servers }
+  if undef == $servers { 
+    $servers_real = $::ntp::params::servers 
+  } else { 
+    $servers_real = [ '0.pool.ntp.org', '1.pool.ntp.org' ]
+  }
 
-  if ($config_template == undef) {
+  if undef == $config_template {
     $template_real = "${module_name}/${::ntp::params::config_template}"
   } else {
     $template_real = $config_template
