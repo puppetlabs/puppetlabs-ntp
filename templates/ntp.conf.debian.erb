@@ -26,7 +26,7 @@ filegen clockstats file clockstats type day enable
 # pool: <http://www.pool.ntp.org/join.html>
 
 # Managed by puppet class { "ntp": servers => [ ... ] }
-<% [servers_real].flatten.each do |server| -%>
+<% [@servers_real].flatten.each do |server| -%>
 server <%= server %>
 <% end -%>
 
