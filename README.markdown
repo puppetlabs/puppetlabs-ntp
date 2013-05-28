@@ -1,5 +1,5 @@
 ntp
-====
+=====
 
 [![Build Status](https://travis-ci.org/puppetlabs/puppetlabs-ntp.png?branch=master)](https://travis-ci.org/puppetlabs/puppetlabs-ntp)
 
