@@ -6,7 +6,7 @@
 # - https://wiki.archlinux.org/index.php/Network_Time_Protocol_daemon
 
 # Associate to public NTP pool servers; see http://www.pool.ntp.org/
-<% [servers_real].flatten.each do |server| -%>
+<% [@servers_real].flatten.each do |server| -%>
 server <%= server %>
 <% end -%>
 
