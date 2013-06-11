@@ -150,6 +150,46 @@ describe 'ntp' do
           expected_lines = ['server foobar']
           (content.split("\n") & expected_lines).should == expected_lines
         end
+
+        describe "with is_virtual => true" do
+          let(:facts) { { :osfamily   => osfamily,
+                          :is_virtual => 'true' } }
+          it 'should set tinker panic 0' do
+            content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
+            expected_lines = ['tinker panic 0']
+            (content.split("\n") & expected_lines).should == expected_lines
+          end
+        end
+
+        describe "with panic => false" do
+          let(:params) { { :panic => false } }
+          let(:facts) { { :osfamily => osfamily } }
+          it 'should set tinker panic 0' do
+            content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
+            expected_lines = ['tinker panic 0']
+            (content.split("\n") & expected_lines).should == expected_lines
+          end
+        end
+
+        describe "with is_virtual => false" do
+          let(:facts) { { :osfamily   => osfamily,
+                          :is_virtual => 'false'} }
+          it 'should not set tinker panic 0' do
+            content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
+            expected_lines = ['tinker panic 0']
+            (content.split("\n") & expected_lines).should_not == expected_lines
+          end
+        end
+
+        describe "with panic => true" do
+          let(:params) { { :panic => true } }
+          let(:facts) { { :osfamily => osfamily } }
+          it 'should not set tinker panic 0' do
+            content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
+            expected_lines = ['tinker panic 0']
+            (content.split("\n") & expected_lines).should_not == expected_lines
+          end
+        end
       end
     end
   end

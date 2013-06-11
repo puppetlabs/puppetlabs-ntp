@@ -43,7 +43,7 @@ fudge  127.127.1.0 stratum 10	# LCL is unsynchronized
 server <%= server %>
 <% end -%>
 
-<% if @is_virtual == "true" -%>
+<% if @tinker_panic == false -%>
 # Keep ntpd from panicking in the event of a large clock skew
 # when a VM guest is suspended and resumed.
 tinker panic 0
