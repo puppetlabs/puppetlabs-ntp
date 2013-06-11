@@ -28,8 +28,8 @@
 #   $enable = true
 #     Automatically start ntp deamon on boot.
 #
-#   $template = '${module_name}/${config_tpl}'
-#     Override with your own explicit template.
+#   $config_template = '${module_name}/${config_tpl}'
+#     Override with your own explicit config_template.
 #
 # Actions:
 #
