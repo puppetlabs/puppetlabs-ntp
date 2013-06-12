@@ -40,7 +40,7 @@ When making changes to your configuration of NTP, you may need to stop and resta
     class { ntp:
       ensure     => running,
       servers    => [ 'time.apple.com iburst',
-                      'pool.ntp.org iburst' , ]
+                      'pool.ntp.org iburst' , ],
       autoupdate => true,
     }
 
