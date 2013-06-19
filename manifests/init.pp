@@ -11,6 +11,7 @@
 #    - Amazon Linux 2011.09
 #    - FreeBSD 9.0
 #    - Archlinux
+#    - Gentoo
 #
 # Parameters:
 #
@@ -112,7 +113,7 @@ class ntp($servers='UNSET',
     }
     FreeBSD: {
       $supported  = true
-      $pkg_name   = ['net/ntp']
+      $pkg_name   = [ 'net/ntp' ]
       $svc_name   = 'ntpd'
       $config     = '/etc/ntp.conf'
       $config_tpl = 'ntp.conf.freebsd.erb'
@@ -125,27 +126,42 @@ class ntp($servers='UNSET',
         $servers_real = $servers
       }
     }
-
     Linux: {
-      if ($::operatingsystem == 'Archlinux') {
-        $supported = true
-        $pkg_name = ['ntp']
-        $svc_name = 'ntpd'
-        $config = '/etc/ntp.conf'
-        $config_tpl = 'ntp.conf.archlinux.erb'
-
-        if ($servers == 'UNSET') {
-          $servers_real = [ '0.pool.ntp.org',
-                            '1.pool.ntp.org',
-                            '2.pool.ntp.org' ]
-        } else {
-          $servers_real = $servers
+      case $::operatingsystem {
+        Archlinux: {
+          $supported = true
+          $pkg_name = [ 'ntp' ]
+          $svc_name = 'ntpd'
+          $config = '/etc/ntp.conf'
+          $config_tpl = 'ntp.conf.archlinux.erb'
+          if ($servers == 'UNSET') {
+            $servers_real = [ '0.pool.ntp.org',
+                              '1.pool.ntp.org',
+                              '2.pool.ntp.org' ]
+          } else {
+            $servers_real = $servers
+          }
         }
-      } else {
-        fail("The ${module_name} module is not supported on an ${::operatingsystem} system")
+        Gentoo: {
+          $supported = true
+          $pkg_name = [ 'net-misc/ntp' ]
+          $svc_name = 'ntp'
+          $config = '/etc/ntp.conf'
+          $config_tpl = 'ntp.conf.gentoo.erb'
+          if ($servers == 'UNSET') {
+            $servers_real = [ '0.gentoo.pool.ntp.org',
+                              '1.gentoo.pool.ntp.org',
+                              '2.gentoo.pool.ntp.org',
+                              '3.gentoo.pool.ntp.org' ]
+          } else {
+            $servers_real = $servers
+          }
+        }
+        default: {
+          fail("The ${module_name} module is not supported on an ${::operatingsystem} system")
+        }
       }
     }
-
     default: {
       fail("The ${module_name} module is not supported on ${::osfamily} based systems")
     }
