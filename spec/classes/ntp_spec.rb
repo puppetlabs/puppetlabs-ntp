@@ -130,7 +130,7 @@ describe 'ntp' do
                       :osfamily        => 'Linux' } }
 
       it { should contain_service('ntp').with_name('ntpd') }
-      it { should contain_package('net-misc/ntp').with_ensure('present') }
+      it { should contain_package('ntp').with_name('net-misc/ntp').with_ensure('present') }
 
       it 'should use the NTP pool servers by default' do
         content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
