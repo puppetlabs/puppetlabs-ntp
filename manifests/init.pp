@@ -145,7 +145,7 @@ class ntp($servers='UNSET',
         Gentoo: {
           $supported = true
           $pkg_name = [ 'net-misc/ntp' ]
-          $svc_name = 'ntp'
+          $svc_name = 'ntpd'
           $config = '/etc/ntp.conf'
           $config_tpl = 'ntp.conf.gentoo.erb'
           if ($servers == 'UNSET') {
