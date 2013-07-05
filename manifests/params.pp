@@ -8,7 +8,7 @@ class ntp::params() {
   case $::osfamily {
     'Debian': {
       $config          = '/etc/ntp.conf'
-      $config_template = 'ntp.conf.debian.erb'
+      $config_template = 'ntp/ntp.conf.debian.erb'
       $package_name    = [ 'ntp' ]
       $service_name    = 'ntp'
       $servers         = [
@@ -20,7 +20,7 @@ class ntp::params() {
     }
     'RedHat': {
       $config          = '/etc/ntp.conf'
-      $config_template = 'ntp.conf.el.erb'
+      $config_template = 'ntp/ntp.conf.el.erb'
       $package_name    = [ 'ntp' ]
       $service_name    = 'ntpd'
       $servers         = [
@@ -31,7 +31,7 @@ class ntp::params() {
     }
     'SuSE': {
       $config          = '/etc/ntp.conf'
-      $config_template = 'ntp.conf.suse.erb'
+      $config_template = 'ntp/ntp.conf.suse.erb'
       $package_name    = [ 'ntp' ]
       $service_name    = 'ntp'
       $servers         = [
@@ -43,7 +43,7 @@ class ntp::params() {
     }
     'FreeBSD': {
       $config          = '/etc/ntp.conf'
-      $config_template = 'ntp.conf.freebsd.erb'
+      $config_template = 'ntp/ntp.conf.freebsd.erb'
       $package_name    = ['net/ntp']
       $service_name    = 'ntpd'
       $servers         = [
@@ -58,7 +58,7 @@ class ntp::params() {
       case $::operatingsystem {
         'Archlinux': {
           $config = '/etc/ntp.conf'
-          $config_template = 'ntp.conf.archlinux.erb'
+          $config_template = 'ntp/ntp.conf.archlinux.erb'
           $package_name = ['ntp']
           $service_name = 'ntpd'
           $servers = [  

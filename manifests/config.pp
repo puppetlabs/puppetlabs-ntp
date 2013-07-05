@@ -10,7 +10,7 @@ class ntp::config(
     owner   => 0,
     group   => 0,
     mode    => '0644',
-    content => template("ntp/${config_template}"),
+    content => template($config_template),
   }
 
 }
