@@ -82,7 +82,7 @@ describe 'ntp' do
         }}
 
         it { expect{ subject }.to raise_error(
-          /^The ntp module is not supported on unsupported based systems/
+          /^The ntp module is not supported on an unsupported based system./
         )}
       end
 
@@ -137,7 +137,7 @@ describe 'ntp' do
         it { should contain_service('ntp').with_hasstatus(true) }
         it { should contain_service('ntp').with_hasrestart(true) }
         it 'should allow service ensure to be overridden' do
-          params[:ensure] = 'stopped'
+          params[:ensure_service] = 'stopped'
           subject.should contain_service('ntp').with_ensure('stopped')
         end
         it 'should allow package ensure to be overridden' do
