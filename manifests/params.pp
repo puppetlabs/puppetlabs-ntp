@@ -3,7 +3,12 @@ class ntp::params() {
   $autoupdate     = false
   $enable_service = true
   $ensure_service = 'running'
+  $package_ensure = 'present'
   $restrict       = true
+
+  if $autoupdate {
+    notice('autoupdate parameter has been deprecated and replaced with package_ensure.  Set this to latest for the same behavior as autoupdate => true.')
+  }
 
   case $::osfamily {
     'Debian': {
@@ -61,7 +66,7 @@ class ntp::params() {
           $config_template = 'ntp/ntp.conf.archlinux.erb'
           $package_name = ['ntp']
           $service_name = 'ntpd'
-          $servers = [  
+          $servers = [
             '0.pool.ntp.org',
             '1.pool.ntp.org',
             '2.pool.ntp.org',

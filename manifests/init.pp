@@ -51,6 +51,7 @@ class ntp(
   $config_template = $ntp::params::config_template,
   $enable_service  = $ntp::params::enable_service,
   $ensure_service  = $ntp::params::ensure_service,
+  $package_ensure  = $ntp::params::package_ensure,
   $package_name    = $ntp::params::package_name,
   $restrict        = $ntp::params::restrict,
   $servers         = $ntp::params::servers,
