@@ -62,14 +62,26 @@ class ntp::params() {
       # Account for distributions that don't have $::osfamily specific settings.
       case $::operatingsystem {
         'Archlinux': {
-          $config = '/etc/ntp.conf'
+          $config          = '/etc/ntp.conf'
           $config_template = 'ntp/ntp.conf.archlinux.erb'
-          $package_name = ['ntp']
-          $service_name = 'ntpd'
-          $servers = [
+          $package_name    = ['ntp']
+          $service_name    = 'ntpd'
+          $servers         = [
             '0.pool.ntp.org',
             '1.pool.ntp.org',
             '2.pool.ntp.org',
+          ]
+        }
+        'Gentoo': {
+          $config          = '/etc/ntp.conf'
+          $config_template = 'ntp/ntp.conf.gentoo.erb'
+          $package_name    = ['net-misc/ntp']
+          $service_name    = 'ntpd'
+          $servers         = [
+            '0.gentoo.pool.ntp.org',
+            '1.gentoo.pool.ntp.org',
+            '2.gentoo.pool.ntp.org',
+            '3.gentoo.pool.ntp.org',
           ]
         }
         default: {

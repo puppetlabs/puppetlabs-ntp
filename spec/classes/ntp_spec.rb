@@ -123,6 +123,25 @@ describe 'ntp' do
       end
     end
 
+    describe "for operating system Gentoo" do
+
+      let(:params) {{}}
+      let(:facts) { { :operatingsystem => 'Gentoo',
+                      :osfamily        => 'Linux' } }
+
+      it { should contain_service('ntp').with_name('ntpd') }
+      it { should contain_package('ntp').with_name('net-misc/ntp').with_ensure('present') }
+
+      it 'should use the NTP pool servers by default' do
+        content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
+        expected_lines = [
+          "server 0.gentoo.pool.ntp.org",
+          "server 1.gentoo.pool.ntp.org",
+          "server 2.gentoo.pool.ntp.org",
+          "server 3.gentoo.pool.ntp.org"]
+        (content.split("\n") & expected_lines).should == expected_lines
+      end
+    end
 
     ['Debian', 'RedHat','SuSE', 'FreeBSD'].each do |osfamily|
       describe "for operating system family #{osfamily}" do
