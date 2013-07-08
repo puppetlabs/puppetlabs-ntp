@@ -160,7 +160,7 @@ describe 'ntp' do
           subject.should contain_service('ntp').with_ensure('stopped')
         end
         it 'should allow package ensure to be overridden' do
-          params[:package_ensure] = 'latest'
+          params[:ensure_package] = 'latest'
           subject.should contain_package('ntp').with_ensure('latest')
         end
         it 'should allow template to be overridden' do
