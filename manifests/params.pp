@@ -3,12 +3,8 @@ class ntp::params() {
   $autoupdate     = false
   $enable_service = true
   $ensure_service = 'running'
-  $package_ensure = 'present'
+  $ensure_package = 'present'
   $restrict       = true
-
-  if $autoupdate {
-    notice('autoupdate parameter has been deprecated and replaced with package_ensure.  Set this to latest for the same behavior as autoupdate => true.')
-  }
 
   case $::osfamily {
     'Debian': {
