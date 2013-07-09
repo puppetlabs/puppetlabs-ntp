@@ -1,3 +1,7 @@
+2013-07-08 - Version 1.0.0
+Features:
+- Completely refactored to split across several classes.
+
 2011-11-10 Dan Bode <dan@puppetlabs.com> - 0.0.4
 Add Amazon Linux as a supported platform
 Add unit tests
