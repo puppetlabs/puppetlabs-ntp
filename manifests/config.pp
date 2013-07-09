@@ -1,6 +1,7 @@
 class ntp::config(
   $config          = $ntp::config,
   $config_template = $ntp::config_template,
+  $panic           = $ntp::panic,
   $restrict        = $ntp::restrict,
   $servers         = $ntp::servers,
 ) inherits ntp {

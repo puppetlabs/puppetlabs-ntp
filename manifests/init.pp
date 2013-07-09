@@ -4,6 +4,7 @@ class ntp(
   $config_template = $ntp::params::config_template,
   $package_ensure  = $ntp::params::package_ensure,
   $package_name    = $ntp::params::package_name,
+  $panic           = $ntp::params::panic,
   $restrict        = $ntp::params::restrict,
   $servers         = $ntp::params::servers,
   $service_enable  = $ntp::params::service_enable,

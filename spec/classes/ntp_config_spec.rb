@@ -90,12 +90,12 @@ describe 'ntp::config' do
 
     end
 
-    describe "for virtual machines" do
+    describe 'for virtual machines' do
 
       let(:params) {{}}
       let(:facts) {{ :operatingsystem => 'Archlinux',
                       :osfamily        => 'Linux',
-                      :isvirtual       => 'false' }}
+                      :is_virtual       => true }}
 
       it 'should not use local clock as a time source' do
         content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
@@ -104,6 +104,28 @@ describe 'ntp::config' do
           'fudge  127.127.1.0 stratum 10' ]
         (content.split("\n") & expected_lines).should_not == expected_lines
       end
+
+      it 'allows large clock skews' do
+        content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
+        expected_lines = [ 'tinker panic 0' ]
+        (content.split("\n") & expected_lines).should == expected_lines
+      end
+
+    end
+
+    describe 'for physical machines' do
+
+      let(:params) {{}}
+      let(:facts) {{ :operatingsystem => 'Archlinux',
+                      :osfamily        => 'Linux',
+                      :is_virtual       => false }}
+
+      it 'disallows large clock skews' do
+        content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
+        expected_lines = [ 'tinker panic 0' ]
+        (content.split("\n") & expected_lines).should_not == expected_lines
+      end
+
     end
 
     describe "for operating system Archlinux" do

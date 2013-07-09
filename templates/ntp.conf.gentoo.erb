@@ -6,6 +6,11 @@
 # Name of the servers ntpd should sync with
 # Please respect the access policy as stated by the responsible person.
 #server   ntp.example.tld   iburst
+<% if @panic == false -%>
+# Keep ntpd from panicking in the event of a large clock skew
+# # when a VM guest is suspended and resumed.
+tinker panic 0
+<% end -%>
 
 # Managed by puppet class { "ntp": servers => [ ... ] }
 <% [@servers].flatten.each do |server| -%>

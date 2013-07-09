@@ -7,6 +7,12 @@ class ntp::params() {
   $service_ensure = 'running'
   $service_manage = true
 
+  # On virtual machines allow large clock skews.
+  $panic = $::is_virtual ? {
+    true    => false,
+    default => true,
+  }
+
   case $::osfamily {
     'Debian': {
       $config          = '/etc/ntp.conf'

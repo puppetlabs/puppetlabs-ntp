@@ -118,6 +118,12 @@ ntp package to be installed.
 
 This determines the name of the package to install.
 
+####`panic`
+
+This determines if ntp should 'panic' in the event of a very large clock skew.
+We set this to false if you're on a virtual machine by default as they don't
+do a great job with keeping time.
+
 ####`restrict`
 
 This sets the restrict options in the ntp configuration.
