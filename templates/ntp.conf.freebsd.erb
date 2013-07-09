@@ -18,13 +18,12 @@
 # The option `maxpoll 9' is used to prevent PLL/FLL flipping on FreeBSD.
 #
 # Managed by puppet class { "ntp": servers => [ ... ] }
-<% if @is_virtual == "true" -%>
-
+<% if @panic == false -%>
 # Keep ntpd from panicking in the event of a large clock skew
 # when a VM guest is suspended and resumed.
 tinker panic 0
-
 <% end -%>
-<% [@servers_real].flatten.each do |server| -%>
+
+<% [@servers].flatten.each do |server| -%>
 server <%= server %>
 <% end -%>
