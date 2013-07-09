@@ -3,7 +3,7 @@ class ntp::config(
   $config_template = $ntp::config_template,
   $restrict        = $ntp::restrict,
   $servers         = $ntp::servers,
-) {
+) inherits ntp {
 
   file { $config:
     ensure  => file,

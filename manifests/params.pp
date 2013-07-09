@@ -1,10 +1,11 @@
 class ntp::params() {
 
   $autoupdate     = false
-  $enable_service = true
-  $ensure_service = 'running'
-  $ensure_package = 'present'
+  $package_ensure = 'present'
   $restrict       = true
+  $service_enable = true
+  $service_ensure = 'running'
+  $service_manage = true
 
   case $::osfamily {
     'Debian': {

@@ -1,10 +1,10 @@
 class ntp::install(
-  $ensure_package = $ntp::ensure_package,
+  $package_ensure = $ntp::package_ensure,
   $package_name   = $ntp::package_name,
-) {
+) inherits ntp {
 
   package { 'ntp':
-    ensure => $ensure_package,
+    ensure => $package_ensure,
     name   => $package_name,
   }
 

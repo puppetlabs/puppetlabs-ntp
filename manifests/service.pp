@@ -1,19 +1,18 @@
 class ntp::service (
-  $enable_service = $ntp::enable_service,
-  $ensure_service = $ntp::ensure_service,
-  $manage_service = $ntp::manage_service,
+  $service_enable = $ntp::service_enable,
+  $service_ensure = $ntp::service_ensure,
+  $service_manage = $ntp::service_manage,
   $service_name   = $ntp::service_name,
-) {
+) inherits ntp {
 
-  if ! ($ensure_service in [ 'running', 'stopped' ]) {
-    fail('ensure_service parameter must be running or stopped')
+  if ! ($service_ensure in [ 'running', 'stopped' ]) {
+    fail('service_ensure parameter must be running or stopped')
   }
-  validate_bool($enable_service)
 
-  if $manage_service == true {
+  if $service_manage == true {
     service { 'ntp':
-      ensure     => $ensure_service,
-      enable     => $enable_service,
+      ensure     => $service_ensure,
+      enable     => $service_enable,
       name       => $service_name,
       hasstatus  => true,
       hasrestart => true,
