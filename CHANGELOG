@@ -1,3 +1,12 @@
+2013-07-08 - Version 1.0.0
+Features:
+- Completely refactored to split across several classes.
+- rspec-puppet tests rewritten to cover more options.
+- rspec-system tests added.
+- parameters in `ntp` class:
+ - `autoupdate`: deprecated in favor of directly setting package_ensure.
+ - `panic`: set to false if you wish to allow large clock skews. 
+
 2011-11-10 Dan Bode <dan@puppetlabs.com> - 0.0.4
 Add Amazon Linux as a supported platform
 Add unit tests

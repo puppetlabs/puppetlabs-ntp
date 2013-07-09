@@ -29,21 +29,21 @@
 ##
 # server 127.127.8.0 mode 5 prefer
 
-<% if @is_virtual == "false" -%>
+<% if @panic == true -%>
 ##
 ## Undisciplined Local Clock. This is a fake driver intended for backup
 ## and when no outside source of synchronized time is available.
 ##
 server 127.127.1.0		# local clock (LCL)
 fudge  127.127.1.0 stratum 10	# LCL is unsynchronized
-
 <% end -%>
+
 # Managed by puppet class { "ntp": servers => [ ... ] }
-<% [@servers_real].flatten.each do |server| -%>
+<% [@servers].flatten.each do |server| -%>
 server <%= server %>
 <% end -%>
 
-<% if @is_virtual == "true" -%>
+<% if @panic == false -%>
 # Keep ntpd from panicking in the event of a large clock skew
 # when a VM guest is suspended and resumed.
 tinker panic 0
