@@ -1,4 +1,4 @@
-class ntp::config(
+class ntp::config (
   $config          = $ntp::config,
   $config_template = $ntp::config_template,
   $panic           = $ntp::panic,

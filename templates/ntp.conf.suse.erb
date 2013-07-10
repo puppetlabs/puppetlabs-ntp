@@ -38,7 +38,7 @@ server 127.127.1.0		# local clock (LCL)
 fudge  127.127.1.0 stratum 10	# LCL is unsynchronized
 <% end -%>
 
-# Managed by puppet class { "ntp": servers => [ ... ] }
+# Managed by puppet class { 'ntp': servers => [ ... ] }
 <% [@servers].flatten.each do |server| -%>
 server <%= server %>
 <% end -%>
