@@ -1,4 +1,4 @@
-class ntp(
+class ntp (
   $autoupdate      = $ntp::params::autoupdate,
   $config          = $ntp::params::config,
   $config_template = $ntp::params::config_template,
