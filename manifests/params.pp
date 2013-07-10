@@ -61,20 +61,20 @@ class ntp::params() {
         '3.freebsd.pool.ntp.org iburst maxpoll 9',
       ]
     }
+    'Archlinux': {
+      $config          = '/etc/ntp.conf'
+      $config_template = 'ntp/ntp.conf.archlinux.erb'
+      $package_name    = ['ntp']
+      $service_name    = 'ntpd'
+      $servers         = [
+        '0.pool.ntp.org',
+        '1.pool.ntp.org',
+        '2.pool.ntp.org',
+      ]
+    }
     'Linux': {
       # Account for distributions that don't have $::osfamily specific settings.
       case $::operatingsystem {
-        'Archlinux': {
-          $config          = '/etc/ntp.conf'
-          $config_template = 'ntp/ntp.conf.archlinux.erb'
-          $package_name    = ['ntp']
-          $service_name    = 'ntpd'
-          $servers         = [
-            '0.pool.ntp.org',
-            '1.pool.ntp.org',
-            '2.pool.ntp.org',
-          ]
-        }
         'Gentoo': {
           $config          = '/etc/ntp.conf'
           $config_template = 'ntp/ntp.conf.gentoo.erb'
