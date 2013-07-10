@@ -35,7 +35,7 @@ server <%= server %>
 #manycastserver 239.255.254.254		# manycast server
 #manycastclient 239.255.254.254 key 42	# manycast client
 
-<% if @is_virtual == "false" -%>
+<% if scope.lookupvar('::is_virtual') == "false" -%>
 # Undisciplined Local Clock. This is a fake driver intended for backup
 # and when no outside source of synchronized time is available. 
 server	127.127.1.0	# local clock
