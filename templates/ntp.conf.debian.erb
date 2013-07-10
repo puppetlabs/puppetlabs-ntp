@@ -25,7 +25,7 @@ filegen clockstats file clockstats type day enable
 # pick a different set every time it starts up.  Please consider joining the
 # pool: <http://www.pool.ntp.org/join.html>
 
-# Managed by puppet class { "ntp": servers => [ ... ] }
+# Managed by puppet class { 'ntp': servers => [ ... ] }
 <% [@servers].flatten.each do |server| -%>
 server <%= server %>
 <% end -%>
