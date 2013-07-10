@@ -12,7 +12,7 @@
 tinker panic 0
 <% end -%>
 
-# Managed by puppet class { "ntp": servers => [ ... ] }
+# Managed by puppet class { 'ntp': servers => [ ... ] }
 <% [@servers].flatten.each do |server| -%>
 server <%= server %>
 <% end -%>
