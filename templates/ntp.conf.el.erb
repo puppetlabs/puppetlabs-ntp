@@ -40,8 +40,8 @@ server <%= server %>
 # and when no outside source of synchronized time is available. 
 server	127.127.1.0	# local clock
 fudge	127.127.1.0 stratum 10	
-
 <% end -%>
+
 # Drift file.  Put this in a directory which the daemon can write to.
 # No symbolic links allowed, either, since the daemon updates the file
 # by creating a temporary in the same directory and then rename()'ing
