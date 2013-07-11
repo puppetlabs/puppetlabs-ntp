@@ -37,9 +37,11 @@ files.
 include '::ntp' is enough to get you up and running.  If you wish to pass in
 parameters like which servers to use then you can use:
 
-    class { '::ntp':
-      servers => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
-    }
+```puppet
+class { '::ntp':
+  servers => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
+}
+```
 
 ##Usage
 
@@ -49,38 +51,47 @@ full functionality.
 
 ###I just want NTP, what's the minimum I need?
 
-    include '::ntp'
+```puppet
+include '::ntp'
+```
 
 ###I just want to tweak the servers, nothing else.
 
-    class { '::ntp':
-      servers => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
-    }
-
+```puppet
+class { '::ntp':
+  servers => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
+}
+```
 
 ###I'd like to make sure I restrict who can connect as well.
 
-    class { '::ntp':
-      servers  => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
-      restrict => 'restrict 127.0.0.1',
-    }
+```puppet
+class { '::ntp':
+  servers  => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
+  restrict => 'restrict 127.0.0.1',
+}
+```
 
 ###I'd like to opt out of having the service controlled, we use another tool for that.
 
-    class { '::ntp':
-      servers        => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
-      restrict       => 'restrict 127.0.0.1',
-      manage_service => false,
-    }
+```puppet
+class { '::ntp':
+  servers        => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
+  restrict       => 'restrict 127.0.0.1',
+  manage_service => false,
+}
+```
 
 ###Looks great!  But I'd like a different template, we need to do something unique here.
 
-    class { '::ntp':
-      servers         => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
-      restrict        => 'restrict 127.0.0.1',
-      manage_service  => false,
-      config_template => 'different/module/custom.template.erb',
-    }
+```puppet
+class { '::ntp':
+  servers         => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
+  restrict        => 'restrict 127.0.0.1',
+  manage_service  => false,
+  config_template => 'different/module/custom.template.erb',
+}
+```
 
 ##Reference
 
@@ -157,7 +168,7 @@ The module has been tested on:
 
 * RedHat Enterprise Linux 5/6
 * Debian 6/7
-* CentOS 5/6.
+* CentOS 5/6
 * Ubuntu 12.04
 * Gentoo
 * Arch Linux

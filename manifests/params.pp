@@ -1,4 +1,4 @@
-class ntp::params() {
+class ntp::params {
 
   $autoupdate     = false
   $package_ensure = 'present'
