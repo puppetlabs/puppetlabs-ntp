@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'ntp::service' do
 
-  ['Debian', 'RedHat', 'SuSE', 'FreeBSD'].each do |osfamily|
+  ['Debian', 'RedHat', 'SuSE', 'FreeBSD', 'Archlinux'].each do |osfamily|
     describe "for osfamily #{osfamily}" do
 
       let(:facts) {{ :osfamily => osfamily }}
@@ -10,7 +10,7 @@ describe 'ntp::service' do
         :service_manage => true,
         :service_enable => true,
         :service_ensure => 'running',
-        :service_name => 'ntp'
+        :service_name   => 'ntp'
       }}
 
       it { should contain_service('ntp').with(
@@ -26,7 +26,7 @@ describe 'ntp::service' do
     end
   end
 
-  ['ArchLinux', 'Gentoo'].each do |operatingsystem|
+  ['Gentoo'].each do |operatingsystem|
     describe "for distribution #{operatingsystem}" do
 
       let(:facts) {{ :osfamily => 'Linux', :operatingsystem => operatingsystem }}
