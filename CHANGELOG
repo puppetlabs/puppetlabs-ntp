@@ -3,6 +3,7 @@ Features:
 - Completely refactored to split across several classes.
 - rspec-puppet tests rewritten to cover more options.
 - rspec-system tests added.
+- ArchLinux handled via osfamily instead of special casing.
 - parameters in `ntp` class:
  - `autoupdate`: deprecated in favor of directly setting package_ensure.
  - `panic`: set to false if you wish to allow large clock skews. 
