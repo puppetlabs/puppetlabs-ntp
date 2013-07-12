@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'ntp::install' do
 
-  ['Debian', 'RedHat', 'SuSE', 'FreeBSD'].each do |osfamily|
+  ['Debian', 'RedHat', 'SuSE', 'FreeBSD', 'Archlinux'].each do |osfamily|
     describe "for osfamily #{osfamily}" do
 
       let(:facts) {{ :osfamily => osfamily }}
@@ -40,26 +40,6 @@ describe 'ntp::install' do
     it { should contain_package('ntp').with(
       :ensure => 'present',
       :name   => 'net-misc/ntp'
-    )}
-
-    it 'should allow package ensure to be overridden' do
-      params[:package_ensure] = 'latest'
-      subject.should contain_package('ntp').with_ensure('latest')
-    end
-
-  end
-
-  describe "for distribution archlinux" do
-
-    let(:facts) {{ :osfamily => 'Linux', :operatingsystem => 'ArchLinux' }}
-    let(:params) {{
-      :package_ensure => 'present',
-      :package_name   => 'ntp',
-    }}
-
-    it { should contain_package('ntp').with(
-      :ensure => 'present',
-      :name   => 'ntp'
     )}
 
     it 'should allow package ensure to be overridden' do
