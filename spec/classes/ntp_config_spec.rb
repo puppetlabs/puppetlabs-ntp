@@ -78,6 +78,21 @@ describe 'ntp::config' do
         (content.split("\n") & expected_lines).should == expected_lines
       end
 
+      describe "for operating system family Archlinux" do
+  
+        let(:params) {{}}
+        let(:facts) {{ :osfamily => 'Archlinux' }}
+  
+        it 'should use the NTP pool servers by default' do
+          content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
+          expected_lines = [
+            "server 0.pool.ntp.org",
+            "server 1.pool.ntp.org",
+            "server 2.pool.ntp.org"]
+          (content.split("\n") & expected_lines).should == expected_lines
+        end
+      end
+
       describe "for operating system family unsupported" do
         let(:facts) {{
           :osfamily  => 'unsupported',
@@ -93,9 +108,8 @@ describe 'ntp::config' do
     describe 'for virtual machines' do
 
       let(:params) {{}}
-      let(:facts) {{ :operatingsystem => 'Archlinux',
-                      :osfamily        => 'Linux',
-                      :is_virtual       => true }}
+      let(:facts) {{ :osfamily        => 'Archlinux',
+                     :is_virtual      => true }}
 
       it 'should not use local clock as a time source' do
         content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
@@ -116,9 +130,8 @@ describe 'ntp::config' do
     describe 'for physical machines' do
 
       let(:params) {{}}
-      let(:facts) {{ :operatingsystem => 'Archlinux',
-                      :osfamily        => 'Linux',
-                      :is_virtual       => false }}
+      let(:facts) {{ :osfamily        => 'Archlinux',
+                     :is_virtual      => false }}
 
       it 'disallows large clock skews' do
         content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
@@ -126,23 +139,6 @@ describe 'ntp::config' do
         (content.split("\n") & expected_lines).should_not == expected_lines
       end
 
-    end
-
-    describe "for operating system Archlinux" do
-
-      let(:params) {{}}
-      let(:facts) {{ :operatingsystem => 'Archlinux',
-                      :osfamily        => 'Linux' }}
-
-
-      it 'should use the NTP pool servers by default' do
-        content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
-        expected_lines = [
-          "server 0.pool.ntp.org",
-          "server 1.pool.ntp.org",
-          "server 2.pool.ntp.org"]
-        (content.split("\n") & expected_lines).should == expected_lines
-      end
     end
 
     describe "for operating system Gentoo" do
@@ -163,7 +159,7 @@ describe 'ntp::config' do
       end
     end
 
-    ['Debian', 'RedHat','SuSE', 'FreeBSD'].each do |osfamily|
+    ['Debian', 'RedHat','SuSE', 'FreeBSD', 'Archlinux'].each do |osfamily|
       describe "for operating system family #{osfamily}" do
 
         let(:facts) {{ :osfamily => osfamily }}
