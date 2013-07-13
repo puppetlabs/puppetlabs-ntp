@@ -109,7 +109,7 @@ describe 'ntp::config' do
 
       let(:params) {{}}
       let(:facts) {{ :osfamily        => 'Archlinux',
-                     :is_virtual      => true }}
+                     :is_virtual      => 'true' }}
 
       it 'should not use local clock as a time source' do
         content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
@@ -131,7 +131,7 @@ describe 'ntp::config' do
 
       let(:params) {{}}
       let(:facts) {{ :osfamily        => 'Archlinux',
-                     :is_virtual      => false }}
+                     :is_virtual      => 'false' }}
 
       it 'disallows large clock skews' do
         content = param_value(subject, 'file', '/etc/ntp.conf', 'content')
