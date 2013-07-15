@@ -9,7 +9,7 @@ class ntp::params {
 
   # On virtual machines allow large clock skews.
   $panic = $::is_virtual ? {
-    true    => false,
+    'true'  => false,
     default => true,
   }
 
