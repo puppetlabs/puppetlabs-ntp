@@ -1,3 +1,8 @@
+2013-07-15 - Version 1.0.1
+Bugfixes:
+- Fix deprecated warning in `autoupdate` parameter.
+- Correctly quote is_virtual fact.
+
 2013-07-08 - Version 1.0.0
 Features:
 - Completely refactored to split across several classes.
