@@ -14,7 +14,7 @@ class ntp (
 ) inherits ntp::params {
 
   if $autoupdate {
-    notice('autoupdate parameter has been deprecated and replaced with ensure_package.  Set this to latest for the same behavior as autoupdate => true.')
+    notice('autoupdate parameter has been deprecated and replaced with package_ensure.  Set this to latest for the same behavior as autoupdate => true.')
   }
 
   include '::ntp::install'
