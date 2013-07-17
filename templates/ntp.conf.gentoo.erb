@@ -28,6 +28,30 @@ server <%= server %>
 # netselect -s 3 pool.ntp.org
 ##
 
+<% if @broadcast != false -%>
+<%   [broadcast].flatten.each do |to| -%>
+broadcast <%= to %>
+<%   end -%>
+<% end -%>
+<% if @broadcastclient -%>
+broadcastclient
+<% end -%>
+<% if @multicastclient != false -%>
+<%   [multicastclient].flatten.each do |to| -%>
+multicastclient <%= to %>
+<%   end -%>
+<% end -%>
+<% if @manycastserver != false -%>
+<%  [manycastserver].flatten.each do |to| -%>
+manycastserver <%= to %>
+<%   end -%>
+<% end -%>
+<% if @manycastclient != false -%>
+<%   [manycastclient].flatten.each do |to| -%>
+manycastclient <%= to %>
+<%   end -%>
+<% end -%>
+
 # you should not need to modify the following paths
 driftfile /var/lib/ntp/ntp.drift
 

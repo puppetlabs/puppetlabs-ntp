@@ -1,11 +1,16 @@
 class ntp::params {
 
-  $autoupdate     = false
-  $package_ensure = 'present'
-  $restrict       = true
-  $service_enable = true
-  $service_ensure = 'running'
-  $service_manage = true
+  $autoupdate      = false
+  $package_ensure  = 'present'
+  $restrict        = true
+  $service_enable  = true
+  $service_ensure  = 'running'
+  $service_manage  = true
+  $broadcastclient = false
+  $broadcast       = false
+  $multicastclient = false
+  $manycastclient  = false
+  $manycastserver  = false
 
   # On virtual machines allow large clock skews.
   $panic = $::is_virtual ? {
