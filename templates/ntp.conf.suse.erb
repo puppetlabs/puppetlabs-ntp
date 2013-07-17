@@ -43,6 +43,30 @@ fudge  127.127.1.0 stratum 10	# LCL is unsynchronized
 server <%= server %>
 <% end -%>
 
+<% if @broadcast != false -%>
+<%   [broadcast].flatten.each do |to| -%>
+broadcast <%= to %>
+<%   end -%>
+<% end -%>
+<% if @broadcastclient -%>
+broadcastclient
+<% end -%>
+<% if @multicastclient != false -%>
+<%   [multicastclient].flatten.each do |to| -%>
+multicastclient <%= to %>
+<%   end -%>
+<% end -%>
+<% if @manycastserver != false -%>
+<%  [manycastserver].flatten.each do |to| -%>
+manycastserver <%= to %>
+<%   end -%>
+<% end -%>
+<% if @manycastclient != false -%>
+<%   [manycastclient].flatten.each do |to| -%>
+manycastclient <%= to %>
+<%   end -%>
+<% end -%>
+
 <% if @panic == false -%>
 # Keep ntpd from panicking in the event of a large clock skew
 # when a VM guest is suspended and resumed.

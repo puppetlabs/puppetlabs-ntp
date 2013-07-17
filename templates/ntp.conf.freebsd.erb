@@ -27,3 +27,27 @@ tinker panic 0
 <% [@servers].flatten.each do |server| -%>
 server <%= server %>
 <% end -%>
+
+<% if @broadcast != false -%>
+<%   [broadcast].flatten.each do |to| -%>
+broadcast <%= to %>
+<%   end -%>
+<% end -%>
+<% if @broadcastclient -%>
+broadcastclient
+<% end -%>
+<% if @multicastclient != false -%>
+<%   [multicastclient].flatten.each do |to| -%>
+multicastclient <%= to %>
+<%   end -%>
+<% end -%>
+<% if @manycastserver != false -%>
+<%  [manycastserver].flatten.each do |to| -%>
+manycastserver <%= to %>
+<%   end -%>
+<% end -%>
+<% if @manycastclient != false -%>
+<%   [manycastclient].flatten.each do |to| -%>
+manycastclient <%= to %>
+<%   end -%>
+<% end -%>

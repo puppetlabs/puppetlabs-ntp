@@ -28,12 +28,40 @@ restrict -6 ::1
 server <%= server %>
 <% end -%>
 
-#broadcast 192.168.1.255 key 42		# broadcast server
+<% if @broadcast != false -%>
+<%   [broadcast].flatten.each do |to| -%>
+broadcast <%= to %>
+<%   end -%>
+<% else -%>
+#broadcast 192.168.1.255 autokey	# broadcast server
+<% end -%>
+<% if @broadcastclient -%>
+broadcastclient				# broadcast client
+<% else -%>
 #broadcastclient			# broadcast client
-#broadcast 224.0.1.1 key 42		# multicast server
+<% end -%>
+#broadcast 224.0.1.1 autokey		# multicast server
+<% if @multicastclient != false -%>
+<%   [multicastclient].flatten.each do |to| -%>
+multicastclient <%= to %>
+<%   end -%>
+<% else -%>
 #multicastclient 224.0.1.1		# multicast client
+<% end -%>
+<% if @manycastserver != false -%>
+<%  [manycastserver].flatten.each do |to| -%>
+manycastserver <%= to %>
+<%   end -%>
+<% else -%>
 #manycastserver 239.255.254.254		# manycast server
-#manycastclient 239.255.254.254 key 42	# manycast client
+<% end -%>
+<% if @manycastclient != false -%>
+<%   [manycastclient].flatten.each do |to| -%>
+manycastclient <%= to %>
+<%   end -%>
+<% else -%>
+#manycastclient 239.255.254.254 autokey	# manycast client
+<% end -%>
 
 <% if scope.lookupvar('::is_virtual') == "false" -%>
 # Undisciplined Local Clock. This is a fake driver intended for backup

@@ -53,11 +53,36 @@ restrict ::1
 
 <% end -%>
 
+<% if @broadcast != false -%>
+<%   [broadcast].flatten.each do |to| -%>
+broadcast <%= to %>
+<%   end -%>
+<% else -%>
 # If you want to provide time to your local subnet, change the next line.
 # (Again, the address is an example only.)
 #broadcast 192.168.123.255
-
+<% end -%>
 # If you want to listen to time broadcasts on your local subnet, de-comment the
 # next lines.  Please do this only if you trust everybody on the network!
+<% if @broadcastclient -%>
+disable auth
+broadcastclient
+<% else -%>
 #disable auth
 #broadcastclient
+<% end -%>
+<% if @multicastclient != false -%>
+<%   [multicastclient].flatten.each do |to| -%>
+multicastclient <%= to %>
+<%   end -%>
+<% end -%>
+<% if @manycastserver != false -%>
+<%  [manycastserver].flatten.each do |to| -%>
+manycastserver <%= to %>
+<%   end -%>
+<% end -%>
+<% if @manycastclient != false -%>
+<%   [manycastclient].flatten.each do |to| -%>
+manycastclient <%= to %>
+<%   end -%>
+<% end -%>
