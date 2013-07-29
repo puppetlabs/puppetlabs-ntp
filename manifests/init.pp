@@ -1,22 +1,23 @@
 class ntp (
-  $autoupdate      = $ntp::params::autoupdate,
-  $config          = $ntp::params::config,
-  $config_template = $ntp::params::config_template,
-  $driftfile       = $ntp::params::driftfile,
-  $keys_enable     = $ntp::params::keys_enable,
-  $keys_file       = $ntp::params::keys_file,
-  $keys_controlkey = $ntp::params::keys_controlkey,
-  $keys_requestkey = $ntp::params::keys_requestkey,
-  $keys_trusted    = $ntp::params::keys_trusted,
-  $package_ensure  = $ntp::params::package_ensure,
-  $package_name    = $ntp::params::package_name,
-  $panic           = $ntp::params::panic,
-  $restrict        = $ntp::params::restrict,
-  $servers         = $ntp::params::servers,
-  $service_enable  = $ntp::params::service_enable,
-  $service_ensure  = $ntp::params::service_ensure,
-  $service_manage  = $ntp::params::service_manage,
-  $service_name    = $ntp::params::service_name,
+  $autoupdate        = $ntp::params::autoupdate,
+  $config            = $ntp::params::config,
+  $config_template   = $ntp::params::config_template,
+  $driftfile         = $ntp::params::driftfile,
+  $keys_enable       = $ntp::params::keys_enable,
+  $keys_file         = $ntp::params::keys_file,
+  $keys_controlkey   = $ntp::params::keys_controlkey,
+  $keys_requestkey   = $ntp::params::keys_requestkey,
+  $keys_trusted      = $ntp::params::keys_trusted,
+  $package_ensure    = $ntp::params::package_ensure,
+  $package_name      = $ntp::params::package_name,
+  $panic             = $ntp::params::panic,
+  $preferred_servers = $ntp::params::preferred_servers,
+  $restrict          = $ntp::params::restrict,
+  $servers           = $ntp::params::servers,
+  $service_enable    = $ntp::params::service_enable,
+  $service_ensure    = $ntp::params::service_ensure,
+  $service_manage    = $ntp::params::service_manage,
+  $service_name      = $ntp::params::service_name,
 ) inherits ntp::params {
 
   validate_absolute_path($config)
@@ -29,6 +30,7 @@ class ntp (
   validate_string($package_ensure)
   validate_array($package_name)
   validate_bool($panic)
+  validate_array($preferred_servers)
   validate_bool($restrict)
   validate_array($servers)
   validate_bool($service_enable)

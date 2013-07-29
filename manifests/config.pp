@@ -1,15 +1,16 @@
 class ntp::config (
-  $config          = $ntp::config,
-  $config_template = $ntp::config_template,
-  $driftfile       = $ntp::driftfile,
-  $keys_enable     = $ntp::keys_enable,
-  $keys_file       = $ntp::keys_file,
-  $keys_controlkey = $ntp::keys_controlkey,
-  $keys_requestkey = $ntp::keys_requestkey,
-  $keys_trusted    = $ntp::keys_trusted,
-  $panic           = $ntp::panic,
-  $restrict        = $ntp::restrict,
-  $servers         = $ntp::servers,
+  $config            = $ntp::config,
+  $config_template   = $ntp::config_template,
+  $driftfile         = $ntp::driftfile,
+  $keys_enable       = $ntp::keys_enable,
+  $keys_file         = $ntp::keys_file,
+  $keys_controlkey   = $ntp::keys_controlkey,
+  $keys_requestkey   = $ntp::keys_requestkey,
+  $keys_trusted      = $ntp::keys_trusted,
+  $panic             = $ntp::panic,
+  $preferred_servers = $ntp::preferred_servers,
+  $restrict          = $ntp::restrict,
+  $servers           = $ntp::servers,
 ) inherits ntp {
 
   if $keys_enable {

@@ -27,9 +27,9 @@ describe 'ntp::config class' do
     end
   end
 
-    describe file('/etc/ntp.conf') do
-      it { should be_file }
-      it { should contain line }
-    end
+  describe file('/etc/ntp.conf') do
+    it { should be_file }
+    it { should contain line }
+  end
 
 end

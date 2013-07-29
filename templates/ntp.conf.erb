@@ -17,7 +17,7 @@ restrict -6 ::1
 
 # Servers
 <% [@servers].flatten.each do |server| -%>
-server <%= server %><%= ' prefer' if [@preferred_servers].include?(server) %>
+server <%= server %><% if @preferred_servers.include?(server) -%> prefer<% end %>
 <% end -%>
 
 <% if scope.lookupvar('::is_virtual') == "false" -%>

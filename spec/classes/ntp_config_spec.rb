@@ -167,62 +167,85 @@ describe 'ntp::config' do
           (content.split("\n") & expected_lines).should == expected_lines
         end
       end
-    end
 
-    ['Debian', 'RedHat','SuSE', 'FreeBSD', 'Archlinux'].each do |osfamily|
-      describe "keys for osfamily #{osfamily}" do
+      ['Debian', 'RedHat','SuSE', 'FreeBSD', 'Archlinux'].each do |osfamily|
 
-        context "when enabled" do
+        describe "keys for osfamily #{osfamily}" do
+          context "when enabled" do
+            let(:facts) {{ :osfamily => osfamily }}
+            let(:params) {{
+              :keys_enable     => true,
+              :keys_file       => '/etc/ntp/ntp.keys',
+              :keys_trusted    => ['1', '2', '3'],
+              :keys_controlkey => '2',
+              :keys_requestkey => '3',
+            }}
+
+            it { should contain_file('/etc/ntp').with({
+              'ensure'  => 'directory'})
+            }
+            it { should contain_file('/etc/ntp.conf').with({
+              'content' => /trustedkey 1 2 3/})
+            }
+            it { should contain_file('/etc/ntp.conf').with({
+              'content' => /controlkey 2/})
+            }
+            it { should contain_file('/etc/ntp.conf').with({
+              'content' => /requestkey 3/})
+            }
+          end
+        end
+
+        context "when disabled" do
           let(:facts) {{ :osfamily => osfamily }}
           let(:params) {{
-            :keys_enable     => true,
+            :keys_enable     => false,
             :keys_file       => '/etc/ntp/ntp.keys',
             :keys_trusted    => ['1', '2', '3'],
             :keys_controlkey => '2',
             :keys_requestkey => '3',
           }}
 
-          it { should contain_file('/etc/ntp').with({
+          it { should_not contain_file('/etc/ntp').with({
             'ensure'  => 'directory'})
           }
-          it { should contain_file('/etc/ntp.conf').with({
+          it { should_not contain_file('/etc/ntp.conf').with({
             'content' => /trustedkey 1 2 3/})
           }
-          it { should contain_file('/etc/ntp.conf').with({
+          it { should_not contain_file('/etc/ntp.conf').with({
             'content' => /controlkey 2/})
           }
-          it { should contain_file('/etc/ntp.conf').with({
+          it { should_not contain_file('/etc/ntp.conf').with({
             'content' => /requestkey 3/})
           }
         end
       end
 
-      context "when disabled" do
-        let(:facts) {{ :osfamily => osfamily }}
-        let(:params) {{
-          :keys_enable     => false,
-          :keys_file       => '/etc/ntp/ntp.keys',
-          :keys_trusted    => ['1', '2', '3'],
-          :keys_controlkey => '2',
-          :keys_requestkey => '3',
-        }}
+      describe 'preferred servers' do
+        context "when set" do
+          let(:facts) {{ :osfamily => osfamily }}
+          let(:params) {{
+            :servers           => ['a', 'b', 'c', 'd'],
+            :preferred_servers => ['a', 'b']
+          }}
 
-        it { should_not contain_file('/etc/ntp').with({
-          'ensure'  => 'directory'})
-        }
-        it { should_not contain_file('/etc/ntp.conf').with({
-          'content' => /trustedkey 1 2 3/})
-        }
-        it { should_not contain_file('/etc/ntp.conf').with({
-          'content' => /controlkey 2/})
-        }
-        it { should_not contain_file('/etc/ntp.conf').with({
-          'content' => /requestkey 3/})
-        }
+          it { should contain_file('/etc/ntp.conf').with({
+            'content' => /server a prefer\nserver b prefer\nserver c\nserver d/})
+          }
+        end
+        context "when not set" do
+          let(:facts) {{ :osfamily => osfamily }}
+          let(:params) {{
+            :servers           => ['a', 'b', 'c', 'd'],
+            :preferred_servers => []
+          }}
+
+          it { should_not contain_file('/etc/ntp.conf').with({
+            'content' => /server a prefer/})
+          }
+        end
       end
     end
-
-
-
   end
+
 end

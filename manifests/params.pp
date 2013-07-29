@@ -1,16 +1,17 @@
 class ntp::params {
 
-  $autoupdate      = false
-  $config_template = 'ntp/ntp.conf.erb'
-  $keys_enable     = false
-  $keys_controlkey = ''
-  $keys_requestkey = ''
-  $keys_trusted    = []
-  $package_ensure  = 'present'
-  $restrict        = true
-  $service_enable  = true
-  $service_ensure  = 'running'
-  $service_manage  = true
+  $autoupdate        = false
+  $config_template   = 'ntp/ntp.conf.erb'
+  $keys_enable       = false
+  $keys_controlkey   = ''
+  $keys_requestkey   = ''
+  $keys_trusted      = []
+  $package_ensure    = 'present'
+  $preferred_servers = []
+  $restrict          = true
+  $service_enable    = true
+  $service_ensure    = 'running'
+  $service_manage    = true
 
   # On virtual machines allow large clock skews.
   $panic = str2bool($::is_virtual) ? {
