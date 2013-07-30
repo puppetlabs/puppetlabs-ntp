@@ -1,22 +1,29 @@
 class ntp::params {
 
-  $autoupdate     = false
-  $package_ensure = 'present'
-  $restrict       = true
-  $service_enable = true
-  $service_ensure = 'running'
-  $service_manage = true
+  $autoupdate        = false
+  $config_template   = 'ntp/ntp.conf.erb'
+  $keys_enable       = false
+  $keys_controlkey   = ''
+  $keys_requestkey   = ''
+  $keys_trusted      = []
+  $package_ensure    = 'present'
+  $preferred_servers = []
+  $restrict          = true
+  $service_enable    = true
+  $service_ensure    = 'running'
+  $service_manage    = true
 
   # On virtual machines allow large clock skews.
-  $panic = $::is_virtual ? {
-    'true'  => false,
+  $panic = str2bool($::is_virtual) ? {
+    true    => false,
     default => true,
   }
 
   case $::osfamily {
     'Debian': {
       $config          = '/etc/ntp.conf'
-      $config_template = 'ntp/ntp.conf.debian.erb'
+      $keysfile        = '/etc/ntp/keys'
+      $driftfile       = '/var/lib/ntp/drift'
       $package_name    = [ 'ntp' ]
       $service_name    = 'ntp'
       $servers         = [
@@ -28,7 +35,8 @@ class ntp::params {
     }
     'RedHat': {
       $config          = '/etc/ntp.conf'
-      $config_template = 'ntp/ntp.conf.el.erb'
+      $driftfile       = '/var/lib/ntp/drift'
+      $keysfile        = '/etc/ntp/keys'
       $package_name    = [ 'ntp' ]
       $service_name    = 'ntpd'
       $servers         = [
@@ -39,7 +47,8 @@ class ntp::params {
     }
     'SuSE': {
       $config          = '/etc/ntp.conf'
-      $config_template = 'ntp/ntp.conf.suse.erb'
+      $driftfile       = '/var/lib/ntp/drift/ntp.drift'
+      $keysfile        = '/etc/ntp/keys'
       $package_name    = [ 'ntp' ]
       $service_name    = 'ntp'
       $servers         = [
@@ -51,7 +60,8 @@ class ntp::params {
     }
     'FreeBSD': {
       $config          = '/etc/ntp.conf'
-      $config_template = 'ntp/ntp.conf.freebsd.erb'
+      $driftfile       = '/var/db/ntpd.drift'
+      $keysfile        = '/etc/ntp/keys'
       $package_name    = ['net/ntp']
       $service_name    = 'ntpd'
       $servers         = [
@@ -63,8 +73,9 @@ class ntp::params {
     }
     'Archlinux': {
       $config          = '/etc/ntp.conf'
-      $config_template = 'ntp/ntp.conf.archlinux.erb'
-      $package_name    = ['ntp']
+      $driftfile       = '/var/lib/ntp/drift'
+      $keysfile        = '/etc/ntp/keys'
+      $package_name    = [ 'ntp' ]
       $service_name    = 'ntpd'
       $servers         = [
         '0.pool.ntp.org',
@@ -77,7 +88,8 @@ class ntp::params {
       case $::operatingsystem {
         'Gentoo': {
           $config          = '/etc/ntp.conf'
-          $config_template = 'ntp/ntp.conf.gentoo.erb'
+          $driftfile       = '/var/lib/ntp/drift'
+          $keysfile        = '/etc/ntp/keys'
           $package_name    = ['net-misc/ntp']
           $service_name    = 'ntpd'
           $servers         = [
