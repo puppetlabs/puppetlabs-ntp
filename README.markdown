@@ -120,6 +120,26 @@ This sets the file to write ntp configuration into.
 
 This determines which template puppet should use for the ntp configuration.
 
+####`driftfile`
+
+This sets the location of the driftfile for ntp.
+
+####`keys_controlkey`
+
+Which of the keys is used as the control key.
+
+####`keys_enable`
+
+Should the ntp keys functionality be enabled.
+
+####`keys_file`
+
+Location of the keys file.
+
+####`keys_requestkey`
+
+Which of the keys is used as the request key.
+
 ####`package_ensure`
 
 This can be set to 'present' or 'latest' or a specific version to choose the
@@ -134,6 +154,11 @@ This determines the name of the package to install.
 This determines if ntp should 'panic' in the event of a very large clock skew.
 We set this to false if you're on a virtual machine by default as they don't
 do a great job with keeping time.
+
+####`preferred_servers`
+
+List of ntp servers to prefer.  Will append prefer for any server in this list
+that also appears in the servers list.
 
 ####`restrict`
 
