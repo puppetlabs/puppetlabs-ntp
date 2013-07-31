@@ -1,3 +1,33 @@
+2013-07-31 - Version 2.0.0
+
+Summary:
+
+The 2.0 release focuses on merging all the distro specific
+templates into a single reusable template across all platforms.
+
+To aid in that goal we now allow you to change the driftfile,
+ntp keys, and perferred_servers.
+
+Backwards-incompatible changes:
+
+As all the distro specific templates have been removed and a
+unified one created you may be missing functionality you
+previously relied on.  Please test carefully before rolling
+out globally.
+
+Features:
+- All templates merged into a single template.
+- NTP Keys support added.
+- Add preferred servers support.
+- Parameters in `ntp` class:
+ - `driftfile`: path for the ntp driftfile.
+ - `keys_enable`: Enable NTP keys feature.
+ - `keys_file`: Path for the NTP keys file.
+ - `keys_trusted`: Which keys to trust.
+ - `keys_controlkey`: Which key to use for the control key.
+ - `keys_requestkey`: Which key to use for the request key.
+ - `preferred_servers`: Array of servers to prefer.
+
 2013-07-15 - Version 1.0.1
 Bugfixes:
 - Fix deprecated warning in `autoupdate` parameter.
