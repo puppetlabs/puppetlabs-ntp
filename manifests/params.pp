@@ -8,7 +8,12 @@ class ntp::params {
   $keys_trusted      = []
   $package_ensure    = 'present'
   $preferred_servers = []
-  $restrict          = true
+  $restrict          = [
+    'restrict default kod nomodify notrap nopeer noquery',
+    'restrict -6 default kod nomodify notrap nopeer noquery',
+    'restrict 127.0.0.1',
+    'restrict -6 ::1',
+  ]
   $service_enable    = true
   $service_ensure    = 'running'
   $service_manage    = true

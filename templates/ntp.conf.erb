@@ -6,13 +6,12 @@
 tinker panic 0
 <% end -%>
 
-<% if @restrict -%>
-# Permit time synchronization with our time source, but do not
-# permit the source to query or modify the service on this system.
-restrict default kod nomodify notrap nopeer noquery
-restrict -6 default kod nomodify notrap nopeer noquery
-restrict 127.0.0.1 
-restrict -6 ::1
+<% if @restrict != [] -%>
+# Permit time synchronization with our time source, but do not'
+# permit the source to query or modify the service on this system.'
+<% @restrict.flatten.each do |restrict| -%>
+<%= restrict %>
+<% end %>
 <% end -%>
 
 # Servers

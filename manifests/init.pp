@@ -31,7 +31,7 @@ class ntp (
   validate_array($package_name)
   validate_bool($panic)
   validate_array($preferred_servers)
-  validate_bool($restrict)
+  validate_array($restrict)
   validate_array($servers)
   validate_bool($service_enable)
   validate_string($service_ensure)
