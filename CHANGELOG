@@ -27,6 +27,7 @@ Features:
  - `keys_controlkey`: Which key to use for the control key.
  - `keys_requestkey`: Which key to use for the request key.
  - `preferred_servers`: Array of servers to prefer.
+ - `restrict`: Array of restriction options to apply.
 
 2013-07-15 - Version 1.0.1
 Bugfixes:
