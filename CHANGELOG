@@ -15,6 +15,16 @@ unified one created you may be missing functionality you
 previously relied on.  Please test carefully before rolling
 out globally.
 
+Configuration directives that might possibly be affected:
+- `filegen`
+- `fudge` (for virtual machines)
+- `keys`
+- `logfile`
+- `restrict`
+- `restrictkey`
+- `statistics`
+- `trustedkey`
+
 Features:
 - All templates merged into a single template.
 - NTP Keys support added.
