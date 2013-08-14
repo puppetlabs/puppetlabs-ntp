@@ -1,22 +1,22 @@
 # ntp.conf: Managed by puppet.
 #
-<% if @panic == false -%>
+<% if scope.lookupvar('ntp::panic') == false -%>
 # Keep ntpd from panicking in the event of a large clock skew
 # when a VM guest is suspended and resumed.
 tinker panic 0
 <% end -%>
 
-<% if @restrict != [] -%>
+<% if scope.lookupvar('ntp::restrict') != [] -%>
 # Permit time synchronization with our time source, but do not'
 # permit the source to query or modify the service on this system.'
-<% @restrict.flatten.each do |restrict| -%>
+<% scope.lookupvar('ntp::restrict').flatten.each do |restrict| -%>
 <%= restrict %>
 <% end %>
 <% end -%>
 
 # Servers
-<% [@servers].flatten.each do |server| -%>
-server <%= server %><% if @preferred_servers.include?(server) -%> prefer<% end %>
+<% scope.lookupvar('ntp::servers').flatten.each do |server| -%>
+server <%= server %><% if scope.lookupvar('ntp::preferred_servers').include?(server) -%> prefer<% end %>
 <% end -%>
 
 <% if scope.lookupvar('::is_virtual') == "false" -%>
@@ -27,17 +27,17 @@ fudge	127.127.1.0 stratum 10
 <% end -%>
 
 # Driftfile.
-driftfile <%= @driftfile %>
+driftfile <%= scope.lookupvar('ntp::driftfile') %>
 
-<% if @keys_enable -%>
-keys <%= @keys_file %>
-<% unless @keys_trusted.empty? -%>
-trustedkey <%= @keys_trusted.join(' ') %>
+<% if scope.lookupvar('ntp::keys_enable') -%>
+keys <%= scope.lookupvar('ntp::keys_file') %>
+<% unless scope.lookupvar('ntp::keys_trusted').empty? -%>
+trustedkey <%= scope.lookupvar('ntp::keys_trusted').join(' ') %>
 <% end -%>
-<% if @keys_requestkey != '' -%>
-requestkey <%= @keys_requestkey %>
+<% if scope.lookupvar('ntp::keys_requestkey') != '' -%>
+requestkey <%= scope.lookupvar('ntp::keys_requestkey') %>
 <% end -%>
-<% if @keys_controlkey != '' -%>
-controlkey <%= @keys_controlkey %>
+<% if scope.lookupvar('ntp::keys_controlkey') != '' -%>
+controlkey <%= scope.lookupvar('ntp::keys_controlkey') %>
 <% end -%>
 <% end -%>
