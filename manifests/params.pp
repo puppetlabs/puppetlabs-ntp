@@ -27,7 +27,7 @@ class ntp::params {
   case $::osfamily {
     'Debian': {
       $config          = '/etc/ntp.conf'
-      $keysfile        = '/etc/ntp/keys'
+      $keys_file       = '/etc/ntp/keys'
       $driftfile       = '/var/lib/ntp/drift'
       $package_name    = [ 'ntp' ]
       $service_name    = 'ntp'
@@ -41,7 +41,7 @@ class ntp::params {
     'RedHat': {
       $config          = '/etc/ntp.conf'
       $driftfile       = '/var/lib/ntp/drift'
-      $keysfile        = '/etc/ntp/keys'
+      $keys_file       = '/etc/ntp/keys'
       $package_name    = [ 'ntp' ]
       $service_name    = 'ntpd'
       $servers         = [
@@ -53,7 +53,7 @@ class ntp::params {
     'SuSE': {
       $config          = '/etc/ntp.conf'
       $driftfile       = '/var/lib/ntp/drift/ntp.drift'
-      $keysfile        = '/etc/ntp/keys'
+      $keys_file       = '/etc/ntp/keys'
       $package_name    = [ 'ntp' ]
       $service_name    = 'ntp'
       $servers         = [
@@ -66,7 +66,7 @@ class ntp::params {
     'FreeBSD': {
       $config          = '/etc/ntp.conf'
       $driftfile       = '/var/db/ntpd.drift'
-      $keysfile        = '/etc/ntp/keys'
+      $keys_file       = '/etc/ntp/keys'
       $package_name    = ['net/ntp']
       $service_name    = 'ntpd'
       $servers         = [
@@ -79,7 +79,7 @@ class ntp::params {
     'Archlinux': {
       $config          = '/etc/ntp.conf'
       $driftfile       = '/var/lib/ntp/drift'
-      $keysfile        = '/etc/ntp/keys'
+      $keys_file       = '/etc/ntp/keys'
       $package_name    = [ 'ntp' ]
       $service_name    = 'ntpd'
       $servers         = [
@@ -94,7 +94,7 @@ class ntp::params {
         'Gentoo': {
           $config          = '/etc/ntp.conf'
           $driftfile       = '/var/lib/ntp/drift'
-          $keysfile        = '/etc/ntp/keys'
+          $keys_file       = '/etc/ntp/keys'
           $package_name    = ['net-misc/ntp']
           $service_name    = 'ntpd'
           $servers         = [
