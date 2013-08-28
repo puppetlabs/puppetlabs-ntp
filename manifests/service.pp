@@ -1,10 +1,5 @@
 #
-class ntp::service {
-
-  $service_enable = $ntp::service_enable
-  $service_ensure = $ntp::service_ensure
-  $service_manage = $ntp::service_manage
-  $service_name   = $ntp::service_name
+class ntp::service inherits ntp {
 
   if ! ($service_ensure in [ 'running', 'stopped' ]) {
     fail('service_ensure parameter must be running or stopped')
