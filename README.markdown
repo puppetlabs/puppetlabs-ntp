@@ -184,6 +184,11 @@ This selects if puppet should manage the service in the first place.
 
 This selects the name of the ntp service for puppet to manage.
 
+####`udlc`
+
+Enables configs for undisciplined local clock regardless of
+status as a virtual machine. 
+
 
 ##Limitations
 

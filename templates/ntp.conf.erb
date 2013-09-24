@@ -14,16 +14,16 @@ tinker panic 0
 <% end %>
 <% end -%>
 
-# Servers
 <% [@servers].flatten.each do |server| -%>
 server <%= server %><% if @preferred_servers.include?(server) -%> prefer<% end %>
 <% end -%>
 
-<% if scope.lookupvar('::is_virtual') == "false" -%>
+<% if scope.lookupvar('::is_virtual') == "false" or @udlc -%>
 # Undisciplined Local Clock. This is a fake driver intended for backup
 # and when no outside source of synchronized time is available. 
-server	127.127.1.0	# local clock
-fudge	127.127.1.0 stratum 10	
+server	127.127.1.0 
+fudge	127.127.1.0 stratum 10
+restrict 127.127.1.0
 <% end -%>
 
 # Driftfile.
