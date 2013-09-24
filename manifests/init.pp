@@ -18,7 +18,7 @@ class ntp (
   $service_ensure    = $ntp::params::service_ensure,
   $service_manage    = $ntp::params::service_manage,
   $service_name      = $ntp::params::service_name,
-  $udlc              = false,
+  $udlc              = $ntp::params::udlc
 ) inherits ntp::params {
 
   validate_absolute_path($config)
