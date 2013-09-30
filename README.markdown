@@ -68,7 +68,7 @@ class { '::ntp':
 ```puppet
 class { '::ntp':
   servers  => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
-  restrict => 'restrict 127.0.0.1',
+  restrict => ['127.0.0.1'],
 }
 ```
 
@@ -77,7 +77,7 @@ class { '::ntp':
 ```puppet
 class { '::ntp':
   servers        => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
-  restrict       => 'restrict 127.0.0.1',
+  restrict       => ['127.0.0.1'],
   manage_service => false,
 }
 ```
@@ -87,7 +87,7 @@ class { '::ntp':
 ```puppet
 class { '::ntp':
   servers         => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
-  restrict        => 'restrict 127.0.0.1',
+  restrict        => ['127.0.0.1'],
   manage_service  => false,
   config_template => 'different/module/custom.template.erb',
 }
