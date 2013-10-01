@@ -26,6 +26,19 @@ class ntp::params {
   }
 
   case $::osfamily {
+     'AIX': {
+       $config = '/etc/ntp.conf'
+       $keysfile = '/etc/ntp.keys'
+       $driftfile = '/etc/ntp.drift'
+       $package_name = [ 'bos.net.tcp.client' ]
+       $service_name = 'xntpd'
+       $servers = [
+         '0.debian.pool.ntp.org iburst',
+         '1.debian.pool.ntp.org iburst',
+         '2.debian.pool.ntp.org iburst',
+         '3.debian.pool.ntp.org iburst',
+       ]
+    }
     'Debian': {
       $config          = '/etc/ntp.conf'
       $keys_file       = '/etc/ntp/keys'
