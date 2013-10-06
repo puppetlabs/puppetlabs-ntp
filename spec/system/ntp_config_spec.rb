@@ -18,6 +18,8 @@ describe 'ntp::config class' do
     line = '0.centos.pool.ntp.org'
   when 'SuSE'
     line = '0.opensuse.pool.ntp.org'
+  when 'Gentoo'
+    line = '0.gentoo.pool.ntp.org'
   when 'Linux'
     case node.facts['operatingsystem']
     when 'ArchLinux'
