@@ -1,5 +1,4 @@
 pkg/
-metadata.json
 Gemfile.lock
 .rspec_system/
 .*.sw*
