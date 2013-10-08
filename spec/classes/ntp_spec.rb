@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe 'ntp' do
 
-  ['Debian', 'RedHat','SuSE', 'FreeBSD', 'Archlinux', 'Gentoo'].each do |system|
-    if system == 'Gentoo'
-      let(:facts) {{ :osfamily => 'Linux', :operatingsystem => system }}
+  ['Debian', 'RedHat','SuSE', 'FreeBSD', 'Archlinux', 'Gentoo', 'Gentoo (Facter < 1.7)'].each do |system|
+    if system == 'Gentoo (Facter < 1.7)'
+      let(:facts) {{ :osfamily => 'Linux', :operatingsystem => 'Gentoo' }}
     else
       let(:facts) {{ :osfamily => system }}
     end
@@ -158,7 +158,7 @@ describe 'ntp' do
     end
 
     context 'ntp::config' do
-      describe "for operating system Gentoo" do
+      describe "for operating system Gentoo (Facter < 1.7)" do
         let(:facts) {{ :operatingsystem => 'Gentoo',
                        :osfamily        => 'Linux' }}
 
@@ -168,6 +168,17 @@ describe 'ntp' do
           })
         end
       end
+
+      describe "on osfamily Gentoo" do
+        let(:facts) {{ :osfamily => 'Gentoo' }}
+
+        it 'uses the NTP pool servers by default' do
+          should contain_file('/etc/ntp.conf').with({
+            'content' => /server \d.gentoo.pool.ntp.org/,
+          })
+        end
+      end
+
       describe "on osfamily Debian" do
         let(:facts) {{ :osfamily => 'debian' }}
 
