@@ -9,6 +9,8 @@ describe 'ntp::install class' do
   case node.facts['osfamily']
   when 'FreeBSD'
     packagename = 'net/ntp'
+  when 'Gentoo'
+    packagename = 'net-misc/ntp'
   when 'Linux'
     case node.facts['operatingsystem']
     when 'ArchLinux'

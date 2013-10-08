@@ -7,7 +7,7 @@ describe 'ntp::service class' do
   }
 
   case node.facts['osfamily']
-  when 'RedHat', 'FreeBSD', 'Linux'
+  when 'RedHat', 'FreeBSD', 'Linux', 'Gentoo'
     servicename = 'ntpd'
   else
     servicename = 'ntp'
