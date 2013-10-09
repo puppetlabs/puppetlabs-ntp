@@ -162,7 +162,8 @@ that also appears in the servers list.
 
 ####`restrict`
 
-This sets the restrict options in the ntp configuration.
+This sets the restrict options in the ntp configuration.  The lines are
+preappended with restrict so you just need to list the rest of the restriction.
 
 ####`servers`
 
