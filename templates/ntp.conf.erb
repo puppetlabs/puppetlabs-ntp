@@ -10,7 +10,7 @@ tinker panic 0
 # Permit time synchronization with our time source, but do not'
 # permit the source to query or modify the service on this system.'
 <% @restrict.flatten.each do |restrict| -%>
-<%= restrict %>
+restrict <%= restrict %>
 <% end %>
 <% end -%>
 
