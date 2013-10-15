@@ -1,6 +1,6 @@
 {
     "name": "puppetlabs/ntp",
-    "version": "2.0.1",
+    "version": "3.0.0-rc1",
     "summary": "NTP server and clients management.",
     "source": "git@github.com/puppetlabs/puppetlabs-ntp.git",
     "project_page": "http://github.com/puppetlabs/puppetlabs-ntp",
