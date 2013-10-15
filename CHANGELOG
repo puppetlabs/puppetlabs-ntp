@@ -1,3 +1,29 @@
+2013-10-14 - Version 3.0.0-rc1
+
+Summary:
+
+The major change in this release is that `restrict` no longer requires you to
+pass in parameters as:
+
+restrict => [ 'restrict x', 'restrict y' ]
+
+but just as:
+
+restrict => [ 'x', 'y' ]
+
+As the template now prefixes each line with restrict.
+
+Features:
+- Change the behavior of `restrict` so you no longer need the restrict
+keyword.
+- Add `udlc` parameter to enable undisciplined local clock regardless of the
+machines status as a virtual machine.
+- Add AIX support.
+
+Fixes:
+- Use class{} instead of including and then anchoring. (style)
+- Extend Gentoo coverage to Facter 1.7.
+
 2013-09-05 - Version 2.0.1
 
 Summary:
