@@ -13,7 +13,7 @@ describe 'ntp' do
     it { should include_class('ntp::config') }
     it { should include_class('ntp::service') }
 
-    describe 'ntp::config on #{system}' do
+    describe "ntp::config on #{system}" do
       it { should contain_file('/etc/ntp.conf').with_owner('0') }
       it { should contain_file('/etc/ntp.conf').with_group('0') }
       it { should contain_file('/etc/ntp.conf').with_mode('0644') }
@@ -96,7 +96,7 @@ describe 'ntp' do
         end
       end
 
-      describe 'ntp::install on #{system}' do
+      describe "ntp::install on #{system}" do
         let(:params) {{ :package_ensure => 'present', :package_name => ['ntp'], }}
 
         it { should contain_package('ntp').with(
