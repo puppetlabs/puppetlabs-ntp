@@ -3,6 +3,7 @@ class ntp (
   $config            = $ntp::params::config,
   $config_template   = $ntp::params::config_template,
   $disable_monitor   = $ntp::params::disable_monitor,
+  $fudge             = $ntp::params::fudge,
   $driftfile         = $ntp::params::driftfile,
   $logfile           = $ntp::params::logfile,
   $iburst_enable     = $ntp::params::iburst_enable,
@@ -42,6 +43,7 @@ class ntp (
   validate_array($restrict)
   validate_array($interfaces)
   validate_array($servers)
+  validate_array($fudge)
   validate_bool($service_enable)
   validate_string($service_ensure)
   validate_bool($service_manage)

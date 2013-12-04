@@ -16,6 +16,9 @@ class ntp::params {
   $udlc              = false
   $interfaces        = []
 
+  # Allow a list of fudge options
+  $fudge             = []
+
   # On virtual machines allow large clock skews.
   $panic = str2bool($::is_virtual) ? {
     true    => false,
