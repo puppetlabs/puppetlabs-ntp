@@ -29,6 +29,13 @@ restrict 127.127.1.0
 # Driftfile.
 driftfile <%= @driftfile %>
 
+<% if @peers != [] -%>
+# Peers
+<% [@peers].flatten.each do |peer| -%>
+peer <%= peer %>
+<% end -%>
+<% end -%>
+
 <% if @keys_enable -%>
 keys <%= @keys_file %>
 <% unless @keys_trusted.empty? -%>

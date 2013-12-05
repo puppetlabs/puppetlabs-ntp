@@ -155,6 +155,10 @@ This determines if ntp should 'panic' in the event of a very large clock skew.
 We set this to false if you're on a virtual machine by default as they don't
 do a great job with keeping time.
 
+####`peers`
+
+List of ntp servers which the local clock can be synchronised against, or which can synchronise against the local clock.
+
 ####`preferred_servers`
 
 List of ntp servers to prefer.  Will append prefer for any server in this list

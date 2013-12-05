@@ -18,6 +18,7 @@ class ntp::params {
   $service_ensure    = 'running'
   $service_manage    = true
   $udlc              = false
+  $peers             = []
 
   # On virtual machines allow large clock skews.
   $panic = str2bool($::is_virtual) ? {

@@ -18,7 +18,8 @@ class ntp (
   $service_ensure    = $ntp::params::service_ensure,
   $service_manage    = $ntp::params::service_manage,
   $service_name      = $ntp::params::service_name,
-  $udlc              = $ntp::params::udlc
+  $udlc              = $ntp::params::udlc,
+  $peers             = $ntp::params::peers
 ) inherits ntp::params {
 
   validate_absolute_path($config)
@@ -39,6 +40,7 @@ class ntp (
   validate_bool($service_manage)
   validate_string($service_name)
   validate_bool($udlc)
+  validate_array($peers)
 
   if $autoupdate {
     notice('autoupdate parameter has been deprecated and replaced with package_ensure.  Set this to latest for the same behavior as autoupdate => true.')
