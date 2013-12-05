@@ -18,6 +18,7 @@ class ntp (
   $package_manage    = $ntp::params::package_manage,
   $package_name      = $ntp::params::package_name,
   $panic             = $ntp::params::panic,
+  $peers             = $ntp::params::peers,
   $preferred_servers = $ntp::params::preferred_servers,
   $restrict          = $ntp::params::restrict,
   $interfaces        = $ntp::params::interfaces,
@@ -26,7 +27,7 @@ class ntp (
   $service_ensure    = $ntp::params::service_ensure,
   $service_manage    = $ntp::params::service_manage,
   $service_name      = $ntp::params::service_name,
-  $udlc              = $ntp::params::udlc
+  $udlc              = $ntp::params::udlc,
 ) inherits ntp::params {
 
   validate_bool($broadcastclient)
@@ -55,6 +56,7 @@ class ntp (
   validate_bool($service_manage)
   validate_string($service_name)
   validate_bool($udlc)
+  validate_array($peers)
 
   if $autoupdate {
     notice('autoupdate parameter has been deprecated and replaced with package_ensure.  Set this to latest for the same behavior as autoupdate => true.')
