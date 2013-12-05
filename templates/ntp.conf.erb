@@ -54,6 +54,13 @@ driftfile <%= @driftfile %>
 logfile <%= @logfile %>
 <% end -%>
 
+<% unless @peers.empty? -%>
+# Peers
+<% [@peers].flatten.each do |peer| -%>
+peer <%= peer %>
+<% end -%>
+<% end -%>
+
 <% if @keys_enable -%>
 keys <%= @keys_file %>
 <% unless @keys_trusted.empty? -%>
