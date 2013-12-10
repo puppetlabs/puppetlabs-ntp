@@ -1,13 +1,17 @@
-require 'spec_helper_system'
+require 'spec_helper_acceptance'
 
 describe 'preferred servers' do
-  it 'applies cleanly' do
-    puppet_apply(%{
+  pp = <<-EOS
       class { '::ntp':
         servers           => ['a', 'b', 'c', 'd'],
         preferred_servers => ['c', 'd'],
       }
-    })
+  EOS
+
+  it 'applies cleanly' do
+    apply_manifest(pp, :catch_failures => true) do |r|
+      expect(r.stderr).to eq("")
+    end
   end
 
   describe file('/etc/ntp.conf') do
