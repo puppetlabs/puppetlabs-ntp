@@ -1,9 +1,17 @@
-2013-10-14 - Version 3.0.0-rc1
+## 2013-12-13 Release 3.0.0
+### Summary:
 
-Summary:
+Final release of 3.0, enjoy!
 
-The major change in this release is that `restrict` no longer requires you to
-pass in parameters as:
+## 2013-10-14 - Version 3.0.0-rc1
+
+### Summary:
+
+This release changes the behavior of restrict and adds AIX osfamily support.
+
+### Backwards-incompatible Changes:
+
+`restrict` no longer requires you to pass in parameters as:
 
 restrict => [ 'restrict x', 'restrict y' ]
 
