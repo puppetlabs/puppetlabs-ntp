@@ -1,3 +1,8 @@
+## 2013-12-17 Release 3.0.1
+### Summary:
+
+Work around a packaging bug with symlinks, no other functional changes.
+
 ## 2013-12-13 Release 3.0.0
 ### Summary:
 
