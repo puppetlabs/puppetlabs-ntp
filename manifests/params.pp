@@ -1,5 +1,6 @@
 class ntp::params {
 
+  $autosync          = false
   $autoupdate        = false
   $config_template   = 'ntp/ntp.conf.erb'
   $keys_enable       = false
