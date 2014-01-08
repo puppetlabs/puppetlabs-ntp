@@ -224,4 +224,4 @@ You can read the complete module contribution guide [on the Puppet Labs wiki.](h
 
 ###Contributors
 
-The list of contributors can be found at: https://github.com/puppetlabs/puppetlabs-ntp/graphs/contributors
+The list of contributors can be found at: [https://github.com/puppetlabs/puppetlabs-ntp/graphs/contributors](https://github.com/puppetlabs/puppetlabs-ntp/graphs/contributors)
