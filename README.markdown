@@ -15,14 +15,11 @@
 
 ##Overview
 
-The NTP module installs, configures, and manages the ntp service.
+The ntp module installs, configures, and manages the NTP service.
 
 ##Module Description
 
-The NTP module handles running NTP across a range of operating systems and
-distributions.  Where possible we use the upstream ntp templates so that the
-results closely match what you'd get if you modified the package default conf
-files.
+The ntp module handles installing, configuring, and running NTP across a range of operating systems and distributions.
 
 ##Setup
 
@@ -34,8 +31,8 @@ files.
 
 ###Beginning with ntp
 
-include '::ntp' is enough to get you up and running.  If you wish to pass in
-parameters like which servers to use then you can use:
+`include '::ntp'` is enough to get you up and running.  If you wish to pass in
+parameters specifying which servers to use, then:
 
 ```puppet
 class { '::ntp':
@@ -46,8 +43,7 @@ class { '::ntp':
 ##Usage
 
 All interaction with the ntp module can do be done through the main ntp class.
-This means you can simply toggle the options in the ntp class to get at the
-full functionality.
+This means you can simply toggle the options in `::ntp` to have full functionality of the module.
 
 ###I just want NTP, what's the minimum I need?
 
@@ -72,7 +68,7 @@ class { '::ntp':
 }
 ```
 
-###I'd like to opt out of having the service controlled, we use another tool for that.
+###I'd like to opt out of having the service controlled; we use another tool for that.
 
 ```puppet
 class { '::ntp':
@@ -82,7 +78,7 @@ class { '::ntp':
 }
 ```
 
-###Looks great!  But I'd like a different template, we need to do something unique here.
+###Looks great!  But I'd like a different template; we need to do something unique here.
 
 ```puppet
 class { '::ntp':
@@ -97,40 +93,44 @@ class { '::ntp':
 
 ###Classes
 
-* ntp: Main class, includes all the rest.
+####Public Classes
+
+* ntp: Main class, includes all other classes.
+
+####Private Classes
+
 * ntp::install: Handles the packages.
 * ntp::config: Handles the configuration file.
 * ntp::service: Handles the service.
 
 ###Parameters
 
-The following parameters are available in the ntp module
+The following parameters are available in the ntp module:
 
 ####`autoupdate`
 
-Deprecated: This parameter previously determined if the ntp module should be
-automatically updated to the latest version available.  Replaced by package\_
-ensure.
+**Deprecated:** This parameter determined whether the ntp module should be
+automatically updated to the latest version available.  Replaced by `package_ensure`.
 
 ####`config`
 
-This sets the file to write ntp configuration into.
+Sets the file that ntp configuration is written into.
 
 ####`config_template`
 
-This determines which template puppet should use for the ntp configuration.
+Determines which template Puppet should use for the ntp configuration.
 
 ####`driftfile`
 
-This sets the location of the driftfile for ntp.
+Sets the location of the drift file for ntp.
 
 ####`keys_controlkey`
 
-Which of the keys is used as the control key.
+The key to use as the control key.
 
 ####`keys_enable`
 
-Should the ntp keys functionality be enabled.
+Whether the ntp keys functionality is enabled.
 
 ####`keys_file`
 
@@ -138,56 +138,58 @@ Location of the keys file.
 
 ####`keys_requestkey`
 
-Which of the keys is used as the request key.
+Which of the keys is the request key.
+
+#### `keys_trusted`
+
+Array of trusted keys.
 
 ####`package_ensure`
 
-This can be set to 'present' or 'latest' or a specific version to choose the
-ntp package to be installed.
+Sets the ntp package to be installed. Can be set to 'present', 'latest', or a specific version. 
 
 ####`package_name`
 
-This determines the name of the package to install.
+Determines the name of the package to install.
 
 ####`panic`
 
-This determines if ntp should 'panic' in the event of a very large clock skew.
-We set this to false if you're on a virtual machine by default as they don't
-do a great job with keeping time.
+Determines if ntp should 'panic' in the event of a very large clock skew.
+This defaults to false for virtual machines, as they don't do a great job with keeping time.
 
 ####`preferred_servers`
 
-List of ntp servers to prefer.  Will append prefer for any server in this list
+List of ntp servers to prefer.  Will append 'prefer' for any server in this list
 that also appears in the servers list.
 
 ####`restrict`
 
-This sets the restrict options in the ntp configuration.  The lines are
-preappended with restrict so you just need to list the rest of the restriction.
+Sets the restrict options in the ntp configuration.  The lines are
+prefixed with 'restrict', so you just need to list the rest of the restriction.
 
 ####`servers`
 
-This selects the servers to use for ntp peers.
+Selects the servers to use for ntp peers.
 
 ####`service_enable`
 
-This determines if the service should be enabled at boot.
+Determines if the service should be enabled at boot.
 
 ####`service_ensure`
 
-This determines if the service should be running or not.
+Determines if the service should be running or not.
 
 ####`service_manage`
 
-This selects if puppet should manage the service in the first place.
+Selects whether Puppet should manage the service.
 
 ####`service_name`
 
-This selects the name of the ntp service for puppet to manage.
+Selects the name of the ntp service for Puppet to manage.
 
 ####`udlc`
 
-Enables configs for undisciplined local clock regardless of
+Enables configs for undisciplined local clock, regardless of
 status as a virtual machine. 
 
 
@@ -219,3 +221,7 @@ modules work in your environment. There are a few guidelines that we need
 contributors to follow so that we can have a chance of keeping on top of things.
 
 You can read the complete module contribution guide [on the Puppet Labs wiki.](http://projects.puppetlabs.com/projects/module-site/wiki/Module_contributing)
+
+###Contributors
+
+The list of contributors can be found at: [https://github.com/puppetlabs/puppetlabs-ntp/graphs/contributors](https://github.com/puppetlabs/puppetlabs-ntp/graphs/contributors)
