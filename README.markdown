@@ -157,6 +157,10 @@ Determines the name of the package to install.
 Determines if ntp should 'panic' in the event of a very large clock skew.
 This defaults to false for virtual machines, as they don't do a great job with keeping time.
 
+####`peers`
+
+List of servers to do a persistent symmetric-active mode association with.
+
 ####`preferred_servers`
 
 List of ntp servers to prefer.  Will append 'prefer' for any server in this list

@@ -7,6 +7,7 @@ class ntp::params {
   $keys_requestkey   = ''
   $keys_trusted      = []
   $package_ensure    = 'present'
+  $peers             = []
   $preferred_servers = []
   $restrict          = [
     'default kod nomodify notrap nopeer noquery',
