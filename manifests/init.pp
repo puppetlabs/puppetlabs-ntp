@@ -11,6 +11,7 @@ class ntp (
   $package_ensure    = $ntp::params::package_ensure,
   $package_name      = $ntp::params::package_name,
   $panic             = $ntp::params::panic,
+  $peers             = $ntp::params::peers,
   $preferred_servers = $ntp::params::preferred_servers,
   $restrict          = $ntp::params::restrict,
   $servers           = $ntp::params::servers,
