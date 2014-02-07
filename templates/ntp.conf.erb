@@ -29,6 +29,11 @@ restrict 127.127.1.0
 # Driftfile.
 driftfile <%= @driftfile %>
 
+<% unless @logfile.nil? %>
+# Logfile
+logfile = <%= @logfile %>
+<% end %>
+
 <% if @keys_enable -%>
 keys <%= @keys_file %>
 <% unless @keys_trusted.empty? -%>
