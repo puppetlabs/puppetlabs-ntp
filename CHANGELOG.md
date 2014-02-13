@@ -1,3 +1,8 @@
+## 2014-02-13 Release 3.0.2
+###Summary:
+
+No functional changes: Update the README and allow custom gem sources.
+
 ## 2013-12-17 Release 3.0.1
 ### Summary:
 
