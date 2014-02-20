@@ -6,6 +6,10 @@
 tinker panic 0
 <% end -%>
 
+<% if @disable_monitor == true -%>
+disable monitor
+<% end -%>
+
 <% if @restrict != [] -%>
 # Permit time synchronization with our time source, but do not'
 # permit the source to query or modify the service on this system.'
@@ -40,4 +44,5 @@ requestkey <%= @keys_requestkey %>
 <% if @keys_controlkey != '' -%>
 controlkey <%= @keys_controlkey %>
 <% end -%>
+
 <% end -%>
