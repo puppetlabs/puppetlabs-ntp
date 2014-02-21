@@ -66,10 +66,13 @@ describe "ntp class:" do
         keys_enable     => true,
         keys_file       => '/etc/ntp/keys',
         keys_controlkey => '/etc/ntp/controlkey',
-        keys_requestkey => '/etc/ntp/requestkey',
-        keys_trusted    => [ '/etc/ntp/key1', '/etc/ntp/key2' ],
+        keys_requestkey => '1',
+        keys_trusted    => [ '1', '2' ],
       }
       EOS
+      # Rely on a shell command instead of a file{} here to avoid loops
+      # within puppet when it tries to manage /etc/ntp/keys before /etc/ntp.
+      shell("mkdir -p /etc/ntp && echo '1 M AAAABBBB' >> /etc/ntp/keys")
       apply_manifest(pp, :catch_failures => true)
     end
 
@@ -77,8 +80,8 @@ describe "ntp class:" do
       it { should be_file }
       it { should contain 'keys /etc/ntp/keys' }
       it { should contain 'controlkey /etc/ntp/controlkey' }
-      it { should contain 'requestkey /etc/ntp/requestkey' }
-      it { should contain 'trustedkey /etc/ntp/key1 /etc/ntp/key2' }
+      it { should contain 'requestkey 1' }
+      it { should contain 'trustedkey 1 2' }
     end
   end
 
