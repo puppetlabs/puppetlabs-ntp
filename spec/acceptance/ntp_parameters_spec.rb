@@ -32,8 +32,9 @@ describe "ntp class:" do
 
   describe 'config_template' do
     it 'sets up template' do
-      shell('mkdir -p /etc/puppet/modules/test/templates')
-      shell('echo "testcontent" >> /etc/puppet/modules/test/templates/ntp.conf')
+      modulepath = default['distmoduledir']
+      shell("mkdir -p #{modulepath}/test/templates")
+      shell("echo 'testcontent' >> #{modulepath}/test/templates/ntp.conf")
     end
 
     it 'sets the ntp.conf location' do
