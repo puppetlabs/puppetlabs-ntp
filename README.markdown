@@ -120,6 +120,10 @@ Sets the file that ntp configuration is written into.
 
 Determines which template Puppet should use for the ntp configuration.
 
+####`disable_monitor`
+
+Disables monitoring of ntp.
+
 ####`driftfile`
 
 Sets the location of the drift file for ntp.
