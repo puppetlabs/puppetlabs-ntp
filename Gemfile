@@ -7,6 +7,7 @@ group :development, :test do
   gem 'serverspec',              :require => false
   gem 'beaker',                  :require => false
   gem 'beaker-rspec',            :require => false
+  gem 'specinfra', '>=0.7.0'
 end
 
 if puppetversion = ENV['PUPPET_GEM_VERSION']
