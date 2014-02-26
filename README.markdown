@@ -68,23 +68,12 @@ class { '::ntp':
 }
 ```
 
-###I'd like to opt out of having the service controlled; we use another tool for that.
-
-```puppet
-class { '::ntp':
-  servers        => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
-  restrict       => ['127.0.0.1'],
-  manage_service => false,
-}
-```
-
 ###Looks great!  But I'd like a different template; we need to do something unique here.
 
 ```puppet
 class { '::ntp':
   servers         => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
   restrict        => ['127.0.0.1'],
-  manage_service  => false,
   config_template => 'different/module/custom.template.erb',
 }
 ```
