@@ -18,6 +18,8 @@ when 'Linux'
   when 'Gentoo'
     line = '0.gentoo.pool.ntp.org'
   end
+when 'AIX'
+  line = '0.debian.pool.ntp.org iburst'
 end
 
 describe 'ntp::config class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do

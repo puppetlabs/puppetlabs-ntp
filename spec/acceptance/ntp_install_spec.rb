@@ -12,6 +12,8 @@ when 'Linux'
   when 'Gentoo'
     packagename = 'net-misc/ntp'
   end
+when 'AIX'
+  packagename = 'bos.net.tcp.client'
 else
   packagename = 'ntp'
 end
