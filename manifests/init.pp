@@ -2,6 +2,7 @@ class ntp (
   $autoupdate        = $ntp::params::autoupdate,
   $config            = $ntp::params::config,
   $config_template   = $ntp::params::config_template,
+  $disable_monitor   = $ntp::params::disable_monitor,
   $driftfile         = $ntp::params::driftfile,
   $keys_enable       = $ntp::params::keys_enable,
   $keys_file         = $ntp::params::keys_file,
@@ -23,6 +24,7 @@ class ntp (
 
   validate_absolute_path($config)
   validate_string($config_template)
+  validate_bool($disable_monitor)
   validate_absolute_path($driftfile)
   validate_bool($keys_enable)
   validate_re($keys_controlkey, ['^\d+$', ''])
