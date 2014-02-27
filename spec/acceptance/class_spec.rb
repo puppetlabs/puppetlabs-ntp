@@ -1,6 +1,6 @@
 require 'spec_helper_acceptance'
 
-describe "ntp class:" do
+describe 'ntp class:', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   it 'should run successfully' do
     pp = "class { 'ntp': }"
 
