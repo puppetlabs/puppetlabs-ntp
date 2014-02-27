@@ -1,6 +1,6 @@
 require 'spec_helper_acceptance'
 
-describe "ntp class with disable_monitor:" do
+describe "ntp class with disable_monitor:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   context 'should run successfully' do
     pp = "class { 'ntp': disable_monitor => true }"
 

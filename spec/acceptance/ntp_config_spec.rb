@@ -20,7 +20,7 @@ when 'Linux'
   end
 end
 
-describe 'ntp::config class' do
+describe 'ntp::config class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   it 'sets up ntp.conf' do
     apply_manifest(%{
       class { 'ntp': }
