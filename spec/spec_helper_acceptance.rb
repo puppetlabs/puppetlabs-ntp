@@ -1,6 +1,6 @@
 require 'beaker-rspec'
 
-UNSUPPORTED_PLATFORMS = [ 'Windows', 'Solaris' ]
+UNSUPPORTED_PLATFORMS = [ 'windows', 'Solaris' ]
 
 unless ENV['RS_PROVISION'] == 'no'
   hosts.each do |host|
