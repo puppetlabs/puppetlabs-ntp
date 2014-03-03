@@ -1,9 +1,10 @@
-##2014-03-04 - Supported Release 3.0.x
+##2014-03-04 - Supported Release 3.0.3
 ###Summary
-
-####Features
+This is a supported release. Correct stdlib compatibility
 
 ####Bugfixes
+- Remove `dirname()` call for correct stdlib compatibility.
+- Improved tests
 
 ####Known Bugs
 * No known bugs
