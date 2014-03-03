@@ -80,5 +80,5 @@
       "name": "puppetlabs/stdlib",
       "version_requirement": ">= 0.1.6"
     }
-  ],
+  ]
 }
