@@ -23,20 +23,21 @@ class ntp::params {
 
   case $::osfamily {
     'AIX': {
-      $config = '/etc/ntp.conf'
-      $keys_file = '/etc/ntp.keys'
-      $driftfile = '/etc/ntp.drift'
-      $package_name = [ 'bos.net.tcp.client' ]
+      $config        = '/etc/ntp.conf'
+      $keysfile      = '/etc/ntp.keys'
+      $driftfile     = '/etc/ntp.drift'
+      $package_name  = [ 'bos.net.tcp.client' ]
       $restrict          = [
         'default nomodify notrap nopeer noquery',
         '127.0.0.1',
       ]
-      $service_name = 'xntpd'
-      $servers = [
-        '0.debian.pool.ntp.org iburst',
-        '1.debian.pool.ntp.org iburst',
-        '2.debian.pool.ntp.org iburst',
-        '3.debian.pool.ntp.org iburst',
+      $service_name  = 'xntpd'
+      $iburst_enable = true
+      $servers       = [
+        '0.debian.pool.ntp.org',
+        '1.debian.pool.ntp.org',
+        '2.debian.pool.ntp.org',
+        '3.debian.pool.ntp.org',
       ]
     }
     'Debian': {
@@ -51,11 +52,12 @@ class ntp::params {
         '-6 ::1',
       ]
       $service_name    = 'ntp'
+      $iburst_enable   = true
       $servers         = [
-        '0.debian.pool.ntp.org iburst',
-        '1.debian.pool.ntp.org iburst',
-        '2.debian.pool.ntp.org iburst',
-        '3.debian.pool.ntp.org iburst',
+        '0.debian.pool.ntp.org',
+        '1.debian.pool.ntp.org',
+        '2.debian.pool.ntp.org',
+        '3.debian.pool.ntp.org',
       ]
     }
     'RedHat': {
@@ -70,6 +72,7 @@ class ntp::params {
         '-6 ::1',
       ]
       $service_name    = 'ntpd'
+      $iburst_enable   = false
       $servers         = [
         '0.centos.pool.ntp.org',
         '1.centos.pool.ntp.org',
@@ -88,6 +91,7 @@ class ntp::params {
         '-6 ::1',
       ]
       $service_name    = 'ntp'
+      $iburst_enable   = false
       $servers         = [
         '0.opensuse.pool.ntp.org',
         '1.opensuse.pool.ntp.org',
@@ -107,11 +111,12 @@ class ntp::params {
         '-6 ::1',
       ]
       $service_name    = 'ntpd'
+      $iburst_enable   = true
       $servers         = [
-        '0.freebsd.pool.ntp.org iburst maxpoll 9',
-        '1.freebsd.pool.ntp.org iburst maxpoll 9',
-        '2.freebsd.pool.ntp.org iburst maxpoll 9',
-        '3.freebsd.pool.ntp.org iburst maxpoll 9',
+        '0.freebsd.pool.ntp.org maxpoll 9',
+        '1.freebsd.pool.ntp.org maxpoll 9',
+        '2.freebsd.pool.ntp.org maxpoll 9',
+        '3.freebsd.pool.ntp.org maxpoll 9',
       ]
     }
     'Archlinux': {
@@ -126,6 +131,7 @@ class ntp::params {
         '-6 ::1',
       ]
       $service_name    = 'ntpd'
+      $iburst_enable   = false
       $servers         = [
         '0.pool.ntp.org',
         '1.pool.ntp.org',
@@ -167,6 +173,7 @@ class ntp::params {
         '-6 ::1',
       ]
       $service_name    = 'ntpd'
+      $iburst_enable   = false
       $servers         = [
         '0.gentoo.pool.ntp.org',
         '1.gentoo.pool.ntp.org',
@@ -190,6 +197,7 @@ class ntp::params {
             '-6 ::1',
           ]
           $service_name    = 'ntpd'
+          $iburst_enable   = false
           $servers         = [
             '0.gentoo.pool.ntp.org',
             '1.gentoo.pool.ntp.org',

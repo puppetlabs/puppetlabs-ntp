@@ -175,6 +175,32 @@ describe 'ntp' do
           end
         end
       end
+
+      describe 'with parameter iburst_enable' do
+        context 'when set to true' do
+          let(:params) {{
+            :iburst_enable => true,
+          }}
+
+          it do
+            should contain_file('/etc/ntp.conf').with({
+            'content' => /iburst\n/,
+            })
+          end
+        end
+
+        context 'when set to false' do
+          let(:params) {{
+            :iburst_enable => false,
+          }}
+
+          it do
+            should_not contain_file('/etc/ntp.conf').with({
+              'content' => /iburst\n/,
+            })
+          end
+        end
+      end
     end
 
     context 'ntp::config' do
@@ -204,7 +230,7 @@ describe 'ntp' do
 
         it 'uses the debian ntp servers by default' do
           should contain_file('/etc/ntp.conf').with({
-            'content' => /server \d.debian.pool.ntp.org iburst/,
+            'content' => /server \d.debian.pool.ntp.org iburst\n/,
           })
         end
       end
@@ -234,7 +260,7 @@ describe 'ntp' do
 
         it 'uses the freebsd ntp servers by default' do
           should contain_file('/etc/ntp.conf').with({
-            'content' => /server \d.freebsd.pool.ntp.org iburst maxpoll 9/,
+            'content' => /server \d.freebsd.pool.ntp.org maxpoll 9 iburst/,
           })
         end
       end
