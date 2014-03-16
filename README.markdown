@@ -193,8 +193,7 @@ Selects the name of the ntp service for Puppet to manage.
 
 ####`udlc`
 
-Enables configs for undisciplined local clock, regardless of
-status as a virtual machine. 
+Enables configs for undisciplined local clock.
 
 
 ##Limitations

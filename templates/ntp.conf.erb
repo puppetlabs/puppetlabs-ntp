@@ -22,7 +22,7 @@ restrict <%= restrict %>
 server <%= server %><% if @preferred_servers.include?(server) -%> prefer<% end %>
 <% end -%>
 
-<% if scope.lookupvar('::is_virtual') == "false" or @udlc -%>
+<% if @udlc -%>
 # Undisciplined Local Clock. This is a fake driver intended for backup
 # and when no outside source of synchronized time is available. 
 server	127.127.1.0 
