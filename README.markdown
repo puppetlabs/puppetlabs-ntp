@@ -259,7 +259,7 @@ Tells Puppet what NTP service to manage. Valid options: string. Default value: v
 
 ####`udlc`
 
-Specifies whether to configure ntp to use the undisciplined local clock as a time source, regardless of the node's status as a virtual machine. Valid options: 'true' or 'false'. Default value: 'false' for VMs and 'true' otherwise.
+Specifies whether to configure ntp to use the undisciplined local clock as a time source. Valid options: 'true' or 'false'. Default value: 'false'
 
 ##Limitations
 
