@@ -8,12 +8,6 @@ class ntp::params {
   $keys_trusted      = []
   $package_ensure    = 'present'
   $preferred_servers = []
-  $restrict          = [
-    'default kod nomodify notrap nopeer noquery',
-    '-6 default kod nomodify notrap nopeer noquery',
-    '127.0.0.1',
-    '-6 ::1',
-  ]
   $service_enable    = true
   $service_ensure    = 'running'
   $service_manage    = true
@@ -31,6 +25,10 @@ class ntp::params {
       $keysfile = '/etc/ntp.keys'
       $driftfile = '/etc/ntp.drift'
       $package_name = [ 'bos.net.tcp.client' ]
+      $restrict          = [
+        'default nomodify notrap nopeer noquery',
+        '127.0.0.1',
+      ]
       $service_name = 'xntpd'
       $servers = [
         '0.debian.pool.ntp.org iburst',
@@ -44,6 +42,12 @@ class ntp::params {
       $keys_file       = '/etc/ntp/keys'
       $driftfile       = '/var/lib/ntp/drift'
       $package_name    = [ 'ntp' ]
+      $restrict          = [
+        'default kod nomodify notrap nopeer noquery',
+        '-6 default kod nomodify notrap nopeer noquery',
+        '127.0.0.1',
+        '-6 ::1',
+      ]
       $service_name    = 'ntp'
       $servers         = [
         '0.debian.pool.ntp.org iburst',
@@ -57,6 +61,12 @@ class ntp::params {
       $driftfile       = '/var/lib/ntp/drift'
       $keys_file       = '/etc/ntp/keys'
       $package_name    = [ 'ntp' ]
+      $restrict          = [
+        'default kod nomodify notrap nopeer noquery',
+        '-6 default kod nomodify notrap nopeer noquery',
+        '127.0.0.1',
+        '-6 ::1',
+      ]
       $service_name    = 'ntpd'
       $servers         = [
         '0.centos.pool.ntp.org',
@@ -69,6 +79,12 @@ class ntp::params {
       $driftfile       = '/var/lib/ntp/drift/ntp.drift'
       $keys_file       = '/etc/ntp/keys'
       $package_name    = [ 'ntp' ]
+      $restrict          = [
+        'default kod nomodify notrap nopeer noquery',
+        '-6 default kod nomodify notrap nopeer noquery',
+        '127.0.0.1',
+        '-6 ::1',
+      ]
       $service_name    = 'ntp'
       $servers         = [
         '0.opensuse.pool.ntp.org',
@@ -82,6 +98,12 @@ class ntp::params {
       $driftfile       = '/var/db/ntpd.drift'
       $keys_file       = '/etc/ntp/keys'
       $package_name    = ['net/ntp']
+      $restrict          = [
+        'default kod nomodify notrap nopeer noquery',
+        '-6 default kod nomodify notrap nopeer noquery',
+        '127.0.0.1',
+        '-6 ::1',
+      ]
       $service_name    = 'ntpd'
       $servers         = [
         '0.freebsd.pool.ntp.org iburst maxpoll 9',
@@ -95,6 +117,12 @@ class ntp::params {
       $driftfile       = '/var/lib/ntp/drift'
       $keys_file       = '/etc/ntp/keys'
       $package_name    = [ 'ntp' ]
+      $restrict          = [
+        'default kod nomodify notrap nopeer noquery',
+        '-6 default kod nomodify notrap nopeer noquery',
+        '127.0.0.1',
+        '-6 ::1',
+      ]
       $service_name    = 'ntpd'
       $servers         = [
         '0.pool.ntp.org',
@@ -108,6 +136,12 @@ class ntp::params {
       $driftfile       = '/var/lib/ntp/drift'
       $keys_file       = '/etc/ntp/keys'
       $package_name    = ['net-misc/ntp']
+      $restrict          = [
+        'default kod nomodify notrap nopeer noquery',
+        '-6 default kod nomodify notrap nopeer noquery',
+        '127.0.0.1',
+        '-6 ::1',
+      ]
       $service_name    = 'ntpd'
       $servers         = [
         '0.gentoo.pool.ntp.org',
@@ -125,6 +159,12 @@ class ntp::params {
           $driftfile       = '/var/lib/ntp/drift'
           $keys_file       = '/etc/ntp/keys'
           $package_name    = ['net-misc/ntp']
+          $restrict          = [
+            'default kod nomodify notrap nopeer noquery',
+            '-6 default kod nomodify notrap nopeer noquery',
+            '127.0.0.1',
+            '-6 ::1',
+          ]
           $service_name    = 'ntpd'
           $servers         = [
             '0.gentoo.pool.ntp.org',
