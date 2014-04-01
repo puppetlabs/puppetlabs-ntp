@@ -128,6 +128,10 @@ Disables monitoring of ntp.
 
 Sets the location of the drift file for ntp.
 
+####`iburst_enable`
+
+Set the iburst option in the ntp configuration. If enabled the option is set for every ntp peer.
+
 ####`keys_controlkey`
 
 The key to use as the control key.
