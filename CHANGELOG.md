@@ -1,3 +1,21 @@
+##2014-04-09 - Supported Release 3.0.4
+###Summary
+This is a supported release.
+
+The only functional change in this release is to split up the restrict
+defaults to be per operating system so that we can provide safer defaults
+for AIX, to resolve cases where IPv6 are disabled.
+
+####Features
+- Rework restrict defaults.
+
+####Bugfixes
+- Fix up a comment.
+- Fix a test to work better on PE.
+
+#####Known Bugs
+* No known bugs
+
 ##2014-03-04 - Supported Release 3.0.3
 ###Summary
 This is a supported release. Correct stdlib compatibility
