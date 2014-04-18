@@ -9,9 +9,9 @@ describe 'ntp' do
       let(:facts) {{ :osfamily => system }}
     end
 
-    it { should include_class('ntp::install') }
-    it { should include_class('ntp::config') }
-    it { should include_class('ntp::service') }
+    it { should contain_class('ntp::install') }
+    it { should contain_class('ntp::config') }
+    it { should contain_class('ntp::service') }
 
     describe "ntp::config on #{system}" do
       it { should contain_file('/etc/ntp.conf').with_owner('0') }
