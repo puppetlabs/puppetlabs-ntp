@@ -23,7 +23,7 @@ class ntp::params {
   case $::osfamily {
     'AIX': {
       $config = '/etc/ntp.conf'
-      $keysfile = '/etc/ntp.keys'
+      $keys_file = '/etc/ntp.keys'
       $driftfile = '/etc/ntp.drift'
       $package_name = [ 'bos.net.tcp.client' ]
       $restrict          = [
