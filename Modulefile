@@ -8,4 +8,4 @@ description 'NTP Module for Debian, Ubuntu, CentOS, RHEL, OEL, Fedora, FreeBSD, 
 project_page 'http://github.com/puppetlabs/puppetlabs-ntp'
 
 ## Add dependencies, if any:
-dependency 'puppetlabs/stdlib', '>= 0.1.6'
+dependency 'puppetlabs/stdlib', '>= 4.0.0'
