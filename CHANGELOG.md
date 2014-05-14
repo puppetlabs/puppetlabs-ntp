@@ -1,3 +1,19 @@
+##2014-05-14 - Supported Release 3.1.0
+###Summary
+This is a supported release.
+
+This release adds `disable_monitor` so you can disable the monitor functionality
+of NTP, which was recently used in NTP amplification attacks.  It also adds
+support for RHEL7 and Ubuntu 14.04.
+
+####Features
+- Add `disable_monitor`
+
+####Bugfixes
+
+#####Known Bugs
+* No known bugs
+
 ##2014-04-09 - Supported Release 3.0.4
 ###Summary
 This is a supported release.
