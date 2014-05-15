@@ -174,6 +174,25 @@ class ntp::params {
             '3.gentoo.pool.ntp.org',
           ]
         }
+        'RedHat': {
+          $config          = '/etc/ntp.conf'
+          $driftfile       = '/var/lib/ntp/drift'
+          $keys_file       = '/etc/ntp/keys'
+          $package_name    = [ 'ntp' ]
+          $restrict          = [
+            'default kod nomodify notrap nopeer noquery',
+            '-6 default kod nomodify notrap nopeer noquery',
+            '127.0.0.1',
+            '-6 ::1',
+          ]
+          $service_name    = 'ntpd'
+          $servers         = [
+            '0.amazon.pool.ntp.org',
+            '1.amazon.pool.ntp.org',
+            '2.amazon.pool.ntp.org',
+            '3.amazon.pool.ntp.org',
+          ]
+        }
         default: {
           fail("The ${module_name} module is not supported on an ${::operatingsystem} distribution.")
         }
