@@ -174,7 +174,7 @@ class ntp::params {
             '3.gentoo.pool.ntp.org',
           ]
         }
-        'RedHat': {
+        'Amazon': {
           $config          = '/etc/ntp.conf'
           $driftfile       = '/var/lib/ntp/drift'
           $keys_file       = '/etc/ntp/keys'
