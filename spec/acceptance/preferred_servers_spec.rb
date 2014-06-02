@@ -10,7 +10,7 @@ describe 'preferred servers', :unless => UNSUPPORTED_PLATFORMS.include?(fact('os
 
   it 'applies cleanly' do
     apply_manifest(pp, :catch_failures => true) do |r|
-      expect(r.stderr).to eq("")
+      expect(r.stderr).not_to match(/error/i)
     end
   end
 
