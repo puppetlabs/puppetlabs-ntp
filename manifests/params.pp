@@ -20,9 +20,14 @@ class ntp::params {
     default => true,
   }
 
+  $default_config       = '/etc/ntp.conf'
+  $default_keys_file    = '/etc/ntp/keys'
+  $default_driftfile    = '/var/lib/ntp/drift'
+  $default_package_name = ['ntp']
+  $default_service_name = 'ntpd'
+
   case $::osfamily {
     'AIX': {
-      $config = '/etc/ntp.conf'
       $keys_file = '/etc/ntp.keys'
       $driftfile = '/etc/ntp.drift'
       $package_name = [ 'bos.net.tcp.client' ]
@@ -39,10 +44,6 @@ class ntp::params {
       ]
     }
     'Debian': {
-      $config          = '/etc/ntp.conf'
-      $keys_file       = '/etc/ntp/keys'
-      $driftfile       = '/var/lib/ntp/drift'
-      $package_name    = [ 'ntp' ]
       $restrict          = [
         'default kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
@@ -58,17 +59,12 @@ class ntp::params {
       ]
     }
     'RedHat': {
-      $config          = '/etc/ntp.conf'
-      $driftfile       = '/var/lib/ntp/drift'
-      $keys_file       = '/etc/ntp/keys'
-      $package_name    = [ 'ntp' ]
       $restrict          = [
         'default kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
         '127.0.0.1',
         '-6 ::1',
       ]
-      $service_name    = 'ntpd'
       $servers         = [
         '0.centos.pool.ntp.org',
         '1.centos.pool.ntp.org',
@@ -76,10 +72,7 @@ class ntp::params {
       ]
     }
     'SuSE': {
-      $config          = '/etc/ntp.conf'
       $driftfile       = '/var/lib/ntp/drift/ntp.drift'
-      $keys_file       = '/etc/ntp/keys'
-      $package_name    = [ 'ntp' ]
       $restrict          = [
         'default kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
@@ -95,9 +88,7 @@ class ntp::params {
       ]
     }
     'FreeBSD': {
-      $config          = '/etc/ntp.conf'
       $driftfile       = '/var/db/ntpd.drift'
-      $keys_file       = '/etc/ntp/keys'
       $package_name    = ['net/ntp']
       $restrict          = [
         'default kod nomodify notrap nopeer noquery',
@@ -105,7 +96,6 @@ class ntp::params {
         '127.0.0.1',
         '-6 ::1',
       ]
-      $service_name    = 'ntpd'
       $servers         = [
         '0.freebsd.pool.ntp.org iburst maxpoll 9',
         '1.freebsd.pool.ntp.org iburst maxpoll 9',
@@ -114,17 +104,12 @@ class ntp::params {
       ]
     }
     'Archlinux': {
-      $config          = '/etc/ntp.conf'
-      $driftfile       = '/var/lib/ntp/drift'
-      $keys_file       = '/etc/ntp/keys'
-      $package_name    = [ 'ntp' ]
       $restrict          = [
         'default kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
         '127.0.0.1',
         '-6 ::1',
       ]
-      $service_name    = 'ntpd'
       $servers         = [
         '0.pool.ntp.org',
         '1.pool.ntp.org',
@@ -133,9 +118,6 @@ class ntp::params {
     }
     # Gentoo was added as its own $::osfamily in Facter 1.7.0
     'Gentoo': {
-      $config          = '/etc/ntp.conf'
-      $driftfile       = '/var/lib/ntp/drift'
-      $keys_file       = '/etc/ntp/keys'
       $package_name    = ['net-misc/ntp']
       $restrict          = [
         'default kod nomodify notrap nopeer noquery',
@@ -143,7 +125,6 @@ class ntp::params {
         '127.0.0.1',
         '-6 ::1',
       ]
-      $service_name    = 'ntpd'
       $servers         = [
         '0.gentoo.pool.ntp.org',
         '1.gentoo.pool.ntp.org',
@@ -156,9 +137,6 @@ class ntp::params {
       # Before Facter 1.7.0 Gentoo did not have its own $::osfamily
       case $::operatingsystem {
         'Gentoo': {
-          $config          = '/etc/ntp.conf'
-          $driftfile       = '/var/lib/ntp/drift'
-          $keys_file       = '/etc/ntp/keys'
           $package_name    = ['net-misc/ntp']
           $restrict          = [
             'default kod nomodify notrap nopeer noquery',
@@ -166,7 +144,6 @@ class ntp::params {
             '127.0.0.1',
             '-6 ::1',
           ]
-          $service_name    = 'ntpd'
           $servers         = [
             '0.gentoo.pool.ntp.org',
             '1.gentoo.pool.ntp.org',
@@ -183,4 +160,23 @@ class ntp::params {
       fail("The ${module_name} module is not supported on an ${::osfamily} based system.")
     }
   }
+  if $config == undef {
+    $config = $default_config
+  }
+  if $keys_file == undef {
+    $keys_file = $default_keys_file
+  }
+  if $drfitfile == undef {
+  $driftfile = $default_driftfile
+  }
+  if $package_name == undef {
+    $package_name = $default_package_name
+  }
+  if $service_name == undef {
+    $service_name = $default_service_name
+  }
+
+
+
+
 }
