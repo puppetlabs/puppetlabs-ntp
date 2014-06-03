@@ -4,6 +4,7 @@ class ntp (
   $config_template   = $ntp::params::config_template,
   $disable_monitor   = $ntp::params::disable_monitor,
   $driftfile         = $ntp::params::driftfile,
+  $logfile           = $ntp::params::logfile,
   $keys_enable       = $ntp::params::keys_enable,
   $keys_file         = $ntp::params::keys_file,
   $keys_controlkey   = $ntp::params::keys_controlkey,
@@ -26,6 +27,7 @@ class ntp (
   validate_string($config_template)
   validate_bool($disable_monitor)
   validate_absolute_path($driftfile)
+  if $logfile { validate_absolute_path($logfile) }
   validate_bool($keys_enable)
   validate_re($keys_controlkey, ['^\d+$', ''])
   validate_re($keys_requestkey, ['^\d+$', ''])

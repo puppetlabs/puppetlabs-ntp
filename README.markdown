@@ -74,7 +74,7 @@ class { '::ntp':
 class { '::ntp':
   servers        => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
   restrict       => ['127.0.0.1'],
-  manage_service => false,
+  service_manage => false,
 }
 ```
 
@@ -84,7 +84,7 @@ class { '::ntp':
 class { '::ntp':
   servers         => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
   restrict        => ['127.0.0.1'],
-  manage_service  => false,
+  service_manage  => false,
   config_template => 'different/module/custom.template.erb',
 }
 ```
