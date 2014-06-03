@@ -8,7 +8,6 @@ describe "ntp class with restrict:", :unless => UNSUPPORTED_PLATFORMS.include?(f
       2.times do
         apply_manifest(pp, :catch_failures => true) do |r|
           expect(r.stderr).not_to match(/error/i)
-          expect(r.exit_code).to be_zero
         end
       end
     end
