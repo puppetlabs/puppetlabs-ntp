@@ -25,92 +25,66 @@ class ntp::params {
   $default_driftfile    = '/var/lib/ntp/drift'
   $default_package_name = ['ntp']
   $default_service_name = 'ntpd'
+  $default_restrict     = [ 'default kod nomodify notrap nopeer noquery',
+                            '-6 default kod nomodify notrap nopeer noquery',
+                            '127.0.0.1',
+                            '-6 ::1' ]
 
   case $::osfamily {
     'AIX': {
-      $keys_file = '/etc/ntp.keys'
-      $driftfile = '/etc/ntp.drift'
-      $package_name = [ 'bos.net.tcp.client' ]
-      $restrict          = [
+      $os_keys_file = '/etc/ntp.keys'
+      $os_driftfile = '/etc/ntp.drift'
+      $os_package_name = [ 'bos.net.tcp.client' ]
+      $os_restrict          = [
         'default nomodify notrap nopeer noquery',
-        '127.0.0.1',
+        '127.0.0.1'
       ]
-      $service_name = 'xntpd'
-      $servers = [
+      $os_service_name = 'xntpd'
+      $os_servers = [
         '0.debian.pool.ntp.org iburst',
         '1.debian.pool.ntp.org iburst',
         '2.debian.pool.ntp.org iburst',
-        '3.debian.pool.ntp.org iburst',
+        '3.debian.pool.ntp.org iburst'
       ]
     }
     'Debian': {
-      $restrict          = [
-        'default kod nomodify notrap nopeer noquery',
-        '-6 default kod nomodify notrap nopeer noquery',
-        '127.0.0.1',
-        '-6 ::1',
-      ]
-      $service_name    = 'ntp'
-      $servers         = [
+      $os_service_name    = 'ntp'
+      $os_servers         = [
         '0.debian.pool.ntp.org iburst',
         '1.debian.pool.ntp.org iburst',
         '2.debian.pool.ntp.org iburst',
-        '3.debian.pool.ntp.org iburst',
+        '3.debian.pool.ntp.org iburst'
       ]
     }
     'RedHat': {
-      $restrict          = [
-        'default kod nomodify notrap nopeer noquery',
-        '-6 default kod nomodify notrap nopeer noquery',
-        '127.0.0.1',
-        '-6 ::1',
-      ]
-      $servers         = [
+      $os_servers         = [
         '0.centos.pool.ntp.org',
         '1.centos.pool.ntp.org',
-        '2.centos.pool.ntp.org',
+        '2.centos.pool.ntp.org'
       ]
     }
     'SuSE': {
-      $driftfile       = '/var/lib/ntp/drift/ntp.drift'
-      $restrict          = [
-        'default kod nomodify notrap nopeer noquery',
-        '-6 default kod nomodify notrap nopeer noquery',
-        '127.0.0.1',
-        '-6 ::1',
-      ]
-      $service_name    = 'ntp'
-      $servers         = [
+      $os_driftfile       = '/var/lib/ntp/drift/ntp.drift'
+      $os_service_name    = 'ntp'
+      $os_servers         = [
         '0.opensuse.pool.ntp.org',
         '1.opensuse.pool.ntp.org',
         '2.opensuse.pool.ntp.org',
-        '3.opensuse.pool.ntp.org',
+        '3.opensuse.pool.ntp.org'
       ]
     }
     'FreeBSD': {
-      $driftfile       = '/var/db/ntpd.drift'
-      $package_name    = ['net/ntp']
-      $restrict          = [
-        'default kod nomodify notrap nopeer noquery',
-        '-6 default kod nomodify notrap nopeer noquery',
-        '127.0.0.1',
-        '-6 ::1',
-      ]
-      $servers         = [
+      $os_driftfile       = '/var/db/ntpd.drift'
+      $os_package_name    = ['net/ntp']
+      $os_servers         = [
         '0.freebsd.pool.ntp.org iburst maxpoll 9',
         '1.freebsd.pool.ntp.org iburst maxpoll 9',
         '2.freebsd.pool.ntp.org iburst maxpoll 9',
-        '3.freebsd.pool.ntp.org iburst maxpoll 9',
+        '3.freebsd.pool.ntp.org iburst maxpoll 9'
       ]
     }
     'Archlinux': {
-      $restrict          = [
-        'default kod nomodify notrap nopeer noquery',
-        '-6 default kod nomodify notrap nopeer noquery',
-        '127.0.0.1',
-        '-6 ::1',
-      ]
-      $servers         = [
+      $os_servers         = [
         '0.pool.ntp.org',
         '1.pool.ntp.org',
         '2.pool.ntp.org',
@@ -118,18 +92,12 @@ class ntp::params {
     }
     # Gentoo was added as its own $::osfamily in Facter 1.7.0
     'Gentoo': {
-      $package_name    = ['net-misc/ntp']
-      $restrict          = [
-        'default kod nomodify notrap nopeer noquery',
-        '-6 default kod nomodify notrap nopeer noquery',
-        '127.0.0.1',
-        '-6 ::1',
-      ]
-      $servers         = [
+      $os_package_name    = ['net-misc/ntp']
+      $os_servers         = [
         '0.gentoo.pool.ntp.org',
         '1.gentoo.pool.ntp.org',
         '2.gentoo.pool.ntp.org',
-        '3.gentoo.pool.ntp.org',
+        '3.gentoo.pool.ntp.org'
       ]
     }
     'Linux': {
@@ -137,14 +105,14 @@ class ntp::params {
       # Before Facter 1.7.0 Gentoo did not have its own $::osfamily
       case $::operatingsystem {
         'Gentoo': {
-          $package_name    = ['net-misc/ntp']
-          $restrict          = [
+          $os_package_name    = ['net-misc/ntp']
+          $os_restrict          = [
             'default kod nomodify notrap nopeer noquery',
             '-6 default kod nomodify notrap nopeer noquery',
             '127.0.0.1',
             '-6 ::1',
           ]
-          $servers         = [
+          $os_servers         = [
             '0.gentoo.pool.ntp.org',
             '1.gentoo.pool.ntp.org',
             '2.gentoo.pool.ntp.org',
@@ -160,23 +128,12 @@ class ntp::params {
       fail("The ${module_name} module is not supported on an ${::osfamily} based system.")
     }
   }
-  if $config == undef {
-    $config = $default_config
-  }
-  if $keys_file == undef {
-    $keys_file = $default_keys_file
-  }
-  if $drfitfile == undef {
-  $driftfile = $default_driftfile
-  }
-  if $package_name == undef {
-    $package_name = $default_package_name
-  }
-  if $service_name == undef {
-    $service_name = $default_service_name
-  }
 
-
-
-
+  $config       = pick($os_config, $default_config)
+  $keys_file    = pick($os_keys_file, $default_keys_file)
+  $driftfile    = pick($os_driftfile, $default_driftfile)
+  $package_name = pick($os_package_name, $default_package_name)
+  $service_name = pick($os_service_name, $default_service_name)
+  $restrict     = pick($os_restrict, $default_restrict)
+  $servers      = pick($os_servers, [''])
 }
