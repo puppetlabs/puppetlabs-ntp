@@ -1,6 +1,5 @@
-##2014-05-14 - Supported Release 3.1.0
+##2014-05-14 - Release 3.1.0
 ###Summary
-This is a supported release.
 
 This release adds `disable_monitor` so you can disable the monitor functionality
 of NTP, which was recently used in NTP amplification attacks.  It also adds
