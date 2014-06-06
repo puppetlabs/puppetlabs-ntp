@@ -1,3 +1,13 @@
+##2014-06-06 - Release 3.1.1
+###Summary
+
+This is a bugfix release to get around dependency issues in PMT 3.6.  This
+version has a dependency on puppetlabs-stdlib >= 4 so PE3.2.x is no longer
+supported.
+
+####Bugfixes
+- Remove deprecated Modulefile as it was causing duplicate dependencies with PMT.
+
 ##2014-05-14 - Release 3.1.0
 ###Summary
 
