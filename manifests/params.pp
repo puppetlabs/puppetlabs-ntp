@@ -166,8 +166,8 @@ class ntp::params {
   if $keys_file == undef {
     $keys_file = $default_keys_file
   }
-  if $drfitfile == undef {
-  $driftfile = $default_driftfile
+  if $driftfile == undef {
+    $driftfile = $default_driftfile
   }
   if $package_name == undef {
     $package_name = $default_package_name
