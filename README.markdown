@@ -68,6 +68,17 @@ class { '::ntp':
 }
 ```
 
+###I only want to listen on specific interfaces, not on 0.0.0.0
+
+Restricting this is especially useful on Openstack nodes which may have numerous virtual interfaces.
+
+```puppet
+class { '::ntp':
+  servers  => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
+  interfaces => ['127.0.0.1', '1.2.3.4']
+}
+```
+
 ###I'd like to opt out of having the service controlled; we use another tool for that.
 
 ```puppet
