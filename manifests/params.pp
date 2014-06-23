@@ -3,6 +3,7 @@ class ntp::params {
   $autoupdate        = false
   $config_template   = 'ntp/ntp.conf.erb'
   $disable_monitor   = false
+  $logfile           = undef
   $keys_enable       = false
   $keys_controlkey   = ''
   $keys_requestkey   = ''
