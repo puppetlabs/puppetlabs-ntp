@@ -14,6 +14,8 @@ when 'Linux'
   end
 when 'AIX'
   packagename = 'bos.net.tcp.client'
+when 'Solaris'
+  packagename = 'SUNWntpr'
 else
   packagename = 'ntp'
 end
@@ -107,9 +109,8 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
   describe 'package' do
     it 'installs the right package' do
       pp = <<-EOS
-      class { 'ntp':
+      class { ['#{packagename}']:
         package_ensure => present,
-        package_name   => ['#{packagename}'],
       }
       EOS
       apply_manifest(pp, :catch_failures => true)
