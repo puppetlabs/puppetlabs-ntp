@@ -14,6 +14,8 @@ when 'Linux'
   end
 when 'AIX'
   packagename = 'bos.net.tcp.client'
+when 'Solaris'
+  packagename = 'SUNWntpr'
 else
   packagename = 'ntp'
 end
