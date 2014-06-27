@@ -95,6 +95,27 @@ describe 'ntp' do
           }
         end
       end
+      describe 'specified interfaces' do
+        context "when set" do
+          let(:params) {{
+            :servers           => ['a', 'b', 'c', 'd'],
+            :interfaces        => ['127.0.0.1', 'a.b.c.d']
+          }}
+
+          it { should contain_file('/etc/ntp.conf').with({
+            'content' => /interface ignore wildcard\ninterface listen 127.0.0.1\ninterface listen a.b.c.d/})
+          }
+        end
+        context "when not set" do
+          let(:params) {{
+            :servers           => ['a', 'b', 'c', 'd'],
+          }}
+
+          it { should_not contain_file('/etc/ntp.conf').with({
+            'content' => /interface ignore wildcard/})
+          }
+        end
+      end
 
       describe "ntp::install on #{system}" do
         let(:params) {{ :package_ensure => 'present', :package_name => ['ntp'], }}

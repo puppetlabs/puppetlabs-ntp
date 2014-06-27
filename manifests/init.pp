@@ -15,6 +15,7 @@ class ntp (
   $panic             = $ntp::params::panic,
   $preferred_servers = $ntp::params::preferred_servers,
   $restrict          = $ntp::params::restrict,
+  $interfaces        = $ntp::params::interfaces,
   $servers           = $ntp::params::servers,
   $service_enable    = $ntp::params::service_enable,
   $service_ensure    = $ntp::params::service_ensure,
@@ -37,6 +38,7 @@ class ntp (
   validate_bool($panic)
   validate_array($preferred_servers)
   validate_array($restrict)
+  validate_array($interfaces)
   validate_array($servers)
   validate_bool($service_enable)
   validate_string($service_ensure)

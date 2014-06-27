@@ -18,6 +18,15 @@ restrict <%= restrict %>
 <% end %>
 <% end -%>
 
+<% if @interfaces != [] -%>
+# Ignore wildcard interface and only listen on the following specified
+# interfaces
+interface ignore wildcard
+<% @interfaces.flatten.each do |interface| -%>
+interface listen <%= interface %>
+<% end %>
+<% end -%>
+
 <% [@servers].flatten.each do |server| -%>
 server <%= server %><% if @preferred_servers.include?(server) -%> prefer<% end %>
 <% end -%>
