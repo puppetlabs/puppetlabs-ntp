@@ -1,8 +1,10 @@
 #
 class ntp::install inherits ntp {
 
-  package { $package_name:
-    ensure => $package_ensure,
+  if $package_manage == true {
+    package { 'ntp':
+      ensure => $package_ensure,
+      name   => $package_name,
+    }
   }
-
 }

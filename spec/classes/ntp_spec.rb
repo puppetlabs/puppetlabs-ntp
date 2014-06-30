@@ -198,6 +198,26 @@ describe 'ntp' do
               })
             end
           end
+        describe 'should allow the package name to be overridden' do
+          let(:params) {{ :package_ensure => 'present', :package_name => ['hambaby'] }}
+          it { should contain_package('ntp').with_name('hambaby') }
+        end
+
+        describe 'should not have a package resource if package_manage is false' do
+          let(:params) {{
+            :package_manage => false,
+            :package_ensure => 'installed',
+            :package_name => ['ntp'],
+          }}
+
+          it 'when set to false' do
+            should_not contain_package('ntp').with({
+              'ensure' => 'installed',
+              'name' => 'ntp',
+            })
+          end
+        end
+      end
 
           context 'when set to false' do
             let(:params) {{

@@ -1,5 +1,6 @@
 class ntp::params {
 
+<<<<<<< HEAD
   $autoupdate        = false
   $config_template   = 'ntp/ntp.conf.erb'
   $disable_monitor   = false
@@ -98,6 +99,8 @@ class ntp::params {
       $config          = $default_config
       $driftfile       = '/var/lib/ntp/drift/ntp.drift'
       $package_name    = $default_package_name
+      $keys_file       = '/etc/ntp/keys'
+      $package_name    = [ 'ntp' ]
       $restrict        = [
         'default kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
@@ -227,5 +230,9 @@ class ntp::params {
     default: {
       fail("The ${module_name} module is not supported on an ${::osfamily} based system.")
     }
+  }
+
+  if $package_manage == undef {
+    $package_manage = $default_package_manage
   }
 }

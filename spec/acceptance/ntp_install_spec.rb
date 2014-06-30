@@ -1,8 +1,10 @@
 require 'spec_helper_acceptance'
 
+packagemanage = true
 case fact('osfamily')
 when 'FreeBSD'
   packagename = 'net/ntp'
+  packagemanage = false
 when 'Gentoo'
   packagename = 'net-misc/ntp'
 when 'Linux'
@@ -30,7 +32,7 @@ else
 end
 
 describe 'ntp::install class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
-  it 'installs the package' do
+  it 'installs the package if packagemanage is true' do
     apply_manifest(%{
       class { 'ntp': }
     }, :catch_failures => true)
@@ -39,6 +41,13 @@ describe 'ntp::install class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('o
   Array(packagename).each do |package|
     describe package(package) do
       it { should be_installed }
+    describe package(packagename) do
+      it do
+        if packagemanage
+          should be_installed
+        else
+        should_not be_installed
+      end
     end
   end
 end

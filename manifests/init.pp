@@ -12,6 +12,7 @@ class ntp (
   $keys_requestkey   = $ntp::params::keys_requestkey,
   $keys_trusted      = $ntp::params::keys_trusted,
   $package_ensure    = $ntp::params::package_ensure,
+  $package_manage    = $ntp::params::package_manage,
   $package_name      = $ntp::params::package_name,
   $panic             = $ntp::params::panic,
   $preferred_servers = $ntp::params::preferred_servers,
@@ -36,7 +37,7 @@ class ntp (
   validate_re($keys_requestkey, ['^\d+$', ''])
   validate_array($keys_trusted)
   validate_string($package_ensure)
-  validate_array($package_name)
+  if $package_manage == true { validate_array($package_name) }
   validate_bool($panic)
   validate_array($preferred_servers)
   validate_array($restrict)
