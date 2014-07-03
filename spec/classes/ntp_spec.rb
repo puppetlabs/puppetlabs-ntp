@@ -121,8 +121,7 @@ describe 'ntp' do
         let(:params) {{ :package_ensure => 'present', :package_name => ['ntp'], }}
 
         it { should contain_package('ntp').with(
-          :ensure => 'present',
-          :name   => 'ntp'
+          :ensure => 'present'
         )}
 
         describe 'should allow package ensure to be overridden' do
@@ -132,7 +131,7 @@ describe 'ntp' do
 
         describe 'should allow the package name to be overridden' do
           let(:params) {{ :package_ensure => 'present', :package_name => ['hambaby'] }}
-          it { should contain_package('ntp').with_name('hambaby') }
+          it { should contain_package('hambaby') }
         end
       end
 
@@ -245,6 +244,16 @@ describe 'ntp' do
 
         it 'uses the NTP pool servers by default' do
           should contain_file('/etc/ntp.conf').with({
+            'content' => /server \d.pool.ntp.org/,
+          })
+        end
+      end
+
+      describe "on osfamily Solaris" do
+        let(:facts) {{ :osfamily => 'Solaris' }}
+
+        it 'uses the NTP pool servers by default' do
+          should contain_file('/etc/inet/ntp.conf').with({
             'content' => /server \d.pool.ntp.org/,
           })
         end

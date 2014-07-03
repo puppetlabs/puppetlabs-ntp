@@ -14,6 +14,8 @@ when 'Linux'
   end
 when 'AIX'
   packagename = 'bos.net.tcp.client'
+when 'Solaris'
+  packagename = ['SUNWntpr','SUNWntpu']
 else
   packagename = 'ntp'
 end
@@ -25,7 +27,9 @@ describe 'ntp::install class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('o
     }, :catch_failures => true)
   end
 
-  describe package(packagename) do
-    it { should be_installed }
+  Array(packagename).each do |package|
+    describe package(package) do
+      it { should be_installed }
+    end
   end
 end

@@ -18,6 +18,8 @@ when 'Linux'
   when 'Gentoo'
     line = '0.gentoo.pool.ntp.org'
   end
+when 'Solaris'
+  line = '0.pool.ntp.org'
 when 'AIX'
   line = '0.debian.pool.ntp.org iburst'
 end

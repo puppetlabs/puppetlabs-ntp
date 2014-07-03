@@ -132,6 +132,25 @@ class ntp::params {
         '2.pool.ntp.org',
       ]
     }
+    'Solaris': {
+      $config       = '/etc/inet/ntp.conf'
+      $driftfile    = '/var/ntp/ntp.drift'
+      $keys_file    = '/etc/inet/ntp.keys'
+      $package_name = [ 'SUNWntpr', 'SUNWntpu' ]
+      $restrict     = [
+        'default kod nomodify notrap nopeer noquery',
+        '-6 default kod nomodify notrap nopeer noquery',
+        '127.0.0.1',
+        '-6 ::1',
+      ]
+      $service_name = 'network/ntp'
+      $servers      = [
+        '0.pool.ntp.org',
+        '1.pool.ntp.org',
+        '2.pool.ntp.org',
+        '3.pool.ntp.org',
+      ]
+    }
     # Gentoo was added as its own $::osfamily in Facter 1.7.0
     'Gentoo': {
       $config          = '/etc/ntp.conf'

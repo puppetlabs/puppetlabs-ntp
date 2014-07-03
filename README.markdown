@@ -221,6 +221,8 @@ The module has been tested on:
 * Gentoo
 * Arch Linux
 * FreeBSD
+* Solaris 10
+* AIX 5.3, 6.1, 7.1
 
 Testing on other platforms has been light and cannot be guaranteed. 
 
