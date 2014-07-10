@@ -1,3 +1,8 @@
+##2014-06-06 - Release 3.1.2
+###Summary
+
+This is a supported release.  This release fixes a manifest typo.
+
 ##2014-06-06 - Release 3.1.1
 ###Summary
 
