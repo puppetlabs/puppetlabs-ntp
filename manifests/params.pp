@@ -136,7 +136,10 @@ class ntp::params {
       $config       = '/etc/inet/ntp.conf'
       $driftfile    = '/var/ntp/ntp.drift'
       $keys_file    = '/etc/inet/ntp.keys'
-      $package_name = [ 'SUNWntpr', 'SUNWntpu' ]
+      $package_name = $::operatingsystemrelease ? {
+        '5.10' => [ 'SUNWntpr', 'SUNWntpu' ],
+        '5.11' => [ 'service/network/ntp' ]
+      }
       $restrict     = [
         'default kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
