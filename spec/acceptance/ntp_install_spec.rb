@@ -22,6 +22,7 @@ when 'Solaris'
     packagename = 'service/network/ntp'
   end
 else
+  packagename = 'ntp'
 end
 
 describe 'ntp::install class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
