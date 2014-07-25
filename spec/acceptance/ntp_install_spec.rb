@@ -15,9 +15,13 @@ when 'Linux'
 when 'AIX'
   packagename = 'bos.net.tcp.client'
 when 'Solaris'
-  packagename = ['SUNWntpr','SUNWntpu']
+  case fact('operatingsystemrelease')
+  when '5.10'
+    packagename = ['SUNWntpr','SUNWntpu']
+  when '5.11'
+    packagename = 'service/network/ntp'
+  end
 else
-  packagename = 'ntp'
 end
 
 describe 'ntp::install class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
