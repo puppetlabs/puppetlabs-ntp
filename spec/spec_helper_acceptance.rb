@@ -10,7 +10,7 @@ unless ENV['RS_PROVISION'] == 'no' or ENV['BEAKER_provision'] == 'no'
                      :facter_version => '2.1.0',
                      :hiera_version  => '1.3.4',
                      :default_action => 'gem_install' })
-    on host, "/bin/echo '' > #{default['hieraconf']}"
+    hosts.each {|h| on h, "/bin/echo '' > #{h['hieraconf']}" }
   end
   hosts.each do |host|
     on host, "mkdir -p #{host['distmoduledir']}"
