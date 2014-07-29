@@ -153,6 +153,7 @@ class ntp::params {
         '-6 ::1',
       ]
       $service_name = 'network/ntp'
+      $iburst_enable = false
       $servers      = [
         '0.pool.ntp.org',
         '1.pool.ntp.org',
