@@ -14,6 +14,7 @@ class ntp::params {
   $service_manage    = true
   $udlc              = false
   $interfaces        = []
+  $logfile           = ''
 
   # On virtual machines allow large clock skews.
   $panic = str2bool($::is_virtual) ? {
