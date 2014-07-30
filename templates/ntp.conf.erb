@@ -28,7 +28,7 @@ interface listen <%= interface %>
 <% end -%>
 
 <% [@servers].flatten.each do |server| -%>
-server <%= server %><% if @preferred_servers.include?(server) -%> prefer<% end %>
+server <%= server %><% if @iburst_enable == true -%> iburst<% end %><% if @preferred_servers.include?(server) -%> prefer<% end %>
 <% end -%>
 
 <% if scope.lookupvar('::is_virtual') == "false" or @udlc -%>
