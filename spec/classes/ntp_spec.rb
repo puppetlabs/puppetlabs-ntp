@@ -207,6 +207,33 @@ describe 'ntp' do
             end
           end
         end
+
+        describe 'with parameter logfile' do
+          context 'when set to true' do
+            let(:params) {{
+              :servers => ['a', 'b', 'c', 'd'],
+              :logfile => '/var/log/foobar.log',
+            }}
+    
+            it 'should contain logfile setting' do
+              should contain_file('/etc/ntp.conf').with({
+              'content' => /^logfile = \/var\/log\/foobar\.log\n/,
+              })
+            end
+          end
+    
+          context 'when set to false' do
+            let(:params) {{
+              :servers => ['a', 'b', 'c', 'd'],
+            }}
+    
+            it 'should not contain a logfile line' do
+              should_not contain_file('/etc/ntp.conf').with({
+                'content' => /logfile =/,
+              })
+            end
+          end
+        end
       end
     end
 
@@ -365,5 +392,4 @@ describe 'ntp' do
       end
     end
   end
-
 end
