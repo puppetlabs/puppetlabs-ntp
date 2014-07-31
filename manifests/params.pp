@@ -7,6 +7,7 @@ class ntp::params {
   $keys_controlkey   = ''
   $keys_requestkey   = ''
   $keys_trusted      = []
+  $logfile           = undef
   $package_ensure    = 'present'
   $preferred_servers = []
   $service_enable    = true
