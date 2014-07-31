@@ -1,12 +1,18 @@
 require 'spec_helper'
 
 describe 'ntp' do
+  let(:facts) {{ :is_virtual => 'false' }}
 
   ['Debian', 'RedHat','SuSE', 'FreeBSD', 'Archlinux', 'Gentoo', 'Gentoo (Facter < 1.7)'].each do |system|
+    context "when on system #{system}" do
     if system == 'Gentoo (Facter < 1.7)'
-      let(:facts) {{ :osfamily => 'Linux', :operatingsystem => 'Gentoo' }}
+      let :facts do
+        super().merge({ :osfamily => 'Linux', :operatingsystem => 'Gentoo' })
+      end
     else
-      let(:facts) {{ :osfamily => system }}
+      let :facts do
+        super().merge({ :osfamily => system })
+      end
     end
 
     it { should contain_class('ntp::install') }
@@ -202,11 +208,14 @@ describe 'ntp' do
         end
       end
     end
+    end #context when on system
 
     context 'ntp::config' do
       describe "for operating system Gentoo (Facter < 1.7)" do
-        let(:facts) {{ :operatingsystem => 'Gentoo',
-                       :osfamily        => 'Linux' }}
+        let :facts do
+          super().merge({ :operatingsystem => 'Gentoo',
+                       :osfamily        => 'Linux' })
+        end
 
         it 'uses the NTP pool servers by default' do
           should contain_file('/etc/ntp.conf').with({
@@ -216,7 +225,9 @@ describe 'ntp' do
       end
 
       describe "on osfamily Gentoo" do
-        let(:facts) {{ :osfamily => 'Gentoo' }}
+        let :facts do
+          super().merge({ :osfamily => 'Gentoo' })
+        end
 
         it 'uses the NTP pool servers by default' do
           should contain_file('/etc/ntp.conf').with({
@@ -226,7 +237,9 @@ describe 'ntp' do
       end
 
       describe "on osfamily Debian" do
-        let(:facts) {{ :osfamily => 'debian' }}
+        let :facts do
+          super().merge({ :osfamily => 'debian' })
+        end
 
         it 'uses the debian ntp servers by default' do
           should contain_file('/etc/ntp.conf').with({
@@ -236,7 +249,9 @@ describe 'ntp' do
       end
 
       describe "on osfamily RedHat" do
-        let(:facts) {{ :osfamily => 'RedHat' }}
+        let :facts do
+          super().merge({ :osfamily => 'RedHat' })
+        end
 
         it 'uses the redhat ntp servers by default' do
           should contain_file('/etc/ntp.conf').with({
@@ -246,7 +261,9 @@ describe 'ntp' do
       end
 
       describe "on osfamily SuSE" do
-        let(:facts) {{ :osfamily => 'SuSE' }}
+        let :facts do
+          super().merge({ :osfamily => 'SuSE' })
+        end
 
         it 'uses the opensuse ntp servers by default' do
           should contain_file('/etc/ntp.conf').with({
@@ -256,7 +273,9 @@ describe 'ntp' do
       end
 
       describe "on osfamily FreeBSD" do
-        let(:facts) {{ :osfamily => 'FreeBSD' }}
+        let :facts do
+          super().merge({ :osfamily => 'FreeBSD' })
+        end
 
         it 'uses the freebsd ntp servers by default' do
           should contain_file('/etc/ntp.conf').with({
@@ -266,7 +285,9 @@ describe 'ntp' do
       end
 
       describe "on osfamily ArchLinux" do
-        let(:facts) {{ :osfamily => 'ArchLinux' }}
+        let :facts do
+          super().merge({ :osfamily => 'ArchLinux' })
+        end
 
         it 'uses the NTP pool servers by default' do
           should contain_file('/etc/ntp.conf').with({
@@ -276,7 +297,9 @@ describe 'ntp' do
       end
 
       describe "on osfamily Solaris and operatingsystemrelease 5.10" do
-        let(:facts) {{ :osfamily => 'Solaris', :operatingsystemrelease => '5.10' }}
+        let :facts do
+          super().merge({ :osfamily => 'Solaris', :operatingsystemrelease => '5.10' })
+        end
 
         it 'uses the NTP pool servers by default' do
           should contain_file('/etc/inet/ntp.conf').with({
@@ -286,7 +309,9 @@ describe 'ntp' do
       end
 
       describe "on osfamily Solaris and operatingsystemrelease 5.11" do
-        let(:facts) {{ :osfamily => 'Solaris', :operatingsystemrelease => '5.11' }}
+        let :facts do
+          super().merge({ :osfamily => 'Solaris', :operatingsystemrelease => '5.11' })
+        end
 
         it 'uses the NTP pool servers by default' do
           should contain_file('/etc/inet/ntp.conf').with({
@@ -296,9 +321,11 @@ describe 'ntp' do
       end
 
       describe "for operating system family unsupported" do
-        let(:facts) {{
+        let :facts do
+          super().merge({
           :osfamily  => 'unsupported',
-        }}
+        })
+        end
 
         it { expect{ subject }.to raise_error(
           /^The ntp module is not supported on an unsupported based system./
@@ -307,8 +334,10 @@ describe 'ntp' do
     end
 
     describe 'for virtual machines' do
-      let(:facts) {{ :osfamily        => 'Archlinux',
-                     :is_virtual      => 'true' }}
+      let :facts do
+        super().merge({ :osfamily        => 'Archlinux',
+                     :is_virtual      => 'true' })
+      end
 
       it 'should not use local clock as a time source' do
         should_not contain_file('/etc/ntp.conf').with({
@@ -324,8 +353,10 @@ describe 'ntp' do
     end
 
     describe 'for physical machines' do
-      let(:facts) {{ :osfamily        => 'Archlinux',
-                     :is_virtual      => 'false' }}
+      let :facts do
+        super().merge({ :osfamily        => 'Archlinux',
+                     :is_virtual      => 'false' })
+      end
 
       it 'disallows large clock skews' do
         should_not contain_file('/etc/ntp.conf').with({
