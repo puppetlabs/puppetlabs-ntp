@@ -18,7 +18,7 @@ describe 'preferred servers', :unless => UNSUPPORTED_PLATFORMS.include?(fact('os
     it { should be_file }
     it { should contain 'server a' }
     it { should contain 'server b' }
-    its(:content) { should match /server c (iburst\s|)prefer/ }
-    its(:content) { should match /server d (iburst\s|)prefer/ }
+    it { should contain 'server c prefer' }
+    it { should contain 'server d prefer' }
   end
 end
