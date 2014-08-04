@@ -2,7 +2,7 @@ require 'spec_helper_acceptance'
 
 case fact('osfamily')
 when 'FreeBSD'
-  line = '0.freebsd.pool.ntp.org iburst maxpoll 9'
+  line = '0.freebsd.pool.ntp.org maxpoll 9 iburst'
 when 'Debian'
   line = '0.debian.pool.ntp.org iburst'
 when 'RedHat'
@@ -18,6 +18,8 @@ when 'Linux'
   when 'Gentoo'
     line = '0.gentoo.pool.ntp.org'
   end
+when 'Solaris'
+  line = '0.pool.ntp.org'
 when 'AIX'
   line = '0.debian.pool.ntp.org iburst'
 end

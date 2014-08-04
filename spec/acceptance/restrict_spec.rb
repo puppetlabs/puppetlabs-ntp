@@ -2,14 +2,10 @@ require 'spec_helper_acceptance'
 
 describe "ntp class with restrict:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   context 'should run successfully' do
-    pp = "class { 'ntp': restrict => ['test restrict']}"
-
     it 'runs twice' do
-      2.times do
-        apply_manifest(pp, :catch_failures => true) do |r|
-          expect(r.stderr).to be_empty
-        end
-      end
+      pp = "class { 'ntp': restrict => ['test restrict']}"
+      apply_manifest(pp, :catch_failures => true)
+      apply_manifest(pp, :catch_changes  => true)
     end
   end
 

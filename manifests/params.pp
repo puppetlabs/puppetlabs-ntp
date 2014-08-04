@@ -13,6 +13,7 @@ class ntp::params {
   $service_ensure    = 'running'
   $service_manage    = true
   $udlc              = false
+  $interfaces        = []
 
   # On virtual machines allow large clock skews.
   $panic = str2bool($::is_virtual) ? {
@@ -22,20 +23,21 @@ class ntp::params {
 
   case $::osfamily {
     'AIX': {
-      $config = '/etc/ntp.conf'
-      $keys_file = '/etc/ntp.keys'
-      $driftfile = '/etc/ntp.drift'
-      $package_name = [ 'bos.net.tcp.client' ]
+      $config        = '/etc/ntp.conf'
+      $keysfile      = '/etc/ntp.keys'
+      $driftfile     = '/etc/ntp.drift'
+      $package_name  = [ 'bos.net.tcp.client' ]
       $restrict          = [
         'default nomodify notrap nopeer noquery',
         '127.0.0.1',
       ]
-      $service_name = 'xntpd'
-      $servers = [
-        '0.debian.pool.ntp.org iburst',
-        '1.debian.pool.ntp.org iburst',
-        '2.debian.pool.ntp.org iburst',
-        '3.debian.pool.ntp.org iburst',
+      $service_name  = 'xntpd'
+      $iburst_enable = true
+      $servers       = [
+        '0.debian.pool.ntp.org',
+        '1.debian.pool.ntp.org',
+        '2.debian.pool.ntp.org',
+        '3.debian.pool.ntp.org',
       ]
     }
     'Debian': {
@@ -50,11 +52,12 @@ class ntp::params {
         '-6 ::1',
       ]
       $service_name    = 'ntp'
+      $iburst_enable   = true
       $servers         = [
-        '0.debian.pool.ntp.org iburst',
-        '1.debian.pool.ntp.org iburst',
-        '2.debian.pool.ntp.org iburst',
-        '3.debian.pool.ntp.org iburst',
+        '0.debian.pool.ntp.org',
+        '1.debian.pool.ntp.org',
+        '2.debian.pool.ntp.org',
+        '3.debian.pool.ntp.org',
       ]
     }
     'RedHat': {
@@ -69,6 +72,7 @@ class ntp::params {
         '-6 ::1',
       ]
       $service_name    = 'ntpd'
+      $iburst_enable   = false
       $servers         = [
         '0.centos.pool.ntp.org',
         '1.centos.pool.ntp.org',
@@ -87,6 +91,7 @@ class ntp::params {
         '-6 ::1',
       ]
       $service_name    = 'ntp'
+      $iburst_enable   = false
       $servers         = [
         '0.opensuse.pool.ntp.org',
         '1.opensuse.pool.ntp.org',
@@ -106,11 +111,12 @@ class ntp::params {
         '-6 ::1',
       ]
       $service_name    = 'ntpd'
+      $iburst_enable   = true
       $servers         = [
-        '0.freebsd.pool.ntp.org iburst maxpoll 9',
-        '1.freebsd.pool.ntp.org iburst maxpoll 9',
-        '2.freebsd.pool.ntp.org iburst maxpoll 9',
-        '3.freebsd.pool.ntp.org iburst maxpoll 9',
+        '0.freebsd.pool.ntp.org maxpoll 9',
+        '1.freebsd.pool.ntp.org maxpoll 9',
+        '2.freebsd.pool.ntp.org maxpoll 9',
+        '3.freebsd.pool.ntp.org maxpoll 9',
       ]
     }
     'Archlinux': {
@@ -125,10 +131,34 @@ class ntp::params {
         '-6 ::1',
       ]
       $service_name    = 'ntpd'
+      $iburst_enable   = false
       $servers         = [
         '0.pool.ntp.org',
         '1.pool.ntp.org',
         '2.pool.ntp.org',
+      ]
+    }
+    'Solaris': {
+      $config       = '/etc/inet/ntp.conf'
+      $driftfile    = '/var/ntp/ntp.drift'
+      $keys_file    = '/etc/inet/ntp.keys'
+      $package_name = $::operatingsystemrelease ? {
+        /^(5\.10|10|10_u\d+)$/ => [ 'SUNWntpr', 'SUNWntpu' ],
+        /^(5\.11|11|11\.\d+)$/ => [ 'service/network/ntp' ]
+      }
+      $restrict     = [
+        'default kod nomodify notrap nopeer noquery',
+        '-6 default kod nomodify notrap nopeer noquery',
+        '127.0.0.1',
+        '-6 ::1',
+      ]
+      $service_name = 'network/ntp'
+      $iburst_enable = false
+      $servers      = [
+        '0.pool.ntp.org',
+        '1.pool.ntp.org',
+        '2.pool.ntp.org',
+        '3.pool.ntp.org',
       ]
     }
     # Gentoo was added as its own $::osfamily in Facter 1.7.0
@@ -144,6 +174,7 @@ class ntp::params {
         '-6 ::1',
       ]
       $service_name    = 'ntpd'
+      $iburst_enable   = false
       $servers         = [
         '0.gentoo.pool.ntp.org',
         '1.gentoo.pool.ntp.org',
@@ -167,6 +198,7 @@ class ntp::params {
             '-6 ::1',
           ]
           $service_name    = 'ntpd'
+          $iburst_enable   = false
           $servers         = [
             '0.gentoo.pool.ntp.org',
             '1.gentoo.pool.ntp.org',

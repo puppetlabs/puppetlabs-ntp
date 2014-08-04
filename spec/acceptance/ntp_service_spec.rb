@@ -3,6 +3,8 @@ require 'spec_helper_acceptance'
 case fact('osfamily')
 when 'RedHat', 'FreeBSD', 'Linux', 'Gentoo'
   servicename = 'ntpd'
+when 'Solaris'
+  servicename = 'network/ntp'
 when 'AIX'
   servicename = 'xntpd'
 else

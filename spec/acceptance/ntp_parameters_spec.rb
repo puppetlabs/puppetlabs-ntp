@@ -14,6 +14,13 @@ when 'Linux'
   end
 when 'AIX'
   packagename = 'bos.net.tcp.client'
+when 'Solaris'
+  case fact('operatingsystemrelease')
+  when '5.10'
+    packagename = ['SUNWntpr','SUNWntpu']
+  when '5.11'
+    packagename = 'service/network/ntp'
+  end
 else
   packagename = 'ntp'
 end
@@ -23,7 +30,7 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
     pp = "class { 'ntp': }"
 
     apply_manifest(pp, :catch_failures => true) do |r|
-      expect(r.stderr).to eq("")
+      expect(r.stderr).not_to match(/error/i)
     end
   end
 
@@ -109,14 +116,16 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
       pp = <<-EOS
       class { 'ntp':
         package_ensure => present,
-        package_name   => ['#{packagename}'],
+        package_name   => #{Array(packagename).inspect},
       }
       EOS
       apply_manifest(pp, :catch_failures => true)
     end
 
-    describe package(packagename) do
-      it { should be_installed }
+    Array(packagename).each do |package|
+      describe package(package) do
+        it { should be_installed }
+      end
     end
   end
 
