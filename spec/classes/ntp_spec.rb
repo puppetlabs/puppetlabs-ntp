@@ -1,203 +1,237 @@
 require 'spec_helper'
 
 describe 'ntp' do
+  let(:facts) {{ :is_virtual => 'false' }}
 
   ['Debian', 'RedHat','SuSE', 'FreeBSD', 'Archlinux', 'Gentoo', 'Gentoo (Facter < 1.7)'].each do |system|
-    if system == 'Gentoo (Facter < 1.7)'
-      let(:facts) {{ :osfamily => 'Linux', :operatingsystem => 'Gentoo' }}
-    else
-      let(:facts) {{ :osfamily => system }}
-    end
-
-    it { should contain_class('ntp::install') }
-    it { should contain_class('ntp::config') }
-    it { should contain_class('ntp::service') }
-
-    describe "ntp::config on #{system}" do
-      it { should contain_file('/etc/ntp.conf').with_owner('0') }
-      it { should contain_file('/etc/ntp.conf').with_group('0') }
-      it { should contain_file('/etc/ntp.conf').with_mode('0644') }
-
-      describe 'allows template to be overridden' do
-        let(:params) {{ :config_template => 'my_ntp/ntp.conf.erb' }}
-        it { should contain_file('/etc/ntp.conf').with({
-          'content' => /server foobar/})
-        }
+    context "when on system #{system}" do
+      if system == 'Gentoo (Facter < 1.7)'
+        let :facts do
+          super().merge({ :osfamily => 'Linux', :operatingsystem => 'Gentoo' })
+        end
+      else
+        let :facts do
+          super().merge({ :osfamily => system })
+        end
       end
 
-      describe "keys for osfamily #{system}" do
-        context "when enabled" do
+      it { should contain_class('ntp::install') }
+      it { should contain_class('ntp::config') }
+      it { should contain_class('ntp::service') }
+
+      describe "ntp::config on #{system}" do
+        it { should contain_file('/etc/ntp.conf').with_owner('0') }
+        it { should contain_file('/etc/ntp.conf').with_group('0') }
+        it { should contain_file('/etc/ntp.conf').with_mode('0644') }
+
+        describe 'allows template to be overridden' do
+          let(:params) {{ :config_template => 'my_ntp/ntp.conf.erb' }}
+          it { should contain_file('/etc/ntp.conf').with({
+            'content' => /server foobar/})
+          }
+        end
+
+        describe "keys for osfamily #{system}" do
+          context "when enabled" do
+            let(:params) {{
+              :keys_enable     => true,
+              :keys_file       => '/etc/ntp/ntp.keys',
+              :keys_trusted    => ['1', '2', '3'],
+              :keys_controlkey => '2',
+              :keys_requestkey => '3',
+            }}
+
+            it { should contain_file('/etc/ntp').with({
+              'ensure'  => 'directory'})
+            }
+            it { should contain_file('/etc/ntp.conf').with({
+              'content' => /trustedkey 1 2 3/})
+            }
+            it { should contain_file('/etc/ntp.conf').with({
+              'content' => /controlkey 2/})
+            }
+            it { should contain_file('/etc/ntp.conf').with({
+              'content' => /requestkey 3/})
+            }
+          end
+        end
+
+        context "when disabled" do
           let(:params) {{
-            :keys_enable     => true,
+            :keys_enable     => false,
             :keys_file       => '/etc/ntp/ntp.keys',
             :keys_trusted    => ['1', '2', '3'],
             :keys_controlkey => '2',
             :keys_requestkey => '3',
           }}
 
-          it { should contain_file('/etc/ntp').with({
+          it { should_not contain_file('/etc/ntp').with({
             'ensure'  => 'directory'})
           }
-          it { should contain_file('/etc/ntp.conf').with({
+          it { should_not contain_file('/etc/ntp.conf').with({
             'content' => /trustedkey 1 2 3/})
           }
-          it { should contain_file('/etc/ntp.conf').with({
+          it { should_not contain_file('/etc/ntp.conf').with({
             'content' => /controlkey 2/})
           }
-          it { should contain_file('/etc/ntp.conf').with({
+          it { should_not contain_file('/etc/ntp.conf').with({
             'content' => /requestkey 3/})
           }
         end
-      end
 
-      context "when disabled" do
-        let(:params) {{
-          :keys_enable     => false,
-          :keys_file       => '/etc/ntp/ntp.keys',
-          :keys_trusted    => ['1', '2', '3'],
-          :keys_controlkey => '2',
-          :keys_requestkey => '3',
-        }}
+        describe 'preferred servers' do
+          context "when set" do
+            let(:params) {{
+              :servers           => ['a', 'b', 'c', 'd'],
+              :preferred_servers => ['a', 'b']
+            }}
 
-        it { should_not contain_file('/etc/ntp').with({
-          'ensure'  => 'directory'})
-        }
-        it { should_not contain_file('/etc/ntp.conf').with({
-          'content' => /trustedkey 1 2 3/})
-        }
-        it { should_not contain_file('/etc/ntp.conf').with({
-          'content' => /controlkey 2/})
-        }
-        it { should_not contain_file('/etc/ntp.conf').with({
-          'content' => /requestkey 3/})
-        }
-      end
+            it { should contain_file('/etc/ntp.conf').with({
+              'content' => /server a( iburst)? prefer\nserver b( iburst)? prefer\nserver c( iburst)?\nserver d( iburst)?/})
+            }
+          end
+          context "when not set" do
+            let(:params) {{
+              :servers           => ['a', 'b', 'c', 'd'],
+              :preferred_servers => []
+            }}
 
-      describe 'preferred servers' do
-        context "when set" do
-          let(:params) {{
-            :servers           => ['a', 'b', 'c', 'd'],
-            :preferred_servers => ['a', 'b']
-          }}
-
-          it { should contain_file('/etc/ntp.conf').with({
-            'content' => /server a prefer\nserver b prefer\nserver c\nserver d/})
-          }
+            it { should_not contain_file('/etc/ntp.conf').with({
+              'content' => /server a prefer/})
+            }
+          end
         end
-        context "when not set" do
-          let(:params) {{
-            :servers           => ['a', 'b', 'c', 'd'],
-            :preferred_servers => []
-          }}
+        describe 'specified interfaces' do
+          context "when set" do
+            let(:params) {{
+              :servers           => ['a', 'b', 'c', 'd'],
+              :interfaces        => ['127.0.0.1', 'a.b.c.d']
+            }}
 
-          it { should_not contain_file('/etc/ntp.conf').with({
-            'content' => /server a prefer/})
-          }
-        end
-      end
-      describe 'specified interfaces' do
-        context "when set" do
-          let(:params) {{
-            :servers           => ['a', 'b', 'c', 'd'],
-            :interfaces        => ['127.0.0.1', 'a.b.c.d']
-          }}
+            it { should contain_file('/etc/ntp.conf').with({
+              'content' => /interface ignore wildcard\ninterface listen 127.0.0.1\ninterface listen a.b.c.d/})
+            }
+          end
+          context "when not set" do
+            let(:params) {{
+              :servers           => ['a', 'b', 'c', 'd'],
+            }}
 
-          it { should contain_file('/etc/ntp.conf').with({
-            'content' => /interface ignore wildcard\ninterface listen 127.0.0.1\ninterface listen a.b.c.d/})
-          }
-        end
-        context "when not set" do
-          let(:params) {{
-            :servers           => ['a', 'b', 'c', 'd'],
-          }}
-
-          it { should_not contain_file('/etc/ntp.conf').with({
-            'content' => /interface ignore wildcard/})
-          }
-        end
-      end
-
-      describe "ntp::install on #{system}" do
-        let(:params) {{ :package_ensure => 'present', :package_name => ['ntp'], }}
-
-        it { should contain_package('ntp').with(
-          :ensure => 'present'
-        )}
-
-        describe 'should allow package ensure to be overridden' do
-          let(:params) {{ :package_ensure => 'latest', :package_name => ['ntp'] }}
-          it { should contain_package('ntp').with_ensure('latest') }
-        end
-
-        describe 'should allow the package name to be overridden' do
-          let(:params) {{ :package_ensure => 'present', :package_name => ['hambaby'] }}
-          it { should contain_package('hambaby') }
-        end
-      end
-
-      describe 'ntp::service' do
-        let(:params) {{
-          :service_manage => true,
-          :service_enable => true,
-          :service_ensure => 'running',
-          :service_name   => 'ntp'
-        }}
-
-        describe 'with defaults' do
-          it { should contain_service('ntp').with(
-            :enable => true,
-            :ensure => 'running',
-            :name   => 'ntp'
-          )}
-        end
-
-        describe 'service_ensure' do
-          describe 'when overridden' do
-            let(:params) {{ :service_name => 'ntp', :service_ensure => 'stopped' }}
-            it { should contain_service('ntp').with_ensure('stopped') }
+            it { should_not contain_file('/etc/ntp.conf').with({
+              'content' => /interface ignore wildcard/})
+            }
           end
         end
 
-        describe 'service_manage' do
+        describe "ntp::install on #{system}" do
+          let(:params) {{ :package_ensure => 'present', :package_name => ['ntp'], }}
+
+          it { should contain_package('ntp').with(
+            :ensure => 'present'
+          )}
+
+          describe 'should allow package ensure to be overridden' do
+            let(:params) {{ :package_ensure => 'latest', :package_name => ['ntp'] }}
+            it { should contain_package('ntp').with_ensure('latest') }
+          end
+
+          describe 'should allow the package name to be overridden' do
+            let(:params) {{ :package_ensure => 'present', :package_name => ['hambaby'] }}
+            it { should contain_package('hambaby') }
+          end
+        end
+
+        describe 'ntp::service' do
           let(:params) {{
-            :service_manage => false,
+            :service_manage => true,
             :service_enable => true,
             :service_ensure => 'running',
-            :service_name   => 'ntpd',
+            :service_name   => 'ntp'
           }}
 
-          it 'when set to false' do
-            should_not contain_service('ntp').with({
-              'enable' => true,
-              'ensure' => 'running',
-              'name'   => 'ntpd'
-            })
+          describe 'with defaults' do
+            it { should contain_service('ntp').with(
+              :enable => true,
+              :ensure => 'running',
+              :name   => 'ntp'
+            )}
+          end
+
+          describe 'service_ensure' do
+            describe 'when overridden' do
+              let(:params) {{ :service_name => 'ntp', :service_ensure => 'stopped' }}
+              it { should contain_service('ntp').with_ensure('stopped') }
+            end
+          end
+
+          describe 'service_manage' do
+            let(:params) {{
+              :service_manage => false,
+              :service_enable => true,
+              :service_ensure => 'running',
+              :service_name   => 'ntpd',
+            }}
+
+            it 'when set to false' do
+              should_not contain_service('ntp').with({
+                'enable' => true,
+                'ensure' => 'running',
+                'name'   => 'ntpd'
+              })
+            end
           end
         end
-      end
 
-      describe 'with parameter iburst_enable' do
-        context 'when set to true' do
-          let(:params) {{
-            :iburst_enable => true,
-          }}
+        describe 'with parameter iburst_enable' do
+          context 'when set to true' do
+            let(:params) {{
+              :iburst_enable => true,
+            }}
 
-          it do
-            should contain_file('/etc/ntp.conf').with({
-            'content' => /iburst\n/,
-            })
-          end
-        end
-
-        context 'when set to false' do
-          let(:params) {{
-            :iburst_enable => false,
-          }}
-
-          it do
-            should_not contain_file('/etc/ntp.conf').with({
+            it do
+              should contain_file('/etc/ntp.conf').with({
               'content' => /iburst\n/,
-            })
+              })
+            end
+          end
+
+          context 'when set to false' do
+            let(:params) {{
+              :iburst_enable => false,
+            }}
+
+            it do
+              should_not contain_file('/etc/ntp.conf').with({
+                'content' => /iburst\n/,
+              })
+            end
+          end
+        end
+
+        describe 'with parameter logfile' do
+          context 'when set to true' do
+            let(:params) {{
+              :servers => ['a', 'b', 'c', 'd'],
+              :logfile => '/var/log/foobar.log',
+            }}
+    
+            it 'should contain logfile setting' do
+              should contain_file('/etc/ntp.conf').with({
+              'content' => /^logfile = \/var\/log\/foobar\.log\n/,
+              })
+            end
+          end
+    
+          context 'when set to false' do
+            let(:params) {{
+              :servers => ['a', 'b', 'c', 'd'],
+            }}
+    
+            it 'should not contain a logfile line' do
+              should_not contain_file('/etc/ntp.conf').with({
+                'content' => /logfile =/,
+              })
+            end
           end
         end
       end
@@ -205,8 +239,10 @@ describe 'ntp' do
 
     context 'ntp::config' do
       describe "for operating system Gentoo (Facter < 1.7)" do
-        let(:facts) {{ :operatingsystem => 'Gentoo',
-                       :osfamily        => 'Linux' }}
+        let :facts do
+          super().merge({ :operatingsystem => 'Gentoo',
+                       :osfamily        => 'Linux' })
+        end
 
         it 'uses the NTP pool servers by default' do
           should contain_file('/etc/ntp.conf').with({
@@ -216,7 +252,9 @@ describe 'ntp' do
       end
 
       describe "on osfamily Gentoo" do
-        let(:facts) {{ :osfamily => 'Gentoo' }}
+        let :facts do
+          super().merge({ :osfamily => 'Gentoo' })
+        end
 
         it 'uses the NTP pool servers by default' do
           should contain_file('/etc/ntp.conf').with({
@@ -226,7 +264,9 @@ describe 'ntp' do
       end
 
       describe "on osfamily Debian" do
-        let(:facts) {{ :osfamily => 'debian' }}
+        let :facts do
+          super().merge({ :osfamily => 'debian' })
+        end
 
         it 'uses the debian ntp servers by default' do
           should contain_file('/etc/ntp.conf').with({
@@ -236,7 +276,9 @@ describe 'ntp' do
       end
 
       describe "on osfamily RedHat" do
-        let(:facts) {{ :osfamily => 'RedHat' }}
+        let :facts do
+          super().merge({ :osfamily => 'RedHat' })
+        end
 
         it 'uses the redhat ntp servers by default' do
           should contain_file('/etc/ntp.conf').with({
@@ -246,7 +288,9 @@ describe 'ntp' do
       end
 
       describe "on osfamily SuSE" do
-        let(:facts) {{ :osfamily => 'SuSE' }}
+        let :facts do
+          super().merge({ :osfamily => 'SuSE' })
+        end
 
         it 'uses the opensuse ntp servers by default' do
           should contain_file('/etc/ntp.conf').with({
@@ -256,7 +300,9 @@ describe 'ntp' do
       end
 
       describe "on osfamily FreeBSD" do
-        let(:facts) {{ :osfamily => 'FreeBSD' }}
+        let :facts do
+          super().merge({ :osfamily => 'FreeBSD' })
+        end
 
         it 'uses the freebsd ntp servers by default' do
           should contain_file('/etc/ntp.conf').with({
@@ -266,7 +312,9 @@ describe 'ntp' do
       end
 
       describe "on osfamily ArchLinux" do
-        let(:facts) {{ :osfamily => 'ArchLinux' }}
+        let :facts do
+          super().merge({ :osfamily => 'ArchLinux' })
+        end
 
         it 'uses the NTP pool servers by default' do
           should contain_file('/etc/ntp.conf').with({
@@ -276,7 +324,9 @@ describe 'ntp' do
       end
 
       describe "on osfamily Solaris and operatingsystemrelease 5.10" do
-        let(:facts) {{ :osfamily => 'Solaris', :operatingsystemrelease => '5.10' }}
+        let :facts do
+          super().merge({ :osfamily => 'Solaris', :operatingsystemrelease => '5.10' })
+        end
 
         it 'uses the NTP pool servers by default' do
           should contain_file('/etc/inet/ntp.conf').with({
@@ -286,7 +336,9 @@ describe 'ntp' do
       end
 
       describe "on osfamily Solaris and operatingsystemrelease 5.11" do
-        let(:facts) {{ :osfamily => 'Solaris', :operatingsystemrelease => '5.11' }}
+        let :facts do
+          super().merge({ :osfamily => 'Solaris', :operatingsystemrelease => '5.11' })
+        end
 
         it 'uses the NTP pool servers by default' do
           should contain_file('/etc/inet/ntp.conf').with({
@@ -296,9 +348,11 @@ describe 'ntp' do
       end
 
       describe "for operating system family unsupported" do
-        let(:facts) {{
+        let :facts do
+          super().merge({
           :osfamily  => 'unsupported',
-        }}
+        })
+        end
 
         it { expect{ subject }.to raise_error(
           /^The ntp module is not supported on an unsupported based system./
@@ -307,8 +361,10 @@ describe 'ntp' do
     end
 
     describe 'for virtual machines' do
-      let(:facts) {{ :osfamily        => 'Archlinux',
-                     :is_virtual      => 'true' }}
+      let :facts do
+        super().merge({ :osfamily        => 'Archlinux',
+                     :is_virtual      => 'true' })
+      end
 
       it 'should not use local clock as a time source' do
         should_not contain_file('/etc/ntp.conf').with({
@@ -324,8 +380,10 @@ describe 'ntp' do
     end
 
     describe 'for physical machines' do
-      let(:facts) {{ :osfamily        => 'Archlinux',
-                     :is_virtual      => 'false' }}
+      let :facts do
+        super().merge({ :osfamily        => 'Archlinux',
+                     :is_virtual      => 'false' })
+      end
 
       it 'disallows large clock skews' do
         should_not contain_file('/etc/ntp.conf').with({
@@ -334,5 +392,4 @@ describe 'ntp' do
       end
     end
   end
-
 end
