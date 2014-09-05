@@ -2,7 +2,7 @@
 class ntp::config inherits ntp {
 
   if $keys_enable {
-    $directory = dirname($keys_file)
+    $directory = ntp_dirname($keys_file)
     file { $directory:
       ensure  => directory,
       owner   => 0,
