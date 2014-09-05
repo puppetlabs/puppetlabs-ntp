@@ -1,6 +1,20 @@
-##2014-05-14 - Supported Release 3.1.0
+##2014-06-06 - Release 3.1.2
 ###Summary
-This is a supported release.
+
+This is a supported release.  This release fixes a manifest typo.
+
+##2014-06-06 - Release 3.1.1
+###Summary
+
+This is a bugfix release to get around dependency issues in PMT 3.6.  This
+version has a dependency on puppetlabs-stdlib >= 4 so PE3.2.x is no longer
+supported.
+
+####Bugfixes
+- Remove deprecated Modulefile as it was causing duplicate dependencies with PMT.
+
+##2014-05-14 - Release 3.1.0
+###Summary
 
 This release adds `disable_monitor` so you can disable the monitor functionality
 of NTP, which was recently used in NTP amplification attacks.  It also adds
