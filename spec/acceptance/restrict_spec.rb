@@ -4,8 +4,11 @@ describe "ntp class with restrict:", :unless => UNSUPPORTED_PLATFORMS.include?(f
   context 'should run successfully' do
     it 'runs twice' do
       pp = "class { 'ntp': restrict => ['test restrict']}"
-      apply_manifest(pp, :catch_failures => true)
-      apply_manifest(pp, :catch_changes  => true)
+      2.times do
+        apply_manifest(pp, :catch_failures => true) do |r|
+          expect(r.stderr).not_to match(/error/i)
+        end
+      end
     end
   end
 
