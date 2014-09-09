@@ -49,10 +49,10 @@ class ntp::params {
     }
     'Debian': {
       $restrict          = [
-        'default kod nomodify notrap nopeer noquery',
+        '-4 kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
         '127.0.0.1',
-        '-6 ::1',
+        '::1',
       ]
       $service_name    = 'ntp'
       $iburst_enable   = true
