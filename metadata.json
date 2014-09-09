@@ -1,11 +1,11 @@
 {
   "name": "puppetlabs-ntp",
-  "version": "3.1.2",
+  "version": "3.2.0",
   "author": "Puppet Labs",
   "summary": "NTP Module",
   "license": "Apache Version 2.0",
-  "source": "git://github.com/puppetlabs/puppetlabs-ntp",
-  "project_page": "http://github.com/puppetlabs/puppetlabs-ntp",
+  "source": "https://github.com/puppetlabs/puppetlabs-ntp",
+  "project_page": "https://github.com/puppetlabs/puppetlabs-ntp",
   "issues_url": "https://tickets.puppetlabs.com/browse/MODULES",
   "operatingsystem_support": [
     {
@@ -86,9 +86,6 @@
   ],
   "description": "NTP Module for Debian, Ubuntu, CentOS, RHEL, OEL, Fedora, FreeBSD, ArchLinux and Gentoo.",
   "dependencies": [
-    {
-      "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 3.2.0 < 5.0.0"
-    }
+    {"name":"puppetlabs/stdlib","version_requirement":">= 3.2.0 < 5.0.0"}
   ]
 }
