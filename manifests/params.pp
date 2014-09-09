@@ -30,11 +30,11 @@ class ntp::params {
 
   case $::osfamily {
     'AIX': {
-      $config        = '/etc/ntp.conf'
-      $keys_file      = '/etc/ntp.keys'
+      $config        = $default_config
+      $keys_file     = '/etc/ntp.keys'
       $driftfile     = '/etc/ntp.drift'
       $package_name  = [ 'bos.net.tcp.client' ]
-      $restrict          = [
+      $restrict      = [
         'default nomodify notrap nopeer noquery',
         '127.0.0.1',
       ]
@@ -48,7 +48,11 @@ class ntp::params {
       ]
     }
     'Debian': {
-      $restrict          = [
+      $config          = $default_config
+      $keys_file       = $default_keys_file
+      $driftfile       = $default_driftfile
+      $package_name    = $default_package_name
+      $restrict        = [
         'default kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
         '127.0.0.1',
@@ -64,13 +68,17 @@ class ntp::params {
       ]
     }
     'RedHat': {
-      $restrict          = [
+      $config          = $default_config
+      $keys_file       = $default_keys_file
+      $driftfile       = $default_driftfile
+      $package_name    = $default_package_name
+      $service_name    = $default_service_name
+      $restrict        = [
         'default kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
         '127.0.0.1',
         '-6 ::1',
       ]
-      $service_name    = 'ntpd'
       $iburst_enable   = false
       $servers         = [
         '0.centos.pool.ntp.org',
@@ -79,8 +87,11 @@ class ntp::params {
       ]
     }
     'SuSE': {
+      $config          = $default_config
+      $keys_file       = $default_keys_file
       $driftfile       = '/var/lib/ntp/drift/ntp.drift'
-      $restrict          = [
+      $package_name    = $default_package_name
+      $restrict        = [
         'default kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
         '127.0.0.1',
@@ -96,15 +107,17 @@ class ntp::params {
       ]
     }
     'FreeBSD': {
+      $config          = $default_config
       $driftfile       = '/var/db/ntpd.drift'
+      $keys_file       = $default_keys_file
       $package_name    = ['net/ntp']
-      $restrict          = [
+      $restrict        = [
         'default kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
         '127.0.0.1',
         '-6 ::1',
       ]
-      $service_name    = 'ntpd'
+      $service_name    = $default_service_name
       $iburst_enable   = true
       $servers         = [
         '0.freebsd.pool.ntp.org maxpoll 9',
@@ -114,13 +127,17 @@ class ntp::params {
       ]
     }
     'Archlinux': {
-      $restrict          = [
+      $config          = $default_config
+      $keys_file       = $default_keys_file
+      $driftfile       = $default_driftfile
+      $package_name    = $default_package_name
+      $service_name    = $default_service_name
+      $restrict        = [
         'default kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
         '127.0.0.1',
         '-6 ::1',
       ]
-      $service_name    = 'ntpd'
       $iburst_enable   = false
       $servers         = [
         '0.pool.ntp.org',
@@ -129,22 +146,22 @@ class ntp::params {
       ]
     }
     'Solaris': {
-      $config       = '/etc/inet/ntp.conf'
-      $driftfile    = '/var/ntp/ntp.drift'
-      $keys_file    = '/etc/inet/ntp.keys'
-      $package_name = $::operatingsystemrelease ? {
+      $config        = '/etc/inet/ntp.conf'
+      $driftfile     = '/var/ntp/ntp.drift'
+      $keys_file     = '/etc/inet/ntp.keys'
+      $package_name  = $::operatingsystemrelease ? {
         /^(5\.10|10|10_u\d+)$/ => [ 'SUNWntpr', 'SUNWntpu' ],
         /^(5\.11|11|11\.\d+)$/ => [ 'service/network/ntp' ]
       }
-      $restrict     = [
+      $restrict      = [
         'default kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
         '127.0.0.1',
         '-6 ::1',
       ]
-      $service_name = 'network/ntp'
+      $service_name  = 'network/ntp'
       $iburst_enable = false
-      $servers      = [
+      $servers       = [
         '0.pool.ntp.org',
         '1.pool.ntp.org',
         '2.pool.ntp.org',
@@ -153,14 +170,17 @@ class ntp::params {
     }
     # Gentoo was added as its own $::osfamily in Facter 1.7.0
     'Gentoo': {
+      $config          = $default_config
+      $keys_file       = $default_keys_file
+      $driftfile       = $default_driftfile
       $package_name    = ['net-misc/ntp']
-      $restrict          = [
+      $service_name    = $default_service_name
+      $restrict        = [
         'default kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
         '127.0.0.1',
         '-6 ::1',
       ]
-      $service_name    = 'ntpd'
       $iburst_enable   = false
       $servers         = [
         '0.gentoo.pool.ntp.org',
@@ -174,14 +194,17 @@ class ntp::params {
       # Before Facter 1.7.0 Gentoo did not have its own $::osfamily
       case $::operatingsystem {
         'Gentoo': {
+          $config          = $default_config
+          $keys_file       = $default_keys_file
+          $driftfile       = $default_driftfile
+          $service_name    = $default_service_name
           $package_name    = ['net-misc/ntp']
-          $restrict          = [
+          $restrict        = [
             'default kod nomodify notrap nopeer noquery',
             '-6 default kod nomodify notrap nopeer noquery',
             '127.0.0.1',
             '-6 ::1',
           ]
-          $service_name    = 'ntpd'
           $iburst_enable   = false
           $servers         = [
             '0.gentoo.pool.ntp.org',
@@ -198,20 +221,5 @@ class ntp::params {
     default: {
       fail("The ${module_name} module is not supported on an ${::osfamily} based system.")
     }
-  }
-  if $config == undef {
-    $config = $default_config
-  }
-  if $keys_file == undef {
-    $keys_file = $default_keys_file
-  }
-  if $driftfile == undef {
-    $driftfile = $default_driftfile
-  }
-  if $package_name == undef {
-    $package_name = $default_package_name
-  }
-  if $service_name == undef {
-    $service_name = $default_service_name
   }
 }
