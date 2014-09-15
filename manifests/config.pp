@@ -18,6 +18,7 @@ class ntp::config inherits ntp {
     group   => 0,
     mode    => '0644',
     content => template($config_template),
+    notify  => Class['ntp::service'],
   }
 
 }

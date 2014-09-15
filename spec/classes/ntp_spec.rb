@@ -247,6 +247,7 @@ describe 'ntp' do
         it 'uses the NTP pool servers by default' do
           should contain_file('/etc/ntp.conf').with({
             'content' => /server \d.gentoo.pool.ntp.org/,
+            'notify'  => 'Class[Ntp::Service]',
           })
         end
       end
@@ -259,6 +260,7 @@ describe 'ntp' do
         it 'uses the NTP pool servers by default' do
           should contain_file('/etc/ntp.conf').with({
             'content' => /server \d.gentoo.pool.ntp.org/,
+            'notify'  => 'Class[Ntp::Service]',
           })
         end
       end
@@ -271,6 +273,7 @@ describe 'ntp' do
         it 'uses the debian ntp servers by default' do
           should contain_file('/etc/ntp.conf').with({
             'content' => /server \d.debian.pool.ntp.org iburst\n/,
+            'notify'  => 'Class[Ntp::Service]',
           })
         end
       end
@@ -283,6 +286,7 @@ describe 'ntp' do
         it 'uses the redhat ntp servers by default' do
           should contain_file('/etc/ntp.conf').with({
             'content' => /server \d.centos.pool.ntp.org/,
+            'notify'  => 'Class[Ntp::Service]',
           })
         end
       end
@@ -295,6 +299,7 @@ describe 'ntp' do
         it 'uses the opensuse ntp servers by default' do
           should contain_file('/etc/ntp.conf').with({
             'content' => /server \d.opensuse.pool.ntp.org/,
+            'notify'  => 'Class[Ntp::Service]',
           })
         end
       end
@@ -307,6 +312,7 @@ describe 'ntp' do
         it 'uses the freebsd ntp servers by default' do
           should contain_file('/etc/ntp.conf').with({
             'content' => /server \d.freebsd.pool.ntp.org maxpoll 9 iburst/,
+            'notify'  => 'Class[Ntp::Service]',
           })
         end
       end
@@ -319,6 +325,7 @@ describe 'ntp' do
         it 'uses the NTP pool servers by default' do
           should contain_file('/etc/ntp.conf').with({
             'content' => /server \d.pool.ntp.org/,
+            'notify'  => 'Class[Ntp::Service]',
           })
         end
       end
@@ -331,6 +338,7 @@ describe 'ntp' do
         it 'uses the NTP pool servers by default' do
           should contain_file('/etc/inet/ntp.conf').with({
             'content' => /server \d.pool.ntp.org/,
+            'notify'  => 'Class[Ntp::Service]',
           })
         end
       end
@@ -343,6 +351,7 @@ describe 'ntp' do
         it 'uses the NTP pool servers by default' do
           should contain_file('/etc/inet/ntp.conf').with({
             'content' => /server \d.pool.ntp.org/,
+            'notify'  => 'Class[Ntp::Service]',
           })
         end
       end
