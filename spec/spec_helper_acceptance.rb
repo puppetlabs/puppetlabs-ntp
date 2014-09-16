@@ -14,7 +14,7 @@ unless ENV['RS_PROVISION'] == 'no' or ENV['BEAKER_provision'] == 'no'
       on host, "/bin/echo '' > #{host['hieraconf']}"
     end
     on host, "mkdir -p #{host['distmoduledir']}"
-    puppet_module_install_on(host, :module_name => 'puppetlabs-stdlib')
+    on host, puppet('module install puppetlabs-stdlib'), { :acceptable_exit_codes => [0,1] }
   end
 end
 
