@@ -61,7 +61,6 @@
     {
       "operatingsystem": "Solaris",
       "operatingsystemrelease": [
-        "10",
         "11"
       ]
     },

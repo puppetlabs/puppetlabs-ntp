@@ -2,7 +2,7 @@
 ###Summary
 
 This is primarily a feature release. It adds a few new parameters to class `ntp`
-and adds support for Solaris 10 and 11.
+and adds support for Solaris 11.
 
 ####Features
 - Add the `$interfaces` parameter to `ntp`
