@@ -143,6 +143,10 @@ Sets the location of the drift file for ntp.
 
 Set the iburst option in the ntp configuration. If enabled the option is set for every ntp peer.
 
+####`interfaces`
+
+Sets the list of interfaces NTP will listen on. This parameter must be an array.
+
 ####`keys_controlkey`
 
 The key to use as the control key.
