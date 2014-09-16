@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'ntp' do
   let(:facts) {{ :is_virtual => 'false' }}
 
-  ['Debian', 'RedHat','SuSE', 'FreeBSD', 'Archlinux', 'Gentoo', 'Gentoo (Facter < 1.7)'].each do |system|
+  ['Debian', 'RedHat','Suse', 'FreeBSD', 'Archlinux', 'Gentoo', 'Gentoo (Facter < 1.7)'].each do |system|
     context "when on system #{system}" do
       if system == 'Gentoo (Facter < 1.7)'
         let :facts do
@@ -287,9 +287,9 @@ describe 'ntp' do
         end
       end
 
-      describe "on osfamily SuSE" do
+      describe "on osfamily Suse" do
         let :facts do
-          super().merge({ :osfamily => 'SuSE' })
+          super().merge({ :osfamily => 'Suse' })
         end
 
         it 'uses the opensuse ntp servers by default' do
