@@ -86,7 +86,7 @@ class ntp::params {
         '2.centos.pool.ntp.org',
       ]
     }
-    'SuSE': {
+    'Suse': {
       $config          = $default_config
       $keys_file       = $default_keys_file
       $driftfile       = '/var/lib/ntp/drift/ntp.drift'
