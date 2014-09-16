@@ -15,7 +15,7 @@ disable monitor
 # permit the source to query or modify the service on this system.
 <% @restrict.flatten.each do |restrict| -%>
 restrict <%= restrict %>
-<% end %>
+<% end -%>
 <% end -%>
 
 <% if @interfaces != [] -%>
@@ -24,7 +24,7 @@ restrict <%= restrict %>
 interface ignore wildcard
 <% @interfaces.flatten.each do |interface| -%>
 interface listen <%= interface %>
-<% end %>
+<% end -%>
 <% end -%>
 
 <% [@servers].flatten.each do |server| -%>
@@ -42,10 +42,10 @@ restrict 127.127.1.0
 # Driftfile.
 driftfile <%= @driftfile %>
 
-<% unless @logfile.nil? %>
+<% unless @logfile.nil? -%>
 # Logfile
 logfile = <%= @logfile %>
-<% end %>
+<% end -%>
 
 <% if @keys_enable -%>
 keys <%= @keys_file %>
