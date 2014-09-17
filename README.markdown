@@ -143,6 +143,10 @@ Sets the location of the drift file for ntp.
 
 Set the iburst option in the ntp configuration. If enabled the option is set for every ntp peer.
 
+####`interfaces`
+
+Sets the list of interfaces NTP will listen on. This parameter must be an array.
+
 ####`keys_controlkey`
 
 The key to use as the control key.
@@ -225,7 +229,7 @@ The module has been tested on:
 * Gentoo
 * Arch Linux
 * FreeBSD
-* Solaris 10, 11
+* Solaris 11
 * AIX 5.3, 6.1, 7.1
 
 Testing on other platforms has been light and cannot be guaranteed. 

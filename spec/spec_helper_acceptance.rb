@@ -14,7 +14,7 @@ unless ENV['RS_PROVISION'] == 'no' or ENV['BEAKER_provision'] == 'no'
       on host, "/bin/echo '' > #{host['hieraconf']}"
     end
     on host, "mkdir -p #{host['distmoduledir']}"
-    on host, 'puppet module install puppetlabs-stdlib', :acceptable_exit_codes => [0,1]
+    on host, puppet('module install puppetlabs-stdlib'), { :acceptable_exit_codes => [0,1] }
   end
 end
 
@@ -27,7 +27,11 @@ RSpec.configure do |c|
 
   # Configure all nodes in nodeset
   c.before :suite do
-    # Install module
-    puppet_module_install(:source => proj_root, :module_name => 'ntp')
+    hosts.each do |host|
+      on host, "mkdir -p #{host['distmoduledir']}/ntp"
+      %w(lib manifests templates metadata.json).each do |file|
+        scp_to host, "#{proj_root}/#{file}", "#{host['distmoduledir']}/ntp"
+      end
+    end
   end
 end

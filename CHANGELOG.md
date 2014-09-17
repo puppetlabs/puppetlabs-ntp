@@ -1,3 +1,20 @@
+##2014-09-10 - Supported Release 3.2.0
+###Summary
+
+This is primarily a feature release. It adds a few new parameters to class `ntp`
+and adds support for Solaris 11.
+
+####Features
+- Add the `$interfaces` parameter to `ntp`
+- Add support for Solaris 10 and 11
+- Synchronized files with modulesync
+- Test updates
+- Add the `$iburst_enable` parameter to `ntp`
+
+####Bugfixes
+- Fixes for strict variables
+- Remove dependency on stdlib4
+
 ##2014-06-06 - Release 3.1.2
 ###Summary
 
