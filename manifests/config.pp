@@ -8,7 +8,6 @@ class ntp::config inherits ntp {
       owner   => 0,
       group   => 0,
       mode    => '0755',
-      recurse => true,
     }
   }
 
