@@ -1,6 +1,6 @@
 {
   "name": "puppetlabs-ntp",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "author": "Puppet Labs",
   "summary": "NTP Module",
   "license": "Apache Version 2.0",
@@ -20,21 +20,24 @@
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
         "5",
-        "6"
+        "6",
+        "7"
       ]
     },
     {
       "operatingsystem": "OracleLinux",
       "operatingsystemrelease": [
         "5",
-        "6"
+        "6",
+        "7"
       ]
     },
     {
       "operatingsystem": "Scientific",
       "operatingsystemrelease": [
         "5",
-        "6"
+        "6",
+        "7"
       ]
     },
     {
