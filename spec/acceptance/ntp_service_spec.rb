@@ -1,14 +1,18 @@
 require 'spec_helper_acceptance'
 
 case fact('osfamily')
-when 'RedHat', 'FreeBSD', 'Linux', 'Gentoo'
-  servicename = 'ntpd'
-when 'Solaris'
-  servicename = 'network/ntp'
-when 'AIX'
-  servicename = 'xntpd'
-else
-  servicename = 'ntp'
+  when 'RedHat', 'FreeBSD', 'Linux', 'Gentoo'
+    servicename = 'ntpd'
+  when 'Solaris'
+    servicename = 'network/ntp'
+  when 'AIX'
+    servicename = 'xntpd'
+  else
+    if fact('operatingsystem') == 'SLES' and fact('operatingsystemmajrelease') == '12'
+      servicename = 'ntpd'
+    else
+      servicename = 'ntp'
+    end
 end
 
 describe 'ntp::service class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
