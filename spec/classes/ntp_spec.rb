@@ -9,6 +9,10 @@ describe 'ntp' do
         let :facts do
           super().merge({ :osfamily => 'Linux', :operatingsystem => 'Gentoo' })
         end
+      elsif system == 'Suse'
+        let :facts do
+          super().merge({ :osfamily => system,:operatingsystem => 'SLES',:operatingsystemmajrelease => '11' })
+        end
       else
         let :facts do
           super().merge({ :osfamily => system })
@@ -214,19 +218,19 @@ describe 'ntp' do
               :servers => ['a', 'b', 'c', 'd'],
               :logfile => '/var/log/foobar.log',
             }}
-    
+
             it 'should contain logfile setting' do
               should contain_file('/etc/ntp.conf').with({
               'content' => /^logfile = \/var\/log\/foobar\.log\n/,
               })
             end
           end
-    
+
           context 'when set to false' do
             let(:params) {{
               :servers => ['a', 'b', 'c', 'd'],
             }}
-    
+
             it 'should not contain a logfile line' do
               should_not contain_file('/etc/ntp.conf').with({
                 'content' => /logfile =/,
@@ -289,13 +293,13 @@ describe 'ntp' do
 
       describe "on osfamily Suse" do
         let :facts do
-          super().merge({ :osfamily => 'Suse' })
+          super().merge({ :osfamily => 'Suse', :operatingsystem => 'SLES',:operatingsystemmajrelease => '11' })
         end
 
         it 'uses the opensuse ntp servers by default' do
           should contain_file('/etc/ntp.conf').with({
             'content' => /server \d.opensuse.pool.ntp.org/,
-          })
+            })
         end
       end
 
