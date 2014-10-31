@@ -19,8 +19,7 @@ unless ENV['RS_PROVISION'] == 'no' or ENV['BEAKER_provision'] == 'no'
     end
     on host, "mkdir -p #{host['distmoduledir']}"
     on host, apply_manifest('package{"git":ensure => present}')
-    on host, 'git clone https://github.com/puppetlabs/puppetlabs-stdlib /etc/puppetlabs/puppet/modules/stdlib'
-    #on host, puppet('module install puppetlabs-stdlib'), {:acceptable_exit_codes => [0, 1]}
+    on host, 'git clone -b 3.2.x https://github.com/puppetlabs/puppetlabs-stdlib /etc/puppetlabs/puppet/modules/stdlib'
   end
 end
 
