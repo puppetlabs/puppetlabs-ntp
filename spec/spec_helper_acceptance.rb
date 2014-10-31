@@ -1,20 +1,25 @@
 require 'beaker-rspec'
 
-UNSUPPORTED_PLATFORMS = [ 'windows', 'Darwin' ]
+UNSUPPORTED_PLATFORMS = ['windows', 'Darwin']
 
 unless ENV['RS_PROVISION'] == 'no' or ENV['BEAKER_provision'] == 'no'
   # This will install the latest available package on el and deb based
   # systems fail on windows and osx, and install via gem on other *nixes
-  foss_opts = { :default_action => 'gem_install' }
+  foss_opts = {:default_action => 'gem_install'}
 
-  if default.is_pe?; then install_pe; else install_puppet( foss_opts ); end
+  if default.is_pe?; then
+    install_pe;
+  else
+    install_puppet(foss_opts);
+  end
 
   hosts.each do |host|
     unless host.is_pe?
       on host, "/bin/echo '' > #{host['hieraconf']}"
     end
     on host, "mkdir -p #{host['distmoduledir']}"
-    on host, puppet('module install puppetlabs-stdlib'), { :acceptable_exit_codes => [0,1] }
+    on host, apply_manifest('package{"git":ensure => present}')
+    on host, 'git clone -b 3.2.x https://github.com/puppetlabs/puppetlabs-stdlib /etc/puppetlabs/puppet/modules/stdlib'
   end
 end
 
@@ -29,6 +34,7 @@ RSpec.configure do |c|
   c.before :suite do
     hosts.each do |host|
       on host, "mkdir -p #{host['distmoduledir']}/ntp"
+      on host, puppet('module install puppetlabs-stdlib')
       %w(lib manifests templates metadata.json).each do |file|
         scp_to host, "#{proj_root}/#{file}", "#{host['distmoduledir']}/ntp"
       end
