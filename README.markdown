@@ -218,19 +218,19 @@ status as a virtual machine.
 
 ##Limitations
 
-This module has been built on and tested against Puppet 2.7 and higher.
+This module has been built on and tested against Puppet 3.
 
 The module has been tested on:
 
-* RedHat Enterprise Linux 5/6
+* RedHat Enterprise Linux 5/6/7
+* CentOS 5/6/7
+* Oracle Enterprise Linux 5/6/7
+* Scientific Linux 5/6/7
+* SLES 10SP4/11SP1/12
 * Debian 6/7
-* CentOS 5/6
-* Ubuntu 12.04
-* Gentoo
-* Arch Linux
-* FreeBSD
+* Ubuntu 10.04/12.04/14.04
 * Solaris 11
-* AIX 5.3, 6.1, 7.1
+* AIX 5.3/6.1/7.1
 
 Testing on other platforms has been light and cannot be guaranteed. 
 
