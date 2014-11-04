@@ -90,11 +90,12 @@ class ntp::params {
       if $::operatingsystem == 'SLES' and $::operatingsystemmajrelease == '12'
       {
         $service_name  = 'ntpd'
+        $keys_file     = '/etc/ntp.keys'
       } else{
         $service_name  = 'ntp'
+        $keys_file     = $default_keys_file
       }
       $config          = $default_config
-      $keys_file       = $default_keys_file
       $driftfile       = '/var/lib/ntp/drift/ntp.drift'
       $package_name    = $default_package_name
       $restrict        = [

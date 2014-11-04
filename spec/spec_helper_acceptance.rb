@@ -18,8 +18,12 @@ unless ENV['RS_PROVISION'] == 'no' or ENV['BEAKER_provision'] == 'no'
       on host, "/bin/echo '' > #{host['hieraconf']}"
     end
     on host, "mkdir -p #{host['distmoduledir']}"
-    on host, apply_manifest('package{"git":ensure => present}')
-    on host, 'git clone -b 3.2.x https://github.com/puppetlabs/puppetlabs-stdlib /etc/puppetlabs/puppet/modules/stdlib'
+    if host['platform'] =~ /sles-12/
+      apply_manifest_on(host, 'package{"git":}')
+      on host, 'git clone -b 4.3.x https://github.com/puppetlabs/puppetlabs-stdlib /etc/puppetlabs/puppet/modules/stdlib'
+    else
+      on host, puppet_module_install('puppetlabs/stdlib')
+    end
   end
 end
 
