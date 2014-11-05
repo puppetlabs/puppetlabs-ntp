@@ -18,11 +18,11 @@ unless ENV['RS_PROVISION'] == 'no' or ENV['BEAKER_provision'] == 'no'
       on host, "/bin/echo '' > #{host['hieraconf']}"
     end
     on host, "mkdir -p #{host['distmoduledir']}"
-    if host['platform'] =~ /sles-12/
+    if host['platform'] =~ /sles-12/i || host['platform'] =~ /solaris-11/i
       apply_manifest_on(host, 'package{"git":}')
       on host, 'git clone -b 4.3.x https://github.com/puppetlabs/puppetlabs-stdlib /etc/puppetlabs/puppet/modules/stdlib'
     else
-      on host, puppet_module_install('puppetlabs/stdlib')
+      on host, puppet('module install puppetlabs-stdlib'), {:acceptable_exit_codes => [0, 1]}
     end
   end
 end
@@ -38,7 +38,6 @@ RSpec.configure do |c|
   c.before :suite do
     hosts.each do |host|
       on host, "mkdir -p #{host['distmoduledir']}/ntp"
-      on host, puppet('module install puppetlabs-stdlib')
       %w(lib manifests templates metadata.json).each do |file|
         scp_to host, "#{proj_root}/#{file}", "#{host['distmoduledir']}/ntp"
       end
