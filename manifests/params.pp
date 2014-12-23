@@ -25,6 +25,7 @@ class ntp::params {
   $default_config       = '/etc/ntp.conf'
   $default_keys_file    = '/etc/ntp/keys'
   $default_driftfile    = '/var/lib/ntp/drift'
+  $default_statistics = 'loopstats peerstats clockstats'
   $default_package_name = ['ntp']
   $default_service_name = 'ntpd'
 
@@ -79,6 +80,12 @@ class ntp::params {
         '127.0.0.1',
         '-6 ::1',
       ]
+      $filegen = [
+       'loopstats file loopstats type day enable',
+       'peerstats file peerstats type day enable',
+       'clockstats file clockstats type day enable',
+      ]
+      $statistics = $default_statistics
       $iburst_enable   = false
       $servers         = [
         '0.centos.pool.ntp.org',

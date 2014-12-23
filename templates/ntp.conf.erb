@@ -18,6 +18,14 @@ restrict <%= restrict %>
 <% end -%>
 <% end -%>
 
+<% if @filegen != [] -%>
+# Enable this if you want statistics to be logged.
+#statsdir /var/log/ntpstats/
+<% @filegen.flatten.each do |filegen| -%>
+filegen <%= filegen %>
+<% end -%>
+<% end -%>
+
 <% if @interfaces != [] -%>
 # Ignore wildcard interface and only listen on the following specified
 # interfaces
@@ -41,6 +49,9 @@ restrict 127.127.1.0
 
 # Driftfile.
 driftfile <%= @driftfile %>
+
+# Statistics.
+statistics <%= @statistics %>
 
 <% unless @logfile.nil? -%>
 # Logfile
