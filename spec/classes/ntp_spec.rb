@@ -221,7 +221,7 @@ describe 'ntp' do
 
             it 'should contain logfile setting' do
               should contain_file('/etc/ntp.conf').with({
-              'content' => /^logfile = \/var\/log\/foobar\.log\n/,
+              'content' => /^logfile \/var\/log\/foobar\.log\n/,
               })
             end
           end
@@ -233,7 +233,7 @@ describe 'ntp' do
 
             it 'should not contain a logfile line' do
               should_not contain_file('/etc/ntp.conf').with({
-                'content' => /logfile =/,
+                'content' => /logfile /,
               })
             end
           end

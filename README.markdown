@@ -166,6 +166,10 @@ Which of the keys is the request key.
 
 Array of trusted keys.
 
+#### `logfile`
+
+Absolute path of the alternate log file. If unspecified, ntp uses syslog by default. 
+
 ####`package_ensure`
 
 Sets the ntp package to be installed. Can be set to 'present', 'latest', or a specific version. 
