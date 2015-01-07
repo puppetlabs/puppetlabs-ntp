@@ -28,6 +28,11 @@ class ntp::params {
   $default_package_name = ['ntp']
   $default_service_name = 'ntpd'
 
+  $package_manage = $::osfamily ? {
+    'FreeBSD' => false,
+    default   => true,
+  }
+
   case $::osfamily {
     'AIX': {
       $config        = $default_config
