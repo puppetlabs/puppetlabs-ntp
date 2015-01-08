@@ -88,6 +88,14 @@ class { '::ntp':
 }
 ```
 
+###I'd like to configure and run ntp, but I don't need to install it.
+
+```puppet
+class { '::ntp':
+  package_manage => false,
+}
+```
+
 ###Looks great!  But I'd like a different template; we need to do something unique here.
 
 ```puppet
@@ -168,7 +176,11 @@ Array of trusted keys.
 
 ####`package_ensure`
 
-Sets the ntp package to be installed. Can be set to 'present', 'latest', or a specific version. 
+Sets the ntp package to be installed. Can be set to 'present', 'latest', or a specific version.
+
+####`package_manage`
+
+Determines whether to manage the ntp package. Defaults to true.
 
 ####`package_name`
 

@@ -128,20 +128,25 @@ describe 'ntp' do
         end
 
         describe "ntp::install on #{system}" do
-          let(:params) {{ :package_ensure => 'present', :package_name => ['ntp'], }}
+          let(:params) {{ :package_ensure => 'present', :package_name => ['ntp'], :package_manage => true, }}
 
           it { should contain_package('ntp').with(
             :ensure => 'present'
           )}
 
           describe 'should allow package ensure to be overridden' do
-            let(:params) {{ :package_ensure => 'latest', :package_name => ['ntp'] }}
+            let(:params) {{ :package_ensure => 'latest', :package_name => ['ntp'], :package_manage => true, }}
             it { should contain_package('ntp').with_ensure('latest') }
           end
 
           describe 'should allow the package name to be overridden' do
-            let(:params) {{ :package_ensure => 'present', :package_name => ['hambaby'] }}
+            let(:params) {{ :package_ensure => 'present', :package_name => ['hambaby'], :package_manage => true, }}
             it { should contain_package('hambaby') }
+          end
+
+          describe 'should allow the package to be unmanaged' do
+            let(:params) {{ :package_manage => false, :package_name => ['ntp'], }}
+            it { should_not contain_package('ntp') }
           end
         end
 
