@@ -67,6 +67,22 @@ class { '::ntp':
 }
 ```
 
+###I just want to install a client that can't be queried
+
+```puppet
+class { '::ntp':
+  servers   => ['ntp1.corp.com', 'ntp2.corp.com'],
+  restrict  => [
+    'default ignore',
+    '-6 default ignore',
+    '127.0.0.1',
+    '-6 ::1',
+    'ntp1.corp.com nomodify notrap nopeer noquery',
+    'ntp1.corp.com nomodify notrap nopeer noquery'
+  ],
+}
+```
+
 ###I only want to listen on specific interfaces, not on 0.0.0.0
 
 Restricting this is especially useful on Openstack nodes which may have numerous virtual interfaces.
