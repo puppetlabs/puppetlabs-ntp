@@ -1,7 +1,9 @@
 class ntp (
   $autoupdate        = $ntp::params::autoupdate,
+  $broadcastclient   = $ntp::params::broadcastclient,
   $config            = $ntp::params::config,
   $config_template   = $ntp::params::config_template,
+  $disable_auth      = $ntp::params::disable_auth,
   $disable_monitor   = $ntp::params::disable_monitor,
   $driftfile         = $ntp::params::driftfile,
   $logfile           = $ntp::params::logfile,
@@ -26,8 +28,10 @@ class ntp (
   $udlc              = $ntp::params::udlc
 ) inherits ntp::params {
 
+  validate_bool($broadcastclient)
   validate_absolute_path($config)
   validate_string($config_template)
+  validate_bool($disable_auth)
   validate_bool($disable_monitor)
   validate_absolute_path($driftfile)
   if $logfile { validate_absolute_path($logfile) }

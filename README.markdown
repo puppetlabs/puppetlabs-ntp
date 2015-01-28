@@ -146,6 +146,10 @@ The following parameters are available in the ntp module:
 **Deprecated:** This parameter determined whether the ntp module should be
 automatically updated to the latest version available.  Replaced by `package_ensure`.
 
+####`broadcastclient`
+
+Enable reception of broadcast server messages to any local interface.
+
 ####`config`
 
 Sets the file that ntp configuration is written into.
@@ -153,6 +157,11 @@ Sets the file that ntp configuration is written into.
 ####`config_template`
 
 Determines which template Puppet should use for the ntp configuration.
+
+####`disable_auth`
+
+Do  not  require cryptographic authentication for broadcast client, multicast 
+client and symmetric passive associations.
 
 ####`disable_monitor`
 
