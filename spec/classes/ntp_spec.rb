@@ -126,6 +126,54 @@ describe 'ntp' do
             }
           end
         end
+        describe 'with parameter disable_auth' do
+          context 'when set to true' do
+            let(:params) {{
+              :disable_auth => true,
+            }}
+
+            it 'should contain disable auth setting' do
+              should contain_file('/etc/ntp.conf').with({
+              'content' => /^disable auth\n/,
+              })
+            end
+          end
+          context 'when set to false' do
+            let(:params) {{
+              :disable_auth => false,
+            }}
+
+            it 'should not contain disable auth setting' do
+              should_not contain_file('/etc/ntp.conf').with({
+              'content' => /^disable auth\n/,
+              })
+            end
+          end
+        end
+        describe 'with parameter broadcastclient' do
+          context 'when set to true' do
+            let(:params) {{
+              :broadcastclient => true,
+            }}
+
+            it 'should contain broadcastclient setting' do
+              should contain_file('/etc/ntp.conf').with({
+              'content' => /^broadcastclient\n/,
+              })
+            end
+          end
+          context 'when set to false' do
+            let(:params) {{
+              :broadcastclient => false,
+            }}
+
+            it 'should not contain broadcastclient setting' do
+              should_not contain_file('/etc/ntp.conf').with({
+              'content' => /^broadcastclient\n/,
+              })
+            end
+          end
+        end
 
         describe "ntp::install on #{system}" do
           let(:params) {{ :package_ensure => 'present', :package_name => ['ntp'], :package_manage => true, }}
