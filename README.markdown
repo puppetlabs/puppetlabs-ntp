@@ -300,27 +300,13 @@ Default value: varies by operating system.
 
 ####`udlc`
 
-Specifies whether to enable configs for undisciplined local clock, regardless of status as a virtual machine.
+Specifies whether to enable specialized configuration options for an undisciplined local clock, regardless of its status as a virtual machine.
 Valid options: 'true' or 'false'
 Default value: 'false'
 
 ##Limitations
 
-This module has been built on and tested against Puppet 3.
-
-The module has been tested on:
-
-* RedHat Enterprise Linux 5/6/7
-* CentOS 5/6/7
-* Oracle Enterprise Linux 5/6/7
-* Scientific Linux 5/6/7
-* SLES 10SP4/11SP1/12
-* Debian 6/7
-* Ubuntu 10.04/12.04/14.04
-* Solaris 11
-* AIX 5.3/6.1/7.1
-
-Testing on other platforms has been light and cannot be guaranteed.
+This module has been tested on all PE-supported platforms, and no issues have been identified.
 
 ##Development
 
