@@ -22,12 +22,6 @@ The ntp module handles installing, configuring, and running NTP across a range o
 
 ##Setup
 
-###What ntp affects
-
-* ntp package.
-* ntp configuration file.
-* ntp service.
-
 ###Beginning with ntp
 
 `include '::ntp'` is enough to get you up and running.  If you wish to pass in
@@ -41,7 +35,7 @@ class { '::ntp':
 
 ##Usage
 
-All interaction with the ntp module can do be done through the main ntp class.
+All interaction with the ntp module can be done through the main ntp class.
 This means you can simply toggle the options in `::ntp` to have full functionality of the module.
 
 ###I just want NTP, what's the minimum I need?
@@ -85,7 +79,7 @@ class { '::ntp':
 
 ###I only want to listen on specific interfaces, not on 0.0.0.0
 
-Restricting this is especially useful on Openstack nodes which may have numerous virtual interfaces.
+Restricting ntp to a specific interface is especially useful on Openstack nodes which may have numerous virtual interfaces.
 
 ```puppet
 class { '::ntp':
@@ -143,109 +137,172 @@ The following parameters are available in the ntp module:
 
 ####`autoupdate`
 
-**Deprecated:** This parameter determined whether the ntp module should be
-automatically updated to the latest version available.  Replaced by `package_ensure`.
+**Deprecated; replaced by the `package_ensure` parameter**
+Tells Puppet whether to keep the ntp module updated to the latest version available.
+Valid options: 'true' or 'false'
+Default value: 'false'
 
 ####`config`
 
-Sets the file that ntp configuration is written into.
+Specifies a file for ntp's configuration info.
+Valid options: string containing an absolute path
+Default value: '/etc/ntp.conf' (or '/etc/inet/ntp.conf' on Solaris).
 
 ####`config_template`
 
-Determines which template Puppet should use for the ntp configuration.
+Specifies a file to act as a template for the config file.
+Valid options: string containing a path (absolute, or relative to the module path)
+Default value: 'ntp/ntp.conf.erb'
 
 ####`disable_monitor`
 
-Disables monitoring of ntp.
+Tells Puppet whether to refrain from monitoring the NTP service.
+Valid options: 'true' or 'false'
+Default value: 'false'
 
 ####`driftfile`
 
-Sets the location of the drift file for ntp.
+Specifies an NTP driftfile.
+Valid options: string containing an absolute path
+Default value: '/var/lib/ntp/drift' (except on AIX and Solaris).
 
 ####`iburst_enable`
 
-Set the iburst option in the ntp configuration. If enabled the option is set for every ntp peer.
+Specifies whether to enable the iburst option for every NTP peer.
+Valid options: 'true' or 'false'
+Default value: 'false' (except on AIX and Debian)
 
 ####`interfaces`
 
-Sets the list of interfaces NTP will listen on. This parameter must be an array.
+Specifies one or more network interfaces for NTP to listen on.
+Valid options: array
+Default value: [ ]
 
 ####`keys_controlkey`
 
-The key to use as the control key.
+Provides a control key to be used by NTP.
+Valid options: string
+Default value: ' '
 
 ####`keys_enable`
 
-Whether the ntp keys functionality is enabled.
+Tells Puppet whether to enable key-based authentication.
+Valid options: 'true' or 'false'
+Default value: 'false'
 
 ####`keys_file`
 
-Location of the keys file.
+Specifies an NTP keys file.
+Valid options: string containing an absolute path
+Default value: '/etc/ntp/keys' (except on AIX, SLES, and Solaris)
 
 ####`keys_requestkey`
 
-Which of the keys is the request key.
+Provides a request key to be used by NTP.
+Valid options: string
+Default value: ' '
 
 #### `keys_trusted`
 
-Array of trusted keys.
+Provides one or more keys to be trusted by NTP.
+Valid options: array of keys
+Default value: [ ]
 
 #### `logfile`
 
-Absolute path of the alternate log file. If unspecified, ntp uses syslog by default. 
+Specifies a log file for NTP to use instead of syslog.
+Valid options: string containing an absolute path
+Default value: ' '
 
 ####`package_ensure`
 
-Sets the ntp package to be installed. Can be set to 'present', 'latest', or a specific version.
+Tells Puppet whether the NTP package should be installed, and what version.
+Valid options: 'present', 'latest', or a specific version number
+Default value: 'present'
 
 ####`package_manage`
 
-Determines whether to manage the ntp package. Defaults to true.
+Tells Puppet whether to manage the NTP package.
+Valid options: 'true' or 'false'
+Default value: 'true'
 
 ####`package_name`
 
-Determines the name of the package to install.
+Tells Puppet what NTP package to manage.
+Valid options: string
+Default value: 'ntp' (except on AIX and Solaris)
 
 ####`panic`
 
-Determines if ntp should 'panic' in the event of a very large clock skew.
-This defaults to false for virtual machines, as they don't do a great job with keeping time.
+Specifies whether NTP should "panic" in the event of a very large clock skew.
+Valid options: 'true' or 'false'
+Default value: 'true' (except on virtual machines, where major time shifts are normal)
 
 ####`preferred_servers`
 
-List of ntp servers to prefer.  Will append 'prefer' for any server in this list
-that also appears in the servers list.
+Specifies one or more preferred peers. Puppet will append 'prefer' to each matching item in the `servers` array.
+Valid options: array
+Default value: [ ]
 
 ####`restrict`
 
-Sets the restrict options in the ntp configuration.  The lines are
-prefixed with 'restrict', so you just need to list the rest of the restriction.
+Specifies one or more `restrict` options for the NTP configuration. Puppet will prefix each item with 'restrict', so you only need to list the content of the restriction.
+Valid options: array
+Default value for most operating systems:
+
+~~
+[
+  'default kod nomodify notrap nopeer noquery',
+  '-6 default kod nomodify notrap nopeer noquery',
+  '127.0.0.1',
+  '-6 ::1',
+]
+~~
+
+Default value for AIX systems:
+
+~~~~
+[
+  'default nomodify notrap nopeer noquery',
+  '127.0.0.1',
+]
+~~~~
 
 ####`servers`
 
-Selects the servers to use for ntp peers.
+Specifies one or more servers to be used as NTP peers.
+Valid options: array
+Default value: varies by operating system
 
 ####`service_enable`
 
-Determines if the service should be enabled at boot.
+Tells Puppet whether to enable the NTP service at boot.
+Valid options: 'true' or 'false'
+Default value: 'true'
 
 ####`service_ensure`
 
-Determines if the service should be running or not.
+Tells Puppet whether the NTP service should be running.
+Valid options: 'running' or 'stopped'
+Default value: 'running'
 
 ####`service_manage`
 
-Selects whether Puppet should manage the service.
+Tells Puppet whether to manage the NTP service.
+Valid options: 'true' or 'false'
+Default value: 'true'
 
 ####`service_name`
 
-Selects the name of the ntp service for Puppet to manage.
+Tells Puppet what NTP service to manage.
+Valid options: string
+Default value: varies by operating system.
 
 ####`udlc`
 
-Enables configs for undisciplined local clock, regardless of
-status as a virtual machine. 
-
+Specifies whether to enable configs for undisciplined local clock, regardless of status as a virtual machine.
+Valid options: 'true' or 'false'
+Default value: 'false'
 
 ##Limitations
 
@@ -263,7 +320,7 @@ The module has been tested on:
 * Solaris 11
 * AIX 5.3/6.1/7.1
 
-Testing on other platforms has been light and cannot be guaranteed. 
+Testing on other platforms has been light and cannot be guaranteed.
 
 ##Development
 
@@ -276,8 +333,11 @@ We want to keep it as easy as possible to contribute changes so that our
 modules work in your environment. There are a few guidelines that we need
 contributors to follow so that we can have a chance of keeping on top of things.
 
-You can read the complete module contribution guide [on the Puppet Labs wiki.](http://projects.puppetlabs.com/projects/module-site/wiki/Module_contributing)
+For more information, see our [module contribution guide.](https://docs.puppetlabs.com/forge/contributing.html)
 
 ###Contributors
 
-The list of contributors can be found at: [https://github.com/puppetlabs/puppetlabs-ntp/graphs/contributors](https://github.com/puppetlabs/puppetlabs-ntp/graphs/contributors)
+To see who's already involved, see the [list of contributors.](https://github.com/puppetlabs/puppetlabs-ntp/graphs/contributors)
+
+
+
