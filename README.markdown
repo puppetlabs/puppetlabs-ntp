@@ -135,8 +135,7 @@ The following parameters are available in the `::ntp` class:
 
 ####`autoupdate`
 
-**Deprecated; replaced by the `package_ensure` parameter**
-Tells Puppet whether to keep the ntp module updated to the latest version available. Valid options: 'true' or 'false'. Default value: 'false'
+**Deprecated; replaced by the `package_ensure` parameter**. Tells Puppet whether to keep the ntp module updated to the latest version available. Valid options: 'true' or 'false'. Default value: 'false'
 
 ####`config`
 
@@ -144,7 +143,7 @@ Specifies a file for ntp's configuration info. Valid options: string containing 
 
 ####`config_template`
 
-Specifies a file to act as a template for the config file. Valid options: string containing a path (absolute, or relative to the module path) Default value: 'ntp/ntp.conf.erb'
+Specifies a file to act as a template for the config file. Valid options: string containing a path (absolute, or relative to the module path). Default value: 'ntp/ntp.conf.erb'
 
 ####`disable_monitor`
 
