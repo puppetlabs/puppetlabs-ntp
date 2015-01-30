@@ -24,8 +24,7 @@ The ntp module handles installing, configuring, and running NTP across a range o
 
 ###Beginning with ntp
 
-`include '::ntp'` is enough to get you up and running.  If you wish to pass in
-parameters specifying which servers to use, then:
+`include '::ntp'` is enough to get you up and running.  If you wish to pass in parameters specifying which servers to use, then:
 
 ```puppet
 class { '::ntp':
@@ -35,8 +34,7 @@ class { '::ntp':
 
 ##Usage
 
-All interaction with the ntp module can be done through the main ntp class.
-This means you can simply toggle the options in `::ntp` to have full functionality of the module.
+All interaction with the ntp module can be done through the main ntp class. This means you can simply toggle the options in `::ntp` to have full functionality of the module.
 
 ###I just want NTP, what's the minimum I need?
 
@@ -133,131 +131,92 @@ class { '::ntp':
 
 ###Parameters
 
-The following parameters are available in the ntp module:
+The following parameters are available in the `::ntp` class:
 
 ####`autoupdate`
 
 **Deprecated; replaced by the `package_ensure` parameter**
-Tells Puppet whether to keep the ntp module updated to the latest version available.
-Valid options: 'true' or 'false'
-Default value: 'false'
+Tells Puppet whether to keep the ntp module updated to the latest version available. Valid options: 'true' or 'false'. Default value: 'false'
 
 ####`config`
 
-Specifies a file for ntp's configuration info.
-Valid options: string containing an absolute path
-Default value: '/etc/ntp.conf' (or '/etc/inet/ntp.conf' on Solaris).
+Specifies a file for ntp's configuration info. Valid options: string containing an absolute path. Default value: '/etc/ntp.conf' (or '/etc/inet/ntp.conf' on Solaris)
 
 ####`config_template`
 
-Specifies a file to act as a template for the config file.
-Valid options: string containing a path (absolute, or relative to the module path)
-Default value: 'ntp/ntp.conf.erb'
+Specifies a file to act as a template for the config file. Valid options: string containing a path (absolute, or relative to the module path) Default value: 'ntp/ntp.conf.erb'
 
 ####`disable_monitor`
 
-Tells Puppet whether to refrain from monitoring the NTP service.
-Valid options: 'true' or 'false'
-Default value: 'false'
+Tells Puppet whether to refrain from monitoring the NTP service. Valid options: 'true' or 'false'. Default value: 'false'
 
 ####`driftfile`
 
-Specifies an NTP driftfile.
-Valid options: string containing an absolute path
-Default value: '/var/lib/ntp/drift' (except on AIX and Solaris).
+Specifies an NTP driftfile. Valid options: string containing an absolute path. Default value: '/var/lib/ntp/drift' (except on AIX and Solaris)
 
 ####`iburst_enable`
 
-Specifies whether to enable the iburst option for every NTP peer.
-Valid options: 'true' or 'false'
-Default value: 'false' (except on AIX and Debian)
+Specifies whether to enable the iburst option for every NTP peer. Valid options: 'true' or 'false'. Default value: 'false' (except on AIX and Debian)
 
 ####`interfaces`
 
-Specifies one or more network interfaces for NTP to listen on.
-Valid options: array
-Default value: [ ]
+Specifies one or more network interfaces for NTP to listen on. Valid options: array. Default value: [ ]
 
 ####`keys_controlkey`
 
-Provides a control key to be used by NTP.
-Valid options: string
-Default value: ' '
+Provides a control key to be used by NTP. Valid options: string. Default value: ' '
 
 ####`keys_enable`
 
-Tells Puppet whether to enable key-based authentication.
-Valid options: 'true' or 'false'
-Default value: 'false'
+Tells Puppet whether to enable key-based authentication. Valid options: 'true' or 'false'. Default value: 'false'
 
 ####`keys_file`
 
-Specifies an NTP keys file.
-Valid options: string containing an absolute path
-Default value: '/etc/ntp/keys' (except on AIX, SLES, and Solaris)
+Specifies an NTP keys file. Valid options: string containing an absolute path. Default value: '/etc/ntp/keys' (except on AIX, SLES, and Solaris)
 
 ####`keys_requestkey`
 
-Provides a request key to be used by NTP.
-Valid options: string
-Default value: ' '
+Provides a request key to be used by NTP. Valid options: string. Default value: ' '
 
-#### `keys_trusted`
-
-Provides one or more keys to be trusted by NTP.
-Valid options: array of keys
-Default value: [ ]
+#### `keys_trusted`:
+Provides one or more keys to be trusted by NTP. Valid options: array of keys. Default value: [ ]
 
 #### `logfile`
 
-Specifies a log file for NTP to use instead of syslog.
-Valid options: string containing an absolute path
-Default value: ' '
+Specifies a log file for NTP to use instead of syslog. Valid options: string containing an absolute path. Default value: ' '
 
 ####`package_ensure`
 
-Tells Puppet whether the NTP package should be installed, and what version.
-Valid options: 'present', 'latest', or a specific version number
-Default value: 'present'
+Tells Puppet whether the NTP package should be installed, and what version. Valid options: 'present', 'latest', or a specific version number. Default value: 'present'
 
 ####`package_manage`
 
-Tells Puppet whether to manage the NTP package.
-Valid options: 'true' or 'false'
-Default value: 'true'
+Tells Puppet whether to manage the NTP package. Valid options: 'true' or 'false'. Default value: 'true'
 
 ####`package_name`
 
-Tells Puppet what NTP package to manage.
-Valid options: string
-Default value: 'ntp' (except on AIX and Solaris)
+Tells Puppet what NTP package to manage. Valid options: string. Default value: 'ntp' (except on AIX and Solaris)
 
 ####`panic`
 
-Specifies whether NTP should "panic" in the event of a very large clock skew.
-Valid options: 'true' or 'false'
-Default value: 'true' (except on virtual machines, where major time shifts are normal)
+Specifies whether NTP should "panic" in the event of a very large clock skew. Valid options: 'true' or 'false'. Default value: 'true' (except on virtual machines, where major time shifts are normal)
 
 ####`preferred_servers`
 
-Specifies one or more preferred peers. Puppet will append 'prefer' to each matching item in the `servers` array.
-Valid options: array
-Default value: [ ]
+Specifies one or more preferred peers. Puppet will append 'prefer' to each matching item in the `servers` array. Valid options: array. Default value: [ ]
 
 ####`restrict`
 
-Specifies one or more `restrict` options for the NTP configuration. Puppet will prefix each item with 'restrict', so you only need to list the content of the restriction.
-Valid options: array
-Default value for most operating systems:
+Specifies one or more `restrict` options for the NTP configuration. Puppet will prefix each item with 'restrict', so you only need to list the content of the restriction. Valid options: array. Default value for most operating systems:
 
-~~
+~~~~
 [
   'default kod nomodify notrap nopeer noquery',
   '-6 default kod nomodify notrap nopeer noquery',
   '127.0.0.1',
   '-6 ::1',
 ]
-~~
+~~~~
 
 Default value for AIX systems:
 
@@ -270,39 +229,27 @@ Default value for AIX systems:
 
 ####`servers`
 
-Specifies one or more servers to be used as NTP peers.
-Valid options: array
-Default value: varies by operating system
+Specifies one or more servers to be used as NTP peers. Valid options: array. Default value: varies by operating system
 
 ####`service_enable`
 
-Tells Puppet whether to enable the NTP service at boot.
-Valid options: 'true' or 'false'
-Default value: 'true'
+Tells Puppet whether to enable the NTP service at boot. Valid options: 'true' or 'false'. Default value: 'true'
 
 ####`service_ensure`
 
-Tells Puppet whether the NTP service should be running.
-Valid options: 'running' or 'stopped'
-Default value: 'running'
+Tells Puppet whether the NTP service should be running. Valid options: 'running' or 'stopped'. Default value: 'running'
 
 ####`service_manage`
 
-Tells Puppet whether to manage the NTP service.
-Valid options: 'true' or 'false'
-Default value: 'true'
+Tells Puppet whether to manage the NTP service. Valid options: 'true' or 'false'. Default value: 'true'
 
 ####`service_name`
 
-Tells Puppet what NTP service to manage.
-Valid options: string
-Default value: varies by operating system.
+Tells Puppet what NTP service to manage. Valid options: string. Default value: varies by operating system
 
 ####`udlc`
 
-Specifies whether to enable specialized configuration options for an undisciplined local clock, regardless of its status as a virtual machine.
-Valid options: 'true' or 'false'
-Default value: 'false'
+Specifies whether to enable specialized configuration options for an undisciplined local clock, regardless of its status as a virtual machine. Valid options: 'true' or 'false'. Default value: 'false'
 
 ##Limitations
 
@@ -310,14 +257,9 @@ This module has been tested on all PE-supported platforms, and no issues have be
 
 ##Development
 
-Puppet Labs modules on the Puppet Forge are open projects, and community
-contributions are essential for keeping them great. We can’t access the
-huge number of platforms and myriad of hardware, software, and deployment
-configurations that Puppet is intended to serve.
+Puppet Labs modules on the Puppet Forge are open projects, and community contributions are essential for keeping them great. We can’t access the huge number of platforms and myriad of hardware, software, and deployment configurations that Puppet is intended to serve.
 
-We want to keep it as easy as possible to contribute changes so that our
-modules work in your environment. There are a few guidelines that we need
-contributors to follow so that we can have a chance of keeping on top of things.
+We want to keep it as easy as possible to contribute changes so that our modules work in your environment. There are a few guidelines that we need contributors to follow so that we can have a chance of keeping on top of things.
 
 For more information, see our [module contribution guide.](https://docs.puppetlabs.com/forge/contributing.html)
 
