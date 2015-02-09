@@ -252,7 +252,7 @@ Specifies whether to enable specialized configuration options for an undisciplin
 
 ##Limitations
 
-This module has been tested on all PE-supported platforms, and no issues have been identified.
+This module has been tested on [all PE-supported platforms](https://forge.puppetlabs.com/supported#compat-matrix), and no issues have been identified.
 
 ##Development
 
@@ -265,6 +265,3 @@ For more information, see our [module contribution guide.](https://docs.puppetla
 ###Contributors
 
 To see who's already involved, see the [list of contributors.](https://github.com/puppetlabs/puppetlabs-ntp/graphs/contributors)
-
-
-
