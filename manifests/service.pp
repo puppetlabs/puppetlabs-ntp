@@ -15,4 +15,11 @@ class ntp::service inherits ntp {
     }
   }
 
+  $use_servers = join($servers, " ")
+  if $autosync {
+    exec { "/usr/sbin/ntpdate -u ${use_servers} >> /dev/null":
+     refreshonly => true
+    }
+  }
+
 }

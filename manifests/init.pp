@@ -1,4 +1,5 @@
 class ntp (
+  $autosync          = $ntp::params::autosync,
   $autoupdate        = $ntp::params::autoupdate,
   $config            = $ntp::params::config,
   $config_template   = $ntp::params::config_template,
@@ -26,6 +27,7 @@ class ntp (
   $udlc              = $ntp::params::udlc
 ) inherits ntp::params {
 
+  validate_bool($autosync)
   validate_absolute_path($config)
   validate_string($config_template)
   validate_bool($disable_monitor)
