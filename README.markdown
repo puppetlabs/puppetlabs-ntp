@@ -160,6 +160,10 @@ Tells Puppet whether to refrain from monitoring the NTP service. Valid options: 
 
 Specifies an NTP driftfile. Valid options: string containing an absolute path. Default value: '/var/lib/ntp/drift' (except on AIX and Solaris)
 
+#### `fudge`
+
+Used to provide additional information for individual clock drivers. Valid options: array containing strings that follow the `fudge` command. Default value: [ ]
+
 ####`iburst_enable`
 
 Specifies whether to enable the iburst option for every NTP peer. Valid options: 'true' or 'false'. Default value: 'false' (except on AIX and Debian)
