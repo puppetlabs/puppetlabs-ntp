@@ -135,6 +135,10 @@ The following parameters are available in the `::ntp` class:
 
 **Deprecated; replaced by the `package_ensure` parameter**. Tells Puppet whether to keep the ntp module updated to the latest version available. Valid options: 'true' or 'false'. Default value: 'false'
 
+####`broadcastclient`
+
+Enable reception of broadcast server messages to any local interface.
+
 ####`config`
 
 Specifies a file for ntp's configuration info. Valid options: string containing an absolute path. Default value: '/etc/ntp.conf' (or '/etc/inet/ntp.conf' on Solaris)
@@ -142,6 +146,11 @@ Specifies a file for ntp's configuration info. Valid options: string containing 
 ####`config_template`
 
 Specifies a file to act as a template for the config file. Valid options: string containing a path (absolute, or relative to the module path). Default value: 'ntp/ntp.conf.erb'
+
+####`disable_auth`
+
+Do  not  require cryptographic authentication for broadcast client, multicast 
+client and symmetric passive associations.
 
 ####`disable_monitor`
 

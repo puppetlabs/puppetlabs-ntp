@@ -9,6 +9,9 @@ tinker panic 0
 <% if @disable_monitor == true -%>
 disable monitor
 <% end -%>
+<% if @disable_auth == true -%>
+disable auth
+<% end -%>
 
 <% if @restrict != [] -%>
 # Permit time synchronization with our time source, but do not
@@ -25,6 +28,10 @@ interface ignore wildcard
 <% @interfaces.flatten.each do |interface| -%>
 interface listen <%= interface %>
 <% end -%>
+<% end -%>
+
+<% if @broadcastclient == true -%>
+broadcastclient
 <% end -%>
 
 <% [@servers].flatten.each do |server| -%>
