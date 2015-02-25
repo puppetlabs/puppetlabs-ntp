@@ -38,11 +38,11 @@ broadcastclient
 server <%= server %><% if @iburst_enable == true -%> iburst<% end %><% if @preferred_servers.include?(server) -%> prefer<% end %>
 <% end -%>
 
-<% if @is_virtual == "true" or @udlc -%>
+<% if @udlc -%>
 # Undisciplined Local Clock. This is a fake driver intended for backup
-# and when no outside source of synchronized time is available. 
-server	127.127.1.0 
-fudge	127.127.1.0 stratum 10
+# and when no outside source of synchronized time is available.
+server   127.127.1.0
+fudge    127.127.1.0 stratum 10
 restrict 127.127.1.0
 <% end -%>
 
