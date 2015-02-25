@@ -17,6 +17,9 @@ class ntp::params {
   $disable_auth      = false
   $broadcastclient   = false
 
+  # Allow a list of fudge options
+  $fudge             = []
+
   # On virtual machines allow large clock skews.
   # TODO Change this to str2bool($::is_virtual) when stdlib dependency is >= 4.0.0
   # NOTE The "x${var}" is just to avoid lint quoted variable warning.
