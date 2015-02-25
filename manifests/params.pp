@@ -13,7 +13,6 @@ class ntp::params {
   $service_enable    = true
   $service_ensure    = 'running'
   $service_manage    = true
-  $udlc              = false
   $interfaces        = []
   $disable_auth      = false
   $broadcastclient   = false
@@ -22,6 +21,15 @@ class ntp::params {
   # TODO Change this to str2bool($::is_virtual) when stdlib dependency is >= 4.0.0
   # NOTE The "x${var}" is just to avoid lint quoted variable warning.
   $panic = "x${::is_virtual}" ? {
+    'xtrue' => false,
+    default => true,
+  }
+
+  # On virtual systems, disable the use of the undisciplined local clock to
+  # avoid ntp falling back to the local clock in preference over ntp servers.
+  # TODO Change this to str2bool($::is_virtual) when stdlib dependency is >= 4
+  # NOTE The "x${var}" is just to avoid lint quoted variable warning.
+  $udlc = "x${::is_virtual}" ? {
     'xtrue' => false,
     default => true,
   }
