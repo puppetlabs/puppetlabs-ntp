@@ -1,3 +1,19 @@
+## 2015-xx-xx - Supported Release 4.0.0
+### Summary
+This release drops puppet 2.7 support and older stdlib support.
+
+#### Backwards-incompatible changes
+- UDLC (Undisciplined local clock) is now no longer enabled by default on anything (previous was enabled on non-virtual).
+- Puppet 2.7 no longer supported
+- puppetlabs-stdlib less than 4.5.0 no longer supported
+- TODO: The `keys_file` parent directory is no longer managed by puppet
+
+#### Features
+- TODO
+
+#### Bugfixes
+- TODO
+
 ##2014-11-04 - Supported Release 3.3.0
 ###Summary
 
