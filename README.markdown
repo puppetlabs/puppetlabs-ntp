@@ -135,6 +135,10 @@ The following parameters are available in the `::ntp` class:
 
 **Deprecated; replaced by the `package_ensure` parameter**. Tells Puppet whether to keep the ntp module updated to the latest version available. Valid options: 'true' or 'false'. Default value: 'false'
 
+####`autosync`
+
+Allows Puppet to autosync the date/time on a server when the date/time has drifted too much for ntpd to adjust it. Valid options: 'true' or 'false'. Default value: 'false'
+
 ####`broadcastclient`
 
 Enable reception of broadcast server messages to any local interface.
