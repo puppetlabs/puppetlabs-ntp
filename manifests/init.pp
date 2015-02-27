@@ -1,4 +1,5 @@
 class ntp (
+  $autosync          = $ntp::params::autosync,
   $autoupdate        = $ntp::params::autoupdate,
   $broadcastclient   = $ntp::params::broadcastclient,
   $config            = $ntp::params::config,
@@ -30,6 +31,7 @@ class ntp (
 ) inherits ntp::params {
 
   validate_bool($broadcastclient)
+  validate_bool($autosync)
   validate_absolute_path($config)
   validate_string($config_template)
   validate_bool($disable_auth)
