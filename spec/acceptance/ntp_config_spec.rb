@@ -7,7 +7,7 @@ when 'Debian'
   line = '0.debian.pool.ntp.org iburst'
 when 'RedHat'
   line = '0.centos.pool.ntp.org'
-when 'SuSE'
+when 'Suse'
   line = '0.opensuse.pool.ntp.org'
 when 'Gentoo'
   line = '0.gentoo.pool.ntp.org'
@@ -24,6 +24,12 @@ when 'AIX'
   line = '0.debian.pool.ntp.org iburst'
 end
 
+if (fact('osfamily') == 'Solaris')
+  config = '/etc/inet/ntp.conf'
+else
+  config = '/etc/ntp.conf'
+end
+
 describe 'ntp::config class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   it 'sets up ntp.conf' do
     apply_manifest(%{
@@ -31,8 +37,8 @@ describe 'ntp::config class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('os
     }, :catch_failures => true)
   end
 
-  describe file('/etc/ntp.conf') do
+  describe file("#{config}") do
     it { should be_file }
-    it { should contain line }
+    its(:content) { should match line }
   end
 end

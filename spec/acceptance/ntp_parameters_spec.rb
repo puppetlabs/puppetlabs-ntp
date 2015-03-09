@@ -22,7 +22,17 @@ when 'Solaris'
     packagename = 'service/network/ntp'
   end
 else
-  packagename = 'ntp'
+  if fact('operatingsystem') == 'SLES' and fact('operatingsystemmajrelease') == '12'
+    servicename = 'ntpd'
+  else
+    servicename = 'ntp'
+  end
+end
+
+if (fact('osfamily') == 'Solaris')
+  config = '/etc/inet/ntp.conf'
+else
+  config = '/etc/ntp.conf'
 end
 
 describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
@@ -67,9 +77,9 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
       apply_manifest(pp, :catch_failures => true)
     end
 
-    describe file('/etc/ntp.conf') do
+    describe file("#{config}") do
       it { should be_file }
-      it { should contain 'testcontent' }
+      its(:content) { should match 'testcontent' }
     end
   end
 
@@ -79,9 +89,9 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
       apply_manifest(pp, :catch_failures => true)
     end
 
-    describe file('/etc/ntp.conf') do
+    describe file("#{config}") do
       it { should be_file }
-      it { should contain 'driftfile /tmp/driftfile' }
+      its(:content) { should match 'driftfile /tmp/driftfile' }
     end
   end
 
@@ -102,12 +112,12 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
       apply_manifest(pp, :catch_failures => true)
     end
 
-    describe file('/etc/ntp.conf') do
+    describe file("#{config}") do
       it { should be_file }
-      it { should contain 'keys /etc/ntp/keys' }
-      it { should contain 'controlkey /etc/ntp/controlkey' }
-      it { should contain 'requestkey 1' }
-      it { should contain 'trustedkey 1 2' }
+      its(:content) { should match 'keys /etc/ntp/keys' }
+      its(:content) { should match 'controlkey /etc/ntp/controlkey' }
+      its(:content) { should match 'requestkey 1' }
+      its(:content) { should match 'trustedkey 1 2' }
     end
   end
 
@@ -139,8 +149,8 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
       apply_manifest(pp, :catch_failures => true)
     end
 
-    describe file('/etc/ntp.conf') do
-      it { should contain 'tinker panic' }
+    describe file("#{config}") do
+      its(:content) { should match 'tinker panic' }
     end
   end
 
@@ -154,8 +164,8 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
       apply_manifest(pp, :catch_failures => true)
     end
 
-    describe file('/etc/ntp.conf') do
-      it { should_not contain 'tinker panic 0' }
+    describe file("#{config}") do
+      its(:content) { should_not match 'tinker panic 0' }
     end
   end
 
@@ -165,9 +175,9 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
       apply_manifest(pp, :catch_failures => true)
     end
 
-    describe file('/etc/ntp.conf') do
+    describe file("#{config}") do
       it { should be_file }
-      it { should contain '127.127.1.0' }
+      its(:content) { should match '127.127.1.0' }
     end
   end
 
