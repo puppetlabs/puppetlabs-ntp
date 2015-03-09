@@ -1,6 +1,7 @@
 class ntp::params {
 
   $autoupdate        = false
+  $config_dir        = undef
   $config_template   = 'ntp/ntp.conf.erb'
   $disable_monitor   = false
   $keys_enable       = false

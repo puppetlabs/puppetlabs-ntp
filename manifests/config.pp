@@ -2,12 +2,21 @@
 class ntp::config inherits ntp {
 
   if $keys_enable {
-    $directory = ntp_dirname($keys_file)
-    file { $directory:
+    file { $keys_file:
+      ensure => file,
+      owner  => 0,
+      group  => 0,
+      mode   => '0644',
+    }
+  }
+
+  if $config_dir {
+    file { $config_dir:
       ensure  => directory,
       owner   => 0,
       group   => 0,
-      mode    => '0755',
+      mode    => '0644',
+      recurse => false,
     }
   }
 

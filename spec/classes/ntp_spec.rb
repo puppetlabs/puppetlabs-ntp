@@ -45,9 +45,6 @@ describe 'ntp' do
               :keys_requestkey => '3',
             }}
 
-            it { should contain_file('/etc/ntp').with({
-              'ensure'  => 'directory'})
-            }
             it { should contain_file('/etc/ntp.conf').with({
               'content' => /trustedkey 1 2 3/})
             }
@@ -69,9 +66,6 @@ describe 'ntp' do
             :keys_requestkey => '3',
           }}
 
-          it { should_not contain_file('/etc/ntp').with({
-            'ensure'  => 'directory'})
-          }
           it { should_not contain_file('/etc/ntp.conf').with({
             'content' => /trustedkey 1 2 3/})
           }

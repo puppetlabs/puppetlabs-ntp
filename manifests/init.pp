@@ -2,6 +2,7 @@ class ntp (
   $autoupdate        = $ntp::params::autoupdate,
   $broadcastclient   = $ntp::params::broadcastclient,
   $config            = $ntp::params::config,
+  $config_dir        = $ntp::params::config_dir,
   $config_template   = $ntp::params::config_template,
   $disable_auth      = $ntp::params::disable_auth,
   $disable_monitor   = $ntp::params::disable_monitor,
@@ -55,6 +56,10 @@ class ntp (
   validate_bool($service_manage)
   validate_string($service_name)
   validate_bool($udlc)
+
+  if $config_dir {
+    validate_absolute_path($config_dir)
+  }
 
   if $autoupdate {
     notice('autoupdate parameter has been deprecated and replaced with package_ensure.  Set this to latest for the same behavior as autoupdate => true.')
