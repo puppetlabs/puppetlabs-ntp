@@ -411,8 +411,8 @@ describe 'ntp' do
         })
         end
 
-        it { expect{ subject }.to raise_error(
-          /^The ntp module is not supported on an unsupported based system./
+        it { expect{ catalogue }.to raise_error(
+          /The ntp module is not supported on an unsupported based system./
         )}
       end
     end
