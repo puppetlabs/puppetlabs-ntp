@@ -291,6 +291,33 @@ describe 'ntp' do
             end
           end
         end
+
+        describe 'peers' do
+          context 'when empty' do
+            let(:params) do
+              {
+                :peers => []
+              }
+            end
+
+            it 'should not contain a peer line' do
+              should contain_file('/etc/ntp.conf').without_content(/^peer/)
+            end
+          end
+
+          context 'set' do
+            let(:params) do
+              {
+                :peers => ['foo', 'bar'],
+              }
+            end
+
+            it 'should contain the peer lines' do
+              should contain_file('/etc/ntp.conf').with_content(/peer foo/)
+              should contain_file('/etc/ntp.conf').with_content(/peer bar/)
+            end
+          end
+        end
       end
     end
 

@@ -211,6 +211,10 @@ Tells Puppet what NTP package to manage. Valid options: string. Default value: '
 
 Specifies whether NTP should "panic" in the event of a very large clock skew. Valid options: 'true' or 'false'. Default value: 'true' (except on virtual machines, where major time shifts are normal)
 
+####`peers`
+
+List of ntp servers which the local clock can be synchronised against, or which can synchronise against the local clock.
+
 ####`preferred_servers`
 
 Specifies one or more preferred peers. Puppet will append 'prefer' to each matching item in the `servers` array. Valid options: array. Default value: [ ]
