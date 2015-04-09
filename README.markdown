@@ -265,6 +265,10 @@ Tells Puppet what NTP service to manage. Valid options: string. Default value: v
 
 Specifies whether to configure ntp to use the undisciplined local clock as a time source. Valid options: 'true' or 'false'. Default value: 'false'
 
+####`udlc_stratum`
+
+Specifies the stratum the server should operate at when using the undisciplined local clock as the time source. It is strongly suggested that this value be set to no less than 10 where ntpd may be accessible outside your immediate, controlled network. Default value: 10
+
 ##Limitations
 
 This module has been tested on [all PE-supported platforms](https://forge.puppetlabs.com/supported#compat-matrix), and no issues have been identified.

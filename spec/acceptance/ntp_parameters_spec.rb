@@ -181,4 +181,16 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
     end
   end
 
+  describe 'udlc_stratum' do
+    it 'sets the stratum value when using udlc' do
+      pp = "class { 'ntp': udlc => true, udlc_stratum => 10 }"
+      apply_manifest(pp, :catch_failures => true)
+    end
+
+    describe file("#{config}") do
+      it { should be_file }
+      its(:content) { should match 'stratum 10' }
+    end
+  end
+
 end
