@@ -15,6 +15,7 @@ class ntp::params {
   $service_ensure    = 'running'
   $service_manage    = true
   $udlc              = false
+  $udlc_stratum      = '10'
   $interfaces        = []
   $disable_auth      = false
   $broadcastclient   = false
