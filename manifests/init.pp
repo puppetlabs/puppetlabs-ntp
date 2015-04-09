@@ -28,6 +28,7 @@ class ntp (
   $service_manage    = $ntp::params::service_manage,
   $service_name      = $ntp::params::service_name,
   $udlc              = $ntp::params::udlc,
+  $udlc_stratum      = $ntp::params::udlc_stratum,
 ) inherits ntp::params {
 
   validate_bool($broadcastclient)

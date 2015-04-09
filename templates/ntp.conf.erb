@@ -42,7 +42,7 @@ server <%= server %><% if @iburst_enable == true -%> iburst<% end %><% if @prefe
 # Undisciplined Local Clock. This is a fake driver intended for backup
 # and when no outside source of synchronized time is available.
 server   127.127.1.0
-fudge    127.127.1.0 stratum 10
+fudge    127.127.1.0 stratum <%= @udlc_stratum %>
 restrict 127.127.1.0
 <% end -%>
 
