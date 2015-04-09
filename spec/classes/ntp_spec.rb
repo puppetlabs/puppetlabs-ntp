@@ -87,11 +87,12 @@ describe 'ntp' do
           context "when set" do
             let(:params) {{
               :servers           => ['a', 'b', 'c', 'd'],
-              :preferred_servers => ['a', 'b']
+              :preferred_servers => ['a', 'b'],
+              :iburst_enable     => false,
             }}
 
             it { should contain_file('/etc/ntp.conf').with({
-              'content' => /server a( iburst)? prefer\nserver b( iburst)? prefer\nserver c( iburst)?\nserver d( iburst)?/})
+              'content' => /server a prefer( maxpoll 9)?\nserver b prefer( maxpoll 9)?\nserver c( maxpoll 9)?\nserver d( maxpoll 9)?/})
             }
           end
           context "when not set" do
@@ -247,7 +248,7 @@ describe 'ntp' do
 
             it do
               should contain_file('/etc/ntp.conf').with({
-              'content' => /iburst\n/,
+              'content' => /iburst/,
               })
             end
           end
@@ -260,6 +261,154 @@ describe 'ntp' do
             it do
               should_not contain_file('/etc/ntp.conf').with({
                 'content' => /iburst\n/,
+              })
+            end
+          end
+        end
+
+        describe 'with tinker parameter changed' do
+          describe 'when set to false' do
+            context 'when panic or stepout not overriden' do
+              let(:params) {{
+                :tinker => false,
+              }}
+
+              it do
+                should_not contain_file('/etc/ntp.conf').with({
+                  'content' => /^tinker /,
+                })
+              end
+            end
+
+            context 'when panic overriden' do
+              let(:params) {{
+                :tinker => false,
+                :panic  => 257,
+              }}
+
+              it do
+                should_not contain_file('/etc/ntp.conf').with({
+                  'content' => /^tinker /,
+                })
+              end
+            end
+
+            context 'when stepout overriden' do
+              let(:params) {{
+                :tinker  => false,
+                :stepout => 5,
+              }}
+
+              it do
+                should_not contain_file('/etc/ntp.conf').with({
+                  'content' => /^tinker /,
+                })
+              end
+            end
+
+            context 'when panic and stepout overriden' do
+              let(:params) {{
+                  :tinker  => false,
+                  :panic   => 257,
+                  :stepout => 5,
+              }}
+
+              it do
+                should_not contain_file('/etc/ntp.conf').with({
+                  'content' => /^tinker /,
+                })
+              end
+            end
+          end
+          describe 'when set to true' do
+            context 'when only tinker set to true' do
+              let(:params) {{
+                :tinker => true,
+              }}
+
+              it do
+                should_not contain_file('/etc/ntp.conf').with({
+                  'content' => /^tinker /,
+                })
+              end
+            end
+
+            context 'when panic changed' do
+              let(:params) {{
+                :tinker => true,
+                :panic  => 257,
+              }}
+
+              it do
+                should contain_file('/etc/ntp.conf').with({
+                  'content' => /^tinker panic 257\n/,
+                })
+              end
+            end
+
+            context 'when stepout changed' do
+              let(:params) {{
+                :tinker  => true,
+                :stepout => 5,
+              }}
+
+              it do
+                should contain_file('/etc/ntp.conf').with({
+                  'content' => /^tinker stepout 5\n/,
+                })
+              end
+            end
+
+            context 'when panic and stepout changed' do
+              let(:params) {{
+                :tinker  => true,
+                :panic   => 257,
+                :stepout => 5,
+              }}
+
+              it do
+                should contain_file('/etc/ntp.conf').with({
+                  'content' => /^tinker panic 257 stepout 5\n/,
+                })
+              end
+            end
+          end
+        end
+
+        describe 'with parameters minpoll or maxpoll changed from default' do
+          context 'when minpoll changed from default' do
+            let(:params) {{
+                :minpoll => 3,
+            }}
+
+            it do
+              should contain_file('/etc/ntp.conf').with({
+                'content' => /minpoll 3/,
+              })
+            end
+          end
+
+          context 'when maxpoll changed from default' do
+            let(:params) {{
+                :maxpoll => 12,
+            }}
+
+            it do
+              should contain_file('/etc/ntp.conf').with({
+                'content' => /maxpoll 12\n/,
+              })
+            end
+          end
+
+          context 'when minpoll and maxpoll changed from default simultaneously' do
+            let(:params) {{
+                :minpoll => 3,
+                :maxpoll => 12,
+            }}
+
+            it do
+              should contain_file('/etc/ntp.conf').with({
+                'content' => /minpoll 3 maxpoll 12\n/,
               })
             end
           end
@@ -390,7 +539,7 @@ describe 'ntp' do
 
         it 'uses the freebsd ntp servers by default' do
           should contain_file('/etc/ntp.conf').with({
-            'content' => /server \d.freebsd.pool.ntp.org maxpoll 9 iburst/,
+            'content' => /server \d.freebsd.pool.ntp.org iburst maxpoll 9/,
           })
         end
       end

@@ -14,6 +14,8 @@ class ntp (
   $keys_controlkey   = $ntp::params::keys_controlkey,
   $keys_requestkey   = $ntp::params::keys_requestkey,
   $keys_trusted      = $ntp::params::keys_trusted,
+  $minpoll           = $ntp::params::minpoll,
+  $maxpoll           = $ntp::params::maxpoll,
   $package_ensure    = $ntp::params::package_ensure,
   $package_manage    = $ntp::params::package_manage,
   $package_name      = $ntp::params::package_name,
@@ -27,6 +29,8 @@ class ntp (
   $service_ensure    = $ntp::params::service_ensure,
   $service_manage    = $ntp::params::service_manage,
   $service_name      = $ntp::params::service_name,
+  $stepout           = $ntp::params::stepout,
+  $tinker            = $ntp::params::tinker,
   $udlc              = $ntp::params::udlc,
 ) inherits ntp::params {
 
@@ -42,10 +46,12 @@ class ntp (
   validate_re($keys_controlkey, ['^\d+$', ''])
   validate_re($keys_requestkey, ['^\d+$', ''])
   validate_array($keys_trusted)
+  if $minpoll { validate_numeric($minpoll, 16, 3) }
+  if $maxpoll { validate_numeric($maxpoll, 16, 3) }
   validate_string($package_ensure)
   validate_bool($package_manage)
   validate_array($package_name)
-  validate_bool($panic)
+  if $panic { validate_numeric($panic, 65535, 0) }
   validate_array($preferred_servers)
   validate_array($restrict)
   validate_array($interfaces)
@@ -55,6 +61,8 @@ class ntp (
   validate_string($service_ensure)
   validate_bool($service_manage)
   validate_string($service_name)
+  if $stepout { validate_numeric($stepout, 65535, 0) }
+  validate_bool($tinker)
   validate_bool($udlc)
   validate_array($peers)
 
