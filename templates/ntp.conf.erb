@@ -1,5 +1,22 @@
-# ntp.conf: Managed by puppet.
+# /etc/ntp.conf, configuration for ntpd; see ntp.conf(5) for help
 #
+
+# Driftfile.
+driftfile <%= @driftfile %>
+
+# Enable this if you want statistics to be logged.
+#statsdir /var/log/ntpstats/
+
+# Statistics.
+statistics <%= @statistics %>
+<% if @filegen != [] -%>
+# Enable this if you want statistics to be logged.
+#statsdir /var/log/ntpstats/
+<% @filegen.flatten.each do |filegen| -%>
+filegen <%= filegen %>
+<% end -%>
+<% end -%>
+
 <% if @panic == false -%>
 # Keep ntpd from panicking in the event of a large clock skew
 # when a VM guest is suspended and resumed.
@@ -45,9 +62,6 @@ server   127.127.1.0
 fudge    127.127.1.0 stratum <%= @udlc_stratum %>
 restrict 127.127.1.0
 <% end -%>
-
-# Driftfile.
-driftfile <%= @driftfile %>
 
 <% unless @logfile.nil? -%>
 # Logfile
