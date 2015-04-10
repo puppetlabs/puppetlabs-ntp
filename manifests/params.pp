@@ -8,6 +8,7 @@ class ntp::params {
   $keys_requestkey   = ''
   $keys_trusted      = []
   $logfile           = undef
+  $leapfile          = undef
   $package_ensure    = 'present'
   $peers             = []
   $preferred_servers = []
