@@ -265,6 +265,33 @@ describe 'ntp' do
           end
         end
 
+        describe 'with parameter leapfile' do
+          context 'when set to true' do
+            let(:params) {{
+              :servers => ['a', 'b', 'c', 'd'],
+              :leapfile => '/etc/leap-seconds.3629404800',
+            }}
+
+            it 'should contain leapfile setting' do
+              should contain_file('/etc/ntp.conf').with({
+              'content' => /^leapfile \/etc\/leap-seconds\.3629404800\n/,
+              })
+            end
+          end
+
+          context 'when set to false' do
+            let(:params) {{
+              :servers => ['a', 'b', 'c', 'd'],
+            }}
+
+            it 'should not contain a leapfile line' do
+              should_not contain_file('/etc/ntp.conf').with({
+                'content' => /leapfile /,
+              })
+            end
+          end
+        end
+
         describe 'with parameter logfile' do
           context 'when set to true' do
             let(:params) {{

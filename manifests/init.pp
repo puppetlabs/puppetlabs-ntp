@@ -7,6 +7,7 @@ class ntp (
   $disable_monitor   = $ntp::params::disable_monitor,
   $fudge             = $ntp::params::fudge,
   $driftfile         = $ntp::params::driftfile,
+  $leapfile          = $ntp::params::leapfile,
   $logfile           = $ntp::params::logfile,
   $iburst_enable     = $ntp::params::iburst_enable,
   $keys_enable       = $ntp::params::keys_enable,
@@ -38,6 +39,7 @@ class ntp (
   validate_bool($disable_monitor)
   validate_absolute_path($driftfile)
   if $logfile { validate_absolute_path($logfile) }
+  if $leapfile { validate_absolute_path($leapfile) }
   validate_bool($iburst_enable)
   validate_bool($keys_enable)
   validate_re($keys_controlkey, ['^\d+$', ''])
