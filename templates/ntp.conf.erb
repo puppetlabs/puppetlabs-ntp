@@ -85,3 +85,8 @@ controlkey <%= @keys_controlkey %>
 <% [@fudge].flatten.each do |entry| -%>
 fudge <%= entry %>
 <% end -%>
+
+<% unless @leapfile.nil? -%>
+# Leapfile
+leapfile <%= @leapfile %>
+<% end -%>

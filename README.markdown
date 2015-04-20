@@ -191,6 +191,10 @@ Provides a request key to be used by NTP. Valid options: string. Default value: 
 #### `keys_trusted`:
 Provides one or more keys to be trusted by NTP. Valid options: array of keys. Default value: [ ]
 
+#### `leapfile`
+
+Specifies a leap second file for NTP to use. Valid options: string containing an absolute path. Default value: ' '
+
 #### `logfile`
 
 Specifies a log file for NTP to use instead of syslog. Valid options: string containing an absolute path. Default value: ' '

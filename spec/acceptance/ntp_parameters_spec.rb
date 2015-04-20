@@ -139,33 +139,33 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
     end
   end
 
-  describe 'panic => false' do
-    it 'enables the tinker panic setting' do
-      pp = <<-EOS
-      class { 'ntp':
-        panic => false,
-      }
-      EOS
-      apply_manifest(pp, :catch_failures => true)
-    end
-
-    describe file("#{config}") do
-      its(:content) { should match 'tinker panic' }
-    end
-  end
-
-  describe 'panic => true' do
+  describe 'panic => 0' do
     it 'disables the tinker panic setting' do
       pp = <<-EOS
       class { 'ntp':
-        panic => true,
+        panic => 0,
       }
       EOS
       apply_manifest(pp, :catch_failures => true)
     end
 
     describe file("#{config}") do
-      its(:content) { should_not match 'tinker panic 0' }
+      its(:content) { should match 'tinker panic 0' }
+    end
+  end
+
+  describe 'panic => 1' do
+    it 'enables the tinker panic setting' do
+      pp = <<-EOS
+      class { 'ntp':
+        panic => 1,
+      }
+      EOS
+      apply_manifest(pp, :catch_failures => true)
+    end
+
+    describe file("#{config}") do
+      its(:content) { should match 'tinker panic 1' }
     end
   end
 
