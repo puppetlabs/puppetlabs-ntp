@@ -107,7 +107,7 @@ class ntp::params {
       $maxpoll         = undef
     }
     'Suse': {
-      if $::operatingsystem == 'SLES' and $::operatingsystemmajrelease == '12'
+      if $::operatingsystem == 'SLES' and $::operatingsystemrelease =~ /^12\.\d/
       {
         $service_name  = 'ntpd'
         $keys_file     = '/etc/ntp.keys'
