@@ -24,6 +24,11 @@ unless ENV['RS_PROVISION'] == 'no' or ENV['BEAKER_provision'] == 'no'
     else
       on host, puppet('module install puppetlabs-stdlib'), {:acceptable_exit_codes => [0, 1]}
     end
+
+    if fact('osfamily') == 'Debian'
+      shell('[[ -f /etc/dhcp/dhclient-exit-hooks.d/ntp ]] && rm /etc/dhcp/dhcp-exit-hooks.d/ntp', { :acceptable_exit_codes => [0, 1] })
+      shell('[[ -f /etc/dhcp3/dhclient-exit-hooks.d/ntp ]] && rm /etc/dhcp3/dhcp-exit-hooks.d/ntp', { :acceptable_exit_codes => [0, 1] })
+    end
   end
 end
 
