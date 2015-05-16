@@ -158,7 +158,7 @@ class ntp::params {
     'Archlinux': {
       $config          = $default_config
       $keys_file       = $default_keys_file
-      $driftfile       = $default_driftfile
+      $driftfile       = '/var/lib/ntp/ntp.drift'
       $package_name    = $default_package_name
       $service_name    = $default_service_name
       $restrict        = [
@@ -169,9 +169,10 @@ class ntp::params {
       ]
       $iburst_enable   = false
       $servers         = [
-        '0.pool.ntp.org',
-        '1.pool.ntp.org',
-        '2.pool.ntp.org',
+        '0.arch.pool.ntp.org',
+        '1.arch.pool.ntp.org',
+        '2.arch.pool.ntp.org',
+        '3.arch.pool.ntp.org',
       ]
       $maxpoll         = undef
     }
