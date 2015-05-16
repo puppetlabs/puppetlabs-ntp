@@ -576,9 +576,9 @@ describe 'ntp' do
           super().merge({ :osfamily => 'ArchLinux' })
         end
 
-        it 'uses the NTP pool servers by default' do
+        it 'uses the ArchLinux NTP servers by default' do
           should contain_file('/etc/ntp.conf').with({
-            'content' => /server \d.pool.ntp.org/,
+            'content' => /server \d.arch.pool.ntp.org/,
           })
         end
       end
