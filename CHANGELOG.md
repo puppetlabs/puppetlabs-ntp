@@ -1,18 +1,34 @@
-## 2015-xx-xx - Supported Release 4.0.0
+## 2015-05-26 - Supported Release 4.0.0
 ### Summary
-This release drops puppet 2.7 support and older stdlib support.
+This release drops puppet 2.7 support and older stdlib support. It also includes the addition of 12 new properties, as well as numerous bug fixes and other improvements.
 
 #### Backwards-incompatible changes
 - UDLC (Undisciplined local clock) is now no longer enabled by default on anything (previous was enabled on non-virtual).
 - Puppet 2.7 no longer supported
 - puppetlabs-stdlib less than 4.5.0 no longer supported
-- TODO: The `keys_file` parent directory is no longer managed by puppet
 
 #### Features
-- TODO
+- Readme, Metadata, and Contribution documentation improvements
+- Acceptance test improvements
+- Added the `broadcastclient` property
+- Added the `disable_auth` property
+- Added `broadcastclient` property
+- Added `disable_auth` property
+- Added `fudge` property
+- Added `peers` property
+- Added `udlc_stratum` property
+- Added `tinker` property
+- Added `minpoll` property
+- Added `maxpoll` property
+- Added `stepout` property
+- Added `leapfile` property
 
 #### Bugfixes
-- TODO
+- Removing equal sign as delimiter in ntp.conf for the logfile parameter.
+- Add package_manage parameter, which is set to false by default on FreeBSD
+- Fixed an issue with the `is_virtual` property
+- Fixed debian wheezy issue
+- Fix for Redhat to disable ntp restart due to dhcp ntp server updates
 
 ##2014-11-04 - Supported Release 3.3.0
 ###Summary
