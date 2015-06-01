@@ -154,7 +154,7 @@ client and symmetric passive associations.
 
 ####`disable_monitor`
 
-Tells Puppet whether to refrain from monitoring the NTP service. Valid options: 'true' or 'false'. Default value: 'false'
+Disables the monitoring facility in NTP. Valid options: 'true' or 'false'. Default value: 'false'
 
 ####`driftfile`
 
