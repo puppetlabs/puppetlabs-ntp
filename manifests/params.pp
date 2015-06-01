@@ -72,7 +72,7 @@ class ntp::params {
       $driftfile       = $default_driftfile
       $package_name    = $default_package_name
       $restrict        = [
-        '-4 kod nomodify notrap nopeer noquery',
+        '-4 default kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
         '127.0.0.1',
         '::1',
