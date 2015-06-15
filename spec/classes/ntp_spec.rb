@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'ntp' do
   let(:facts) {{ :is_virtual => 'false' }}
 
-  ['Debian', 'RedHat','Suse', 'FreeBSD', 'Archlinux', 'Gentoo', 'Gentoo (Facter < 1.7)'].each do |system|
+  ['Debian', 'RedHat', 'Fedora', 'Suse', 'FreeBSD', 'Archlinux', 'Gentoo', 'Gentoo (Facter < 1.7)'].each do |system|
     context "when on system #{system}" do
       if system == 'Gentoo (Facter < 1.7)'
         let :facts do
@@ -12,6 +12,10 @@ describe 'ntp' do
       elsif system == 'Suse'
         let :facts do
           super().merge({ :osfamily => system,:operatingsystem => 'SLES',:operatingsystemmajrelease => '11' })
+        end
+      elsif system == 'Fedora'
+        let :facts do
+          super().merge({ :osfamily => 'RedHat', :operatingsystem => system ,:operatingsystemmajrelease => '22' })
         end
       else
         let :facts do
