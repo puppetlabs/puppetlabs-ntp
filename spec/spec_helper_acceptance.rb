@@ -1,26 +1,13 @@
 require 'beaker-rspec'
+require 'beaker/puppet_install_helper'
 
 UNSUPPORTED_PLATFORMS = ['windows', 'Darwin']
 
 unless ENV['RS_PROVISION'] == 'no' or ENV['BEAKER_provision'] == 'no'
-  # This will install the latest available package on el and deb based
-  # systems fail on windows and osx, and install via gem on other *nixes
-  foss_opts = {
-    :default_action => 'gem_install',
-    :version        => (ENV['PUPPET_VERSION'] || '3.8.1'),
-  }
 
-  if default.is_pe?; then
-    install_pe;
-  else
-    install_puppet(foss_opts);
-  end
+  run_puppet_installer
 
   hosts.each do |host|
-    unless host.is_pe?
-      on host, "/bin/echo '' > #{host['hieraconf']}"
-    end
-    on host, "mkdir -p #{host['distmoduledir']}"
     if host['platform'] =~ /sles-12/i || host['platform'] =~ /solaris-11/i
       apply_manifest_on(host, 'package{"git":}')
       on host, 'git clone -b 4.6.x https://github.com/puppetlabs/puppetlabs-stdlib /etc/puppetlabs/puppet/modules/stdlib'
