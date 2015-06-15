@@ -2,7 +2,6 @@ class ntp::params {
 
   $autoupdate        = false
   $config_template   = 'ntp/ntp.conf.erb'
-  $disable_monitor   = false
   $keys_enable       = false
   $keys_controlkey   = ''
   $keys_requestkey   = ''
@@ -48,23 +47,24 @@ class ntp::params {
 
   case $::osfamily {
     'AIX': {
-      $config        = $default_config
-      $keys_file     = '/etc/ntp.keys'
-      $driftfile     = '/etc/ntp.drift'
-      $package_name  = [ 'bos.net.tcp.client' ]
-      $restrict      = [
+      $config          = $default_config
+      $keys_file       = '/etc/ntp.keys'
+      $driftfile       = '/etc/ntp.drift'
+      $package_name    = [ 'bos.net.tcp.client' ]
+      $restrict        = [
         'default nomodify notrap nopeer noquery',
         '127.0.0.1',
       ]
-      $service_name  = 'xntpd'
-      $iburst_enable = true
-      $servers       = [
+      $service_name    = 'xntpd'
+      $iburst_enable   = true
+      $servers         = [
         '0.debian.pool.ntp.org',
         '1.debian.pool.ntp.org',
         '2.debian.pool.ntp.org',
         '3.debian.pool.ntp.org',
       ]
-      $maxpoll       = undef
+      $maxpoll         = undef
+      $disable_monitor = false
     }
     'Debian': {
       $config          = $default_config
@@ -86,6 +86,7 @@ class ntp::params {
         '3.debian.pool.ntp.org',
       ]
       $maxpoll         = undef
+      $disable_monitor = false
     }
     'RedHat': {
       $config          = $default_config
@@ -93,19 +94,40 @@ class ntp::params {
       $driftfile       = $default_driftfile
       $package_name    = $default_package_name
       $service_name    = $default_service_name
-      $restrict        = [
-        'default kod nomodify notrap nopeer noquery',
-        '-6 default kod nomodify notrap nopeer noquery',
-        '127.0.0.1',
-        '-6 ::1',
-      ]
-      $iburst_enable   = false
-      $servers         = [
-        '0.centos.pool.ntp.org',
-        '1.centos.pool.ntp.org',
-        '2.centos.pool.ntp.org',
-      ]
       $maxpoll         = undef
+
+      case $::operatingsystem {
+        'Fedora': {
+          $restrict        = [
+            'default nomodify notrap nopeer noquery',
+            '127.0.0.1',
+            '::1',
+          ]
+          $iburst_enable   = true
+          $servers         = [
+            '0.fedora.pool.ntp.org',
+            '1.fedora.pool.ntp.org',
+            '2.fedora.pool.ntp.org',
+            '3.fedora.pool.ntp.org',
+          ]
+          $disable_monitor = true
+        }
+        default: {
+          $restrict        = [
+            'default kod nomodify notrap nopeer noquery',
+            '-6 default kod nomodify notrap nopeer noquery',
+            '127.0.0.1',
+            '-6 ::1',
+          ]
+          $iburst_enable   = false
+          $servers         = [
+            '0.centos.pool.ntp.org',
+            '1.centos.pool.ntp.org',
+            '2.centos.pool.ntp.org',
+          ]
+          $disable_monitor = false
+        }
+      }
     }
     'Suse': {
       if $::operatingsystem == 'SLES' and $::operatingsystemmajrelease == '12'
@@ -133,6 +155,7 @@ class ntp::params {
         '3.opensuse.pool.ntp.org',
       ]
       $maxpoll         = undef
+      $disable_monitor = false
     }
     'FreeBSD': {
       $config          = $default_config
@@ -154,6 +177,7 @@ class ntp::params {
         '3.freebsd.pool.ntp.org',
       ]
       $maxpoll         = 9
+      $disable_monitor = false
     }
     'Archlinux': {
       $config          = $default_config
@@ -175,6 +199,7 @@ class ntp::params {
         '3.arch.pool.ntp.org',
       ]
       $maxpoll         = undef
+      $disable_monitor = false
     }
     'Solaris': {
       $config        = '/etc/inet/ntp.conf'
@@ -207,6 +232,7 @@ class ntp::params {
         '3.pool.ntp.org',
       ]
       $maxpoll       = undef
+      $disable_monitor = false
     }
   # Gentoo was added as its own $::osfamily in Facter 1.7.0
     'Gentoo': {
@@ -229,6 +255,7 @@ class ntp::params {
         '3.gentoo.pool.ntp.org',
       ]
       $maxpoll         = undef
+      $disable_monitor = false
     }
     'Linux': {
     # Account for distributions that don't have $::osfamily specific settings.
@@ -254,6 +281,7 @@ class ntp::params {
             '3.gentoo.pool.ntp.org',
           ]
           $maxpoll         = undef
+          $disable_monitor = false
         }
         default: {
           fail("The ${module_name} module is not supported on an ${::operatingsystem} distribution.")
