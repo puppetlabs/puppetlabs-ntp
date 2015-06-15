@@ -6,7 +6,12 @@ when 'FreeBSD'
 when 'Debian'
   line = '0.debian.pool.ntp.org iburst'
 when 'RedHat'
-  line = '0.centos.pool.ntp.org'
+  case fact('operatingsystem')
+  when 'Fedora'
+    line = '0.fedora.pool.ntp.org'
+  else
+    line = '0.centos.pool.ntp.org'
+  end
 when 'Suse'
   line = '0.opensuse.pool.ntp.org'
 when 'Gentoo'
