@@ -5,7 +5,7 @@ UNSUPPORTED_PLATFORMS = ['windows', 'Darwin']
 
 unless ENV['RS_PROVISION'] == 'no' or ENV['BEAKER_provision'] == 'no'
 
-  run_puppet_installer
+  run_puppet_install_helper
 
   hosts.each do |host|
     if host['platform'] =~ /sles-12/i || host['platform'] =~ /solaris-11/i
