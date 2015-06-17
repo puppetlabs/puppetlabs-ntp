@@ -179,16 +179,22 @@ class ntp::params {
       $config        = '/etc/inet/ntp.conf'
       $driftfile     = '/var/ntp/ntp.drift'
       $keys_file     = '/etc/inet/ntp.keys'
-      $package_name  = $::operatingsystemrelease ? {
-        /^(5\.10|10|10_u\d+)$/ => [ 'SUNWntpr', 'SUNWntpu' ],
-        /^(5\.11|11|11\.\d+)$/ => [ 'service/network/ntp' ]
+      if $::operatingsystemrelease =~ /^(5\.10|10|10_u\d+)$/
+      {
+        $package_name = [ 'SUNWntpr', 'SUNWntpu' ]
+        $restrict     = [
+          'default nomodify notrap nopeer noquery',
+          '127.0.0.1',
+        ]
+      } else {
+        $package_name = [ 'service/network/ntp' ]
+        $restrict     = [
+          'default kod nomodify notrap nopeer noquery',
+          '-6 default kod nomodify notrap nopeer noquery',
+          '127.0.0.1',
+          '-6 ::1',
+        ]
       }
-      $restrict      = [
-        'default kod nomodify notrap nopeer noquery',
-        '-6 default kod nomodify notrap nopeer noquery',
-        '127.0.0.1',
-        '-6 ::1',
-      ]
       $service_name  = 'network/ntp'
       $iburst_enable = false
       $servers       = [
