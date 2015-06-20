@@ -182,7 +182,8 @@ class ntp::params {
       $keys_file     = '/etc/inet/ntp.keys'
       $package_name  = $::operatingsystemrelease ? {
         /^(5\.10|10|10_u\d+)$/ => [ 'SUNWntpr', 'SUNWntpu' ],
-        /^(5\.11|11|11\.\d+)$/ => [ 'service/network/ntp' ]
+        /^(5\.11|11|11\.\d+)$/ => [ 'service/network/ntp' ],
+        /^(5\.12|12|12\.\d+)$/ => [ 'service/network/ntp' ]
       }
       $restrict      = [
         'default kod nomodify notrap nopeer noquery',
