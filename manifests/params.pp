@@ -307,6 +307,27 @@ class ntp::params {
           $maxpoll         = undef
           $disable_monitor = false
         }
+        'Amazon': {
+          $config          = $default_config
+          $keys_file       = $default_keys_file
+          $driftfile       = $default_driftfile
+          $package_name    = $default_package_name
+          $service_name    = $default_service_name
+          $restrict        = [
+            'default kod nomodify notrap nopeer noquery',
+            '-6 default kod nomodify notrap nopeer noquery',
+            '127.0.0.1',
+            '-6 ::1',
+          ]
+          $iburst_enable   = false
+          $servers         = [
+            '0.centos.pool.ntp.org',
+            '1.centos.pool.ntp.org',
+            '2.centos.pool.ntp.org',
+          ]
+          $maxpoll         = undef
+          $disable_monitor = false
+        }
         default: {
           fail("The ${module_name} module is not supported on an ${::operatingsystem} distribution.")
         }
