@@ -21,10 +21,10 @@ class ntp::config inherits ntp {
 
   if $ntp::logfile {
     file { $ntp::logfile:
-      ensure  => 'file',
-      owner   => 'ntp',
-      group   => 'ntp',
-      mode    => '0664',
+      ensure => 'file',
+      owner  => 'ntp',
+      group  => 'ntp',
+      mode   => '0664',
     }
   }
 
