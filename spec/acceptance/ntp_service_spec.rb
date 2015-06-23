@@ -9,7 +9,7 @@ case fact('osfamily')
   when 'AIX'
     servicename = 'xntpd'
   else
-    if fact('operatingsystem') == 'SLES' and fact('operatingsystemmajrelease') == '12'
+    if fact('operatingsystem') == 'SLES' and fact('operatingsystemrelease') =~ /^12\.\d/
       servicename = 'ntpd'
     else
       servicename = 'ntp'
@@ -17,7 +17,7 @@ case fact('osfamily')
 end
 shared_examples 'running' do
   describe service(servicename) do
-    if !(fact('operatingsystem') == 'SLES' && fact('operatingsystemmajrelease') == '12')
+    if !(fact('operatingsystem') == 'SLES' && fact('operatingsystemrelease') =~ /^12\.\d/)
       it { should be_running }
       it { should be_enabled }
     else
@@ -71,7 +71,7 @@ describe 'service is unmanaged' do
   end
 
   describe service(servicename) do
-    if !(fact('operatingsystem') == 'SLES' && fact('operatingsystemmajrelease') == '12')
+    if !(fact('operatingsystem') == 'SLES' && fact('operatingsystemrelease') =~ /^12\.\d/)
       it { should be_running }
       it { should be_enabled }
     else
