@@ -90,3 +90,7 @@ fudge <%= entry %>
 # Leapfile
 leapfile <%= @leapfile %>
 <% end -%>
+
+<% if @tos == true -%>
+tos <%= if @minclock -%> minclock <%= @minclock %><% end -%><%= if @minsane -%> minsane <%= @minsane %><% end -%><%= if @floor -%> floor <%= @floor %><% end -%><%= if @ceiling -%> ceiling <%= @ceiling %><% end -%><%= if @cohort -%> cohort <%= @cohort %><% end -%>
+<% end -%>
