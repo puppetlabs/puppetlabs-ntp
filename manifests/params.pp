@@ -26,7 +26,7 @@ class ntp::params {
   $minsane           = 1
   $floor             = 1
   $ceiling           = 15
-  $cohort             = 0
+  $cohort            = 0
 
   # Allow a list of fudge options
   $fudge             = []
