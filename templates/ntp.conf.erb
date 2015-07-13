@@ -92,5 +92,5 @@ leapfile <%= @leapfile %>
 <% end -%>
 
 <% if @tos == true -%>
-tos <%= unless @minclock.nil? -%> minclock <%= @minclock %><% end -%><%= unless @minsane.nil? -%> minsane <%= @minsane %><% end -%><%= unless @floor.nil? -%> floor <%= @floor %><% end -%><%= unless @ceiling.nil? -%> ceiling <%= @ceiling %><% end -%><%= unless @cohort.nil? -%> cohort <%= @cohort %><% end -%>
+tos <%= if @minclock -%> minclock <%= @minclock %><% end -%><%= if @minsane -%> minsane <%= @minsane %><% end -%><%= if @floor -%> floor <%= @floor %><% end -%><%= if @ceiling -%> ceiling <%= @ceiling %><% end -%><%= if @cohort -%> cohort <%= @cohort %><% end -%>
 <% end -%>
