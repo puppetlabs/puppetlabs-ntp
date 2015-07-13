@@ -277,6 +277,30 @@ Tells Puppet what NTP service to manage. Valid options: string. Default value: v
 
 Tells puppet to change stepout. Applies only if `tinker` value is 'true'. Valid options: unsigned shortint digit. Default value: undef.
 
+####`tos`
+
+Tells Puppet to enable tos options. Valid options: 'true' of 'false'. Default value: 'false'
+
+####`tos_minclock`
+
+Specifies the minclock tos option. Valid options: numeric. Default value: 3
+
+####`tos_minsane`
+
+Specifies the minsane tos option. Valid options: numeric. Default value: 1
+
+####`tos_floor`
+
+Specifies the floor tos option. Valid options: numeric. Default value: 1
+
+####`tos_ceiling`
+
+Specifies the ceiling tos option. Valid options: numeric. Default value: 15
+
+####`tos_cohort`
+
+Specifies the cohort tos option. Valid options: '0' or '1'. Default value: 0
+
 ####`tinker`
 
 Tells Puppet to enable tinker options. Valid options: 'true' of 'false'. Default value: 'false'
