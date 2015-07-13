@@ -472,6 +472,32 @@ describe 'ntp' do
           end
         end
 
+        describe 'with parameter tos' do
+          context 'when set to true' do
+            let(:params) {{
+              :tos     => true,
+            }}
+
+            it 'should contain logfile setting' do
+              should contain_file('/etc/ntp.conf').with({
+              'content' => /^tos/,
+              })
+            end
+          end
+
+          context 'when set to false' do
+            let(:params) {{
+              :tos     => false,
+            }}
+
+            it 'should not contain a logfile line' do
+              should_not contain_file('/etc/ntp.conf').with({
+                'content' => /^tos/,
+              })
+            end
+          end
+        end
+
         describe 'peers' do
           context 'when empty' do
             let(:params) do
