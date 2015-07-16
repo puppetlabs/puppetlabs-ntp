@@ -130,17 +130,34 @@ class ntp::params {
       }
     }
     'Suse': {
-      if $::operatingsystem == 'SLES' and $::operatingsystemmajrelease == '12'
-      {
-        $service_name  = 'ntpd'
-        $keys_file     = '/etc/ntp.keys'
-      } else{
+      if $::operatingsystem == 'SLES' {
+        case $::operatingsystemmajrelease {
+          '10': {
+            $service_name  = 'ntp'
+            $keys_file     = '/etc/ntp.keys'
+            $package_name  = [ 'xntp' ]
+          }
+          '11': {
+            $service_name  = 'ntp'
+            $keys_file     = $default_keys_file
+            $package_name  = $default_package_name
+          }
+          '12': {
+            $service_name  = 'ntpd'
+            $keys_file     = '/etc/ntp.keys'
+            $package_name  = $default_package_name
+          }
+          default: {
+            fail("The ${module_name} module is not supported on an ${::operatingsystem} ${::operatingsystemmajrelease} distribution.")
+          }
+        }
+      } else {
         $service_name  = 'ntp'
         $keys_file     = $default_keys_file
+        $package_name  = $default_package_name
       }
       $config          = $default_config
       $driftfile       = '/var/lib/ntp/drift/ntp.drift'
-      $package_name    = $default_package_name
       $restrict        = [
         'default kod nomodify notrap nopeer noquery',
         '-6 default kod nomodify notrap nopeer noquery',
