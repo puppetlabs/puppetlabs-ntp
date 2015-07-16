@@ -26,12 +26,12 @@ unless ENV['RS_PROVISION'] == 'no' or ENV['BEAKER_provision'] == 'no'
       on host, puppet('module install puppetlabs-stdlib')
     end
 
-    #Need to disable update of ntp servers from DHCP, as subsequent restart of ntp causes test failures
-    if fact('osfamily') == 'Debian'
-      shell('[[ -f /etc/dhcp/dhclient-exit-hooks.d/ntp ]] && rm /etc/dhcp/dhcp-exit-hooks.d/ntp', { :acceptable_exit_codes => [0, 1] })
-      shell('[[ -f /etc/dhcp3/dhclient-exit-hooks.d/ntp ]] && rm /etc/dhcp3/dhcp-exit-hooks.d/ntp', { :acceptable_exit_codes => [0, 1] })
-    elsif fact('osfamily') == 'RedHat'
-      shell('echo "PEERNTP=no" >> /etc/sysconfig/network', { :acceptable_exit_codes => [0, 1]})
+    # Need to disable update of ntp servers from DHCP, as subsequent restart of ntp causes test failures
+    if fact_on(host, 'osfamily') == 'Debian'
+      on host, 'dpkg-divert --divert /etc/dhcp-ntp.bak --local --rename --add /etc/dhcp/dhclient-exit-hooks.d/ntp'
+      on host, 'dpkg-divert --divert /etc/dhcp3-ntp.bak --local --rename --add /etc/dhcp3/dhclient-exit-hooks.d/ntp'
+    elsif fact_on(host, 'osfamily') == 'RedHat'
+      on host, 'echo "PEERNTP=no" >> /etc/sysconfig/network'
     end
   end
 end
