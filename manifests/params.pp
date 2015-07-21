@@ -231,7 +231,7 @@ class ntp::params {
           '127.0.0.1',
         ]
       } else {
-        # Solaris 11, 12 ...
+        # Solaris 11...
         $package_name = [ 'service/network/ntp' ]
         $restrict     = [
           'default kod nomodify notrap nopeer noquery',
