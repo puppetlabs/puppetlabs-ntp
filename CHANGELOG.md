@@ -1,10 +1,10 @@
-## 2015-07-20 - Supported Release 4.1.0
+## 2015-07-21 - Supported Release 4.1.0
 ### Summary
 This release updates metadata to support new version of puppet enterprise, as well as new features, bugfixes, and test improvements.
 
 #### Features
-- Adds support for Solaris 12
-- Adds support for Fedora 20, 21, 22
+- Adds Solaris 10 support
+- Adds Fedora 20, 21, 22 compatibility
 
 #### Bugfixes
 - Fix default configuration for Debian (MODULES-2087)
