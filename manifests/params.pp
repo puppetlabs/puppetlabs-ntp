@@ -21,6 +21,12 @@ class ntp::params {
   $interfaces        = []
   $disable_auth      = false
   $broadcastclient   = false
+  $tos               = false
+  $tos_minclock      = '3'
+  $tos_minsane       = '1'
+  $tos_floor         = '1'
+  $tos_ceiling       = '15'
+  $tos_cohort        = '0'
 
   # Allow a list of fudge options
   $fudge             = []
