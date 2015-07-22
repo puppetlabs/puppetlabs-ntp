@@ -1,3 +1,16 @@
+## 2015-07-21 - Supported Release 4.1.0
+### Summary
+This release updates metadata to support new version of puppet enterprise, as well as new features, bugfixes, and test improvements.
+
+#### Features
+- Adds Solaris 10 support
+- Adds Fedora 20, 21, 22 compatibility
+
+#### Bugfixes
+- Fix default configuration for Debian (MODULES-2087)
+- Fix to ensure log file is created before service starts
+- Fixes SLES params for SLES 10, 11, 12
+
 ## 2015-05-26 - Supported Release 4.0.0
 ### Summary
 This release drops puppet 2.7 support and older stdlib support. It also includes the addition of 12 new properties, as well as numerous bug fixes and other improvements.
