@@ -152,6 +152,10 @@ Specifies a file to act as a template for the config file. Valid options: string
 Do  not  require cryptographic authentication for broadcast client, multicast 
 client and symmetric passive associations.
 
+####`disable_auth`
+
+Disable kernel time discipline.
+
 ####`disable_monitor`
 
 Disables the monitoring facility in NTP. Valid options: 'true' or 'false'. Default value: 'false'
