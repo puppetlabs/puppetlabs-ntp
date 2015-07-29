@@ -20,6 +20,7 @@ class ntp::params {
   $udlc_stratum      = '10'
   $interfaces        = []
   $disable_auth      = false
+  $disable_kernel    = false
   $broadcastclient   = false
   $tos               = false
   $tos_minclock      = '3'

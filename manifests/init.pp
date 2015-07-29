@@ -4,6 +4,7 @@ class ntp (
   $config            = $ntp::params::config,
   $config_template   = $ntp::params::config_template,
   $disable_auth      = $ntp::params::disable_auth,
+  $disable_kernel    = $ntp::params::disable_kernel,
   $disable_monitor   = $ntp::params::disable_monitor,
   $fudge             = $ntp::params::fudge,
   $driftfile         = $ntp::params::driftfile,
@@ -46,6 +47,7 @@ class ntp (
   validate_absolute_path($config)
   validate_string($config_template)
   validate_bool($disable_auth)
+  validate_bool($disable_kernel)
   validate_bool($disable_monitor)
   validate_absolute_path($driftfile)
   if $logfile { validate_absolute_path($logfile) }
