@@ -14,6 +14,9 @@ disable monitor
 <% if @disable_auth == true -%>
 disable auth
 <% end -%>
+<% if @disable_kernel == true -%>
+disable kernel
+<% end -%>
 
 <% if @restrict != [] -%>
 # Permit time synchronization with our time source, but do not
