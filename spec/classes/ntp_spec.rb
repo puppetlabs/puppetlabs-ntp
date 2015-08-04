@@ -637,9 +637,9 @@ describe 'ntp' do
         end
       end
 
-      describe "on osfamily Solaris and operatingsystemrelease 5.10" do
+      describe "on osfamily Solaris and kernelrelease 5.10" do
         let :facts do
-          super().merge({ :osfamily => 'Solaris', :operatingsystemrelease => '5.10' })
+          super().merge({ :osfamily => 'Solaris', :kernelrelease => '5.10' })
         end
 
         it 'uses the NTP pool servers by default' do
@@ -649,9 +649,9 @@ describe 'ntp' do
         end
       end
 
-      describe "on osfamily Solaris and operatingsystemrelease 5.11" do
+      describe "on osfamily Solaris and kernelrelease 5.11" do
         let :facts do
-          super().merge({ :osfamily => 'Solaris', :operatingsystemrelease => '5.11' })
+          super().merge({ :osfamily => 'Solaris', :kernelrelease => '5.11' })
         end
 
         it 'uses the NTP pool servers by default' do

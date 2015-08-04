@@ -229,7 +229,7 @@ class ntp::params {
       $config        = '/etc/inet/ntp.conf'
       $driftfile     = '/var/ntp/ntp.drift'
       $keys_file     = '/etc/inet/ntp.keys'
-      if $::operatingsystemrelease =~ /^(5\.10|10|10_u\d+)$/
+      if $::kernelrelease == '5.10'
       {
         # Solaris 10
         $package_name = [ 'SUNWntpr', 'SUNWntpu' ]
