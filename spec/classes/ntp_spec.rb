@@ -502,7 +502,7 @@ describe 'ntp' do
               :tos     => true,
             }}
 
-            it 'should contain logfile setting' do
+            it 'should contain tos setting' do
               should contain_file('/etc/ntp.conf').with({
               'content' => /^tos/,
               })
@@ -514,7 +514,7 @@ describe 'ntp' do
               :tos     => false,
             }}
 
-            it 'should not contain a logfile line' do
+            it 'should not contain tos setting' do
               should_not contain_file('/etc/ntp.conf').with({
                 'content' => /^tos/,
               })
