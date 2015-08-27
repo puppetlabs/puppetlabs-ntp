@@ -7,6 +7,8 @@ module Puppet::Parser::Functions
     raise(Puppet::ParseError, "ntp_dirname(): Wrong number of arguments " +
       "given (#{arguments.size} for 1)") if arguments.size < 1
 
+    warning("ntp_dirname(): this function is deprecated and will be removed at a later time.")
+
     path = arguments[0]
     return File.dirname(path)
   end
