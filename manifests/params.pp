@@ -28,6 +28,7 @@ class ntp::params {
   $tos_floor         = '1'
   $tos_ceiling       = '15'
   $tos_cohort        = '0'
+  $disable_dhclient  = false
 
   # Allow a list of fudge options
   $fudge             = []

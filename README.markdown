@@ -156,6 +156,11 @@ client and symmetric passive associations.
 
 Disable kernel time discipline.
 
+####`disable_dhclient`
+
+Disables `ntp-servers` in `dhclient.conf` to avoid Dhclient from managing
+the NTP configuration.
+
 ####`disable_monitor`
 
 Disables the monitoring facility in NTP. Valid options: 'true' or 'false'. Default value: 'false'

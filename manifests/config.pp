@@ -33,4 +33,14 @@ class ntp::config inherits ntp {
     }
   }
 
+  if $ntp::disable_dhclient {
+    augeas { 'disable ntp-servers in dhclient.conf':
+      context => '/files/etc/dhcp/dhclient.conf',
+      changes => 'rm request/*[.="ntp-servers"]',
+    }
+
+    file { '/var/lib/ntp/ntp.conf.dhcp':
+      ensure => absent,
+    }
+  }
 }

@@ -155,6 +155,32 @@ describe 'ntp' do
             end
           end
         end
+        describe 'with parameter disable_dhclient' do
+          context 'when set to true' do
+            let(:params) {{
+              :disable_dhclient => true,
+            }}
+
+            it 'should contain disable ntp-servers setting' do
+              should contain_augeas('disable ntp-servers in dhclient.conf')
+            end
+            it 'should contain dhcp file' do
+              should contain_file('/var/lib/ntp/ntp.conf.dhcp').with_ensure('absent')
+            end
+          end
+          context 'when set to false' do
+            let(:params) {{
+              :disable_dhclient => false,
+            }}
+
+            it 'should not contain disable ntp-servers setting' do
+              should_not contain_augeas('disable ntp-servers in dhclient.conf')
+            end
+            it 'should not contain dhcp file' do
+              should_not contain_file('/var/lib/ntp/ntp.conf.dhcp').with_ensure('absent')
+            end
+          end
+        end
         describe 'with parameter disable_kernel' do
           context 'when set to true' do
             let(:params) {{
