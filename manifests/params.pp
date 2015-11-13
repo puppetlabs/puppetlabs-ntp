@@ -20,6 +20,7 @@ class ntp::params {
   $udlc_stratum      = '10'
   $interfaces        = []
   $disable_auth      = false
+  $disable_monitor   = true
   $broadcastclient   = false
 
   # Allow a list of fudge options
@@ -64,7 +65,6 @@ class ntp::params {
         '3.debian.pool.ntp.org',
       ]
       $maxpoll         = undef
-      $disable_monitor = false
     }
     'Debian': {
       $config          = $default_config
@@ -86,7 +86,6 @@ class ntp::params {
         '3.debian.pool.ntp.org',
       ]
       $maxpoll         = undef
-      $disable_monitor = false
     }
     'RedHat': {
       $config          = $default_config
@@ -110,7 +109,6 @@ class ntp::params {
             '2.fedora.pool.ntp.org',
             '3.fedora.pool.ntp.org',
           ]
-          $disable_monitor = true
         }
         default: {
           $restrict        = [
@@ -125,7 +123,6 @@ class ntp::params {
             '1.centos.pool.ntp.org',
             '2.centos.pool.ntp.org',
           ]
-          $disable_monitor = false
         }
       }
     }
@@ -172,7 +169,6 @@ class ntp::params {
         '3.opensuse.pool.ntp.org',
       ]
       $maxpoll         = undef
-      $disable_monitor = false
     }
     'FreeBSD': {
       $config          = $default_config
@@ -194,7 +190,6 @@ class ntp::params {
         '3.freebsd.pool.ntp.org',
       ]
       $maxpoll         = 9
-      $disable_monitor = false
     }
     'Archlinux': {
       $config          = $default_config
@@ -216,7 +211,6 @@ class ntp::params {
         '3.arch.pool.ntp.org',
       ]
       $maxpoll         = undef
-      $disable_monitor = false
     }
     'Solaris': {
       $config        = '/etc/inet/ntp.conf'
@@ -249,7 +243,6 @@ class ntp::params {
         '3.pool.ntp.org',
       ]
       $maxpoll       = undef
-      $disable_monitor = false
     }
   # Gentoo was added as its own $::osfamily in Facter 1.7.0
     'Gentoo': {
@@ -272,7 +265,6 @@ class ntp::params {
         '3.gentoo.pool.ntp.org',
       ]
       $maxpoll         = undef
-      $disable_monitor = false
     }
     'Linux': {
     # Account for distributions that don't have $::osfamily specific settings.
@@ -298,7 +290,6 @@ class ntp::params {
             '3.gentoo.pool.ntp.org',
           ]
           $maxpoll         = undef
-          $disable_monitor = false
         }
         default: {
           fail("The ${module_name} module is not supported on an ${::operatingsystem} distribution.")
