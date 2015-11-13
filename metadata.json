@@ -3,7 +3,7 @@
   "version": "4.1.0",
   "author": "Puppet Labs",
   "summary": "Installs, configures, and manages the NTP service.",
-  "license": "Apache Version 2.0",
+  "license": "Apache-2.0",
   "source": "https://github.com/puppetlabs/puppetlabs-ntp",
   "project_page": "https://github.com/puppetlabs/puppetlabs-ntp",
   "issues_url": "https://tickets.puppetlabs.com/browse/MODULES",
