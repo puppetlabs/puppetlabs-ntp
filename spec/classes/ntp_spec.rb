@@ -155,6 +155,40 @@ describe 'ntp' do
             end
           end
         end
+        describe 'with parameter disable_monitor' do
+          context 'default' do
+            let(:params) {{
+            }}
+
+            it 'should contain disable monitor setting' do
+              should contain_file('/etc/ntp.conf').with({
+              'content' => /^disable monitor\n/,
+              })
+            end
+          end
+          context 'when set to true' do
+            let(:params) {{
+              :disable_monitor => true,
+            }}
+
+            it 'should contain disable monitor setting' do
+              should contain_file('/etc/ntp.conf').with({
+              'content' => /^disable monitor\n/,
+              })
+            end
+          end
+          context 'when set to false' do
+            let(:params) {{
+              :disable_monitor => false,
+            }}
+
+            it 'should not contain disable monitor setting' do
+              should_not contain_file('/etc/ntp.conf').with({
+              'content' => /^disable monitor\n/,
+              })
+            end
+          end
+        end
         describe 'with parameter broadcastclient' do
           context 'when set to true' do
             let(:params) {{
