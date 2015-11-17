@@ -143,6 +143,10 @@ Enable reception of broadcast server messages to any local interface.
 
 Specifies a file for ntp's configuration info. Valid options: string containing an absolute path. Default value: '/etc/ntp.conf' (or '/etc/inet/ntp.conf' on Solaris)
 
+####`config_file_mode`
+
+Specifies a file mode for the ntp configuration file. Valid options: string containing file mode. Default value: '0664'
+
 ####`config_template`
 
 Specifies a file to act as a template for the config file. Valid options: string containing a path (absolute, or relative to the module path). Default value: 'ntp/ntp.conf.erb'

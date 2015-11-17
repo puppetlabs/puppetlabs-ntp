@@ -228,6 +228,15 @@ describe 'ntp' do
               })
             end
           end
+          context 'when manually setting conf file mode to 0777' do
+            let(:params) {{
+              :config_file_mode => '0777',
+            }}
+
+            it 'should contain file mode of 0777' do
+              should contain_file('/etc/ntp.conf').with_mode('0777')
+            end
+          end
         end
 
         describe "ntp::install on #{system}" do

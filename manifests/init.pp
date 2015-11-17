@@ -2,6 +2,7 @@ class ntp (
   $autoupdate        = $ntp::params::autoupdate,
   $broadcastclient   = $ntp::params::broadcastclient,
   $config            = $ntp::params::config,
+  $config_file_mode  = $ntp::params::config_file_mode,
   $config_template   = $ntp::params::config_template,
   $disable_auth      = $ntp::params::disable_auth,
   $disable_dhclient  = $ntp::params::disable_dhclient,

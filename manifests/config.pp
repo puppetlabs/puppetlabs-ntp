@@ -1,4 +1,4 @@
-#
+# Private Class
 class ntp::config inherits ntp {
 
   if $ntp::keys_enable {
@@ -20,7 +20,7 @@ class ntp::config inherits ntp {
     ensure  => file,
     owner   => 0,
     group   => 0,
-    mode    => '0644',
+    mode    => $::ntp::config_file_mode,
     content => template($ntp::config_template),
   }
 
