@@ -49,9 +49,6 @@ describe 'ntp' do
               :keys_requestkey => '3',
             }}
 
-            it { should contain_file('/etc/ntp').with({
-              'ensure'  => 'directory'})
-            }
             it { should contain_file('/etc/ntp.conf').with({
               'content' => /trustedkey 1 2 3/})
             }
@@ -73,9 +70,6 @@ describe 'ntp' do
             :keys_requestkey => '3',
           }}
 
-          it { should_not contain_file('/etc/ntp').with({
-            'ensure'  => 'directory'})
-          }
           it { should_not contain_file('/etc/ntp.conf').with({
             'content' => /trustedkey 1 2 3/})
           }
@@ -226,6 +220,23 @@ describe 'ntp' do
               should_not contain_file('/etc/ntp.conf').with({
               'content' => /^broadcastclient\n/,
               })
+            end
+          end
+          context 'when setting custom config_dir' do
+            let(:params) {{
+              :keys_enable => true,
+              :config_dir  => '/tmp/foo',
+              :keys_file   => '/tmp/foo/ntp.keys',
+            }}
+
+            it 'should contain custom config directory' do
+              should contain_file('/tmp/foo').with(
+                'ensure'  => 'directory',
+                'owner'   => '0',
+                'group'   => '0',
+                'mode'    => '0664',
+                'recurse' => 'false'
+              )
             end
           end
           context 'when manually setting conf file mode to 0777' do
