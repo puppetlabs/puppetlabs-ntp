@@ -1,3 +1,10 @@
+## Supported Release 4.1.1
+### Summary
+This is a bugfix release to address security vulnerability CVE-2013-5211.
+
+#### Bugfixes
+- Changes the default behavior to disable monitoring as part of the solution for CVE-2013-5211.
+
 ## 2015-07-21 - Supported Release 4.1.0
 ### Summary
 This release updates metadata to support new version of puppet enterprise, as well as new features, bugfixes, and test improvements.
