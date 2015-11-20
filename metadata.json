@@ -1,12 +1,16 @@
 {
   "name": "puppetlabs-ntp",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "author": "Puppet Labs",
   "summary": "Installs, configures, and manages the NTP service.",
   "license": "Apache Version 2.0",
   "source": "https://github.com/puppetlabs/puppetlabs-ntp",
   "project_page": "https://github.com/puppetlabs/puppetlabs-ntp",
   "issues_url": "https://tickets.puppetlabs.com/browse/MODULES",
+  "dependencies": [
+    {"name":"puppetlabs/stdlib","version_requirement":">= 4.6.0 < 5.0.0"}
+  ],
+  "data_provider": null,
   "operatingsystem_support": [
     {
       "operatingsystem": "RedHat",
@@ -96,8 +100,5 @@
       "version_requirement": ">= 3.0.0 < 5.0.0"
     }
   ],
-  "description": "NTP Module for Debian, Ubuntu, CentOS, RHEL, OEL, Fedora, FreeBSD, ArchLinux and Gentoo.",
-  "dependencies": [
-    {"name":"puppetlabs/stdlib","version_requirement":">= 4.6.0 < 5.0.0"}
-  ]
+  "description": "NTP Module for Debian, Ubuntu, CentOS, RHEL, OEL, Fedora, FreeBSD, ArchLinux and Gentoo."
 }
