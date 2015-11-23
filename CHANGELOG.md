@@ -1,3 +1,8 @@
+## Supported Release 4.1.1
+###Summary
+
+Small release for support of newer Puppet versions.
+
 ## 2015-07-21 - Supported Release 4.1.0
 ### Summary
 This release updates metadata to support new version of puppet enterprise, as well as new features, bugfixes, and test improvements.

@@ -1,6 +1,6 @@
 {
   "name": "puppetlabs-ntp",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "author": "Puppet Labs",
   "summary": "Installs, configures, and manages the NTP service.",
   "license": "Apache Version 2.0",
@@ -89,7 +89,7 @@
   "requirements": [
     {
       "name": "pe",
-      "version_requirement": ">= 3.7.0 < 2015.3.0"
+      "version_requirement": ">= 3.7.0 < 2015.4.0"
     },
     {
       "name": "puppet",
