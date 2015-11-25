@@ -1,3 +1,8 @@
+## Supported Release 4.1.2
+###Summary
+
+Small release for support of newer PE versions. This increments the version of PE in the metadata.json file.
+
 ## Supported Release 4.1.1
 ### Summary
 This is a bugfix release to address security vulnerability CVE-2013-5211.
