@@ -65,6 +65,11 @@ driftfile <%= @driftfile %>
 logfile <%= @logfile %>
 <% end -%>
 
+<% unless @signd_socket.nil? -%>
+# Enable signed packets
+ntpsigndsocket <%= @signd_socket %>
+<% end -%>
+
 <% unless @peers.empty? -%>
 # Peers
 <% [@peers].flatten.each do |peer| -%>
