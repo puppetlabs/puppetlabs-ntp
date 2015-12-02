@@ -65,9 +65,9 @@ driftfile <%= @driftfile %>
 logfile <%= @logfile %>
 <% end -%>
 
-<% unless @signd_socket.nil? -%>
+<% unless @ntpsigndsocket.nil? -%>
 # Enable signed packets
-ntpsigndsocket <%= @signd_socket %>
+ntpsigndsocket <%= @ntpsigndsocket %>
 <% end -%>
 
 <% unless @peers.empty? -%>

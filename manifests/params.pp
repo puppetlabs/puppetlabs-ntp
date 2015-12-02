@@ -31,7 +31,7 @@ class ntp::params {
   $tos_ceiling       = '15'
   $tos_cohort        = '0'
   $disable_dhclient  = false
-  $signd_socket      = undef
+  $ntpsigndsocket    = undef
 
   # Allow a list of fudge options
   $fudge             = []
