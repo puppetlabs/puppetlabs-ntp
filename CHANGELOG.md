@@ -1,3 +1,10 @@
+## 2015-12-10 - Supported Release 4.1.0
+### Summary
+Added support for signing NTP packets
+
+#### Features
+- Added the `ntpsigndsocket` property 
+
 ## 2015-07-21 - Supported Release 4.1.0
 ### Summary
 This release updates metadata to support new version of puppet enterprise, as well as new features, bugfixes, and test improvements.
