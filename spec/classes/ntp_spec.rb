@@ -125,6 +125,7 @@ describe 'ntp' do
             }
           end
         end
+
         describe 'with parameter disable_auth' do
           context 'when set to true' do
             let(:params) {{
@@ -144,11 +145,12 @@ describe 'ntp' do
 
             it 'should not contain disable auth setting' do
               should_not contain_file('/etc/ntp.conf').with({
-              'content' => /^disable auth\n/,
+                'content' => /^disable auth\n/,
               })
             end
           end
         end
+
         describe 'with parameter disable_dhclient' do
           context 'when set to true' do
             let(:params) {{
@@ -199,6 +201,40 @@ describe 'ntp' do
             end
           end
         end
+        describe 'with parameter disable_monitor' do
+          context 'default' do
+            let(:params) {{
+            }}
+
+            it 'should contain disable monitor setting' do
+              should contain_file('/etc/ntp.conf').with({
+                'content' => /^disable monitor\n/,
+              })
+            end
+          end
+          context 'when set to true' do
+            let(:params) {{
+              :disable_monitor => true,
+            }}
+
+            it 'should contain disable monitor setting' do
+              should contain_file('/etc/ntp.conf').with({
+                'content' => /^disable monitor\n/,
+              })
+            end
+          end
+          context 'when set to false' do
+            let(:params) {{
+              :disable_monitor => false,
+            }}
+
+            it 'should not contain disable monitor setting' do
+              should_not contain_file('/etc/ntp.conf').with({
+                'content' => /^disable monitor\n/,
+              })
+            end
+          end
+        end
         describe 'with parameter broadcastclient' do
           context 'when set to true' do
             let(:params) {{
@@ -207,7 +243,7 @@ describe 'ntp' do
 
             it 'should contain broadcastclient setting' do
               should contain_file('/etc/ntp.conf').with({
-              'content' => /^broadcastclient\n/,
+                'content' => /^broadcastclient\n/,
               })
             end
           end
@@ -218,7 +254,7 @@ describe 'ntp' do
 
             it 'should not contain broadcastclient setting' do
               should_not contain_file('/etc/ntp.conf').with({
-              'content' => /^broadcastclient\n/,
+                'content' => /^broadcastclient\n/,
               })
             end
           end

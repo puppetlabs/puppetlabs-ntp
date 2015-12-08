@@ -23,6 +23,7 @@ class ntp::params {
   $interfaces        = []
   $disable_auth      = false
   $disable_kernel    = false
+  $disable_monitor   = true
   $broadcastclient   = false
   $tos               = false
   $tos_minclock      = '3'
@@ -74,7 +75,6 @@ class ntp::params {
         '3.debian.pool.ntp.org',
       ]
       $maxpoll         = undef
-      $disable_monitor = false
     }
     'Debian': {
       $config          = $default_config
@@ -96,7 +96,6 @@ class ntp::params {
         '3.debian.pool.ntp.org',
       ]
       $maxpoll         = undef
-      $disable_monitor = false
     }
     'RedHat': {
       $config          = $default_config
@@ -120,7 +119,6 @@ class ntp::params {
             '2.fedora.pool.ntp.org',
             '3.fedora.pool.ntp.org',
           ]
-          $disable_monitor = true
         }
         default: {
           $restrict        = [
@@ -135,7 +133,6 @@ class ntp::params {
             '1.centos.pool.ntp.org',
             '2.centos.pool.ntp.org',
           ]
-          $disable_monitor = false
         }
       }
     }
@@ -199,7 +196,6 @@ class ntp::params {
         '3.opensuse.pool.ntp.org',
       ]
       $maxpoll         = undef
-      $disable_monitor = false
     }
     'FreeBSD': {
       $config          = $default_config
@@ -221,7 +217,6 @@ class ntp::params {
         '3.freebsd.pool.ntp.org',
       ]
       $maxpoll         = 9
-      $disable_monitor = false
     }
     'Archlinux': {
       $config          = $default_config
@@ -243,7 +238,6 @@ class ntp::params {
         '3.arch.pool.ntp.org',
       ]
       $maxpoll         = undef
-      $disable_monitor = false
     }
     'Solaris': {
       $config        = '/etc/inet/ntp.conf'
@@ -276,7 +270,6 @@ class ntp::params {
         '3.pool.ntp.org',
       ]
       $maxpoll       = undef
-      $disable_monitor = false
     }
   # Gentoo was added as its own $::osfamily in Facter 1.7.0
     'Gentoo': {
@@ -299,7 +292,6 @@ class ntp::params {
         '3.gentoo.pool.ntp.org',
       ]
       $maxpoll         = undef
-      $disable_monitor = false
     }
     'Linux': {
     # Account for distributions that don't have $::osfamily specific settings.
@@ -325,7 +317,6 @@ class ntp::params {
             '3.gentoo.pool.ntp.org',
           ]
           $maxpoll         = undef
-          $disable_monitor = false
         }
         'Amazon': {
           $config          = $default_config
