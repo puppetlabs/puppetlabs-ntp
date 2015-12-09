@@ -551,7 +551,7 @@ describe 'ntp' do
 
             it 'should contain ntpsigndsocket setting' do
               should contain_file('/etc/ntp.conf').with({
-                'content' => /^ntpsigndsocket \/usr\/local\/samba\/var\/lib\/ntp_signd\n/,
+                'content' => %r(^ntpsigndsocket /usr/local/samba/var/lib/ntp_signd\n),
               })
             end
           end
