@@ -578,6 +578,33 @@ describe 'ntp' do
           end
         end
 
+        describe 'with parameter ntpsigndsocket' do
+          context 'when set to true' do
+            let(:params) {{
+                :servers => ['a', 'b', 'c', 'd'],
+                :ntpsigndsocket => '/usr/local/samba/var/lib/ntp_signd',
+            }}
+
+            it 'should contain ntpsigndsocket setting' do
+              should contain_file('/etc/ntp.conf').with({
+                'content' => %r(^ntpsigndsocket /usr/local/samba/var/lib/ntp_signd\n),
+              })
+            end
+          end
+
+          context 'when set to false' do
+            let(:params) {{
+                :servers => ['a', 'b', 'c', 'd'],
+            }}
+
+            it 'should not contain a ntpsigndsocket line' do
+              should_not contain_file('/etc/ntp.conf').with({
+                'content' => /ntpsigndsocket /,
+              })
+            end
+          end
+        end
+
         describe 'with parameter tos' do
           context 'when set to true' do
             let(:params) {{
