@@ -44,6 +44,7 @@ class ntp (
   $tos_cohort        = $ntp::params::tos_cohort,
   $udlc              = $ntp::params::udlc,
   $udlc_stratum      = $ntp::params::udlc_stratum,
+  $ntpsigndsocket    = $ntp::params::ntpsigndsocket,
 ) inherits ntp::params {
 
   validate_bool($broadcastclient)
@@ -55,6 +56,7 @@ class ntp (
   validate_bool($disable_monitor)
   validate_absolute_path($driftfile)
   if $logfile { validate_absolute_path($logfile) }
+  if $ntpsigndsocket { validate_absolute_path($ntpsigndsocket) }
   if $leapfile { validate_absolute_path($leapfile) }
   validate_bool($iburst_enable)
   validate_bool($keys_enable)
