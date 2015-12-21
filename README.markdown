@@ -225,6 +225,17 @@ Tells Puppet to use non-standard minimal poll interval of upstream servers. Vali
 
 Tells Puppet to use non-standard maximal poll interval of upstream servers. Valid options: 3 to 16. Default option: undef, except FreeBSD (on FreeBSD `maxpoll` set 9 by default).
 
+####`ntpsigndsocket`
+
+Tells NTP to sign packets using the socket in the ntpsigndsocket path. NTP must be configured to sign sockets for this to work.
+Valid options a path to the socket directory, in the case of Samba it would be: 
+
+~~~~
+ntpsigndsocket = usr/local/samba/var/lib/ntp_signd/ 
+~~~~
+
+Default value: undef.
+
 ####`package_ensure`
 
 Tells Puppet whether the NTP package should be installed, and what version. Valid options: 'present', 'latest', or a specific version number. Default value: 'present'
