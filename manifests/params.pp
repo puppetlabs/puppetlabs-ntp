@@ -33,6 +33,7 @@ class ntp::params {
   $tos_cohort        = '0'
   $disable_dhclient  = false
   $ntpsigndsocket    = undef
+  $authprov          = undef
 
   # Allow a list of fudge options
   $fudge             = []

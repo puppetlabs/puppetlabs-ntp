@@ -605,6 +605,33 @@ describe 'ntp' do
           end
         end
 
+        describe 'with parameter authprov' do
+          context 'when set to true' do
+            let(:params) {{
+                :servers => ['a', 'b', 'c', 'd'],
+                :authprov => '/opt/novell/xad/lib64/libw32time.so 131072:4294967295 global',
+            }}
+
+            it 'should contain authprov setting' do
+              should contain_file('/etc/ntp.conf').with({
+                'content' => %r(^authprov /opt/novell/xad/lib64/libw32time.so 131072:4294967295 global\n),
+              })
+            end
+          end
+
+          context 'when set to false' do
+            let(:params) {{
+                :servers => ['a', 'b', 'c', 'd'],
+            }}
+
+            it 'should not contain a authprov line' do
+              should_not contain_file('/etc/ntp.conf').with({
+                'content' => /authprov /,
+              })
+            end
+          end
+        end
+
         describe 'with parameter tos' do
           context 'when set to true' do
             let(:params) {{
