@@ -45,6 +45,7 @@ class ntp (
   $udlc              = $ntp::params::udlc,
   $udlc_stratum      = $ntp::params::udlc_stratum,
   $ntpsigndsocket    = $ntp::params::ntpsigndsocket,
+  $authprov          = $ntp::params::authprov,
 ) inherits ntp::params {
 
   validate_bool($broadcastclient)
@@ -88,6 +89,7 @@ class ntp (
   if $tos_cohort { validate_re($tos_cohort, '^[0|1]$', "Must be 0 or 1, got: ${tos_cohort}") }
   validate_bool($udlc)
   validate_array($peers)
+  if $authprov { validate_string($authprov) }
 
   if $config_dir {
     validate_absolute_path($config_dir)

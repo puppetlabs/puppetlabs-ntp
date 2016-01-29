@@ -103,3 +103,6 @@ leapfile <%= @leapfile %>
 tos <% if @tos_minclock -%> minclock <%= @tos_minclock %><% end %><% if @tos_minsane -%> minsane <%= @tos_minsane %><% end %><% if @tos_floor -%> floor <%= @tos_floor %><% end %><% if @tos_ceiling -%> ceiling <%= @tos_ceiling %><% end %><% if @tos_cohort -%> cohort <%= @tos_cohort %><% end %>
 <% end %>
 
+<% unless @authprov.nil? -%>
+authprov <%= @authprov %>
+<% end -%>
