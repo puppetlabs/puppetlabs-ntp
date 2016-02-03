@@ -192,7 +192,7 @@ Specifies one or more network interfaces for NTP to listen on. Valid options: ar
 
 ####`keys_controlkey`
 
-Provides a control key to be used by NTP. Valid options: string. Default value: ' '
+Specifies the key identifier to use with the ntpq utility. Valid options: value in the range of 1 to 65,534 inclusive. Default value: ' '
 
 ####`keys_enable`
 
@@ -200,11 +200,11 @@ Tells Puppet whether to enable key-based authentication. Valid options: 'true' o
 
 ####`keys_file`
 
-Specifies an NTP keys file. Valid options: string containing an absolute path. Default value: '/etc/ntp/keys' (except on AIX, SLES, and Solaris)
+Specifies the complete path and location of the MD5 key file containing the keys and key identifiers used by ntpd, ntpq and ntpdc when operating with symmetric key cryptography. Valid options: string containing an absolute path. Default value: '/etc/ntp/keys' (except on AIX, SLES, and Solaris)
 
 ####`keys_requestkey`
 
-Provides a request key to be used by NTP. Valid options: string. Default value: ' '
+Specifies the key identifier to use with the ntpdc utility program. Valid options: value in the range of 1 to 65,534 inclusive. Default value: ' '
 
 #### `keys_trusted`:
 Provides one or more keys to be trusted by NTP. Valid options: array of keys. Default value: [ ]
