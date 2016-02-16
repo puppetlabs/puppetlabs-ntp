@@ -29,6 +29,7 @@ class ntp (
   $preferred_servers = $ntp::params::preferred_servers,
   $restrict          = $ntp::params::restrict,
   $interfaces        = $ntp::params::interfaces,
+  $interfaces_ignore = $ntp::params::interfaces_ignore,
   $servers           = $ntp::params::servers,
   $service_enable    = $ntp::params::service_enable,
   $service_ensure    = $ntp::params::service_ensure,

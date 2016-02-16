@@ -126,6 +126,29 @@ describe 'ntp' do
           end
         end
 
+        describe 'specified ignore interfaces' do
+          context "when set" do
+            let(:params) {{
+              :interfaces => ['a.b.c.d'],
+              :interfaces_ignore => ['wildcard', 'ipv6']
+            }}
+
+            it { should contain_file('/etc/ntp.conf').with({
+              'content' => /interface ignore wildcard\ninterface ignore ipv6\ninterface listen a.b.c.d/})
+            }
+          end
+          context "when not set" do
+            let(:params) {{
+              :interfaces   => ['127.0.0.1'],
+              :servers      => ['a', 'b', 'c', 'd'],
+            }}
+
+            it { should contain_file('/etc/ntp.conf').with({
+              'content' => /interface ignore wildcard\ninterface listen 127.0.0.1/})
+            }
+          end
+        end
+
         describe 'with parameter disable_auth' do
           context 'when set to true' do
             let(:params) {{

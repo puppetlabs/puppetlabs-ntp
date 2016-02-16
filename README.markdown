@@ -190,6 +190,10 @@ Specifies whether to enable the iburst option for every NTP peer. Valid options:
 
 Specifies one or more network interfaces for NTP to listen on. Valid options: array. Default value: [ ]
 
+####`interfaces_ignore`
+
+Specifies one or more ignore pattern for the NTP listener configuration (e.g. all, wildcard, ipv6, ...). Valid options: array. Default value: [ ]
+
 ####`keys_controlkey`
 
 Specifies the key identifier to use with the ntpq utility. Valid options: value in the range of 1 to 65,534 inclusive. Default value: ' '

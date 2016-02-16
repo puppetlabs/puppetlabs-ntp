@@ -27,9 +27,15 @@ restrict <%= restrict %>
 <% end -%>
 
 <% if @interfaces != [] -%>
+<% if @interfaces_ignore != [] -%>
+<% @interfaces_ignore.flatten.each do |interface| -%>
+interface ignore <%= interface %>
+<% end -%>
+<% else -%>
 # Ignore wildcard interface and only listen on the following specified
 # interfaces
 interface ignore wildcard
+<% end -%>
 <% @interfaces.flatten.each do |interface| -%>
 interface listen <%= interface %>
 <% end -%>

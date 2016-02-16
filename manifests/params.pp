@@ -21,6 +21,7 @@ class ntp::params {
   $udlc              = false
   $udlc_stratum      = '10'
   $interfaces        = []
+  $interfaces_ignore = []
   $disable_auth      = false
   $disable_kernel    = false
   $disable_monitor   = true
