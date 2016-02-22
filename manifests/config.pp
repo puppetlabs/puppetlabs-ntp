@@ -1,6 +1,13 @@
 # Private Class
 class ntp::config inherits ntp {
 
+  #The servers-netconfig file overrides NTP config on SLES 12, interfering with our configuration.
+  if $::operatingsystem == 'SLES' and $::operatingsystemmajrelease == '12' {
+    file { '/var/run/ntp/servers-netconfig':
+      ensure => 'absent'
+    }
+  }
+
   if $ntp::keys_enable {
     case $ntp::config_dir {
       '/', '/etc', undef: {}
