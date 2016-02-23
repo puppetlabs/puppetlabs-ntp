@@ -35,6 +35,7 @@ class ntp (
   $service_ensure    = $ntp::params::service_ensure,
   $service_manage    = $ntp::params::service_manage,
   $service_name      = $ntp::params::service_name,
+  $service_provider  = $ntp::params::service_provider,
   $stepout           = $ntp::params::stepout,
   $tinker            = $ntp::params::tinker,
   $tos               = $ntp::params::tos,

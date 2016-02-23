@@ -306,6 +306,10 @@ Tells Puppet whether to manage the NTP service. Valid options: 'true' or 'false'
 
 Tells Puppet what NTP service to manage. Valid options: string. Default value: varies by operating system
 
+####`service_provider`
+
+Tells Puppet which service provider to use for NTP. Valid options: string. Default value: 'undef'
+
 ####`stepout`
 
 Tells puppet to change stepout. Applies only if `tinker` value is 'true'. Valid options: unsigned shortint digit. Default value: undef.

@@ -3,22 +3,19 @@ require 'spec_helper'
 describe 'ntp' do
   let(:facts) {{ :is_virtual => 'false' }}
 
-  ['Debian', 'RedHat', 'Fedora', 'Suse', 'FreeBSD', 'Archlinux', 'Gentoo', 'Gentoo (Facter < 1.7)'].each do |system|
+  ['Debian', 'RedHat', 'Fedora', 'Suse11', 'Suse12', 'FreeBSD', 'Archlinux', 'Gentoo', 'Gentoo (Facter < 1.7)'].each do |system|
     context "when on system #{system}" do
-      if system == 'Gentoo (Facter < 1.7)'
-        let :facts do
+      let :facts do
+        case system
+        when 'Gentoo (Facter < 1.7)'
           super().merge({ :osfamily => 'Linux', :operatingsystem => 'Gentoo' })
-        end
-      elsif system == 'Suse'
-        let :facts do
-          super().merge({ :osfamily => system,:operatingsystem => 'SLES',:operatingsystemmajrelease => '11' })
-        end
-      elsif system == 'Fedora'
-        let :facts do
-          super().merge({ :osfamily => 'RedHat', :operatingsystem => system ,:operatingsystemmajrelease => '22' })
-        end
-      else
-        let :facts do
+        when 'Suse11'
+          super().merge({ :osfamily => 'Suse', :operatingsystem => 'SLES', :operatingsystemmajrelease => '11' })
+        when 'Suse12'
+          super().merge({ :osfamily => 'Suse', :operatingsystem => 'SLES', :operatingsystemmajrelease => '12' })
+        when 'Fedora'
+          super().merge({ :osfamily => 'RedHat', :operatingsystem => system, :operatingsystemmajrelease => '22' })
+        else
           super().merge({ :osfamily => system })
         end
       end
@@ -31,6 +28,10 @@ describe 'ntp' do
         it { should contain_file('/etc/ntp.conf').with_owner('0') }
         it { should contain_file('/etc/ntp.conf').with_group('0') }
         it { should contain_file('/etc/ntp.conf').with_mode('0644') }
+
+        if system == 'Suse12'
+          it { should contain_file('/var/run/ntp/servers-netconfig').with_ensure_absent }
+        end
 
         describe 'allows template to be overridden' do
           let(:params) {{ :config_template => 'my_ntp/ntp.conf.erb' }}
