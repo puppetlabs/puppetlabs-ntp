@@ -178,7 +178,7 @@ Disables the monitoring facility in NTP. Valid options: 'true' or 'false'. Defau
 
 Specifies an NTP driftfile. Valid options: string containing an absolute path. Default value: '/var/lib/ntp/drift' (except on AIX and Solaris)
 
-####`fudge`
+#### `fudge`
 
 Used to provide additional information for individual clock drivers. Valid options: array containing strings that follow the `fudge` command. Default value: [ ]
 
@@ -210,14 +210,14 @@ Specifies the complete path and location of the MD5 key file containing the keys
 
 Specifies the key identifier to use with the ntpdc utility program. Valid options: value in the range of 1 to 65,534 inclusive. Default value: ' '
 
-####`keys_trusted`:
+#### `keys_trusted`:
 Provides one or more keys to be trusted by NTP. Valid options: array of keys. Default value: [ ]
 
-####`leapfile`
+#### `leapfile`
 
 Specifies a leap second file for NTP to use. Valid options: string containing an absolute path. Default value: ' '
 
-####`logfile`
+#### `logfile`
 
 Specifies a log file for NTP to use instead of syslog. Valid options: string containing an absolute path. Default value: ' '
 
