@@ -16,7 +16,7 @@ class ntp::config inherits ntp {
           ensure  => directory,
           owner   => 0,
           group   => 0,
-          mode    => '0664',
+          mode    => '0775',
           recurse => false,
         }
       }
