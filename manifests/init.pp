@@ -14,10 +14,12 @@ class ntp (
   $leapfile          = $ntp::params::leapfile,
   $logfile           = $ntp::params::logfile,
   $iburst_enable     = $ntp::params::iburst_enable,
+  $keys              = $ntp::params::keys,
   $keys_enable       = $ntp::params::keys_enable,
   $keys_file         = $ntp::params::keys_file,
   $keys_controlkey   = $ntp::params::keys_controlkey,
   $keys_requestkey   = $ntp::params::keys_requestkey,
+  $keys_template     = $ntp::params::keys_template,
   $keys_trusted      = $ntp::params::keys_trusted,
   $minpoll           = $ntp::params::minpoll,
   $maxpoll           = $ntp::params::maxpoll,
@@ -62,9 +64,11 @@ class ntp (
   if $ntpsigndsocket { validate_absolute_path($ntpsigndsocket) }
   if $leapfile { validate_absolute_path($leapfile) }
   validate_bool($iburst_enable)
+  validate_array($keys)
   validate_bool($keys_enable)
   validate_re($keys_controlkey, ['^\d+$', ''])
   validate_re($keys_requestkey, ['^\d+$', ''])
+  validate_string($keys_template)
   validate_array($keys_trusted)
   if $minpoll { validate_numeric($minpoll, 16, 3) }
   if $maxpoll { validate_numeric($maxpoll, 16, 3) }
