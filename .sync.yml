@@ -1,0 +1,5 @@
+---
+.gitignore:
+  paths:
+    - '!spec/fixtures/modules/my_ntp/templates/ntp.conf.erb'
+
