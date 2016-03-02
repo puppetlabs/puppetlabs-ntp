@@ -9,4 +9,4 @@ coverage/
 log/
 .idea/
 *.iml
-!spec/fixtures/modules/my_ntp/templates/ntp.conf.erb
+!/spec/fixtures/modules/my_ntp/templates/ntp.conf.erb
