@@ -3,8 +3,8 @@
 sudo: false
 language: ruby
 cache: bundler
-bundler_args: --without system_tests
-script: "bundle exec rake validate lint spec"
+bundler_args: --without develpment system_tests
+script: "bundle exec rake release_checks"
 matrix:
   fast_finish: true
   include:
