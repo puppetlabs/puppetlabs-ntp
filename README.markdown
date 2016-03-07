@@ -194,6 +194,10 @@ Specifies one or more network interfaces for NTP to listen on. Valid options: ar
 
 Specifies one or more ignore pattern for the NTP listener configuration (e.g. all, wildcard, ipv6, ...). Valid options: array. Default value: [ ]
 
+#### `keys`
+
+Distributes keys to keys file. Valid options: array of keys. Default value: [ ]
+
 ####`keys_controlkey`
 
 Specifies the key identifier to use with the ntpq utility. Valid options: value in the range of 1 to 65,534 inclusive. Default value: ' '
