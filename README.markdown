@@ -158,7 +158,8 @@ Specifies a file to act as a template for the config file. Valid options: string
 
 ####`disable_auth`
 
-Do not require cryptographic authentication for broadcast client, multicast client and symmetric passive associations.
+Do  not  require cryptographic authentication for broadcast client, multicast 
+client and symmetric passive associations.
 
 ####`disable_auth`
 
@@ -166,7 +167,8 @@ Disable kernel time discipline.
 
 ####`disable_dhclient`
 
-Disables `ntp-servers` in `dhclient.conf` to avoid Dhclient from managing the NTP configuration.
+Disables `ntp-servers` in `dhclient.conf` to avoid Dhclient from managing
+the NTP configuration.
 
 ####`disable_monitor`
 
@@ -176,7 +178,7 @@ Disables the monitoring facility in NTP. Valid options: 'true' or 'false'. Defau
 
 Specifies an NTP driftfile. Valid options: string containing an absolute path. Default value: '/var/lib/ntp/drift' (except on AIX and Solaris)
 
-####`fudge`
+#### `fudge`
 
 Used to provide additional information for individual clock drivers. Valid options: array containing strings that follow the `fudge` command. Default value: [ ]
 
@@ -191,10 +193,6 @@ Specifies one or more network interfaces for NTP to listen on. Valid options: ar
 ####`interfaces_ignore`
 
 Specifies one or more ignore pattern for the NTP listener configuration (e.g. all, wildcard, ipv6, ...). Valid options: array. Default value: [ ]
-
-####`keys`
-
-Distributes keys to keys file. Default value: [ ]
 
 ####`keys_controlkey`
 
@@ -212,20 +210,14 @@ Specifies the complete path and location of the MD5 key file containing the keys
 
 Specifies the key identifier to use with the ntpdc utility program. Valid options: value in the range of 1 to 65,534 inclusive. Default value: ' '
 
-####`keys_template`
-
-Specifies a file to act as a template for a key file. Default value: 'ntp/keys.erb'
-
-
-####`keys_trusted`:
-
+#### `keys_trusted`:
 Provides one or more keys to be trusted by NTP. Valid options: array of keys. Default value: [ ]
 
-####`leapfile`
+#### `leapfile`
 
 Specifies a leap second file for NTP to use. Valid options: string containing an absolute path. Default value: ' '
 
-####`logfile`
+#### `logfile`
 
 Specifies a log file for NTP to use instead of syslog. Valid options: string containing an absolute path. Default value: ' '
 
