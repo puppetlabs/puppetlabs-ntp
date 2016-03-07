@@ -27,7 +27,7 @@ class ntp::config inherits ntp {
       owner   => 0,
       group   => 0,
       mode    => '0644',
-      content => template($ntp::keys_template),
+      content => template('ntp/keys.erb'),
     }
   }
 

@@ -8,7 +8,6 @@ class ntp::params {
   $keys_enable       = false
   $keys_controlkey   = ''
   $keys_requestkey   = ''
-  $keys_template     = 'ntp/keys.erb'
   $keys_trusted      = []
   $logfile           = undef
   $minpoll           = undef
