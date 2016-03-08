@@ -104,7 +104,7 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
         keys_controlkey => '15',
         keys_requestkey => '1',
         keys_trusted    => [ '1', '2' ],
-	keys            => [ '1 M AAAABBBB' ],
+        keys            => [ '1 M AAAABBBB' ],
       }
       EOS
       apply_manifest(pp, :catch_failures => true)
