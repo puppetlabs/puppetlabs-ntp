@@ -104,11 +104,9 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
         keys_controlkey => '15',
         keys_requestkey => '1',
         keys_trusted    => [ '1', '2' ],
+	keys            => [ '1 M AAAABBBB' ],
       }
       EOS
-      # Rely on a shell command instead of a file{} here to avoid loops
-      # within puppet when it tries to manage /etc/ntp/keys before /etc/ntp.
-      shell("mkdir -p /etc/ntp && echo '1 M AAAABBBB' >> /etc/ntp/keys")
       apply_manifest(pp, :catch_failures => true)
     end
 
@@ -118,6 +116,11 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
       its(:content) { should match 'controlkey 15' }
       its(:content) { should match 'requestkey 1' }
       its(:content) { should match 'trustedkey 1 2' }
+    end
+
+    describe file('/etc/ntp/keys') do
+      it { should be_file }
+      its(:content) { should match '1 M AAAABBBB' }
     end
   end
 
