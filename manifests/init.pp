@@ -14,6 +14,7 @@ class ntp (
   $leapfile          = $ntp::params::leapfile,
   $logfile           = $ntp::params::logfile,
   $iburst_enable     = $ntp::params::iburst_enable,
+  $keys              = $ntp::params::keys,
   $keys_enable       = $ntp::params::keys_enable,
   $keys_file         = $ntp::params::keys_file,
   $keys_controlkey   = $ntp::params::keys_controlkey,
@@ -62,6 +63,7 @@ class ntp (
   if $ntpsigndsocket { validate_absolute_path($ntpsigndsocket) }
   if $leapfile { validate_absolute_path($leapfile) }
   validate_bool($iburst_enable)
+  validate_array($keys)
   validate_bool($keys_enable)
   validate_re($keys_controlkey, ['^\d+$', ''])
   validate_re($keys_requestkey, ['^\d+$', ''])

@@ -4,6 +4,7 @@ class ntp::params {
   $config_dir        = undef
   $config_file_mode  = '0644'
   $config_template   = 'ntp/ntp.conf.erb'
+  $keys              = []
   $keys_enable       = false
   $keys_controlkey   = ''
   $keys_requestkey   = ''
