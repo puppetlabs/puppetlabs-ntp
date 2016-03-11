@@ -16,7 +16,7 @@ class ntp::config inherits ntp {
           ensure  => directory,
           owner   => 0,
           group   => 0,
-          mode    => '0664',
+          mode    => '0775',
           recurse => false,
         }
       }
@@ -41,7 +41,7 @@ class ntp::config inherits ntp {
 
   if $ntp::logfile {
     file { $ntp::logfile:
-      ensure => 'file',
+      ensure => file,
       owner  => 'ntp',
       group  => 'ntp',
       mode   => '0664',
