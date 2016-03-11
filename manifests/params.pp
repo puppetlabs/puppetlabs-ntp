@@ -41,7 +41,7 @@ class ntp::params {
   $fudge             = []
 
   $default_config       = '/etc/ntp.conf'
-  $default_keys_file    = '/etc/ntp/keys'
+  $default_keys_file    = '/etc/ntp.keys'
   $default_driftfile    = '/var/lib/ntp/drift'
   $default_package_name = ['ntp']
   $default_service_name = 'ntpd'
@@ -63,7 +63,7 @@ class ntp::params {
   case $::osfamily {
     'AIX': {
       $config          = $default_config
-      $keys_file       = '/etc/ntp.keys'
+      $keys_file       = $default_keys_file
       $driftfile       = '/etc/ntp.drift'
       $package_name    = [ 'bos.net.tcp.client' ]
       $restrict        = [
@@ -105,7 +105,7 @@ class ntp::params {
     }
     'RedHat': {
       $config          = $default_config
-      $keys_file       = $default_keys_file
+      $keys_file       = '/etc/ntp/keys'
       $driftfile       = $default_driftfile
       $package_name    = $default_package_name
       $service_name    = $default_service_name
@@ -149,7 +149,7 @@ class ntp::params {
           case $::operatingsystemmajrelease {
             '10': {
               $service_name  = 'ntp'
-              $keys_file     = '/etc/ntp.keys'
+              $keys_file     = $default_keys_file
               $package_name  = [ 'xntp' ]
               $service_provider = undef
             }
@@ -161,7 +161,7 @@ class ntp::params {
             }
             '12': {
               $service_name  = 'ntpd'
-              $keys_file     = '/etc/ntp.keys'
+              $keys_file     = $default_keys_file
               $package_name  = $default_package_name
               #Puppet 3 does not recognise systemd as service provider on SLES 12.
               $service_provider = 'systemd'
@@ -176,7 +176,7 @@ class ntp::params {
           case $::operatingsystemrelease {
             '13.2': {
               $service_name  = 'ntpd'
-              $keys_file     = '/etc/ntp.keys'
+              $keys_file     = $default_keys_file
               $package_name  = $default_package_name
             }
             default: {
@@ -338,7 +338,7 @@ class ntp::params {
         }
         'Amazon': {
           $config          = $default_config
-          $keys_file       = $default_keys_file
+          $keys_file       = '/etc/ntp/keys'
           $driftfile       = $default_driftfile
           $package_name    = $default_package_name
           $service_name    = $default_service_name

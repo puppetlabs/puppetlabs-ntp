@@ -44,7 +44,6 @@ describe 'ntp' do
           context "when enabled" do
             let(:params) {{
               :keys_enable     => true,
-              :keys_file       => '/etc/ntp/ntp.keys',
               :keys_trusted    => ['1', '2', '3'],
               :keys_controlkey => '2',
               :keys_requestkey => '3',
@@ -65,7 +64,6 @@ describe 'ntp' do
         context "when disabled" do
           let(:params) {{
             :keys_enable     => false,
-            :keys_file       => '/etc/ntp/ntp.keys',
             :keys_trusted    => ['1', '2', '3'],
             :keys_controlkey => '2',
             :keys_requestkey => '3',

@@ -208,7 +208,7 @@ Tells Puppet whether to enable key-based authentication. Valid options: 'true' o
 
 ####`keys_file`
 
-Specifies the complete path and location of the MD5 key file containing the keys and key identifiers used by ntpd, ntpq and ntpdc when operating with symmetric key cryptography. Valid options: string containing an absolute path. Default value: '/etc/ntp/keys' (except on AIX, SLES, and Solaris)
+Specifies the complete path and location of the MD5 key file containing the keys and key identifiers used by ntpd, ntpq and ntpdc when operating with symmetric key cryptography. Valid options: string containing an absolute path. Default value: '/etc/ntp.keys' (except on RedHat & Amazon where it is '/etc/ntp/keys')
 
 ####`keys_requestkey`
 
