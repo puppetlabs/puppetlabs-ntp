@@ -100,7 +100,6 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
       pp = <<-EOS
       class { 'ntp':
         keys_enable     => true,
-        keys_file       => '/etc/ntp/keys',
         keys_controlkey => '15',
         keys_requestkey => '1',
         keys_trusted    => [ '1', '2' ],
