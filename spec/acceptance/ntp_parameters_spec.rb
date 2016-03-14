@@ -31,6 +31,8 @@ end
 
 if (fact('osfamily') == 'RedHat')
   keysfile = '/etc/ntp/keys'
+elsif (fact('osfamily') == 'Solaris')
+  keysfile = '/etc/inet/ntp.keys'
 else
   keysfile = '/etc/ntp.keys'
 end
