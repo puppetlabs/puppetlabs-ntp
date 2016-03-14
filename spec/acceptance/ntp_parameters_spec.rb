@@ -29,6 +29,12 @@ else
   end
 end
 
+if (fact('osfamily') == 'RedHat')
+  keysfile = '/etc/ntp/keys'
+else
+  keysfile = '/etc/ntp.keys'
+end
+
 if (fact('osfamily') == 'Solaris')
   config = '/etc/inet/ntp.conf'
 else
@@ -111,13 +117,13 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
 
     describe file("#{config}") do
       it { should be_file }
-      its(:content) { should match 'keys /etc/ntp/keys' }
+      its(:content) { should match "keys #{keysfile}" }
       its(:content) { should match 'controlkey 15' }
       its(:content) { should match 'requestkey 1' }
       its(:content) { should match 'trustedkey 1 2' }
     end
 
-    describe file('/etc/ntp/keys') do
+    describe file(keysfile) do
       it { should be_file }
       its(:content) { should match '1 M AAAABBBB' }
     end
