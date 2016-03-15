@@ -2,10 +2,11 @@
 pkg/
 Gemfile.lock
 vendor/
-spec/fixtures/
+/spec/fixtures/**
 .vagrant/
 .bundle/
 coverage/
 log/
 .idea/
 *.iml
+!/spec/fixtures/modules/my_ntp/templates/ntp.conf.erb
