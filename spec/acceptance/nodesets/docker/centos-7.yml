@@ -1,0 +1,12 @@
+HOSTS:
+  centos-7-x64:
+    platform: el-7-x86_64
+    hypervisor : docker
+    image: centos:7
+    docker_preserve_image: true
+    docker_cmd: '["/usr/sbin/init"]'
+    docker_image_commands:
+      - 'yum install -y crontabs tar wget openssl'
+CONFIG:
+  log_level: verbose
+  trace_limit: 200
