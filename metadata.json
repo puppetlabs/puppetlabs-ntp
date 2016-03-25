@@ -98,6 +98,18 @@
         "2014.09",
         "2015.03"
       ]
+    },
+    {
+      "operatingsystem": "Darwin",
+      "operatingsystemmajrelease": [
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15"
+      ]
     }
   ],
   "requirements": [
@@ -110,5 +122,5 @@
       "version_requirement": ">= 3.0.0 < 5.0.0"
     }
   ],
-  "description": "NTP Module for Debian, Ubuntu, CentOS, RHEL, OEL, Fedora, FreeBSD, ArchLinux, Amazon Linux and Gentoo."
+  "description": "NTP Module for Debian, Ubuntu, CentOS, RHEL, OEL, Fedora, FreeBSD, Darwin, ArchLinux, Amazon Linux and Gentoo."
 }

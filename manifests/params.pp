@@ -47,6 +47,7 @@ class ntp::params {
   $default_service_name = 'ntpd'
 
   $package_manage = $::osfamily ? {
+    'Darwin'  => false,
     'FreeBSD' => false,
     default   => true,
   }
@@ -230,6 +231,25 @@ class ntp::params {
         '3.freebsd.pool.ntp.org',
       ]
       $maxpoll         = 9
+      $service_provider= undef
+    }
+    'Darwin': {
+      $config          = $default_config
+      $driftfile       = '/var/db/ntpd.drift'
+      $keys_file       = $default_keys_file
+      $package_name    = [undef]
+      $restrict        = [
+        'default kod nomodify notrap nopeer noquery',
+        '-6 default kod nomodify notrap nopeer noquery',
+        '127.0.0.1',
+        '-6 ::1',
+      ]
+      $service_name    = 'org.ntp.ntpd'
+      $iburst_enable   = false
+      $servers         = [
+        'time.apple.com',
+      ]
+      $maxpoll         = undef
       $service_provider= undef
     }
     'Archlinux': {

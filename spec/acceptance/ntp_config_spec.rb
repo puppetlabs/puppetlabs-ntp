@@ -3,6 +3,8 @@ require 'spec_helper_acceptance'
 case fact('osfamily')
 when 'FreeBSD'
   line = '0.freebsd.pool.ntp.org maxpoll 9 iburst'
+when 'Darwin'
+  line = 'time.apple.com'
 when 'Debian'
   line = '0.debian.pool.ntp.org iburst'
 when 'RedHat'
@@ -29,11 +31,13 @@ when 'AIX'
   line = '0.debian.pool.ntp.org iburst'
 end
 
-if (fact('osfamily') == 'Solaris')
+case fact('osfamily')
+when 'Solaris'
   config = '/etc/inet/ntp.conf'
 else
   config = '/etc/ntp.conf'
 end
+
 
 describe 'ntp::config class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   it 'sets up ntp.conf' do

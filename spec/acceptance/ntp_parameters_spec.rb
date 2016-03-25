@@ -24,6 +24,8 @@ when 'Solaris'
 else
   if fact('operatingsystem') == 'SLES' and fact('operatingsystemmajrelease') == '12'
     servicename = 'ntpd'
+  elsif fact('osfamily') == 'Darwin'
+    servicename = 'org.ntp.ntpd'
   else
     servicename = 'ntp'
   end
