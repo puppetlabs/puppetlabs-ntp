@@ -16,7 +16,7 @@ describe 'ntp' do
         when 'Fedora'
           super().merge({ :osfamily => 'RedHat', :operatingsystem => system, :operatingsystemmajrelease => '22' })
         else
-          super().merge({ :osfamily => system })
+          super().merge({ :osfamily => system, :operatingsystem => system})
         end
       end
 
@@ -713,7 +713,7 @@ describe 'ntp' do
       describe "for operating system Gentoo (Facter < 1.7)" do
         let :facts do
           super().merge({ :operatingsystem => 'Gentoo',
-                       :osfamily        => 'Linux' })
+                          :osfamily        => 'Linux' })
         end
 
         it 'uses the NTP pool servers by default' do
@@ -725,7 +725,8 @@ describe 'ntp' do
 
       describe "on osfamily Gentoo" do
         let :facts do
-          super().merge({ :osfamily => 'Gentoo' })
+          super().merge({ :osfamily        => 'Gentoo',
+                          :operatingsystem => 'Gentoo' })
         end
 
         it 'uses the NTP pool servers by default' do
@@ -737,7 +738,8 @@ describe 'ntp' do
 
       describe "on osfamily Debian" do
         let :facts do
-          super().merge({ :osfamily => 'debian' })
+          super().merge({ :osfamily        => 'debian',
+                          :operatingsystem => 'debian' })
         end
 
         it 'uses the debian ntp servers by default' do
@@ -749,7 +751,8 @@ describe 'ntp' do
 
       describe "on osfamily RedHat" do
         let :facts do
-          super().merge({ :osfamily => 'RedHat' })
+          super().merge({ :osfamily        => 'RedHat',
+                          :operatingsystem => 'RedHat' })
         end
 
         it 'uses the redhat ntp servers by default' do
@@ -773,7 +776,8 @@ describe 'ntp' do
 
       describe "on osfamily FreeBSD" do
         let :facts do
-          super().merge({ :osfamily => 'FreeBSD' })
+          super().merge({ :osfamily        => 'FreeBSD',
+                          :operatingsystem => 'FreeBSD' })
         end
 
         it 'uses the freebsd ntp servers by default' do
@@ -785,7 +789,8 @@ describe 'ntp' do
 
       describe "on osfamily ArchLinux" do
         let :facts do
-          super().merge({ :osfamily => 'ArchLinux' })
+          super().merge({ :osfamily        => 'ArchLinux',
+                          :operatingsystem => 'ArchLinux'})
         end
 
         it 'uses the ArchLinux NTP servers by default' do
@@ -797,7 +802,9 @@ describe 'ntp' do
 
       describe "on osfamily Solaris and kernelrelease 5.10" do
         let :facts do
-          super().merge({ :osfamily => 'Solaris', :kernelrelease => '5.10' })
+          super().merge({ :osfamily        => 'Solaris', 
+                          :kernelrelease   => '5.10',
+                          :operatingsystem => 'Solaris' })
         end
 
         it 'uses the NTP pool servers by default' do
@@ -809,7 +816,9 @@ describe 'ntp' do
 
       describe "on osfamily Solaris and kernelrelease 5.11" do
         let :facts do
-          super().merge({ :osfamily => 'Solaris', :kernelrelease => '5.11' })
+          super().merge({ :osfamily        => 'Solaris',
+                          :kernelrelease   => '5.11',
+                          :operatingsystem => 'Solaris' })
         end
 
         it 'uses the NTP pool servers by default' do
@@ -835,7 +844,8 @@ describe 'ntp' do
     describe 'for virtual machines' do
       let :facts do
         super().merge({ :osfamily        => 'Archlinux',
-                     :is_virtual      => 'true' })
+                        :is_virtual      => 'true',
+                        :operatingsystem => 'Archlinux' })
       end
 
       it 'should not use local clock as a time source' do
@@ -854,7 +864,8 @@ describe 'ntp' do
     describe 'for physical machines' do
       let :facts do
         super().merge({ :osfamily        => 'Archlinux',
-                     :is_virtual      => 'false' })
+                        :is_virtual      => 'false',
+                        :operatingsystem => 'Archlinux' })
       end
 
       it 'disallows large clock skews' do
