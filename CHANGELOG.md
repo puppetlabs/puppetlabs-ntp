@@ -1,3 +1,35 @@
+## Supported Release 4.2.0
+### Summary
+
+A large release with many new features. Multiple additions to parameters and work contributed to OS compatibility. Also includes several bug fixes, including clean ups of code. 
+
+#### Features
+- Updated spec helper for more consistency
+- Addition of config_dir variable
+- Addition of puppet TOS options
+- Added support for disabling kernel time discipline in ntp.conf
+- Update Solaris support for newer Facter, and Amazon for < 1.7.0 facter
+- Added disable_dhclient parameter
+- Added OpenSUSE 13.2 compatibility
+- Parameterize file mode of config file
+- Enhanced the default configuration
+- Debian 8 compatibility
+- Enabled usage of the $ntpsigndsocket parameter
+- Added parameter for interfaces to ignore
+- Added support for the authprov parameter
+- Additional work done for SLES 12 compatibility
+- Addition of key template options/ key distribution
+
+#### Bugfixes
+- Fix for strict variables and tests
+- Fixed test with preferred server and iburst enabled
+- Added logfile parameter test
+- Cleaned out unused cleanup code and utilities from spec_helper
+- Deprecated ntp_dirname function
+- No longer manages the keys_file parent when it would be inappropriate to do so
+- Converted license string to SPDX format
+- Removed ruby 1.8.7 and puppet 2.7 from travis-ci jobs
+
 ## Supported Release 4.1.2
 ###Summary
 
