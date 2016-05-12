@@ -68,7 +68,7 @@ class { '::ntp':
     '127.0.0.1',
     '-6 ::1',
     'ntp1.corp.com nomodify notrap nopeer noquery',
-    'ntp1.corp.com nomodify notrap nopeer noquery'
+    'ntp2.corp.com nomodify notrap nopeer noquery'
   ],
 }
 ```
