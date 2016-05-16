@@ -28,6 +28,9 @@ describe 'ntp' do
         it { should contain_file('/etc/ntp.conf').with_owner('0') }
         it { should contain_file('/etc/ntp.conf').with_group('0') }
         it { should contain_file('/etc/ntp.conf').with_mode('0644') }
+        it { should contain_file('/etc/ntp/step-tickers').with_owner('0') }
+        it { should contain_file('/etc/ntp/step-tickers').with_group('0') }
+        it { should contain_file('/etc/ntp/step-tickers').with_mode('0644') }
 
         if system == 'Suse12'
           it { should contain_file('/var/run/ntp/servers-netconfig').with_ensure_absent }
@@ -91,6 +94,9 @@ describe 'ntp' do
             it { should contain_file('/etc/ntp.conf').with({
               'content' => /server a prefer( maxpoll 9)?\nserver b prefer( maxpoll 9)?\nserver c( maxpoll 9)?\nserver d( maxpoll 9)?/})
             }
+            it { should contain_file('/etc/ntp/step-tickers').with({
+              'content' => /a\nb\nc\nd/})
+            }
           end
           context "when not set" do
             let(:params) {{
@@ -100,6 +106,9 @@ describe 'ntp' do
 
             it { should_not contain_file('/etc/ntp.conf').with({
               'content' => /server a prefer/})
+            }
+            it { should contain_file('/etc/ntp/step-tickers').with({
+              'content' => /a\nb\nc\nd/})
             }
           end
         end
@@ -720,6 +729,9 @@ describe 'ntp' do
           should contain_file('/etc/ntp.conf').with({
             'content' => /server \d.gentoo.pool.ntp.org/,
           })
+          should contain_file('/etc/ntp/step-tickers').with({
+            'content' => /\d.gentoo.pool.ntp.org/,
+          })
         end
       end
 
@@ -732,6 +744,9 @@ describe 'ntp' do
         it 'uses the NTP pool servers by default' do
           should contain_file('/etc/ntp.conf').with({
             'content' => /server \d.gentoo.pool.ntp.org/,
+          })
+          should contain_file('/etc/ntp/step-tickers').with({
+            'content' => /\d.gentoo.pool.ntp.org/,
           })
         end
       end
@@ -746,6 +761,9 @@ describe 'ntp' do
           should contain_file('/etc/ntp.conf').with({
             'content' => /server \d.debian.pool.ntp.org iburst\n/,
           })
+          should contain_file('/etc/ntp/step-tickers').with({
+            'content' => /\d.debian.pool.ntp.org/,
+          })
         end
       end
 
@@ -759,6 +777,9 @@ describe 'ntp' do
           should contain_file('/etc/ntp.conf').with({
             'content' => /server \d.centos.pool.ntp.org/,
           })
+          should contain_file('/etc/ntp/step-tickers').with({
+            'content' => /\d.centos.pool.ntp.org/,
+          })
         end
       end
 
@@ -771,6 +792,9 @@ describe 'ntp' do
           should contain_file('/etc/ntp.conf').with({
             'content' => /server \d.opensuse.pool.ntp.org/,
             })
+          should contain_file('/etc/ntp/step-tickers').with({
+            'content' => /\d.opensuse.pool.ntp.org/,
+          })
         end
       end
 
@@ -784,6 +808,9 @@ describe 'ntp' do
           should contain_file('/etc/ntp.conf').with({
             'content' => /server \d.freebsd.pool.ntp.org iburst maxpoll 9/,
           })
+          should contain_file('/etc/ntp/step-tickers').with({
+            'content' => /\d.freebsd.pool.ntp.org/,
+          })
         end
       end
 
@@ -796,6 +823,9 @@ describe 'ntp' do
         it 'uses the ArchLinux NTP servers by default' do
           should contain_file('/etc/ntp.conf').with({
             'content' => /server \d.arch.pool.ntp.org/,
+          })
+          should contain_file('/etc/ntp/step-tickers').with({
+            'content' => /\d.arch.pool.ntp.org/,
           })
         end
       end

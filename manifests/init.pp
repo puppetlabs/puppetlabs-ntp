@@ -38,6 +38,8 @@ class ntp (
   $service_name      = $ntp::params::service_name,
   $service_provider  = $ntp::params::service_provider,
   $stepout           = $ntp::params::stepout,
+  $step_tickers      = $ntp::params::step_tickers,
+  $step_tickers_tpl  = $ntp::params::step_tickers_tpl,
   $tinker            = $ntp::params::tinker,
   $tos               = $ntp::params::tos,
   $tos_minclock      = $ntp::params::tos_minclock,
@@ -84,6 +86,8 @@ class ntp (
   validate_bool($service_manage)
   validate_string($service_name)
   if $stepout { validate_numeric($stepout, 65535, 0) }
+  validate_string($step_tickers)
+  validate_string($step_tickers_tpl)
   validate_bool($tinker)
   validate_bool($tos)
   if $tos_minclock { validate_numeric($tos_minclock) }

@@ -19,6 +19,8 @@ class ntp::params {
   $service_ensure    = 'running'
   $service_manage    = true
   $stepout           = undef
+  $step_tickers      = '/etc/ntp/step-tickers'
+  $step_tickers_tpl  = 'ntp/step-tickers.erb'
   $udlc              = false
   $udlc_stratum      = '10'
   $interfaces        = []
