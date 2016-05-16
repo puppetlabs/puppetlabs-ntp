@@ -39,6 +39,16 @@ class ntp::config inherits ntp {
     content => template($ntp::config_template),
   }
 
+  if $::ntp::step_tickers {
+    file { $::ntp::step_tickers:
+      ensure  => file,
+      owner   => 0,
+      group   => 0,
+      mode    => $::ntp::config_file_mode,
+      content => template($ntp::step_tickers_tpl),
+    }
+  }
+
   if $ntp::logfile {
     file { $ntp::logfile:
       ensure => file,
