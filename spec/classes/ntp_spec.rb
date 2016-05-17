@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'ntp' do
   let(:facts) {{ :is_virtual => 'false' }}
 
-  ['Debian', 'RedHat', 'Fedora', 'Suse11', 'Suse12', 'FreeBSD', 'Archlinux', 'Gentoo', 'Gentoo (Facter < 1.7)'].each do |system|
+  ['Debian', 'RedHat', 'Fedora', 'Suse11', 'Suse12', 'FreeBSD', 'Darwin', 'Archlinux', 'Gentoo', 'Gentoo (Facter < 1.7)'].each do |system|
     context "when on system #{system}" do
       let :facts do
         case system
@@ -783,6 +783,18 @@ describe 'ntp' do
         it 'uses the freebsd ntp servers by default' do
           should contain_file('/etc/ntp.conf').with({
             'content' => /server \d.freebsd.pool.ntp.org iburst maxpoll 9/,
+          })
+        end
+      end
+
+      describe "on osfamily Darwin" do
+        let :facts do
+          super().merge({ :osfamily => 'Darwin' })
+        end
+
+        it 'uses the Apple NTP server by default' do
+          should contain_file('/etc/ntp.conf').with({
+            'content' => /server time.apple.com/,
           })
         end
       end

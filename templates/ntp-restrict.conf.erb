@@ -1,0 +1,7 @@
+# ntp-restrict.conf: Managed by Puppet.
+# Called directly by /usr/libexec/ntpd-wrapper
+# Restrictions exist in ntp.conf
+
+<% if @config -%>
+includefile <%= @config %>
+<% end -%>

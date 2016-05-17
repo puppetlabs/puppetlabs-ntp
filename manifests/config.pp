@@ -39,6 +39,18 @@ class ntp::config inherits ntp {
     content => template($ntp::config_template),
   }
 
+  # on OS X launchd calls a wrapper script at /usr/libexec/ntpd-wrapper which calls
+  # ntp-restict.conf, which then includes ntp.conf
+  if $::osfamily == 'Darwin' {
+    file { '/private/etc/ntp-restrict.conf':
+      ensure  => file,
+      owner   => 0,
+      group   => 0,
+      mode    => $::ntp::config_file_mode,
+      content => template('ntp/ntp-restrict.conf.erb'),
+    }
+  }
+
   if $ntp::logfile {
     file { $ntp::logfile:
       ensure => file,

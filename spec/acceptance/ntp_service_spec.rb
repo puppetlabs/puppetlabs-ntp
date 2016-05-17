@@ -4,6 +4,8 @@ require 'specinfra'
 case fact('osfamily')
   when 'RedHat', 'FreeBSD', 'Linux', 'Gentoo'
     servicename = 'ntpd'
+  when 'Darwin'
+    servicename = 'org.ntp.ntpd'
   when 'Solaris'
     servicename = 'network/ntp'
   when 'AIX'
@@ -11,6 +13,8 @@ case fact('osfamily')
   else
     if fact('operatingsystem') == 'SLES' and fact('operatingsystemmajrelease') == '12'
       servicename = 'ntpd'
+    elsif fact('osfamily') == 'Darwin'
+      servicename = 'org.ntp.ntpd'
     else
       servicename = 'ntp'
     end
