@@ -19,8 +19,6 @@ class ntp::params {
   $service_ensure    = 'running'
   $service_manage    = true
   $stepout           = undef
-  $step_tickers      = '/etc/ntp/step-tickers'
-  $step_tickers_tpl  = 'ntp/step-tickers.erb'
   $udlc              = false
   $udlc_stratum      = '10'
   $interfaces        = []
@@ -82,6 +80,8 @@ class ntp::params {
       ]
       $maxpoll         = undef
       $service_provider= undef
+      $step_tickers    = undef
+      $step_tickers_tpl= undef
     }
     'Debian': {
       $config          = $default_config
@@ -104,10 +104,14 @@ class ntp::params {
       ]
       $maxpoll         = undef
       $service_provider= undef
+      $step_tickers    = undef
+      $step_tickers_tpl= undef
     }
     'RedHat': {
       $config          = $default_config
       $keys_file       = '/etc/ntp/keys'
+      $step_tickers    = '/etc/ntp/step-tickers'
+      $step_tickers_tpl= 'ntp/step-tickers.erb'
       $driftfile       = $default_driftfile
       $package_name    = $default_package_name
       $service_name    = $default_service_name
@@ -211,6 +215,8 @@ class ntp::params {
         '3.opensuse.pool.ntp.org',
       ]
       $maxpoll         = undef
+      $step_tickers    = undef
+      $step_tickers_tpl= undef
     }
     'FreeBSD': {
       $config          = $default_config
@@ -233,6 +239,8 @@ class ntp::params {
       ]
       $maxpoll         = 9
       $service_provider= undef
+      $step_tickers    = undef
+      $step_tickers_tpl= undef
     }
     'Archlinux': {
       $config          = $default_config
@@ -255,6 +263,8 @@ class ntp::params {
       ]
       $maxpoll         = undef
       $service_provider= undef
+      $step_tickers    = undef
+      $step_tickers_tpl= undef
     }
     'Solaris': {
       $config        = '/etc/inet/ntp.conf'
@@ -286,8 +296,10 @@ class ntp::params {
         '2.pool.ntp.org',
         '3.pool.ntp.org',
       ]
-      $maxpoll       = undef
+      $maxpoll         = undef
       $service_provider= undef
+      $step_tickers    = undef
+      $step_tickers_tpl= undef
     }
   # Gentoo was added as its own $::osfamily in Facter 1.7.0
     'Gentoo': {
@@ -311,6 +323,8 @@ class ntp::params {
       ]
       $maxpoll         = undef
       $service_provider= undef
+      $step_tickers    = undef
+      $step_tickers_tpl= undef
     }
     'Linux': {
     # Account for distributions that don't have $::osfamily specific settings.
@@ -337,6 +351,8 @@ class ntp::params {
           ]
           $maxpoll         = undef
           $service_provider= undef
+          $step_tickers    = undef
+          $step_tickers_tpl= undef
         }
         'Amazon': {
           $config          = $default_config
@@ -359,6 +375,8 @@ class ntp::params {
           $maxpoll         = undef
           $service_provider= undef
           $disable_monitor = false
+          $step_tickers    = undef
+          $step_tickers_tpl= undef
         }
         default: {
           fail("The ${module_name} module is not supported on an ${::operatingsystem} distribution.")

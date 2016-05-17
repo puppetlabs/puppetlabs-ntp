@@ -86,8 +86,10 @@ class ntp (
   validate_bool($service_manage)
   validate_string($service_name)
   if $stepout { validate_numeric($stepout, 65535, 0) }
-  validate_string($step_tickers)
-  validate_string($step_tickers_tpl)
+  if $step_tickers {
+    validate_string($step_tickers)
+    validate_string($step_tickers_tpl)
+  }
   validate_bool($tinker)
   validate_bool($tos)
   if $tos_minclock { validate_numeric($tos_minclock) }
