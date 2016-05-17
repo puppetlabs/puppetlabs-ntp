@@ -133,7 +133,7 @@ The following parameters are available in the `::ntp` class:
 
 ####`autoupdate`
 
-**Deprecated; replaced by the `package_ensure` parameter**. Tells Puppet whether to keep the ntp module updated to the latest version available. Valid options: 'true' or 'false'. Default value: 'false'
+**Deprecated; replaced by the `package_ensure` parameter**. Tells Puppet whether to keep the ntp module updated to the latest version available. Valid options: true or false. Default value: false
 
 ####`broadcastclient`
 
@@ -163,16 +163,15 @@ client and symmetric passive associations.
 
 ####`disable_auth`
 
-Disable kernel time discipline.
+Disables kernel time discipline.
 
 ####`disable_dhclient`
 
-Disables `ntp-servers` in `dhclient.conf` to avoid Dhclient from managing
-the NTP configuration.
+Disables `ntp-servers` in `dhclient.conf` to avoid Dhclient from managing the NTP configuration.
 
 ####`disable_monitor`
 
-Disables the monitoring facility in NTP. Valid options: 'true' or 'false'. Default value: 'true'
+Disables the monitoring facility in NTP. Valid options: true or false. Default value: true
 
 ####`driftfile`
 
@@ -184,7 +183,7 @@ Used to provide additional information for individual clock drivers. Valid optio
 
 ####`iburst_enable`
 
-Specifies whether to enable the iburst option for every NTP peer. Valid options: 'true' or 'false'. Default value: 'false' (except on AIX and Debian)
+Specifies whether to enable the iburst option for every NTP peer. Valid options: true or false. Default value: false (except on AIX and Debian)
 
 ####`interfaces`
 
@@ -204,11 +203,11 @@ Specifies the key identifier to use with the ntpq utility. Valid options: value 
 
 ####`keys_enable`
 
-Tells Puppet whether to enable key-based authentication. Valid options: 'true' or 'false'. Default value: 'false'
+Tells Puppet whether to enable key-based authentication. Valid options: true or false. Default value: false
 
 ####`keys_file`
 
-Specifies the complete path and location of the MD5 key file containing the keys and key identifiers used by ntpd, ntpq and ntpdc when operating with symmetric key cryptography. Valid options: string containing an absolute path. Default value: '/etc/ntp.keys' (except on RedHat & Amazon where it is '/etc/ntp/keys')
+Specifies the complete path and location of the MD5 key file containing the keys and key identifiers used by ntpd, ntpq and ntpdc when operating with symmetric key cryptography. Valid options: string containing an absolute path. Default value: `/etc/ntp.keys` (except on RedHat and Amazon, where it is `/etc/ntp/keys`).
 
 ####`keys_requestkey`
 
@@ -236,7 +235,7 @@ Tells Puppet to use non-standard maximal poll interval of upstream servers. Vali
 ####`ntpsigndsocket`
 
 Tells NTP to sign packets using the socket in the ntpsigndsocket path. NTP must be configured to sign sockets for this to work.
-Valid options a path to the socket directory, in the case of Samba it would be: 
+Valid option: a path to the socket directory; for example, for Samba it would be: 
 
 ~~~~
 ntpsigndsocket = usr/local/samba/var/lib/ntp_signd/ 
@@ -250,7 +249,7 @@ Tells Puppet whether the NTP package should be installed, and what version. Vali
 
 ####`package_manage`
 
-Tells Puppet whether to manage the NTP package. Valid options: 'true' or 'false'. Default value: 'true'
+Tells Puppet whether to manage the NTP package. Valid options: true or false. Default value: true
 
 ####`package_name`
 
@@ -296,7 +295,7 @@ Specifies one or more servers to be used as NTP peers. Valid options: array. Def
 
 ####`service_enable`
 
-Tells Puppet whether to enable the NTP service at boot. Valid options: 'true' or 'false'. Default value: 'true'
+Tells Puppet whether to enable the NTP service at boot. Valid options: true or false. Default value: true
 
 ####`service_ensure`
 
@@ -304,7 +303,7 @@ Tells Puppet whether the NTP service should be running. Valid options: 'running'
 
 ####`service_manage`
 
-Tells Puppet whether to manage the NTP service. Valid options: 'true' or 'false'. Default value: 'true'
+Tells Puppet whether to manage the NTP service. Valid options: true or false. Default value: true
 
 ####`service_name`
 
@@ -316,11 +315,11 @@ Tells Puppet which service provider to use for NTP. Valid options: string. Defau
 
 ####`stepout`
 
-Tells puppet to change stepout. Applies only if `tinker` value is 'true'. Valid options: unsigned shortint digit. Default value: undef.
+Tells puppet to change stepout. Applies only if `tinker` value is true. Valid options: unsigned shortint digit. Default value: undef.
 
 ####`tos`
 
-Tells Puppet to enable tos options. Valid options: 'true' of 'false'. Default value: 'false'
+Tells Puppet to enable tos options. Valid options: true of false. Default value: false
 
 ####`tos_minclock`
 
@@ -344,11 +343,11 @@ Specifies the cohort tos option. Valid options: '0' or '1'. Default value: 0
 
 ####`tinker`
 
-Tells Puppet to enable tinker options. Valid options: 'true' of 'false'. Default value: 'false'
+Tells Puppet to enable tinker options. Valid options: true of false. Default value: false
 
 ####`udlc`
 
-Specifies whether to configure ntp to use the undisciplined local clock as a time source. Valid options: 'true' or 'false'. Default value: 'false'
+Specifies whether to configure ntp to use the undisciplined local clock as a time source. Valid options: true or false. Default value: false
 
 ####`udlc_stratum`
 
