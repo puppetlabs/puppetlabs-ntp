@@ -29,6 +29,12 @@ describe 'ntp' do
         it { should contain_file('/etc/ntp.conf').with_group('0') }
         it { should contain_file('/etc/ntp.conf').with_mode('0644') }
 
+        if system == 'RedHat' or system == 'Fedora'
+          it { should contain_file('/etc/ntp/step-tickers').with_owner('0') }
+          it { should contain_file('/etc/ntp/step-tickers').with_group('0') }
+          it { should contain_file('/etc/ntp/step-tickers').with_mode('0644') }
+        end
+
         if system == 'Suse12'
           it { should contain_file('/var/run/ntp/servers-netconfig').with_ensure_absent }
         end
@@ -758,6 +764,9 @@ describe 'ntp' do
         it 'uses the redhat ntp servers by default' do
           should contain_file('/etc/ntp.conf').with({
             'content' => /server \d.centos.pool.ntp.org/,
+          })
+          should contain_file('/etc/ntp/step-tickers').with({
+            'content' => /\d.centos.pool.ntp.org/,
           })
         end
       end

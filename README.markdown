@@ -313,6 +313,14 @@ Tells Puppet what NTP service to manage. Valid options: string. Default value: v
 
 Tells Puppet which service provider to use for NTP. Valid options: string. Default value: 'undef'
 
+####`step_tickers_file`
+
+Location of the step tickers file on the managed system. Default value: varies by operating system
+
+####`step_tickers_template`
+
+Location of the step tickers template file. Default value: varies by operating system
+
 ####`stepout`
 
 Tells puppet to change stepout. Applies only if `tinker` value is true. Valid options: unsigned shortint digit. Default value: undef.

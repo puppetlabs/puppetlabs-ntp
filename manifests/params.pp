@@ -1,41 +1,42 @@
 class ntp::params {
 
-  $autoupdate        = false
-  $config_dir        = undef
-  $config_file_mode  = '0644'
-  $config_template   = 'ntp/ntp.conf.erb'
-  $keys              = []
-  $keys_enable       = false
-  $keys_controlkey   = ''
-  $keys_requestkey   = ''
-  $keys_trusted      = []
-  $logfile           = undef
-  $minpoll           = undef
-  $leapfile          = undef
-  $package_ensure    = 'present'
-  $peers             = []
-  $preferred_servers = []
-  $service_enable    = true
-  $service_ensure    = 'running'
-  $service_manage    = true
-  $stepout           = undef
-  $udlc              = false
-  $udlc_stratum      = '10'
-  $interfaces        = []
-  $interfaces_ignore = []
-  $disable_auth      = false
-  $disable_kernel    = false
-  $disable_monitor   = true
-  $broadcastclient   = false
-  $tos               = false
-  $tos_minclock      = '3'
-  $tos_minsane       = '1'
-  $tos_floor         = '1'
-  $tos_ceiling       = '15'
-  $tos_cohort        = '0'
-  $disable_dhclient  = false
-  $ntpsigndsocket    = undef
-  $authprov          = undef
+  $autoupdate             = false
+  $config_dir             = undef
+  $config_file_mode       = '0644'
+  $config_template        = 'ntp/ntp.conf.erb'
+  $keys                   = []
+  $keys_enable            = false
+  $keys_controlkey        = ''
+  $keys_requestkey        = ''
+  $keys_trusted           = []
+  $logfile                = undef
+  $minpoll                = undef
+  $leapfile               = undef
+  $package_ensure         = 'present'
+  $peers                  = []
+  $preferred_servers      = []
+  $service_enable         = true
+  $service_ensure         = 'running'
+  $service_manage         = true
+  $stepout                = undef
+  $udlc                   = false
+  $udlc_stratum           = '10'
+  $interfaces             = []
+  $interfaces_ignore      = []
+  $disable_auth           = false
+  $disable_kernel         = false
+  $disable_monitor        = true
+  $broadcastclient        = false
+  $tos                    = false
+  $tos_minclock           = '3'
+  $tos_minsane            = '1'
+  $tos_floor              = '1'
+  $tos_ceiling            = '15'
+  $tos_cohort             = '0'
+  $disable_dhclient       = false
+  $ntpsigndsocket         = undef
+  $authprov               = undef
+  $step_tickers_template  = 'ntp/step-tickers.erb'
 
   # Allow a list of fudge options
   $fudge             = []
@@ -78,8 +79,9 @@ class ntp::params {
         '2.debian.pool.ntp.org',
         '3.debian.pool.ntp.org',
       ]
-      $maxpoll         = undef
-      $service_provider= undef
+      $maxpoll            = undef
+      $service_provider   = undef
+      $step_tickers_file  = undef
     }
     'Debian': {
       $config          = $default_config
@@ -100,17 +102,19 @@ class ntp::params {
         '2.debian.pool.ntp.org',
         '3.debian.pool.ntp.org',
       ]
-      $maxpoll         = undef
-      $service_provider= undef
+      $maxpoll            = undef
+      $service_provider   = undef
+      $step_tickers_file  = undef
     }
     'RedHat': {
-      $config          = $default_config
-      $keys_file       = '/etc/ntp/keys'
-      $driftfile       = $default_driftfile
-      $package_name    = $default_package_name
-      $service_name    = $default_service_name
-      $maxpoll         = undef
-      $service_provider= undef
+      $config             = $default_config
+      $keys_file          = '/etc/ntp/keys'
+      $step_tickers_file  = '/etc/ntp/step-tickers'
+      $driftfile          = $default_driftfile
+      $package_name       = $default_package_name
+      $service_name       = $default_service_name
+      $maxpoll            = undef
+      $service_provider   = undef
 
       case $::operatingsystem {
         'Fedora': {
@@ -208,7 +212,8 @@ class ntp::params {
         '2.opensuse.pool.ntp.org',
         '3.opensuse.pool.ntp.org',
       ]
-      $maxpoll         = undef
+      $maxpoll            = undef
+      $step_tickers_file  = undef
     }
     'FreeBSD': {
       $config          = $default_config
@@ -229,8 +234,9 @@ class ntp::params {
         '2.freebsd.pool.ntp.org',
         '3.freebsd.pool.ntp.org',
       ]
-      $maxpoll         = 9
-      $service_provider= undef
+      $maxpoll            = 9
+      $service_provider   = undef
+      $step_tickers_file  = undef
     }
     'Archlinux': {
       $config          = $default_config
@@ -251,8 +257,9 @@ class ntp::params {
         '2.arch.pool.ntp.org',
         '3.arch.pool.ntp.org',
       ]
-      $maxpoll         = undef
-      $service_provider= undef
+      $maxpoll            = undef
+      $service_provider   = undef
+      $step_tickers_file  = undef
     }
     'Solaris': {
       $config        = '/etc/inet/ntp.conf'
@@ -284,8 +291,9 @@ class ntp::params {
         '2.pool.ntp.org',
         '3.pool.ntp.org',
       ]
-      $maxpoll       = undef
-      $service_provider= undef
+      $maxpoll            = undef
+      $service_provider   = undef
+      $step_tickers_file  = undef
     }
   # Gentoo was added as its own $::osfamily in Facter 1.7.0
     'Gentoo': {
@@ -307,8 +315,9 @@ class ntp::params {
         '2.gentoo.pool.ntp.org',
         '3.gentoo.pool.ntp.org',
       ]
-      $maxpoll         = undef
-      $service_provider= undef
+      $maxpoll            = undef
+      $service_provider   = undef
+      $step_tickers_file  = undef
     }
     'Linux': {
     # Account for distributions that don't have $::osfamily specific settings.
@@ -333,8 +342,9 @@ class ntp::params {
             '2.gentoo.pool.ntp.org',
             '3.gentoo.pool.ntp.org',
           ]
-          $maxpoll         = undef
-          $service_provider= undef
+          $maxpoll            = undef
+          $service_provider   = undef
+          $step_tickers_file  = undef
         }
         'Amazon': {
           $config          = $default_config
@@ -354,9 +364,10 @@ class ntp::params {
             '1.centos.pool.ntp.org',
             '2.centos.pool.ntp.org',
           ]
-          $maxpoll         = undef
-          $service_provider= undef
-          $disable_monitor = false
+          $maxpoll            = undef
+          $service_provider   = undef
+          $disable_monitor    = false
+          $step_tickers_file  = undef
         }
         default: {
           fail("The ${module_name} module is not supported on an ${::operatingsystem} distribution.")
