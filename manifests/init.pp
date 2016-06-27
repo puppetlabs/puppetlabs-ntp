@@ -106,7 +106,7 @@ class ntp (
   }
 
   if $autoupdate {
-    notice('autoupdate parameter has been deprecated and replaced with package_ensure.  Set this to latest for the same behavior as autoupdate => true.')
+    notice('ntp: autoupdate parameter has been deprecated and replaced with package_ensure. Set package_ensure to latest for the same behavior as autoupdate => true.')
   }
 
   # Anchor this as per #8040 - this ensures that classes won't float off and

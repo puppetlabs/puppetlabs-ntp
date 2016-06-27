@@ -1,0 +1,5 @@
+---
+Gemfile:
+  optional:
+    ':development, :unit_tests':
+      - gem: rspec-puppet-facts
