@@ -46,10 +46,7 @@ RSpec.configure do |c|
   # Configure all nodes in nodeset
   c.before :suite do
     hosts.each do |host|
-      on host, "mkdir -p #{host['distmoduledir']}/ntp"
-      %w(lib manifests templates metadata.json).each do |file|
-        scp_to host, "#{proj_root}/#{file}", "#{host['distmoduledir']}/ntp"
-      end
+      copy_module_to(host, :source => proj_root, :module_name => 'ntp')
     end
   end
 end
