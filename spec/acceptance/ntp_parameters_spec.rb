@@ -44,6 +44,13 @@ else
 end
 
 describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
+  # FM-5470, this was added to reset failed count and work around puppet 3.x
+  if ( (fact('operatingsystem') == 'SLES' and fact('operatingsystemmajrelease') == '12') or (fact('operatingsystem') == 'Scientific' and fact('operatingsystemmajrelease') == '7') )
+    after :each do
+      shell('systemctl reset-failed ntpd.service')
+    end
+  end
+
   it 'applies successfully' do
     pp = "class { 'ntp': }"
 
