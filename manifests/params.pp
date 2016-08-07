@@ -369,6 +369,18 @@ class ntp::params {
           $disable_monitor    = false
           $step_tickers_file  = undef
         }
+        'Amazon': {
+          $config          = '/etc/ntp.conf'
+          $driftfile       = '/var/lib/ntp/drift'
+          $keys_file       = '/etc/ntp/keys'
+          $package_name    = [ 'ntp' ]
+          $service_name    = 'ntpd'
+          $servers         = [
+            '0.centos.pool.ntp.org',
+            '1.centos.pool.ntp.org',
+            '2.centos.pool.ntp.org',
+          ]
+    }
         default: {
           fail("The ${module_name} module is not supported on an ${::operatingsystem} distribution.")
         }
