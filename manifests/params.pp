@@ -111,7 +111,7 @@ class ntp::params {
       $keys_file          = '/etc/ntp/keys'
       $step_tickers_file  = '/etc/ntp/step-tickers'
       $driftfile          = $default_driftfile
-      $package_name       = $default_package_name
+      $package_name       = [ 'ntp', 'ntp-perl', 'sntp' ]
       $service_name       = $default_service_name
       $maxpoll            = undef
       $service_provider   = undef
