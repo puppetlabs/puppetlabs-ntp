@@ -253,7 +253,7 @@ Tells Puppet whether to manage the NTP package. Valid options: true or false. De
 
 ####`package_name`
 
-Tells Puppet what NTP package to manage. Valid options: string. Default value: 'ntp' (except on AIX and Solaris)
+Tells Puppet what NTP package to manage. Valid options: Array[string]. Default value: ['ntp'] (except on AIX and Solaris)
 
 ####`panic`
 
