@@ -8,23 +8,14 @@ unless ENV['RS_PROVISION'] == 'no' or ENV['BEAKER_provision'] == 'no'
   run_puppet_install_helper
 
   hosts.each do |host|
-    # Solaris 11 doesn't ship the SSL CA root for the forgeapi server
-    # therefore we need to use a different way to deploy the module to
-    # the host
-    if host['platform'] =~ /solaris-11/i
-      apply_manifest_on(host, 'package { "git": }')
-      # PE 3.x and 2015.2 require different locations to install modules
-      modulepath = host.puppet['modulepath']
-      modulepath = modulepath.split(':').first if modulepath
+    # for now we have to use unreleased versions of stdlib and tea for testing
+    apply_manifest_on(host, 'package { "git": }')
+    environmentpath = host.puppet['environmentpath']
+    environmentpath = environmentpath.split(':').first if environmentpath
 
-      environmentpath = host.puppet['environmentpath']
-      environmentpath = environmentpath.split(':').first if environmentpath
-
-      destdir = modulepath || "#{environmentpath}/production/modules"
-      on host, "git clone -b 4.6.0 https://github.com/puppetlabs/puppetlabs-stdlib #{destdir}/stdlib"
-    else
-      on host, puppet('module install puppetlabs-stdlib')
-    end
+    destdir = "#{environmentpath}/production/modules"
+    on host, "git clone -b master https://github.com/puppetlabs/puppetlabs-stdlib #{destdir}/stdlib"
+    on host, "git clone -b master https://github.com/voxpupuli/puppet-tea #{destdir}/tea"
 
     # Need to disable update of ntp servers from DHCP, as subsequent restart of ntp causes test failures
     if fact_on(host, 'osfamily') == 'Debian'
