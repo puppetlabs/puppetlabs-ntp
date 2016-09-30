@@ -30,11 +30,14 @@ describe 'ntp' do
           it { should contain_file('/var/run/ntp/servers-netconfig').with_ensure_absent }
         end
 
-        describe 'allows template to be overridden' do
+        describe 'allows template to be overridden with erb template' do
           let(:params) {{ :config_template => 'my_ntp/ntp.conf.erb' }}
-          it { should contain_file('/etc/ntp.conf').with({
-            'content' => /server foobar/})
-          }
+          it { should contain_file('/etc/ntp.conf').with_content(/erbserver1/) }
+        end
+
+        describe 'allows template to be overridden with epp template' do
+          let(:params) {{ :config_epp => 'my_ntp/ntp.conf.epp' }}
+          it { should contain_file('/etc/ntp.conf').with_content(/eppserver1/) }
         end
 
         describe 'keys' do
