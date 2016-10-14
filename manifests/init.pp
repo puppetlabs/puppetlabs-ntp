@@ -1,57 +1,57 @@
 class ntp (
-  $autoupdate             = $ntp::params::autoupdate,
-  $broadcastclient        = $ntp::params::broadcastclient,
-  $config                 = $ntp::params::config,
-  $config_dir             = $ntp::params::config_dir,
-  $config_file_mode       = $ntp::params::config_file_mode,
-  $config_template        = $ntp::params::config_template,
-  $disable_auth           = $ntp::params::disable_auth,
-  $disable_dhclient       = $ntp::params::disable_dhclient,
-  $disable_kernel         = $ntp::params::disable_kernel,
-  $disable_monitor        = $ntp::params::disable_monitor,
-  $fudge                  = $ntp::params::fudge,
-  $driftfile              = $ntp::params::driftfile,
-  $leapfile               = $ntp::params::leapfile,
-  $logfile                = $ntp::params::logfile,
-  $iburst_enable          = $ntp::params::iburst_enable,
-  $keys                   = $ntp::params::keys,
-  $keys_enable            = $ntp::params::keys_enable,
-  $keys_file              = $ntp::params::keys_file,
-  $keys_controlkey        = $ntp::params::keys_controlkey,
-  $keys_requestkey        = $ntp::params::keys_requestkey,
-  $keys_trusted           = $ntp::params::keys_trusted,
-  $minpoll                = $ntp::params::minpoll,
-  $maxpoll                = $ntp::params::maxpoll,
-  $package_ensure         = $ntp::params::package_ensure,
-  $package_manage         = $ntp::params::package_manage,
-  $package_name           = $ntp::params::package_name,
-  $panic                  = $ntp::params::panic,
-  $peers                  = $ntp::params::peers,
-  $preferred_servers      = $ntp::params::preferred_servers,
-  $restrict               = $ntp::params::restrict,
-  $interfaces             = $ntp::params::interfaces,
-  $interfaces_ignore      = $ntp::params::interfaces_ignore,
-  $servers                = $ntp::params::servers,
-  $service_enable         = $ntp::params::service_enable,
-  $service_ensure         = $ntp::params::service_ensure,
-  $service_manage         = $ntp::params::service_manage,
-  $service_name           = $ntp::params::service_name,
-  $service_provider       = $ntp::params::service_provider,
-  $stepout                = $ntp::params::stepout,
-  $step_tickers_file      = $ntp::params::step_tickers_file,
-  $step_tickers_template  = $ntp::params::step_tickers_template,
-  $tinker                 = $ntp::params::tinker,
-  $tos                    = $ntp::params::tos,
-  $tos_minclock           = $ntp::params::tos_minclock,
-  $tos_minsane            = $ntp::params::tos_minsane,
-  $tos_floor              = $ntp::params::tos_floor,
-  $tos_ceiling            = $ntp::params::tos_ceiling,
-  $tos_cohort             = $ntp::params::tos_cohort,
-  $udlc                   = $ntp::params::udlc,
-  $udlc_stratum           = $ntp::params::udlc_stratum,
-  $ntpsigndsocket         = $ntp::params::ntpsigndsocket,
-  $authprov               = $ntp::params::authprov,
-) inherits ntp::params {
+  $autoupdate,
+  $broadcastclient,
+  $config,
+  $config_dir,
+  $config_file_mode,
+  $config_template,
+  $disable_auth,
+  $disable_dhclient,
+  $disable_kernel,
+  $disable_monitor,
+  $fudge,
+  $driftfile,
+  $leapfile,
+  $logfile,
+  $iburst_enable,
+  $keys,
+  $keys_enable,
+  $keys_file,
+  $keys_controlkey,
+  $keys_requestkey,
+  $keys_trusted,
+  $minpoll,
+  $maxpoll,
+  $package_ensure,
+  $package_manage,
+  $package_name,
+  $panic,
+  $peers,
+  $preferred_servers,
+  $restrict,
+  $interfaces,
+  $interfaces_ignore,
+  $servers,
+  $service_enable,
+  $service_ensure,
+  $service_manage,
+  $service_name,
+  $service_provider,
+  $stepout,
+  $step_tickers_file,
+  $step_tickers_template,
+  $tinker,
+  $tos,
+  $tos_minclock,
+  $tos_minsane,
+  $tos_floor,
+  $tos_ceiling,
+  $tos_cohort,
+  $udlc,
+  $udlc_stratum,
+  $ntpsigndsocket,
+  $authprov,
+) {
 
   validate_bool($broadcastclient)
   validate_absolute_path($config)
@@ -75,7 +75,6 @@ class ntp (
   validate_string($package_ensure)
   validate_bool($package_manage)
   validate_array($package_name)
-  if $panic { validate_numeric($panic, 65535, 0) }
   validate_array($preferred_servers)
   validate_array($restrict)
   validate_array($interfaces)
@@ -90,7 +89,6 @@ class ntp (
     validate_string($step_tickers_file)
     validate_string($step_tickers_template)
   }
-  validate_bool($tinker)
   validate_bool($tos)
   if $tos_minclock { validate_numeric($tos_minclock) }
   if $tos_minsane { validate_numeric($tos_minsane) }
@@ -108,6 +106,19 @@ class ntp (
   if $autoupdate {
     notice('ntp: autoupdate parameter has been deprecated and replaced with package_ensure. Set package_ensure to latest for the same behavior as autoupdate => true.')
   }
+
+  # defaults for tinker and panic are different, when running on virtual machines
+  if str2bool($::is_virtual) {
+    $_tinker = pick($tinker, true)
+    $_panic  = pick($panic, 0)
+  } else {
+    $_tinker = pick($tinker, false)
+    $_panic  = $panic
+  }
+
+  validate_bool($_tinker)
+  if $_panic != undef { validate_numeric($_panic, 65535, 0) }
+
 
   # Anchor this as per #8040 - this ensures that classes won't float off and
   # mess everything up.  You can read about this at:
