@@ -59,12 +59,12 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
     end
   end
 
-  describe 'autoconfig' do
+  describe 'autoupdate' do
     it 'raises a deprecation warning' do
       pp = "class { 'ntp': autoupdate => true }"
 
       apply_manifest(pp, :catch_failures => true) do |r|
-        expect(r.stdout).to match(/autoupdate parameter has been deprecated and replaced with package_ensure/)
+        expect(r.stderr).to match(/autoupdate parameter has been deprecated and replaced with package_ensure/)
       end
     end
   end
