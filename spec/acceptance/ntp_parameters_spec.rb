@@ -81,20 +81,50 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
   end
 
   describe 'config_template' do
-    it 'sets up template' do
+    before :all do
       modulepath = default['distmoduledir']
       shell("mkdir -p #{modulepath}/test/templates")
-      shell("echo 'testcontent' >> #{modulepath}/test/templates/ntp.conf")
+      # Add spurious template logic to verify the use of the correct template rendering engine
+      shell("echo '<% [1].each do |i| %>erbserver<%= i %><%end %>' >> #{modulepath}/test/templates/ntp.conf.erb")
     end
 
-    it 'sets the ntp.conf location' do
-      pp = "class { 'ntp': config_template => 'test/ntp.conf' }"
+    it 'sets the ntp.conf erb template location' do
+      pp = "class { 'ntp': config_template => 'test/ntp.conf.erb' }"
       apply_manifest(pp, :catch_failures => true)
     end
 
     describe file("#{config}") do
       it { should be_file }
-      its(:content) { should match 'testcontent' }
+      its(:content) { should match 'erbserver1' }
+    end
+
+    it 'sets the ntp.conf epp template location and the ntp.conf erb template location which should fail' do
+      pp = "class { 'ntp': config_template => 'test/ntp.conf.erb', config_epp => 'test/ntp.conf.epp' }"
+      expect(apply_manifest(pp, :expect_failures => true).stderr).to match(/Cannot supply both config_epp and config_template/i)
+    end
+  end
+
+  describe 'config_epp' do
+    before :all do
+      modulepath = default['distmoduledir']
+      shell("mkdir -p #{modulepath}/test/templates")
+      # Add spurious template logic to verify the use of the correct template rendering engine
+      shell("echo '<% [1].each |$i| { -%>eppserver<%= $i %><% } -%>' >> #{modulepath}/test/templates/ntp.conf.epp")
+    end
+
+    it 'sets the ntp.conf epp template location' do
+      pp = "class { 'ntp': config_epp => 'test/ntp.conf.epp' }"
+      apply_manifest(pp, :catch_failures => true)
+    end
+
+    describe file("#{config}") do
+      it { should be_file }
+      its(:content) { should match 'eppserver1' }
+    end
+
+    it 'sets the ntp.conf epp template location and the ntp.conf erb template location which should fail' do
+      pp = "class { 'ntp': config_template => 'test/ntp.conf.erb', config_epp => 'test/ntp.conf.epp' }"
+      expect(apply_manifest(pp, :expect_failures => true).stderr).to match(/Cannot supply both config_epp and config_template/i)
     end
   end
 
