@@ -1,0 +1,7 @@
+# List of NTP servers used by the ntpdate service.
+
+<% $ntp::servers.each |$server| { -%>
+<%   if $ntp::preferred_servers.size() == 0 or $ntp::preferred_servers.member($server) { -%>
+<%= $server %>
+<%   } -%>
+<% } -%>
