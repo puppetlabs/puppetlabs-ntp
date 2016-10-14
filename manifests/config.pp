@@ -2,7 +2,7 @@
 class ntp::config inherits ntp {
 
   #The servers-netconfig file overrides NTP config on SLES 12, interfering with our configuration.
-  if $::operatingsystem == 'SLES' and $::operatingsystemmajrelease == '12' {
+  if $facts['operatingsystem'] == 'SLES' and $facts['operatingsystemmajrelease'] == '12' {
     file { '/var/run/ntp/servers-netconfig':
       ensure => 'absent'
     }
