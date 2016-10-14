@@ -59,16 +59,6 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
     end
   end
 
-  describe 'autoupdate' do
-    it 'raises a deprecation warning' do
-      pp = "class { 'ntp': autoupdate => true }"
-
-      apply_manifest(pp, :catch_failures => true) do |r|
-        expect(r.stderr).to match(/autoupdate parameter has been deprecated and replaced with package_ensure/)
-      end
-    end
-  end
-
   describe 'config' do
     it 'sets the ntp.conf location' do
       pp = "class { 'ntp': config => '/etc/antp.conf' }"
@@ -145,9 +135,9 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
       pp = <<-EOS
       class { 'ntp':
         keys_enable     => true,
-        keys_controlkey => '15',
-        keys_requestkey => '1',
-        keys_trusted    => [ '1', '2' ],
+        keys_controlkey => 15,
+        keys_requestkey => 1,
+        keys_trusted    => [ 1, 2 ],
         keys            => [ '1 M AAAABBBB' ],
       }
       EOS

@@ -44,9 +44,9 @@ describe 'ntp' do
           context "when enabled" do
             let(:params) {{
               :keys_enable     => true,
-              :keys_trusted    => ['1', '2', '3'],
-              :keys_controlkey => '2',
-              :keys_requestkey => '3',
+              :keys_trusted    => [1, 2, 3],
+              :keys_controlkey => 2,
+              :keys_requestkey => 3,
             }}
 
             it { should contain_file('/etc/ntp.conf').with({
@@ -64,9 +64,9 @@ describe 'ntp' do
         context "when disabled" do
           let(:params) {{
             :keys_enable     => false,
-            :keys_trusted    => ['1', '2', '3'],
-            :keys_controlkey => '2',
-            :keys_requestkey => '3',
+            :keys_trusted    => [1, 2, 3],
+            :keys_controlkey => 2,
+            :keys_requestkey => 3,
           }}
 
           it { should_not contain_file('/etc/ntp.conf').with({
@@ -574,12 +574,12 @@ describe 'ntp' do
       describe 'with parameters minpoll or maxpoll changed from default' do
         context 'when minpoll changed from default' do
           let(:params) {{
-              :minpoll => 3,
+              :minpoll => 6,
           }}
 
           it do
             should contain_file('/etc/ntp.conf').with({
-              'content' => /minpoll 3/,
+              'content' => /minpoll 6/,
             })
           end
         end
@@ -598,13 +598,13 @@ describe 'ntp' do
 
         context 'when minpoll and maxpoll changed from default simultaneously' do
           let(:params) {{
-              :minpoll => 3,
+              :minpoll => 6,
               :maxpoll => 12,
           }}
 
           it do
             should contain_file('/etc/ntp.conf').with({
-              'content' => /minpoll 3 maxpoll 12\n/,
+              'content' => /minpoll 6 maxpoll 12\n/,
             })
           end
         end
