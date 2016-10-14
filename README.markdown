@@ -109,7 +109,7 @@ class { '::ntp':
   servers         => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
   restrict        => ['127.0.0.1'],
   service_manage  => false,
-  config_template => 'different/module/custom.template.erb',
+  config_epp      => 'different/module/custom.template.epp',
 }
 ```
 
@@ -154,7 +154,11 @@ Specifies a file mode for the ntp configuration file. Valid options: string cont
 
 ####`config_template`
 
-Specifies a file to act as a template for the config file. Valid options: string containing a path (absolute, or relative to the module path). Default value: 'ntp/ntp.conf.erb'
+Specifies a file to act as a ERB template for the config file. Valid options: string containing a path (absolute, or relative to the module path). Example value: 'ntp/ntp.conf.erb'. Validation error will be thrown if this param is supplied as well as the `config_epp` param.
+
+####`config_epp`
+
+Specifies a file to act as a EPP template for the config file. Valid options: string containing a path (absolute, or relative to the module path). Example value: 'ntp/ntp.conf.epp'. Validation error will be thrown if this param is supplied as well as the `config_template` param.
 
 ####`disable_auth`
 
@@ -319,7 +323,11 @@ Location of the step tickers file on the managed system. Default value: varies b
 
 ####`step_tickers_template`
 
-Location of the step tickers template file. Default value: varies by operating system
+Location of the step tickers ERB template file. Default value: varies by operating system. Validation error will be thrown if this is specified as well as the `step_tickers_epp` param.
+
+####`step_tickers_epp`
+
+Location of the step tickers EPP template file. Default value: varies by operating system. Validation error will be thrown if this is specified as well as the `step_tickers_template` param.
 
 ####`stepout`
 
