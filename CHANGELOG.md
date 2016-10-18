@@ -3,6 +3,8 @@
 
 This double release adds new Puppet 4 features: data in modules, EPP templates, the $facts hash, and data types. The 5.0.0 release is fully backwards compatible to existing Puppet 4 configurations and provides you with [deprecation warnings](https://github.com/puppetlabs/puppetlabs-stdlib#deprecation) for every argument that will not work as expected with the final 6.0.0 release. See the [stdlib docs](https://github.com/puppetlabs/puppetlabs-stdlib#validate_legacy) for an in-depth discussion of this.
 
+If you want to learn more about the new features used, have a look at the [NTP: A Puppet 4 language update](https://puppet.com/blog/ntp-puppet-4-language-update) blog post.
+
 If you're still running Puppet 3, remain on the latest puppetlabs-ntp 4.x release for now, and see the documentation to [upgrade to Puppet 4](https://docs.puppet.com/puppet/4.6/reference/upgrade_major_pre.html).
 
 ### Changes
