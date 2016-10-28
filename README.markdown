@@ -131,10 +131,6 @@ class { '::ntp':
 
 The following parameters are available in the `::ntp` class:
 
-####`autoupdate`
-
-**Deprecated; replaced by the `package_ensure` parameter**. Tells Puppet whether to keep the ntp module updated to the latest version available. Valid options: true or false. Default value: false
-
 ####`broadcastclient`
 
 Enable reception of broadcast server messages to any local interface.
@@ -162,7 +158,7 @@ Specifies a file to act as a EPP template for the config file. Valid options: st
 
 ####`disable_auth`
 
-Do  not  require cryptographic authentication for broadcast client, multicast 
+Do  not  require cryptographic authentication for broadcast client, multicast
 client and symmetric passive associations.
 
 ####`disable_auth`
@@ -239,10 +235,10 @@ Tells Puppet to use non-standard maximal poll interval of upstream servers. Vali
 ####`ntpsigndsocket`
 
 Tells NTP to sign packets using the socket in the ntpsigndsocket path. NTP must be configured to sign sockets for this to work.
-Valid option: a path to the socket directory; for example, for Samba it would be: 
+Valid option: a path to the socket directory; for example, for Samba it would be:
 
 ~~~~
-ntpsigndsocket = usr/local/samba/var/lib/ntp_signd/ 
+ntpsigndsocket = usr/local/samba/var/lib/ntp_signd/
 ~~~~
 
 Default value: undef.
