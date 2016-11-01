@@ -1,6 +1,5 @@
 ---
 ntp::authprov: ~
-ntp::autoupdate: false
 ntp::broadcastclient: false
 ntp::config_dir: ~
 ntp::config_file_mode: '0644'
