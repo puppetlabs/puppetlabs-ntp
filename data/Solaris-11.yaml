@@ -1,4 +1,6 @@
-ntp::package_name: [ 'SUNWntpr', 'SUNWntpu' ]
+ntp::package_name: [ 'service/network/ntp' ]
 ntp::restrict:
-  - 'default nomodify notrap nopeer noquery'
+  - 'default kod nomodify notrap nopeer noquery'
+  - '-6 default kod nomodify notrap nopeer noquery'
   - '127.0.0.1'
+  - '-6 ::1'
