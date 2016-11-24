@@ -5,6 +5,6 @@ describe 'unsupported distributions and OSes', :if => UNSUPPORTED_PLATFORMS.incl
     pp = <<-EOS
     class { 'ntp': }
     EOS
-    expect(apply_manifest(pp, :expect_failures => true).stderr).to match(/is not supported on an/i)
+    expect(execute_manifest(pp, :expect_failures => true).stderr).to match(/is not supported on an/i)
   end
 end

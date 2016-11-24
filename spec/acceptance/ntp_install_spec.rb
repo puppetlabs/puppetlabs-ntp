@@ -31,7 +31,7 @@ end
 
 describe 'ntp::install class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   it 'installs the package' do
-    apply_manifest(%{
+    execute_manifest(%{
       class { 'ntp': }
     }, :catch_failures => true)
   end

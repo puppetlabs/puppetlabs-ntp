@@ -47,14 +47,14 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
   # FM-5470, this was added to reset failed count and work around puppet 3.x
   if ( (fact('operatingsystem') == 'SLES' and fact('operatingsystemmajrelease') == '12') or (fact('operatingsystem') == 'Scientific' and fact('operatingsystemmajrelease') == '7') )
     after :each do
-      shell('systemctl reset-failed ntpd.service')
+      on(default, 'systemctl reset-failed ntpd.service')
     end
   end
 
   it 'applies successfully' do
     pp = "class { 'ntp': }"
 
-    apply_manifest(pp, :catch_failures => true) do |r|
+    execute_manifest(pp, :catch_failures => true) do |r|
       expect(r.stderr).not_to match(/error/i)
     end
   end
@@ -62,7 +62,7 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
   describe 'config' do
     it 'sets the ntp.conf location' do
       pp = "class { 'ntp': config => '/etc/antp.conf' }"
-      apply_manifest(pp, :catch_failures => true)
+      execute_manifest(pp, :catch_failures => true)
     end
 
     describe file('/etc/antp.conf') do
@@ -73,14 +73,14 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
   describe 'config_template' do
     before :all do
       modulepath = default['distmoduledir']
-      shell("mkdir -p #{modulepath}/test/templates")
+      on(default, "mkdir -p #{modulepath}/test/templates")
       # Add spurious template logic to verify the use of the correct template rendering engine
-      shell("echo '<% [1].each do |i| %>erbserver<%= i %><%end %>' >> #{modulepath}/test/templates/ntp.conf.erb")
+      on(default, "echo '<% [1].each do |i| %>erbserver<%= i %><%end %>' >> #{modulepath}/test/templates/ntp.conf.erb")
     end
 
     it 'sets the ntp.conf erb template location' do
       pp = "class { 'ntp': config_template => 'test/ntp.conf.erb' }"
-      apply_manifest(pp, :catch_failures => true)
+      execute_manifest(pp, :catch_failures => true)
     end
 
     describe file("#{config}") do
@@ -90,21 +90,22 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
 
     it 'sets the ntp.conf epp template location and the ntp.conf erb template location which should fail' do
       pp = "class { 'ntp': config_template => 'test/ntp.conf.erb', config_epp => 'test/ntp.conf.epp' }"
-      expect(apply_manifest(pp, :expect_failures => true).stderr).to match(/Cannot supply both config_epp and config_template/i)
+      expect(execute_manifest(pp, :expect_failures => true).stderr).to match(/Cannot supply both config_epp and config_template/i)
     end
   end
 
   describe 'config_epp' do
     before :all do
       modulepath = default['distmoduledir']
-      shell("mkdir -p #{modulepath}/test/templates")
+      binding.pry;
+      on(default, "mkdir -p #{modulepath}/test/templates")
       # Add spurious template logic to verify the use of the correct template rendering engine
-      shell("echo '<% [1].each |$i| { -%>eppserver<%= $i %><% } -%>' >> #{modulepath}/test/templates/ntp.conf.epp")
+      on(default, "echo '<% [1].each |$i| { -%>eppserver<%= $i %><% } -%>' >> #{modulepath}/test/templates/ntp.conf.epp")
     end
 
     it 'sets the ntp.conf epp template location' do
       pp = "class { 'ntp': config_epp => 'test/ntp.conf.epp' }"
-      apply_manifest(pp, :catch_failures => true)
+      execute_manifest(pp, :catch_failures => true)
     end
 
     describe file("#{config}") do
@@ -114,14 +115,14 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
 
     it 'sets the ntp.conf epp template location and the ntp.conf erb template location which should fail' do
       pp = "class { 'ntp': config_template => 'test/ntp.conf.erb', config_epp => 'test/ntp.conf.epp' }"
-      expect(apply_manifest(pp, :expect_failures => true).stderr).to match(/Cannot supply both config_epp and config_template/i)
+      expect(execute_manifest(pp, :expect_failures => true).stderr).to match(/Cannot supply both config_epp and config_template/i)
     end
   end
 
   describe 'driftfile' do
     it 'sets the driftfile location' do
       pp = "class { 'ntp': driftfile => '/tmp/driftfile' }"
-      apply_manifest(pp, :catch_failures => true)
+      execute_manifest(pp, :catch_failures => true)
     end
 
     describe file("#{config}") do
@@ -141,7 +142,7 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
         keys            => [ '1 M AAAABBBB' ],
       }
       EOS
-      apply_manifest(pp, :catch_failures => true)
+      execute_manifest(pp, :catch_failures => true)
     end
 
     describe file("#{config}") do
@@ -166,7 +167,7 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
         package_name   => #{Array(packagename).inspect},
       }
       EOS
-      apply_manifest(pp, :catch_failures => true)
+      execute_manifest(pp, :catch_failures => true)
     end
 
     Array(packagename).each do |package|
@@ -183,7 +184,7 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
         panic => 0,
       }
       EOS
-      apply_manifest(pp, :catch_failures => true)
+      execute_manifest(pp, :catch_failures => true)
     end
 
     describe file("#{config}") do
@@ -198,7 +199,7 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
         panic => 1,
       }
       EOS
-      apply_manifest(pp, :catch_failures => true)
+      execute_manifest(pp, :catch_failures => true)
     end
 
     describe file("#{config}") do
@@ -209,7 +210,7 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
   describe 'udlc' do
     it 'adds a udlc' do
       pp = "class { 'ntp': udlc => true }"
-      apply_manifest(pp, :catch_failures => true)
+      execute_manifest(pp, :catch_failures => true)
     end
 
     describe file("#{config}") do
@@ -221,7 +222,7 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
   describe 'udlc_stratum' do
     it 'sets the stratum value when using udlc' do
       pp = "class { 'ntp': udlc => true, udlc_stratum => 10 }"
-      apply_manifest(pp, :catch_failures => true)
+      execute_manifest(pp, :catch_failures => true)
     end
 
     describe file("#{config}") do
