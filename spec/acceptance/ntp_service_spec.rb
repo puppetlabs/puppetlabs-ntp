@@ -37,7 +37,7 @@ end
 describe 'ntp::service class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   describe 'basic test' do
     it 'sets up the service' do
-      apply_manifest(%{
+      execute_manifest(%{
         class { 'ntp': }
       }, :catch_failures => true)
     end
@@ -55,7 +55,7 @@ describe 'ntp::service class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('o
         service_name   => '#{servicename}'
       }
       EOS
-      apply_manifest(pp, :catch_failures => true)
+      execute_manifest(pp, :catch_failures => true)
     end
     it_should_behave_like 'running'
   end
@@ -71,7 +71,7 @@ describe 'service is unmanaged' do
         service_name   => '#{servicename}'
       }
     EOS
-    apply_manifest(pp, :catch_failures => true)
+    execute_manifest(pp, :catch_failures => true)
   end
 
   describe service(servicename) do

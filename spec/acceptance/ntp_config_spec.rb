@@ -37,7 +37,7 @@ end
 
 describe 'ntp::config class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   it 'sets up ntp.conf' do
-    apply_manifest(%{
+    execute_manifest(%{
       class { 'ntp': }
     }, :catch_failures => true)
   end

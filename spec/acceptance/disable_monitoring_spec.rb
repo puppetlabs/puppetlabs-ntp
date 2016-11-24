@@ -11,8 +11,8 @@ describe "ntp class with disable_monitor:", :unless => UNSUPPORTED_PLATFORMS.inc
     pp = "class { 'ntp': disable_monitor => true }"
 
     it 'runs twice' do
-      apply_manifest(pp, :catch_failures => true)
-      apply_manifest(pp, :catch_changes => true)
+      execute_manifest(pp, :catch_failures => true)
+      execute_manifest(pp, :catch_changes => true)
     end
 
     describe file("#{config}") do
@@ -24,8 +24,8 @@ describe "ntp class with disable_monitor:", :unless => UNSUPPORTED_PLATFORMS.inc
     pp = "class { 'ntp': disable_monitor => false }"
 
     it 'runs twice' do
-      apply_manifest(pp, :catch_failures => true)
-      apply_manifest(pp, :catch_changes => true)
+      execute_manifest(pp, :catch_failures => true)
+      execute_manifest(pp, :catch_changes => true)
     end
 
     describe file("#{config}") do

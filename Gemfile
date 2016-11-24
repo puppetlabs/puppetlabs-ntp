@@ -30,6 +30,9 @@ end
 # Used for gem conditionals
 supports_windows = false
 
+gem 'pry'
+gem 'pry-byebug'
+
 group :development do
   gem 'puppet-lint',                        :require => false
   gem 'metadata-json-lint',                 :require => false
@@ -56,9 +59,10 @@ group :system_tests do
   gem 'beaker-pe',                                                               :require => false if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('2.3.0')
   gem 'beaker-rspec', *location_for(ENV['BEAKER_RSPEC_VERSION'] || '>= 3.4')     if ! supports_windows
   gem 'beaker-rspec', *location_for(ENV['BEAKER_RSPEC_VERSION'] || '~> 5.1')     if supports_windows
-  gem 'beaker-puppet_install_helper',                                            :require => false
-  gem 'master_manipulator',                                                      :require => false
+  gem 'beaker-puppet_install_helper',:path => '/Users/wilson/repos/beaker-puppet_install_helper'
+  gem 'master_manipulator', :path => '/Users/wilson/repos/master_manipulator'
   gem 'beaker-hostgenerator', *location_for(ENV['BEAKER_HOSTGENERATOR_VERSION'])
+  gem 'beaker-testmode_switcher', :path => '/Users/wilson/repos/beaker-testmode_switcher'
 end
 
 gem 'puppet', *location_for(ENV['PUPPET_GEM_VERSION'])
