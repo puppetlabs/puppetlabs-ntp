@@ -59,9 +59,11 @@ group :system_tests do
   gem 'beaker-rspec', *location_for(ENV['BEAKER_RSPEC_VERSION'] || '>= 3.4')     if ! supports_windows
   gem 'beaker-rspec', *location_for(ENV['BEAKER_RSPEC_VERSION'] || '~> 5.1')     if supports_windows
   gem 'beaker-puppet_install_helper',                                            :require => false
-  gem 'master_manipulator',                                                      :require => false
+  gem 'master_manipulator'
   gem 'beaker-hostgenerator', *location_for(ENV['BEAKER_HOSTGENERATOR_VERSION'])
-  gem 'beaker-abs', *location_for(ENV['BEAKER_ABS_VERSION'] || '~> 0.1')        
+  gem 'beaker-abs', *location_for(ENV['BEAKER_ABS_VERSION'] || '~> 0.1')
+  gem 'nokogiri', '1.6.8.1'
+  gem 'beaker-testmode_switcher', :path => '/Users/paula/puppet_repos/testing/beaker-testmode_switcher'
 end
 
 gem 'puppet', *location_for(ENV['PUPPET_GEM_VERSION'])
