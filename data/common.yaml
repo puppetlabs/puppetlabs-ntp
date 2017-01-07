@@ -51,6 +51,7 @@ ntp::tos_ceiling: 15
 ntp::tos_cohort: 0
 ntp::tos_floor: 1
 ntp::tos_minclock: 3
+ntp::tos_maxclock: 6
 ntp::tos_minsane: 1
 ntp::tos: false
 ntp::udlc_stratum: 10
