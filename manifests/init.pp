@@ -43,6 +43,7 @@ class ntp (
   Optional[String] $step_tickers_template,
   Optional[Boolean] $tinker,
   Boolean $tos,
+  Optional[Integer[1]] $tos_maxclock,
   Optional[Integer[1]] $tos_minclock,
   Optional[Integer[1]] $tos_minsane,
   Optional[Integer[1]] $tos_floor,
