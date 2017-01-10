@@ -128,17 +128,25 @@ class { '::ntp':
 
 The following parameters are available in the `::ntp` class:
 
+#### `authprov`
+
+Optional. String. Enables compatibility with W32Time in some versions of NTPd (such as Novell DSfW). Default value: undef.
+
 #### `broadcastclient`
 
 Boolean. Enables reception of broadcast server messages to any local interface.
 
 #### `config`
 
-Stdlib::Absolutepath. Specifies a file for NTP's configuration info. Default value: '/etc/ntp.conf' (or '/etc/inet/ntp.conf' on Solaris)
+Stdlib::Absolutepath. Specifies a file for NTP's configuration info. Default value: '/etc/ntp.conf' (or '/etc/inet/ntp.conf' on Solaris).
 
 #### `config_dir`
 
-Optional. Stdlib::Absolutepath. Specifies a directory for the NTP configuration files. Default value: undef
+Optional. Stdlib::Absolutepath. Specifies a directory for the NTP configuration files. Default value: undef.
+
+#### `config_epp`
+
+Optional. String. Specifies an absolute or relative file path to an EPP template for the config file. Example value: 'ntp/ntp.conf.epp'. A validation error is thrown if both this **and** the `config_template` parameter are specified.
 
 ####`config_file_mode`
 
@@ -147,10 +155,6 @@ String. Specifies a file mode for the ntp configuration file. Default value: '06
 #### `config_template`
 
 Optional. String. Specifies an absolute or relative file path to an ERB template for the config file. Example value: 'ntp/ntp.conf.erb'. A validation error is thrown if both this **and** the `config_epp` parameter are specified.
-
-#### `config_epp`
-
-Optional. String. Specifies an absolute or relative file path to an EPP template for the config file. Example value: 'ntp/ntp.conf.epp'. A validation error is thrown if both this **and** the `config_template` parameter are specified.
 
 #### `disable_auth`
 
@@ -183,7 +187,7 @@ Boolean. Specifies whether to enable the iburst option for every NTP peer. Defau
 
 #### `interfaces`
 
-Array[String]. Specifies one or more network interfaces for NTP to listen on. Default value: [ ]
+Array[String]. Specifies one or more network interfaces for NTP to listen on. Default value: [ ].
 
 #### `interfaces_ignore`
 
@@ -191,11 +195,11 @@ Array[String]. Specifies one or more ignore pattern for the NTP listener configu
 
 #### `keys`
 
-Array[String]. Distributes keys to keys file. Default value: [ ]
+Array[String]. Distributes keys to keys file. Default value: [ ].
 
 #### `keys_controlkey`
 
-Optional. Ntp::Key_id. Specifies the key identifier to use with the ntpq utility. Value in the range of 1 to 65,534 inclusive. Default value: ' '
+Optional. Ntp::Key_id. Specifies the key identifier to use with the ntpq utility. Value in the range of 1 to 65,534 inclusive. Default value: ' '.
 
 #### `keys_enable`
 
@@ -207,7 +211,7 @@ Stdlib::Absolutepath. Specifies the complete path and location of the MD5 key fi
 
 #### `keys_requestkey`
 
-Optional. Ntp::Key_id. Specifies the key identifier to use with the ntpdc utility program. Value in the range of 1 to 65,534 inclusive. Default value: ' '
+Optional. Ntp::Key_id. Specifies the key identifier to use with the ntpdc utility program. Value in the range of 1 to 65,534 inclusive. Default value: ' '.
 
 #### `keys_trusted`:
 Optional. Array[Ntp::Key_id]. Provides one or more keys to be trusted by NTP. Default value: [ ].
@@ -281,7 +285,7 @@ Default value for AIX systems:
 
 #### `servers`
 
-Array[String]. Specifies one or more servers to be used as NTP peers. Default value: varies by operating system
+Array[String]. Specifies one or more servers to be used as NTP peers. Default value: varies by operating system.
 
 #### `service_enable`
 
