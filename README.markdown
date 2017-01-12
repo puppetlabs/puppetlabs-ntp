@@ -261,6 +261,10 @@ Array[String]. List of NTP servers with which to synchronise the local clock.
 
 Array[String]. Specifies one or more preferred peers. Puppet appends 'prefer' to each matching item in the `servers` array. Default value: [ ].
 
+#### `noselect_servers`
+
+Array[String] Specifies one or more peers to not sync with. Puppet appends 'noselect' to each matching item in the `servers` array. Default value: [ ].     
+
 #### `restrict`
 
 Array[String]. Specifies one or more `restrict` options for the NTP configuration. Puppet prefixes each item with 'restrict', so you need to list only the content of the restriction. Default value for most operating systems:

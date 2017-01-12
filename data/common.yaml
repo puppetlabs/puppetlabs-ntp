@@ -32,6 +32,7 @@ ntp::package_name: [ 'ntp' ]
 ntp::panic: ~
 ntp::peers: []
 ntp::preferred_servers: []
+ntp::noselect_servers: []
 ntp::servers:
   - '0.pool.ntp.org'
   - '1.pool.ntp.org'
