@@ -5,7 +5,12 @@ case fact('osfamily')
   when 'RedHat', 'FreeBSD', 'Linux', 'Gentoo'
     servicename = 'ntpd'
   when 'Solaris'
-    servicename = 'network/ntp'
+    case fact('kernelrelease')
+    when '5.10'
+      servicename = 'network/ntp4'
+    when '5.11'
+      servicename = 'network/ntp'
+    end
   when 'AIX'
     servicename = 'xntpd'
   else
