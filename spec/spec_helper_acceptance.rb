@@ -1,36 +1,17 @@
 require 'beaker-rspec'
 require 'beaker/puppet_install_helper'
+require 'beaker/module_install_helper'
 
 UNSUPPORTED_PLATFORMS = ['windows', 'Darwin']
 
+run_puppet_install_helper
+install_ca_certs unless ENV['PUPPET_INSTALL_TYPE'] =~ /pe/i
+install_module_on(hosts)
+install_module_dependencies_on(hosts)
+
 unless ENV['RS_PROVISION'] == 'no' or ENV['BEAKER_provision'] == 'no'
 
-  run_puppet_install_helper
-
   hosts.each do |host|
-    # for now we have to use unreleased versions of stdlib and tea for testing
-    apply_manifest_on(host, 'package { "git": }')
-    environmentpath = host.puppet['environmentpath']
-    environmentpath = environmentpath.split(':').first if environmentpath
-
-    # Solaris 11 doesn't ship the SSL CA root for the forgeapi server
-    # therefore we need to use a different way to deploy the module to
-    # the host
-    if host['platform'] =~ /solaris-11/i
-      apply_manifest_on(host, 'package { "git": }')
-      # PE 3.x and 2015.2 require different locations to install modules
-      modulepath = host.puppet['modulepath']
-      modulepath = modulepath.split(':').first if modulepath
-
-      environmentpath = host.puppet['environmentpath']
-      environmentpath = environmentpath.split(':').first if environmentpath
-
-      destdir = modulepath || "#{environmentpath}/production/modules"
-      on host, "git clone -b 4.13.0 https://github.com/puppetlabs/puppetlabs-stdlib #{destdir}/stdlib"
-    else
-      on host, puppet('module install puppetlabs-stdlib')
-    end
-
     # Need to disable update of ntp servers from DHCP, as subsequent restart of ntp causes test failures
     if fact_on(host, 'osfamily') == 'Debian'
       on host, 'dpkg-divert --divert /etc/dhcp-ntp.bak --local --rename --add /etc/dhcp/dhclient-exit-hooks.d/ntp'
