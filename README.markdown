@@ -448,9 +448,9 @@ Default value: `true`.
 
 #### `service_ensure`
 
-Data type: String.
+Data type: Enum['running', 'stopped'].
 
-Whether the NTP service should be running. Values: 'running' or 'stopped'.
+Whether the NTP service should be running.
 
 Default value: 'running'.
 
