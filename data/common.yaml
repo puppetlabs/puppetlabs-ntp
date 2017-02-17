@@ -42,6 +42,8 @@ ntp::service_ensure: running
 ntp::service_manage: true
 ntp::service_name: ntpd
 ntp::service_provider: ~
+ntp::statistics: []
+ntp::statsdir: '/var/log/ntpstats'
 ntp::stepout: ~
 ntp::step_tickers_file: ~
 ntp::step_tickers_template: ~

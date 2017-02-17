@@ -479,6 +479,22 @@ Which service provider to use for NTP.
 
 Default value: '`undef`.
 
+#### `statistics`
+
+Data type: Array.
+
+List of statistics to gather if ntp monitoring is enabled.
+
+Default value: [].
+
+#### `statsdir`
+
+Data type: Stdlib::Absolutepath.
+
+Location to store NTP statistics if ntp monitoring is enabled.
+
+Default value: '/var/log/ntpstats'.
+
 #### `step_tickers_file`
 
 Optional.
