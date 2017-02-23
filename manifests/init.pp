@@ -42,6 +42,8 @@
 # @param service_manage [Boolean] Whether to manage the NTP service.  Default value: true.
 # @param service_name [String] The NTP service to manage. Default value: varies by operating system.
 # @param service_provider [String] Which service provider to use for NTP. Default value: 'undef'.
+# @param statistics [Optional Array] List of statistics to have NTP generate and keep. Default value: [ ].
+# @param statsdir [Optional Stdlib::Absolutepath] Location of the NTP statistics directory on the managed system. Default value: '/var/log/ntpstats'.
 # @param step_tickers_file [Optional Stdlib::Absolutepath] Location of the step tickers file on the managed system. Default value: varies by operating system.
 # @param step_tickers_epp [Optional String] Location of the step tickers EPP template file. Default value: varies by operating system. Validation error is thrown if both this and the `step_tickers_template` parameters are specified.
 # @param step_tickers_template [Optional String] Location of the step tickers ERB template file. Default value: varies by operating system. Validation error is thrown if both this and the `step_tickers_epp` parameter are specified.
@@ -94,6 +96,8 @@ class ntp (
   Boolean $service_manage,
   String $service_name,
   Optional[String] $service_provider,
+  Optional[Array] $statistics,
+  Optional[Stdlib::Absolutepath] $statsdir,
   Optional[Integer[0, 65535]] $stepout,
   Optional[Stdlib::Absolutepath] $step_tickers_file,
   Optional[String] $step_tickers_epp,
