@@ -87,7 +87,7 @@ class ntp (
   Array[String] $package_name,
   Optional[Integer[0]] $panic,
   Array[String] $peers,
-  Array[String] $pool,
+  Optional[Array[String]] $pool,
   Array[String] $preferred_servers,
   Array[String] $restrict,
   Array[String] $interfaces,
