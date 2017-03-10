@@ -39,7 +39,7 @@
 # @param restrict [Array[String]] Specifies one or more `restrict` options for the NTP configuration. Puppet prefixes each item with 'restrict', so you need to list only the content of the restriction. Default value for most operating systems: '[default kod nomodify notrap nopeer noquery', '-6 default kod nomodify notrap nopeer noquery', '127.0.0.1', '-6 ::1']`. Default value for AIX systems: `['default nomodify notrap nopeer noquery', '127.0.0.1',]`.
 # @param servers [Array[String]] Specifies one or more servers to be used as NTP peers. Default value: varies by operating system.
 # @param service_enable [Boolean] Whether to enable the NTP service at boot. Default value: true.
-# @param service_ensure [String] Whether the NTP service should be running. Values: 'running' or 'stopped'. Default value: 'running'.
+# @param service_ensure [Enum['running', 'stopped']] Whether the NTP service should be running. Default value: 'running'.
 # @param service_manage [Boolean] Whether to manage the NTP service.  Default value: true.
 # @param service_name [String] The NTP service to manage. Default value: varies by operating system.
 # @param service_provider [String] Which service provider to use for NTP. Default value: 'undef'.
@@ -94,7 +94,7 @@ class ntp (
   Array[String] $interfaces_ignore,
   Array[String] $servers,
   Boolean $service_enable,
-  String $service_ensure,
+  Enum['running', 'stopped'] $service_ensure,
   Boolean $service_manage,
   String $service_name,
   Optional[String] $service_provider,
