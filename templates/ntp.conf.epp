@@ -93,6 +93,14 @@ peer <%= $peer %>
 <% } -%>
 <% } -%>
 
+<% unless $ntp::pool.empty {-%>
+# Pool
+<% $ntp::pool.each |$pool_srv| {-%>
+pool <%= $pool_srv %>
+<% } -%>
+<% } -%>
+
+
 <% if $ntp::keys_enable {-%>
 keys <%= $ntp::keys_file %>
 <% unless $ntp::keys_trusted.empty {-%>
