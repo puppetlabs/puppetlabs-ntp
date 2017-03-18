@@ -173,18 +173,9 @@ class ntp::params {
         }
         'OpenSuSE': {
           $service_provider = undef
-          case $::operatingsystemrelease {
-            '13.2': {
-              $service_name  = 'ntpd'
-              $keys_file     = $default_keys_file
-              $package_name  = $default_package_name
-            }
-            default: {
-              $service_name  = 'ntp'
-              $keys_file     = $default_keys_file
-              $package_name  = $default_package_name
-            }
-          }
+          $service_name  = 'ntpd'
+          $keys_file     = $default_keys_file
+          $package_name  = $default_package_name
         }
         default: {
           $service_name  = 'ntp'
