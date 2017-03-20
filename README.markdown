@@ -477,7 +477,7 @@ Data type: String.
 
 Which service provider to use for NTP.
 
-Default value: '`undef`.
+Default value: `undef`.
 
 #### `statistics`
 
