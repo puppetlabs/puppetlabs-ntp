@@ -36,6 +36,7 @@
 # @param peers [Array[String]] List of NTP servers with which to synchronise the local clock.
 # @param pool [Array[String]] List of NTP server pools with which to synchronise the local clock.
 # @param preferred_servers [Array[String] Specifies one or more preferred peers. Puppet appends 'prefer' to each matching item in the `servers` array. Default value: [ ].
+# @param noselect_servers [Array[String] Specifies one or more peers to not sync with. Puppet appends 'noselect' to each matching item in the `servers` array. Default value: [ ].
 # @param restrict [Array[String]] Specifies one or more `restrict` options for the NTP configuration. Puppet prefixes each item with 'restrict', so you need to list only the content of the restriction. Default value for most operating systems: '[default kod nomodify notrap nopeer noquery', '-6 default kod nomodify notrap nopeer noquery', '127.0.0.1', '-6 ::1']`. Default value for AIX systems: `['default nomodify notrap nopeer noquery', '127.0.0.1',]`.
 # @param servers [Array[String]] Specifies one or more servers to be used as NTP peers. Default value: varies by operating system.
 # @param service_enable [Boolean] Whether to enable the NTP service at boot. Default value: true.
@@ -89,6 +90,7 @@ class ntp (
   Array[String] $peers,
   Optional[Array[String]] $pool,
   Array[String] $preferred_servers,
+  Array[String] $noselect_servers,
   Array[String] $restrict,
   Array[String] $interfaces,
   Array[String] $interfaces_ignore,

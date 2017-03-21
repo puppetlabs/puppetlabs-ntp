@@ -103,6 +103,30 @@ describe 'ntp' do
             }
           end
         end
+
+        describe 'noselect servers' do
+          context "when set" do
+            let(:params) {{
+              :servers          => ['a', 'b', 'c', 'd'],
+              :noselect_servers => ['a', 'b'],
+              :iburst_enable    => false,
+            }}
+    
+            it { should contain_file('/etc/ntp.conf').with({
+              'content' => /server a (maxpoll 9 )?noselect\nserver b (maxpoll 9 )?noselect\nserver c( maxpoll 9)?\nserver d( maxpoll 9)?/})
+            }
+          end
+          context "when not set" do
+            let(:params) {{
+              :servers          => ['a', 'b', 'c', 'd'],
+              :noselect_servers => []
+            }}
+
+            it { should_not contain_file('/etc/ntp.conf').with({
+              'content' => /server a noselect/})
+            }
+          end
+        end
         describe 'specified interfaces' do
           context "when set" do
             let(:params) {{

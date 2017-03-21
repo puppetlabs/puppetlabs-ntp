@@ -63,8 +63,9 @@ broadcastclient
 # prefer - select preferrable server
 # minpoll - set minimal update frequency
 # maxpoll - set maximal update frequency
+# noselect - do not sync with this server
 <% $ntp::servers.each |$server| {-%>
-server <%= $server %><% if $ntp::iburst_enable == true {%> iburst<% } %><% if ($ntp::preferred_servers).member($server) { %> prefer<% } %><% if $ntp::minpoll { %> minpoll <%= $ntp::minpoll %><% } %><% if $ntp::maxpoll { %> maxpoll <%= $ntp::maxpoll %><% } %>
+server <%= $server %><% if $ntp::iburst_enable == true {%> iburst<% } %><% if ($ntp::preferred_servers).member($server) { %> prefer<% } %><% if $ntp::minpoll { %> minpoll <%= $ntp::minpoll %><% } %><% if $ntp::maxpoll { %> maxpoll <%= $ntp::maxpoll %><% } %><% if ($ntp::noselect_servers).member($server) { %> noselect<% } %>
 <% } -%>
 <%# -%>
 <% if $ntp::udlc {-%>

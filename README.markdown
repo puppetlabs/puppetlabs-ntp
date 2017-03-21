@@ -404,6 +404,10 @@ Specifies one or more preferred peers. Puppet appends 'prefer' to each matching 
 
 Default value: [ ].
 
+#### `noselect_servers`
+
+Array[String] Specifies one or more peers to not sync with. Puppet appends 'noselect' to each matching item in the `servers` array. Default value: [ ].     
+
 #### `restrict`
 
 Data type: Array[String].
