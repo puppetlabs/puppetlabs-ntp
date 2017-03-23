@@ -99,6 +99,14 @@
         "2014.09",
         "2015.03"
       ]
+    },
+    { "operatingsystem": "FreeBSD",
+      "operatingsystemrelease": [
+        "9",
+        "10",
+        "11",
+        "12"
+      ]
     }
   ],
   "requirements": [
