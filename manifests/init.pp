@@ -131,7 +131,7 @@ class ntp (
   contain ntp::config
   contain ntp::service
 
-  Class['::ntp::install'] ->
-  Class['::ntp::config'] ~>
-  Class['::ntp::service']
+  Class['::ntp::install']
+  -> Class['::ntp::config']
+  ~> Class['::ntp::service']
 }
