@@ -376,8 +376,8 @@ describe 'ntp' do
                 'content' => /server \d.freebsd.pool.ntp.org iburst maxpoll 9/,
               })
             end
-          when 'ArchLinux'
-            it 'uses the ArchLinux NTP servers' do
+          when 'Archlinux'
+            it 'uses the Archlinux NTP servers' do
               should contain_file('/etc/ntp.conf').with({
                 'content' => /server \d.arch.pool.ntp.org/,
               })
