@@ -111,7 +111,7 @@ describe 'ntp' do
               :noselect_servers => ['a', 'b'],
               :iburst_enable    => false,
             }}
-    
+
             it { should contain_file('/etc/ntp.conf').with({
               'content' => /server a (maxpoll 9 )?noselect\nserver b (maxpoll 9 )?noselect\nserver c( maxpoll 9)?\nserver d( maxpoll 9)?/})
             }
@@ -376,8 +376,8 @@ describe 'ntp' do
                 'content' => /server \d.freebsd.pool.ntp.org iburst maxpoll 9/,
               })
             end
-          when 'ArchLinux'
-            it 'uses the ArchLinux NTP servers' do
+          when 'Archlinux'
+            it 'uses the Archlinux NTP servers' do
               should contain_file('/etc/ntp.conf').with({
                 'content' => /server \d.arch.pool.ntp.org/,
               })
