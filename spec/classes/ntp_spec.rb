@@ -768,6 +768,33 @@ describe 'ntp' do
         end
       end
 
+      describe 'pool' do
+        context 'when empty' do
+          let(:params) do
+            {
+                :pool => []
+            }
+          end
+
+          it 'should not contain a pool line' do
+            should contain_file('/etc/ntp.conf').without_content(/^pool/)
+          end
+        end
+
+        context 'set' do
+          let(:params) do
+            {
+                :pool => ['foo', 'bar'],
+            }
+          end
+
+          it 'should contain the pool lines' do
+            should contain_file('/etc/ntp.conf').with_content(/pool foo/)
+            should contain_file('/etc/ntp.conf').with_content(/pool bar/)
+          end
+        end
+      end
+
       describe 'peers' do
         context 'when empty' do
           let(:params) do
