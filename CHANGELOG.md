@@ -1,3 +1,26 @@
+## Supported Release 6.1.0
+### Summary
+
+This release adds support for internationalization of the module. It also contains Japanese translations for the README, summary and description of the metadata.json and major cleanups in the README. Additional folders have been introduced called locales and readmes where translation files can be found. A number of features and bug fixes are also included in this release.
+
+#### Features
+- Addition of POT file for metadata translation for i18n.
+- Multiple Gemfile updates for Ruby and Gems support.
+- (MODULES-4225) Addition of Puppet strings to the ntp module.
+- Implements beaker module install helper and cleanup spec helper acceptance.rb.
+- (MODULES-4414) Allow NTP statistics if requested.
+- (MODULES-4278) Addition of noselect feature.
+- Addition of 'pool' parameter.
+- Addition of Ubuntu Xenial Support.
+
+#### Bugfixes
+- Huge readme updates for adding tags to private classes, edits for localization and general cleanups.
+- (MODULES-3397) Fix of the default Solaris settings.
+- Changed 'service_ensure' data type to Enum.
+- (MODULES-3396) remove superfluous empty lines in ntp.conf.
+- (MODULES-4528) Replace Puppet.version.to_f version comparison from spec helper.
+- Solaris data that was the wrong way round now fixed.
+
 ## Supported Releases 5.0.0 and 6.0.0
 ### Summary
 
