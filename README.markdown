@@ -390,6 +390,16 @@ Whether NTP should panic and exit in the event of a very large clock skew. Appli
 
 Default value: `undef` (virtual environments: 0).
 
+#### `pool`
+
+Optional.
+
+Data type: Array[String].
+
+List of NTP server pools with which to synchronise the local clock.
+
+Default value: [ ].
+
 #### `peers`
 
 Data type: Array[String].
