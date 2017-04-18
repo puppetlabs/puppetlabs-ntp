@@ -10,7 +10,8 @@ tinker<% if $ntp::_panic { %> panic <%= $ntp::_panic %><% } %><%if $ntp::stepout
 <%# -%>
 <% if $ntp::disable_monitor {-%>
 disable monitor
-<% } else {-%>
+<% } -%>
+
 statsdir <%= $ntp::statsdir %>
 <% unless $ntp::statistics.empty {-%>
 # Build requested statistics files
@@ -19,7 +20,6 @@ statistics <%= $ntp::statistics.join(' ') %>
 filegen <%= $statistic %> file <%= $statistic %> type day enable
 <% } -%>
 
-<% } -%>
 <% } -%>
 <% if $ntp::disable_auth {-%>
 disable auth
