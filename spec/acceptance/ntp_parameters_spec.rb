@@ -135,7 +135,7 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
       pp = <<-EOS
       class { 'ntp':
         keys_enable     => true,
-        keys_controlkey => 15,
+        keys_controlkey => 1,
         keys_requestkey => 1,
         keys_trusted    => [ 1, 2 ],
         keys            => [ '1 M AAAABBBB' ],
@@ -147,7 +147,7 @@ describe "ntp class:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily'
     describe file("#{config}") do
       it { should be_file }
       its(:content) { should match "keys #{keysfile}" }
-      its(:content) { should match 'controlkey 15' }
+      its(:content) { should match 'controlkey 1' }
       its(:content) { should match 'requestkey 1' }
       its(:content) { should match 'trustedkey 1 2' }
     end
