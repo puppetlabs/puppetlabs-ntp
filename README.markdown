@@ -171,7 +171,7 @@ Data type: String.
 
 Specifies an absolute or relative file path to an EPP template for the config file. Example value: 'ntp/ntp.conf.epp'. A validation error is thrown if both this **and** the `config_template` parameter are specified.
 
-####`config_file_mode`
+#### `config_file_mode`
 
 Data type: String.
 
@@ -520,7 +520,7 @@ Location of the step tickers file on the managed system.
 Default value: varies by operating system.
 
 
-####`step_tickers_epp`
+#### `step_tickers_epp`
 
 Optional.
 
