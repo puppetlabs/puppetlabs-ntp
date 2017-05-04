@@ -1,3 +1,13 @@
+## Supported Release 6.2.0
+### Summary
+This is a small minor release that adds the `pool` parameter and revises some Japanese translations.
+
+#### Added
+- The `pool` parameter
+
+#### Fixed
+- Japanese translations for the README
+
 ## Supported Release 6.1.0
 ### Summary
 
