@@ -1,4 +1,5 @@
 ntp::service_name: ntp
+ntp::driftfile: '/var/lib/ntp/drift/ntp.drift'
 ntp::restrict:
   - 'default kod nomodify notrap nopeer noquery'
   - '-6 default kod nomodify notrap nopeer noquery'
