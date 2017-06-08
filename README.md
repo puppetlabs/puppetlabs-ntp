@@ -221,6 +221,14 @@ Specifies the location of the NTP driftfile.
 
 Default value: '/var/lib/ntp/drift' (AIX: 'ntp::driftfile:', Solaris: '/var/ntp/ntp.drift').
 
+#### `enable_mode7`
+
+Data type: Boolean.
+
+Enables processing of NTP mode 7 implementation-specific requests which are used by the deprecated ntpdc program.
+
+Default value: `false`.
+
 #### `fudge`
 
 Optional.

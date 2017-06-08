@@ -27,6 +27,9 @@ disable auth
 <% if $ntp::disable_kernel {-%>
 disable kernel
 <% } -%>
+<% if $ntp::enable_mode7 {-%>
+enable mode7
+<% } -%>
 <%# -%>
 <% unless $ntp::restrict.empty {-%>
 

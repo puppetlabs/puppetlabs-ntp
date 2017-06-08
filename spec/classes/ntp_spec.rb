@@ -281,6 +281,40 @@ describe 'ntp' do
             end
           end
         end
+        describe 'with parameter enable_mode7' do
+          context 'default' do
+            let(:params) {{
+            }}
+
+            it 'should not contain enable mode7 setting' do
+              should_not contain_file('/etc/ntp.conf').with({
+                'content' => /^enable mode7\n/,
+              })
+            end
+          end
+          context 'when set to true' do
+            let(:params) {{
+              :enable_mode7=> true,
+            }}
+
+            it 'should contain enable mode7 setting' do
+              should contain_file('/etc/ntp.conf').with({
+                'content' => /^enable mode7\n/,
+              })
+            end
+          end
+          context 'when set to false' do
+            let(:params) {{
+              :enable_mode7 => false,
+            }}
+
+            it 'should not contain enable mode7 setting' do
+              should_not contain_file('/etc/ntp.conf').with({
+                'content' => /^enable mode7\n/,
+              })
+            end
+          end
+        end
         describe 'with parameter broadcastclient' do
           context 'when set to true' do
             let(:params) {{

@@ -14,6 +14,7 @@
 # @param disable_kernel [Boolean] Disables kernel time discipline.
 # @param disable_monitor [Boolean] Disables the monitoring facility in NTP. Default value: true.
 # @param driftfile [Stdlib::Absolutepath] Specifies an NTP driftfile. Default value: '/var/lib/ntp/drift' (except on AIX and Solaris).
+# @param enable_mode7 [Boolean] Enables processing of NTP mode 7 implementation-specific requests which are used by the deprecated ntpdc program. Default value: false.
 # @param fudge [Optional. Array[String]]. Provides additional information for individual clock drivers. Default value: [ ]
 # @param iburst_enable [Boolean] Specifies whether to enable the iburst option for every NTP peer. Default value: false (true on AIX and Debian).
 # @param interfaces [Array[String]]. Specifies one or more network interfaces for NTP to listen on. Default value: [ ].
@@ -70,6 +71,7 @@ class ntp (
   Boolean $disable_dhclient,
   Boolean $disable_kernel,
   Boolean $disable_monitor,
+  Boolean $enable_mode7,
   Optional[Array[String]] $fudge,
   Stdlib::Absolutepath $driftfile,
   Optional[Stdlib::Absolutepath] $leapfile,
