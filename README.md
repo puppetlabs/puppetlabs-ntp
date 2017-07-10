@@ -558,6 +558,16 @@ Whether to enable tos options.
 
 Default value: `false`.
 
+#### `tos_maxclock`
+
+Optional.
+
+Data type: Integer[1].
+
+Specifies the maxclock tos option.
+
+Default value: 6.
+
 #### `tos_minclock`
 
 Optional.
