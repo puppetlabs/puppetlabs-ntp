@@ -11,6 +11,7 @@ ntp::disable_dhclient: false
 ntp::disable_kernel: false
 ntp::disable_monitor: true
 ntp::driftfile: '/var/lib/ntp/drift'
+ntp::enable_mode7: false
 ntp::fudge: []
 ntp::iburst_enable: true
 ntp::interfaces_ignore: []
