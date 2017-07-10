@@ -10,6 +10,12 @@ class ntp::config inherits ntp {
     }
   }
 
+  if $facts['operatingsystem'] == 'OpenSuSE' and $facts['operatingsystemmajrelease'] == '42' {
+    file { '/var/run/ntp/servers-netconfig':
+      ensure => 'absent'
+    }
+  }
+
   if $ntp::keys_enable {
     case $ntp::config_dir {
       '/', '/etc', undef: {}
