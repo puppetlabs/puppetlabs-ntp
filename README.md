@@ -343,7 +343,7 @@ Optional.
 
 Data type: Ntp::Poll_interval.
 
-Sets Puppet to non-standard minimal poll interval of upstream servers. Values: 3 to 16.
+Sets Puppet to non-standard minimal poll interval of upstream servers. Values: 4 to 16.
 Default: `undef`.
 
 #### `maxpoll`
@@ -352,7 +352,7 @@ Optional.
 
 Data type: Ntp::Poll_interval.
 
-Sets use non-standard maximal poll interval of upstream servers. Values: 3 to 16.
+Sets use non-standard maximal poll interval of upstream servers. Values: 5 to 17.
 Default option: `undef`(FreeBSD: 9).
 
 #### `ntpsigndsocket`
