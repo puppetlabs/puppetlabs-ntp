@@ -2,7 +2,7 @@ require 'spec_helper'
 
 on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
   describe 'ntp' do
-    let(:facts) { { is_virtual: 'false' } }
+    let(:facts) { { is_virtual: false } }
 
     context "on #{os}" do
       let(:facts) do
@@ -882,7 +882,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
 
       describe 'for virtual machines' do
         let :facts do
-          super().merge(is_virtual: 'true')
+          super().merge(is_virtual: true)
         end
 
         it 'does not use local clock as a time source' do
@@ -896,7 +896,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
 
       describe 'for physical machines' do
         let :facts do
-          super().merge(is_virtual: 'false')
+          super().merge(is_virtual: false)
         end
 
         it 'disallows large clock skews' do

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 describe 'ntp' do
-  let(:facts) { { is_virtual: 'false' } }
+  let(:facts) { { is_virtual: false } }
   let :pre_condition do
     'file { "foo.rb":
       ensure => present,
