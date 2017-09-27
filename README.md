@@ -19,28 +19,28 @@ The ntp module installs, configures, and manages the NTP service across a range 
 
 ### Beginning with ntp
 
-`include '::ntp'` is enough to get you up and running. To pass in parameters specifying which servers to use:
+`include ntp` is enough to get you up and running. To pass in parameters specifying which servers to use:
 
 ```puppet
-class { '::ntp':
+class { 'ntp':
   servers => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
 }
 ```
 
 ## Usage
 
-All parameters for the ntp module are contained within the main `::ntp` class, so for any function of the module, set the options you want. See the common usages below for examples.
+All parameters for the ntp module are contained within the main `ntp` class, so for any function of the module, set the options you want. See the common usages below for examples.
 
 ### Install and enable NTP
 
 ```puppet
-include '::ntp'
+include ntp
 ```
 
 ### Change NTP servers
 
 ```puppet
-class { '::ntp':
+class { 'ntp':
   servers => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
 }
 ```
@@ -48,7 +48,7 @@ class { '::ntp':
 ### Restrict who can connect
 
 ```puppet
-class { '::ntp':
+class { 'ntp':
   servers  => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
   restrict => ['127.0.0.1'],
 }
@@ -57,7 +57,7 @@ class { '::ntp':
 ### Install a client that can't be queried
 
 ```puppet
-class { '::ntp':
+class { 'ntp':
   servers   => ['ntp1.corp.com', 'ntp2.corp.com'],
   restrict  => [
     'default ignore',
@@ -75,7 +75,7 @@ class { '::ntp':
 Restricting NTP to a specific interface is especially useful on Openstack node, which may have numerous virtual interfaces.
 
 ```puppet
-class { '::ntp':
+class { 'ntp':
   servers  => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
   interfaces => ['127.0.0.1', '1.2.3.4']
 }
@@ -84,7 +84,7 @@ class { '::ntp':
 ### Opt out of Puppet controlling the service
 
 ```puppet
-class { '::ntp':
+class { 'ntp':
   servers        => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
   restrict       => ['127.0.0.1'],
   service_manage => false,
@@ -94,7 +94,7 @@ class { '::ntp':
 ### Configure and run ntp without installing
 
 ```puppet
-class { '::ntp':
+class { 'ntp':
   package_manage => false,
 }
 ```
@@ -102,7 +102,7 @@ class { '::ntp':
 ### Pass in a custom template
 
 ```puppet
-class { '::ntp':
+class { 'ntp':
   servers         => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
   restrict        => ['127.0.0.1'],
   service_manage  => false,
@@ -126,7 +126,7 @@ class { '::ntp':
 
 ### Parameters
 
-The following parameters are available in the `::ntp` class:
+The following parameters are available in the `ntp` class:
 
 #### `authprov`
 
@@ -385,7 +385,7 @@ Default value: `true`.
 
 Data type: Array[String].
 
-Specifies the NTP package to manage. 
+Specifies the NTP package to manage.
 
 Default value: ['ntp'] (AIX: 'bos.net.tcp.client', Solaris: [ 'SUNWntp4r', 'SUNWntp4u' ]).
 
@@ -424,7 +424,7 @@ Default value: [ ].
 
 #### `noselect_servers`
 
-Array[String] Specifies one or more peers to not sync with. Puppet appends 'noselect' to each matching item in the `servers` array. Default value: [ ].     
+Array[String] Specifies one or more peers to not sync with. Puppet appends 'noselect' to each matching item in the `servers` array. Default value: [ ].
 
 #### `restrict`
 
