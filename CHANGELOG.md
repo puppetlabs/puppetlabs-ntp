@@ -1,3 +1,28 @@
+# Change log
+
+All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
+and this project adheres to [Semantic Versioning](http://semver.org).
+
+## Supported Release 6.3.0
+### Summary
+This is a feature release with some bugfixes and updated Japanese translations, too.
+
+#### Added
+- `enable_mode7` parameter (defaults to `false`)
+- disable monitor availability while setting stat properties
+
+#### Changed
+- Lower bound of Puppet requirement from 4.5.0 to 4.7.0
+- hiera.yaml to Hiera version 5 format
+
+#### Removed
+- Ubuntu 10.04 and 12.04, Debian 6, SLES 10 SP4, and Fedora 20-23 support from metadata.json (existing compatibility remains)
+
+#### Fixed
+- Path to driftfile on Suse ([MODULES-4941](https://tickets.puppet.com/browse/MODULES-4941))
+- Whitespace issue in ntp.conf.epp with `tos`
+- Permissions on keys file
+
 ## Supported Release 6.2.0
 ### Summary
 This is a small minor release that adds the `pool` parameter and revises some Japanese translations.
