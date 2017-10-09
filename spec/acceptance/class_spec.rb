@@ -1,36 +1,44 @@
 require 'spec_helper_acceptance'
 
-describe 'ntp class:', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
-  it 'should run successfully' do
-    pp = "class { 'ntp': }"
+describe 'ntp class:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
+  context 'ntp' do
+    let(:pp) { "class { 'ntp': }" }
 
-    # Apply twice to ensure no errors the second time.
-    apply_manifest(pp, :catch_failures => true) do |r|
-      expect(r.stderr).not_to match(/error/i)
+    it 'runs successfully - not_to match' do
+      apply_manifest(pp, catch_failures: true) do |r|
+        expect(r.stderr).not_to match(%r{error}i)
+      end
     end
-    apply_manifest(pp, :catch_failures => true) do |r|
-      expect(r.stderr).not_to eq(/error/i)
 
-      expect(r.exit_code).to be_zero
+    it 'runs successfully - not_to eq' do
+      apply_manifest(pp, catch_failures: true) do |r|
+        expect(r.stderr).not_to eq(%r{error}i)
+      end
+    end
+
+    it 'runs successfully - to be_zero' do
+      apply_manifest(pp, catch_failures: true) do |r|
+        expect(r.exit_code).to be_zero
+      end
     end
   end
 
   context 'service_ensure => stopped:' do
-    it 'runs successfully' do
-      pp = "class { 'ntp': service_ensure => stopped }"
+    let(:pp) { "class { 'ntp': service_ensure => stopped }" }
 
-      apply_manifest(pp, :catch_failures => true) do |r|
-        expect(r.stderr).not_to match(/error/i)
+    it 'runs successfully - not_to match' do
+      apply_manifest(pp, catch_failures: true) do |r|
+        expect(r.stderr).not_to match(%r{error}i)
       end
     end
   end
 
   context 'service_ensure => running:' do
-    it 'runs successfully' do
+    it 'runs successfully - not_to match' do
       pp = "class { 'ntp': service_ensure => running }"
 
-      apply_manifest(pp, :catch_failures => true) do |r|
-        expect(r.stderr).not_to match(/error/i)
+      apply_manifest(pp, catch_failures: true) do |r|
+        expect(r.stderr).not_to match(%r{error}i)
       end
     end
   end
