@@ -17,28 +17,22 @@ when 'AIX'
 when 'Solaris'
   case fact('kernelrelease')
   when '5.10'
-    packagename = ['SUNWntp4r','SUNWntp4u']
+    packagename = %w[SUNWntp4r SUNWntp4u]
   when '5.11'
     packagename = 'service/network/ntp'
   end
-else
-  if fact('operatingsystem') == 'SLES' and fact('operatingsystemmajrelease') == '12'
-    servicename = 'ntpd'
-  else
-    servicename = 'ntp'
-  end
 end
 
-describe 'ntp::install class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
+describe 'ntp::install class', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   it 'installs the package' do
-    apply_manifest(%{
+    apply_manifest(%(
       class { 'ntp': }
-    }, :catch_failures => true)
+    ), catch_failures: true)
   end
 
   Array(packagename).each do |package|
     describe package(package) do
-      it { should be_installed }
+      it { is_expected.to be_installed }
     end
   end
 end

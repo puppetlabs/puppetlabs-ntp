@@ -1,29 +1,29 @@
 require 'spec_helper_acceptance'
 
-if (fact('osfamily') == 'Solaris')
-  config = '/etc/inet/ntp.conf'
-else
-  config = '/etc/ntp.conf'
-end
+config = if fact('osfamily') == 'Solaris'
+           '/etc/inet/ntp.conf'
+         else
+           '/etc/ntp.conf'
+         end
 
-describe "ntp class with statistics:", :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
+describe 'ntp class with statistics:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   context 'should run successfully' do
+    let(:pp) { "class { 'ntp': statistics => ['loopstats'], disable_monitor => false}" }
+
     it 'runs twice' do
-      pp = "class { 'ntp': statistics => ['loopstats'], disable_monitor => false}"
       2.times do
-        apply_manifest(pp, :catch_failures => true) do |r|
-          expect(r.stderr).not_to match(/error/i)
+        apply_manifest(pp, catch_failures: true) do |r|
+          expect(r.stderr).not_to match(%r{error}i)
         end
       end
     end
   end
 
-  describe file("#{config}") do
-    its(:content) { should match('filegen loopstats file loopstats type day enable') }
+  describe file(config.to_s) do
+    its(:content) { is_expected.to match('filegen loopstats file loopstats type day enable') }
   end
 
-  describe file("#{config}") do
-    its(:content) { should match('statsdir /var/log/ntpstats') }
+  describe file(config.to_s) do
+    its(:content) { is_expected.to match('statsdir /var/log/ntpstats') }
   end
-
 end
