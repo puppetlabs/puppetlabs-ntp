@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org).
 
+## Supported Release 6.4.0
+### Summary
+This release is to both update the modules code so that it matches the set standards and make it so that all future prs are checked by Rubocop before release.
+
+#### Added
+- Rubocop is now enabled.
+
+#### Changed
+- All ruby code within module has been altered to match standards.
+
 ## Supported Release 6.3.0
 ### Summary
 This is a feature release with some bugfixes and updated Japanese translations, too.
