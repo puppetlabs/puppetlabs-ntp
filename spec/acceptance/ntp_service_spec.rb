@@ -31,12 +31,13 @@ shared_examples 'running' do
       end
     else
       # HACK: until we either update SpecInfra or come up with alternative
+      shell('service ntpd start')
       output = shell('service ntpd status')
       it {
-        expect(output.stdout).to match(%r{Active\:\s+active\s+\(running\)})
+        expect(output.stdout) =~ %r{Active\:\s+active\s+\(running\)}
       }
       it {
-        expect(output.stdout).to match(%r{^\s+Loaded.*enabled\)$})
+        expect(output.stdout) =~ %r{Loaded.*enabled\)$}
       }
     end
   end
@@ -95,10 +96,10 @@ describe 'service tests' do
         let(:output) { shell('service ntpd status', acceptable_exit_codes: [0, 3]) }
 
         it 'is disabled' do
-          expect(output.stdout).to match(%r{^\s+Loaded.*disabled\)$})
+          expect(output.stdout) =~ %r{Loaded.*disabled\)$}
         end
         it 'is stopped' do
-          expect(output.stdout).to match(%r{Active\:\s+inactive})
+          expect(output.stdout) =~ %r{Active\:\s+inactive}
         end
       end
     end
