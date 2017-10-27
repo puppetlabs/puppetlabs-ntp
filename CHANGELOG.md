@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org).
 
+## Supported Release 6.4.1
+### Summary
+This release reverts a PR that implements Hiera 5. Issues have been seen due to compatibility issues. The issues that have been seen are ([MODULES-5775](https://tickets.puppet.com/browse/MODULES-5775)) and ([MODULES-5780](https://tickets.puppet.com/browse/MODULES-5780)).
+
+### Changed
+- Reverts ([PR 394](https://github.com/puppetlabs/puppetlabs-ntp/pull/394))
+
 ## Supported Release 6.4.0
 ### Summary
 This release is to both update the modules code so that it matches the set standards and make it so that all future prs are checked by Rubocop before release.
