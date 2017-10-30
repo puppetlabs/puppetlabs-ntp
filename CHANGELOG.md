@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org).
 
+## Supported Release 7.0.0
+### Summary
+Hiera 5 only works with Puppet 4.9.4 and above, we have bumped the Puppet requirement for the module accordingly.
+
+### Changed
+- Update YAML to version 5 ([PR 428](https://github.com/puppetlabs/puppetlabs-ntp/pull/428))
+- Updates the lower puppet version boundary to 4.9.4.
+
 ## Supported Release 6.4.1
 ### Summary
 This release reverts a PR that implements Hiera 5. Issues have been seen due to compatibility issues. The issues that have been seen are ([MODULES-5775](https://tickets.puppet.com/browse/MODULES-5775)) and ([MODULES-5780](https://tickets.puppet.com/browse/MODULES-5780)).
