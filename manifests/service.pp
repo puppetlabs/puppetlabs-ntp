@@ -1,6 +1,6 @@
 # @api private
 # This class handles the ntp service. Avoid modifying private classes.
-class ntp::service inherits ntp {
+class ntp::service {
 
   if $ntp::service_manage == true {
     service { 'ntp':
