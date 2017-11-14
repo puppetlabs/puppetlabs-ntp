@@ -122,7 +122,7 @@ class ntp (
   Optional[String] $authprov,
 ) {
   # defaults for tinker and panic are different, when running on virtual machines
-  if str2bool($facts['is_virtual']) {
+  if $facts['is_virtual'] {
     $_tinker = pick($tinker, true)
     $_panic  = pick($panic, 0)
   } else {
