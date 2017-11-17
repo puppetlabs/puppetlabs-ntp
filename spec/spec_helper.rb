@@ -12,6 +12,6 @@ end
 # put local configuration and setup into spec_helper_local
 begin
   require 'spec_helper_local'
-rescue LoadError
-  puts 'Rescue Load Error'
+rescue LoadError => loaderror
+  puts "Could not require spec_helper_local: #{loaderror.message}"
 end
