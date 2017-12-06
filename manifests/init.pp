@@ -2,125 +2,125 @@
 #
 # Main class, includes all other classes.
 #
-# @param authprov [Optional[String]]
+# @param authprov
 #   Enables compatibility with W32Time in some versions of NTPd (such as Novell DSfW). Default value: undef.
 #
-# @param broadcastclient [Boolean]
+# @param broadcastclient
 #   Enables reception of broadcast server messages to any local interface. Default value: false.
 #
-# @param config [Stdlib]
+# @param config
 #   Specifies a file for NTP's configuration info. Default value: '/etc/ntp.conf' (or '/etc/inet/ntp.conf' on Solaris).
 #
-# @param config_dir [Stdlib] Stdlib::Absolutepath.
+# @param config_dir
 #   Specifies a directory for the NTP configuration files. Default value: undef.
 #
-# @param config_epp [String]
+# @param config_epp
 #   Specifies an absolute or relative file path to an EPP template for the config file.
 #   Example value: 'ntp/ntp.conf.epp'. A validation error is thrown if both this **and** the `config_template` parameter are specified.
 #
-# @param config_file_mode [String]
+# @param config_file_mode
 #   Specifies a file mode for the ntp configuration file. Default value: '0664'.
 #
-# @param config_template [String]
+# @param config_template
 #   Specifies an absolute or relative file path to an ERB template for the config file.
 #   Example value: 'ntp/ntp.conf.erb'. A validation error is thrown if both this **and** the `config_epp` parameter are specified.
 #
-# @param disable_auth [Boolean]
+# @param disable_auth
 #   Disables cryptographic authentication for broadcast client, multicast client, and symmetric passive associations.
 #
-# @param disable_dhclient [Boolean]
+# @param disable_dhclient
 #   Disables `ntp-servers` in `dhclient.conf` to prevent Dhclient from managing the NTP configuration.
 #
-# @param disable_kernel [Boolean]
+# @param disable_kernel
 #   Disables kernel time discipline.
 #
-# @param disable_monitor [Boolean]
+# @param disable_monitor
 #   Disables the monitoring facility in NTP. Default value: true.
 #
-# @param driftfile [Stdlib::Absolutepath]
+# @param driftfile
 #   Specifies an NTP driftfile. Default value: '/var/lib/ntp/drift' (except on AIX and Solaris).
 #
-# @param enable_mode7 [Boolean]
+# @param enable_mode7
 #   Enables processing of NTP mode 7 implementation-specific requests which are used by the deprecated ntpdc program. Default value: false.
 #
-# @param fudge [Optional. Array[String]].
+# @param fudge
 #   Provides additional information for individual clock drivers. Default value: [ ]
 #
-# @param iburst_enable [Boolean]
+# @param iburst_enable
 #   Specifies whether to enable the iburst option for every NTP peer. Default value: false (true on AIX and Debian).
 #
-# @param interfaces [Array[String]].
+# @param interfaces
 #   Specifies one or more network interfaces for NTP to listen on. Default value: [ ].
 #
-# @param interfaces_ignore [Array[String]]
+# @param interfaces_ignore 
 #   Specifies one or more ignore pattern for the NTP listener configuration (for example: all, wildcard, ipv6). Default value: [ ].
 #
-# @param keys [Array[String]]
+# @param keys
 #   Distributes keys to keys file. Default value: [ ].
 #
-# @param keys_controlkey [Optional. Ntp::Key_id]
+# @param keys_controlkey
 #   Specifies the key identifier to use with the ntpq utility. Value in the range of 1 to 65,534 inclusive. Default value: ' '.
 #
-# @param keys_enable [Boolean]
+# @param keys_enable
 #   Whether to enable key-based authentication. Default value: false.
 #
-# @param keys_file [Stdlib::Absolutepath]
+# @param keys_file
 #   Specifies the complete path and location of the MD5 key file containing the keys and key identifiers used by ntpd, ntpq and ntpdc
 #   when operating with symmetric key cryptography. Default value: `/etc/ntp.keys` (on RedHat and Amazon, `/etc/ntp/keys`).
 #
-# @param keys_requestkey [Optional Ntp::Key_id]
+# @param keys_requestkey
 #   Specifies the key identifier to use with the ntpdc utility program. Value in the range of 1 to 65,534. Default value: ' '.
 #
-# @param keys_trusted [Optional. Array[Ntp::Key_id]]
+# @param keys_trusted
 #   Provides one or more keys to be trusted by NTP. Default value: [ ].
 #
-# @param leapfile [Optional Stdlib::Absolutepath]
+# @param leapfile
 #   Specifies a leap second file for NTP to use. Default value: ' '.
 #
-# @param logfile [Optional Stdlib::Absolutepath]
+# @param logfile
 #   Specifies a log file for NTP to use instead of syslog. Default value: ' '.
 #
-# @param minpoll [Optional Ntp::Poll_interval]
+# @param minpoll
 #   Sets Puppet to non-standard minimal poll interval of upstream servers.
 #   Values: 3 to 16. Default: undef.
 #
-# @param maxpoll [Optional Ntp::Poll_interval]
+# @param maxpoll
 #   Sets use non-standard maximal poll interval of upstream servers.
 #   Values: 3 to 16. Default option: undef, except on FreeBSD (on FreeBSD, defaults to 9).
 #
-# @param ntpsigndsocket [Optional Stdlib::Absolutepath]
+# @param ntpsigndsocket
 #   Sets NTP to sign packets using the socket in the ntpsigndsocket path. Requires NTP to be configured to sign sockets.
 #   Value: Path to the socket directory; for example, for Samba: `usr/local/samba/var/lib/ntp_signd/`. Default value: undef.
 #
-# @param package_ensure [String]
+# @param package_ensure
 #   Whether to install the NTP package, and what version to install. Values: 'present', 'latest', or a specific version number.
 #   Default value: 'present'.
 #
-# @param package_manage [Boolean]
+# @param package_manage
 #   Whether to manage the NTP package. Default value: true.
 #
-# @param package_name [Array[String]]
+# @param package_name
 #   Specifies the NTP package to manage. Default value: ['ntp'] (except on AIX and Solaris).
 #
-# @param panic [Optional Integer[0]]
+# @param panic
 #   Whether NTP should "panic" in the event of a very large clock skew. Applies only if `tinker` option set to true or if your environment
 #   is in a virtual machine. Default value: 0 if environment is virtual, undef in all other cases.
 #
-# @param peers [Array[String]]
+# @param peers
 #   List of NTP servers with which to synchronise the local clock.
 #
-# @param pool [Array[String]]
+# @param pool
 #   List of NTP server pools with which to synchronise the local clock.
 #
-# @param preferred_servers [Array[String]
+# @param preferred_servers
 #   Specifies one or more preferred peers. Puppet appends 'prefer' to each matching item in the `servers` array.
 #   Default value: [ ].
 #
-# @param noselect_servers [Array[String]
+# @param noselect_servers
 #   Specifies one or more peers to not sync with. Puppet appends 'noselect' to each matching item in the `servers` array.
 #   Default value: [ ].
 #
-# @param restrict [Array[String]]
+# @param restrict
 #   Specifies one or more `restrict` options for the NTP configuration.
 #   Puppet prefixes each item with 'restrict', so you need to list only the content of the restriction.
 #   Default value for most operating systems:
@@ -128,69 +128,69 @@
 #   Default value for AIX systems:
 #     '['default nomodify notrap nopeer noquery', '127.0.0.1',]'.
 #
-# @param servers [Array[String]]
+# @param servers
 #   Specifies one or more servers to be used as NTP peers. Default value: varies by operating system.
 #
-# @param service_enable [Boolean]
+# @param service_enable
 #   Whether to enable the NTP service at boot. Default value: true.
 #
-# @param service_ensure [Enum['running', 'stopped']]
+# @param service_ensure
 #   Whether the NTP service should be running. Default value: 'running'.
 #
-# @param service_manage [Boolean]
+# @param service_manage
 #   Whether to manage the NTP service.  Default value: true.
 #
-# @param service_name [String]
+# @param service_name
 #   The NTP service to manage. Default value: varies by operating system.
 #
-# @param service_provider [String]
+# @param service_provider
 #   Which service provider to use for NTP. Default value: 'undef'.
 #
-# @param statistics [Optional Array]
+# @param statistics
 #   List of statistics to have NTP generate and keep. Default value: [ ].
 #
-# @param statsdir [Optional Stdlib::Absolutepath]
+# @param statsdir
 #   Location of the NTP statistics directory on the managed system. Default value: '/var/log/ntpstats'.
 #
-# @param step_tickers_file [Optional Stdlib::Absolutepath]
+# @param step_tickers_file
 #   Location of the step tickers file on the managed system. Default value: varies by operating system.
 #
-# @param step_tickers_epp [Optional String]
+# @param step_tickers_epp
 #   Location of the step tickers EPP template file. Default value: varies by operating system.
 #   Validation error is thrown if both this and the `step_tickers_template` parameters are specified.
 #
-# @param step_tickers_template [Optional String]
+# @param step_tickers_template
 #   Location of the step tickers ERB template file. Default value: varies by operating system.
 #   Validation error is thrown if both this and the `step_tickers_epp` parameter are specified.
 #
-# @param stepout [Optional Integer[0, 65535]].
+# @param stepout
 #   Value for stepout if `tinker` value is true. Valid options: unsigned shortint digit. Default value: undef.
 #
-# @param tos [Boolean]
+# @param tos
 #   Whether to enable tos options. Default value: false.
 #
-# @param tos_minclock [Optional Integer[1]]
+# @param tos_minclock
 #   Specifies the minclock tos option. Default value: 3.
 #
-# @param tos_minsane [Optional Integer[1]]
+# @param tos_minsane
 #   Specifies the minsane tos option. Default value: 1.
 #
-# @param tos_floor [Optional Integer[1]]
+# @param tos_floor
 #   Specifies the floor tos option. Default value: 1.
 #
-# @param tos_ceiling [Optional Integer[1]]
+# @param tos_ceiling
 #   Specifies the ceiling tos option. Default value: 15.
 #
-# @param tos_cohort [Variant Boolean, Integer[0,1]]
+# @param tos_cohort
 #   Specifies the cohort tos option. Valid options: 0 or 1. Default value: 0.
 #
-# @param tinker [Boolean]
+# @param tinker
 #   Whether to enable tinker options. Default value: false.
 #
-# @param udlc [Boolean]
+# @param udlc
 #   Specifies whether to configure NTP to use the undisciplined local clock as a time source. Default value: false.
 #
-# @param udlc_stratum [Optional Integer[1,15]].
+# @param udlc_stratum
 #   Specifies the stratum the server should operate at when using the undisciplined local clock as the time source.
 #   This value should be set to no less than 10 if ntpd might be accessible outside your immediate, controlled network.
 #   Default value: 10.am udlc
