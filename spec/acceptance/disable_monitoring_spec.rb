@@ -7,7 +7,7 @@ config = if fact('osfamily') == 'Solaris'
          end
 
 describe 'ntp class with disable_monitor:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
-  context 'should disable' do
+  context 'with should disable' do
     let(:pp) { "class { 'ntp': disable_monitor => true }" }
 
     it 'runs twice' do
@@ -20,7 +20,7 @@ describe 'ntp class with disable_monitor:', unless: UNSUPPORTED_PLATFORMS.includ
     end
   end
 
-  context 'should not disable' do
+  context 'when enabled' do
     let(:pp) { "class { 'ntp': disable_monitor => false }" }
 
     it 'runs twice' do

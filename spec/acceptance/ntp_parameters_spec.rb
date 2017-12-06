@@ -131,7 +131,7 @@ describe 'ntp class:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) 
   end
 
   describe 'keys' do
-    pp = <<-EOS
+    pp = <<-MANIFEST
     class { 'ntp':
       keys_enable     => true,
       keys_controlkey => 1,
@@ -139,7 +139,7 @@ describe 'ntp class:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) 
       keys_trusted    => [ 1, 2 ],
       keys            => [ '1 M AAAABBBB' ],
     }
-    EOS
+    MANIFEST
 
     it 'enables the key parameters' do
       apply_manifest(pp, catch_failures: true)
@@ -160,12 +160,12 @@ describe 'ntp class:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) 
   end
 
   describe 'package' do
-    pp = <<-EOS
+    pp = <<-MANIFEST
     class { 'ntp':
       package_ensure => present,
       package_name   => #{Array(packagename).inspect},
     }
-    EOS
+    MANIFEST
 
     it 'installs the right package' do
       apply_manifest(pp, catch_failures: true)
@@ -179,11 +179,11 @@ describe 'ntp class:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) 
   end
 
   describe 'panic => 0' do
-    pp = <<-EOS
+    pp = <<-MANIFEST
     class { 'ntp':
       panic => 0,
     }
-    EOS
+    MANIFEST
 
     it 'disables the tinker panic setting' do
       apply_manifest(pp, catch_failures: true)
@@ -195,11 +195,11 @@ describe 'ntp class:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) 
   end
 
   describe 'panic => 1' do
-    pp = <<-EOS
+    pp = <<-MANIFEST
     class { 'ntp':
       panic => 1,
     }
-    EOS
+    MANIFEST
 
     it 'enables the tinker panic setting' do
       apply_manifest(pp, catch_failures: true)

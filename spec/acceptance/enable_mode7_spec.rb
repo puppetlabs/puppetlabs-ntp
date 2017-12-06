@@ -7,7 +7,7 @@ config = if fact('osfamily') == 'Solaris'
          end
 
 describe 'ntp class with enable_mode7:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
-  context 'should enable' do
+  context 'with enable' do
     let(:pp) { "class { 'ntp': enable_mode7 => true }" }
 
     it 'runs twice' do
@@ -20,7 +20,7 @@ describe 'ntp class with enable_mode7:', unless: UNSUPPORTED_PLATFORMS.include?(
     end
   end
 
-  context 'should not enable' do
+  context 'with disable' do
     let(:pp) { "class { 'ntp': enable_mode7 => false }" }
 
     it 'runs twice' do

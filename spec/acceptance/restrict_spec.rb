@@ -7,7 +7,7 @@ config = if fact('osfamily') == 'Solaris'
          end
 
 describe 'ntp class with restrict:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
-  context 'should run successfully' do
+  context 'when running' do
     let(:pp) { "class { 'ntp': restrict => ['test restrict']}" }
 
     it 'runs twice' do
