@@ -7,7 +7,7 @@ config = if fact('osfamily') == 'Solaris'
          end
 
 describe 'ntp class with statistics:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
-  context 'should run successfully' do
+  context 'when successful' do
     let(:pp) { "class { 'ntp': statistics => ['loopstats'], disable_monitor => false}" }
 
     it 'runs twice' do

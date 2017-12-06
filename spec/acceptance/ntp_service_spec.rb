@@ -44,7 +44,7 @@ shared_examples 'running' do
 end
 describe 'service tests' do
   describe 'ntp::service class', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
-    context 'basic test' do
+    context 'with a basic test' do
       it 'sets up the service' do
         apply_manifest(%(
           class { 'ntp': }
@@ -55,14 +55,14 @@ describe 'service tests' do
     end
 
     describe 'service parameters' do
-      pp = <<-EOS
+      pp = <<-MANIFEST
       class { 'ntp':
         service_enable => true,
         service_ensure => running,
         service_manage => true,
         service_name   => '#{servicename}'
       }
-      EOS
+      MANIFEST
       it 'starts the service' do
         apply_manifest(pp, catch_failures: true)
       end
@@ -71,14 +71,14 @@ describe 'service tests' do
   end
 
   describe 'service is unmanaged' do
-    pp = <<-EOS
+    pp = <<-MANIFEST
       class { 'ntp':
         service_enable => false,
         service_ensure => stopped,
         service_manage => false,
         service_name   => '#{servicename}'
       }
-    EOS
+    MANIFEST
     it 'shouldnt stop the service' do
       apply_manifest(pp, catch_failures: true)
     end

@@ -274,7 +274,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
         end
         describe 'with parameter disable_monitor' do
-          context 'default' do
+          context 'when default' do
             let(:params) do
               {
               }
@@ -308,7 +308,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
         end
         describe 'with parameter enable_mode7' do
-          context 'default' do
+          context 'when default' do
             let(:params) do
               {
               }
@@ -835,7 +835,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
         end
 
-        context 'set' do
+        context 'when set' do
           let(:params) do
             {
               pool: %w[foo bar],
@@ -864,7 +864,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
         end
 
-        context 'set' do
+        context 'when set' do
           let(:params) do
             {
               peers: %w[foo bar],

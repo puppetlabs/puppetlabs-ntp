@@ -1,7 +1,7 @@
 require 'spec_helper_acceptance'
 
 describe 'ntp class:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
-  context 'ntp' do
+  context 'with ntp' do
     let(:pp) { "class { 'ntp': }" }
 
     it 'runs successfully - not_to match' do
@@ -23,7 +23,7 @@ describe 'ntp class:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) 
     end
   end
 
-  context 'service_ensure => stopped:' do
+  context 'when service_ensure => stopped:' do
     let(:pp) { "class { 'ntp': service_ensure => stopped }" }
 
     it 'runs successfully - not_to match' do
@@ -33,7 +33,7 @@ describe 'ntp class:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) 
     end
   end
 
-  context 'service_ensure => running:' do
+  context 'when service_ensure => running:' do
     it 'runs successfully - not_to match' do
       pp = "class { 'ntp': service_ensure => running }"
 

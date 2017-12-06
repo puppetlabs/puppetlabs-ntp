@@ -7,12 +7,12 @@ config = if fact('osfamily') == 'Solaris'
          end
 
 describe 'noselect servers', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
-  pp = <<-EOS
+  pp = <<-MANIFEST
     class { '::ntp':
       servers          => ['a', 'b', 'c', 'd'],
       noselect_servers => ['c', 'd'],
     }
-  EOS
+  MANIFEST
 
   it 'applies cleanly' do
     apply_manifest(pp, catch_failures: true) do |r|
