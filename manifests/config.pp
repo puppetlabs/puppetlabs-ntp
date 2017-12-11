@@ -1,6 +1,6 @@
 # @api private
 # This class handles the configuration file. Avoid modifying private classes.
-class ntp::config inherits ntp {
+class ntp::config {
 
   #The servers-netconfig file overrides NTP config on SLES 12, interfering with our configuration.
   if ($facts['operatingsystem'] == 'SLES' and $facts['operatingsystemmajrelease'] == '12') or
