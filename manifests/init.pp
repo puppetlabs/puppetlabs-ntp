@@ -146,6 +146,10 @@
 # @param service_provider
 #   Which service provider to use for NTP. Default value: 'undef'.
 #
+# @param slewalways
+#   xntpd setting to disable stepping behavior and always slew the clock to handle adjustments. 
+#   Only relevant for AIX. Default value: 'undef'. Allowed values: 'yes', 'no'
+#
 # @param statistics
 #   List of statistics to have NTP generate and keep. Default value: [ ].
 #
@@ -237,6 +241,7 @@ class ntp (
   Boolean $service_manage,
   String $service_name,
   Optional[String] $service_provider,
+  Optional[Enum['yes','no']] $slewalways,
   Optional[Array] $statistics,
   Optional[Stdlib::Absolutepath] $statsdir,
   Optional[Integer[0, 65535]] $stepout,
