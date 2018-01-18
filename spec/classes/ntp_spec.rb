@@ -438,6 +438,44 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             }
           end
         end
+
+        describe 'slewalways' do
+          context 'when absent' do
+            if f[:kernel] == 'AIX'
+              it 'on AIX does contain "slewalways no"' do
+                is_expected.to contain_file('/etc/ntp.conf').with_content(%r{^slewalways no})
+              end
+            else
+              it 'on non-AIX does not contain a slewalways' do
+                is_expected.to contain_file('/etc/ntp.conf').without_content(%r{^slewalways})
+              end
+            end
+          end
+
+          context 'when "no"' do
+            let(:params) do
+              {
+                slewalways: 'no',
+              }
+            end
+
+            it 'does contain "slewalways no"' do
+              is_expected.to contain_file('/etc/ntp.conf').with_content(%r{^slewalways no})
+            end
+          end
+
+          context 'when "yes"' do
+            let(:params) do
+              {
+                slewalways: 'yes',
+              }
+            end
+
+            it 'does contain "slewalways yes"' do
+              is_expected.to contain_file('/etc/ntp.conf').with_content(%r{^slewalways yes})
+            end
+          end
+        end
       end
 
       describe 'ntp::install' do

@@ -501,6 +501,15 @@ Which service provider to use for NTP.
 
 Default value: `undef`.
 
+#### `slewalways`
+
+Data type: Enum['no','yes'].
+
+xntpd setting to disable stepping behavior and always slew the clock to handle adjustments.
+Only relevant on platforms that run xntpd, like AIX, and should be left `undef` on other platforms.
+
+Default value: varies by operating system. 
+
 #### `statistics`
 
 Data type: Array.
