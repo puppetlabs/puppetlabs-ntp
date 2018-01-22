@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org).
 
+## Supported Release 7.1.0
+### Summary
+This release uses the PDK convert functionality which in return makes the module PDK compliant. It also includes one feature and a roll up of maintenance changes.
+
+### Added
+- PDK convert ntp ([MODULES-6326](https://tickets.puppet.com/browse/MODULES-6326)).
+- Create parameter for slewalways to be exposed in the ntp.conf template.
+
+### Fixed
+- `is_virtual` fact is boolean and cant be given to str2bool.
+- Don't use 'inherits' in config, install and service.
+- Roll up of modulesync changes.
+- Make documentation more readable.
+- Fix up rubocop errors ([FM-6634](https://tickets.puppet.com/browse/FM-6634)).
+- Strip data types out of puppet-strings comments.
+
 ## Supported Release 7.0.0
 ### Summary
 Hiera 5 only works with Puppet 4.9.4 and above, we have bumped the Puppet requirement for the module accordingly.
