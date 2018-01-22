@@ -8,7 +8,10 @@
   "project_page": "https://github.com/puppetlabs/puppetlabs-ntp",
   "issues_url": "https://tickets.puppetlabs.com/browse/MODULES",
   "dependencies": [
-    { "name":"puppetlabs/stdlib","version_requirement":">= 4.13.1 < 5.0.0" }
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.13.1 < 5.0.0"
+    }
   ],
   "operatingsystem_support": [
     {
@@ -104,5 +107,7 @@
       "version_requirement": ">= 4.9.4 < 6.0.0"
     }
   ],
-  "description": "NTP Module for Debian, Ubuntu, CentOS, RHEL, OEL, Fedora, FreeBSD, ArchLinux, Amazon Linux and Gentoo."
+  "description": "NTP Module for Debian, Ubuntu, CentOS, RHEL, OEL, Fedora, FreeBSD, ArchLinux, Amazon Linux and Gentoo.",
+  "template-url": "file:///opt/puppetlabs/pdk/share/cache/pdk-templates.git",
+  "template-ref": "1.3.2-0-g07678c8"
 }
