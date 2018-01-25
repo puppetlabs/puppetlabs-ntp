@@ -505,8 +505,9 @@ Default value: `undef`.
 
 Data type: Enum['no','yes'].
 
-xntpd setting to disable stepping behavior and always slew the clock to handle adjustments.
-Only relevant on platforms that run xntpd, like AIX, and should be left `undef` on other platforms.
+Whether to set `xntpd` to disable stepping behavior and always slew (gradually adjust) the clock.
+
+Applies only to platforms that run `xntpd`, such as AIX. Do not specify this setting on other platforms.
 
 Default value: varies by operating system. 
 
