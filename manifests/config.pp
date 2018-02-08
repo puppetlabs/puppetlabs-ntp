@@ -96,10 +96,8 @@ class ntp::config {
     }
 
     #remove dhclient ntp script which modifies ntp.conf on RHEL and Amazon Linux
-    #backup created in case admin wants to revert back to dhclient
     file { '/etc/dhcp/dhclient.d/ntp.sh':
       ensure => absent,
-      backup => true,
     }
   }
 }
