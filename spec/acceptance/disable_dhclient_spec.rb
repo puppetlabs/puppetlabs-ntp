@@ -18,11 +18,11 @@ describe 'ntp class with disable_dhclient:', unless: UNSUPPORTED_PLATFORMS.inclu
     end
 
     it do
-      is_expected.not_to contain_file(ntp_sh.to_s)
+      is_expected.to contain_file(ntp_sh.to_s).with(ensure => 'absent')
     end
 
     it do
-      is_expected.not_to contain_file(ntp_conf_dhcp.to_s)
+      is_expected.to contain_file(ntp_conf_dhcp.to_s).with(ensure => 'absent')
     end
   end
 
