@@ -18,6 +18,7 @@ describe 'ntp class with disable_monitor:', unless: UNSUPPORTED_PLATFORMS.includ
     describe file(config.to_s) do
       its(:content) { is_expected.to match('disable monitor') }
     end
+  end
 
   context 'when enabled' do
     let(:pp) { "class { 'ntp': disable_monitor => false }" }
