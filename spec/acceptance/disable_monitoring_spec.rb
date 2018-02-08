@@ -20,10 +20,11 @@ describe 'ntp class with disable_monitor:', unless: UNSUPPORTED_PLATFORMS.includ
     end
 
     it {
-      should contain_file('/etc/dhcp/dhclient.d/ntp.sh').with({
+      should contain_file('/etc/dhcp/dhclient.d/ntp.sh')
+      .with(
         'ensure' => 'absent',
         'backup' => 'true',
-        })
+      )
     }
   end
 
