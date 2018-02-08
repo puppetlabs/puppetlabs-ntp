@@ -22,6 +22,7 @@ describe 'ntp class with disable_dhclient:', unless: UNSUPPORTED_PLATFORMS.inclu
         'ensure' => 'absent',
       )
     }
+  end
 
   context 'when enabled' do
     let(:pp) { "class { 'ntp': disable_dhclient => false }" }
