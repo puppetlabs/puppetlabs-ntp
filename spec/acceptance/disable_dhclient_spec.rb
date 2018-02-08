@@ -17,10 +17,10 @@ describe 'ntp class with disable_dhclient:', unless: UNSUPPORTED_PLATFORMS.inclu
       its(:content) { is_expected.not_to match('ntp-servers') }
     end
 
-    it do { is_expected.to contain_file(ntp_sh.to_s).with('ensure' => 'absent') }
+    it do is_expected.to contain_file(ntp_sh.to_s).with('ensure' => 'absent')
     end
 
-    it do { is_expected.to contain_file(ntp_conf_dhcp.to_s).with('ensure' => 'absent') }
+    it do is_expected.to contain_file(ntp_conf_dhcp.to_s).with('ensure' => 'absent')
     end
   end
 
