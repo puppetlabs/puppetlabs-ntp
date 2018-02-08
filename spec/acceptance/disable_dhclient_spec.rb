@@ -25,9 +25,7 @@ describe 'ntp class with disable_dhclient:', unless: UNSUPPORTED_PLATFORMS.inclu
       it { is_expected.to contain_file(ntp_conf_dhcp.to_s).with('ensure' => 'absent') }
     end
   end
-end
 
-describe 'ntp class without disable_dhclient:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   context 'with should not disable' do
     let(:pp) { "class { 'ntp': disable_dhclient => false }" }
 
