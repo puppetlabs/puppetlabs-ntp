@@ -5,7 +5,7 @@ ntp_conf_dhcp = '/var/lib/ntp/ntp.conf.dhcp'
 dhclient_conf = '/files/etc/dhcp/dhclient.conf'
 
 describe 'ntp class with disable_dhclient:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
-  context 'with should disable' do
+  context 'with disable_dhclient => true' do
     let(:pp) { "class { 'ntp': disable_dhclient => true }" }
 
     it 'runs twice' do
@@ -18,15 +18,15 @@ describe 'ntp class with disable_dhclient:', unless: UNSUPPORTED_PLATFORMS.inclu
     end
 
     it do
-      is_expected.to contain_file(ntp_sh.to_s).with('ensure' => 'absent')
+      is_expected.not_to contain_file(ntp_sh.to_s)
     end
 
     it do
-      is_expected.to contain_file(ntp_conf_dhcp.to_s).with('ensure' => 'absent')
+      is_expected.not_to contain_file(ntp_conf_dhcp.to_s)
     end
   end
 
-  context 'with should not disable' do
+  context 'with disable_dhclient => false' do
     let(:pp) { "class { 'ntp': disable_dhclient => false }" }
 
     it 'runs twice' do
