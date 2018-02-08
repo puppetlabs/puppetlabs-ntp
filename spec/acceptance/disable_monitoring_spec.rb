@@ -18,6 +18,13 @@ describe 'ntp class with disable_monitor:', unless: UNSUPPORTED_PLATFORMS.includ
     describe file(config.to_s) do
       its(:content) { is_expected.to match('disable monitor') }
     end
+
+    it {
+      should contain_file('/etc/dhcp/dhclient.d/ntp.sh').with({
+        'ensure' => 'absent',
+        'backup' => 'true',
+        })
+    }
   end
 
   context 'when enabled' do
