@@ -20,7 +20,7 @@ describe 'ntp class with disable_dhclient:', unless: UNSUPPORTED_PLATFORMS.inclu
       )
     }
     it { is_expected.to contain_file('/var/lib/ntp/ntp.conf.dhcp').with('ensure' => 'absent') }
-  end
+
   context 'when enabled' do
     let(:pp) { "class { 'ntp': disable_dhclient => false }" }
 
