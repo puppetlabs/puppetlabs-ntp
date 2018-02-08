@@ -34,8 +34,5 @@ describe 'ntp class with disable_dhclient:', unless: UNSUPPORTED_PLATFORMS.inclu
       apply_manifest(pp, catch_changes: true)
     end
 
-    describe file(dhclient_conf.to_s) do
-      its(:content) { is_expected.to match('ntp-servers') }
-    end
   end
 end
