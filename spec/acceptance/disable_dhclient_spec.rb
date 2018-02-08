@@ -13,16 +13,14 @@ describe 'ntp class with disable_dhclient:', unless: UNSUPPORTED_PLATFORMS.inclu
       its(:content) { is_expected.not_to match('ntp-servers') }
     end
 
-    it { is_expected.to contain_file('/etc/dhcp/dhclient.d/ntp.sh').with(
+    it { is_expected.to
+      contain_file('/etc/dhcp/dhclient.d/ntp.sh').with(
         'ensure' => 'absent',
         'backup' => 'true',
       )
     }
-
-    it { is_expected.to contain_file('/var/lib/ntp/ntp.conf.dhcp').with( 'ensure' => 'absent', ) }
-
+    it { is_expected.to contain_file('/var/lib/ntp/ntp.conf.dhcp').with('ensure' => 'absent') }
   end
-
   context 'when enabled' do
     let(:pp) { "class { 'ntp': disable_dhclient => false }" }
 
@@ -30,11 +28,8 @@ describe 'ntp class with disable_dhclient:', unless: UNSUPPORTED_PLATFORMS.inclu
       apply_manifest(pp, catch_failures: true)
       apply_manifest(pp, catch_changes: true)
     end
-
     describe file('/files/etc/dhcp/dhclient.conf') do
       its(:content) { is_expected.to match('ntp-servers') }
     end
-
   end
-
 end
