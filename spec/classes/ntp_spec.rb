@@ -233,6 +233,9 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             it 'contains dhcp file' do
               is_expected.to contain_file('/var/lib/ntp/ntp.conf.dhcp').with_ensure('absent')
             end
+            it 'contains ntp.sh file' do
+              is_expected.to contain_file('/etc/dhcp/dhclient.d/ntp.sh').with_ensure('absent')
+            end
           end
           context 'when set to false' do
             let(:params) do
