@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org).
 
+## Supported Release 7.1.1
+### Summary
+This release includes updates Japanese translations.
+
+### Added
+- Updating translations for readmes/README_ja_JP.md
+
 ## Supported Release 7.1.0
 ### Summary
 This release uses the PDK convert functionality which in return makes the module PDK compliant. It also includes one feature and a roll up of maintenance changes.
