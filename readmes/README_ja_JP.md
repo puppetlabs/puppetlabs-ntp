@@ -19,28 +19,28 @@
 
 ### ntpモジュールの利用方法
 
-`include '::ntp'` と記述するだけで利用可能です。参照するNTPサーバは、以下のようにパラメータで指定します。
+`include ntp`と記述するだけで利用可能です。参照するNTPサーバは、以下のようにパラメータで指定します。
 
 ```puppet
-class { '::ntp':
+class { 'ntp':
   servers => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
 }
 ```
 
 ## 利用例
 
-ntpモジュールのすべてのパラメータは、メインクラスである `::ntp` クラスに含まれているため、ntpモジュールで利用可能な全てのオプションを自由に設定できます。以下にユースケースを示します。
+ntpモジュールのすべてのパラメータは、メインクラスである`ntp`クラスに含まれているため、ntpモジュールで利用可能な全てのオプションを自由に設定できます。以下にユースケースを示します。
 
 ### NTPをインストールして有効にする
 
 ```puppet
-include '::ntp'
+include ntp
 ```
 
 ### NTPサーバを変更する
 
 ```puppet
-class { '::ntp':
+class { 'ntp':
   servers => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
 }
 ```
@@ -48,7 +48,7 @@ class { '::ntp':
 ### 接続可能ユーザ数を制限する
 
 ```puppet
-class { '::ntp':
+class { 'ntp':
   servers  => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
   restrict => ['127.0.0.1'],
 }
@@ -57,7 +57,7 @@ class { '::ntp':
 ### 参照不可のNTPクライアントをインストールする
 
 ```puppet
-class { '::ntp':
+class { 'ntp':
   servers   => ['ntp1.corp.com', 'ntp2.corp.com'],
   restrict  => [
     'default ignore',
@@ -75,7 +75,7 @@ class { '::ntp':
 Openstackノードには多数の仮想インターフェイスが存在する場合があるため、NTPサーバでLISTENするインターフェイスを特定のインターフェイスに制限するのは有効な手段です。
 
 ```puppet
-class { '::ntp':
+class { 'ntp':
   servers  => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
   interfaces => ['127.0.0.1', '1.2.3.4']
 }
@@ -84,7 +84,7 @@ class { '::ntp':
 ### Puppetによるサービスの制御を中止する
 
 ```puppet
-class { '::ntp':
+class { 'ntp':
   servers        => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
   restrict       => ['127.0.0.1'],
   service_manage => false,
@@ -94,7 +94,7 @@ class { '::ntp':
 ### ntpパッケージはインストールせず、設定とサービス起動のみ実行する
 
 ```puppet
-class { '::ntp':
+class { 'ntp':
   package_manage => false,
 }
 ```
@@ -102,7 +102,7 @@ class { '::ntp':
 ### カスタムテンプレートにパラメータを渡す
 
 ```puppet
-class { '::ntp':
+class { 'ntp':
   servers         => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
   restrict        => ['127.0.0.1'],
   service_manage  => false,
@@ -126,7 +126,7 @@ class { '::ntp':
 
 ### パラメータ
 
-`::ntp` クラスでは、以下のパラメータを使用できます。
+`ntp`クラスでは、以下のパラメータを使用できます。
 
 #### `authprov`
 
@@ -385,7 +385,7 @@ NTPパッケージを管理するかどうか指定します。
 
 データタイプ: 配列[文字列]
 
-管理するNTPパッケージを指定します。 
+管理するNTPパッケージを指定します。
 
 デフォルト値: ['ntp'] (AIX: 'bos.net.tcp.client'、Solaris: [ 'SUNWntp4r'、'SUNWntp4u' ])
 
@@ -424,7 +424,7 @@ NTPパッケージを管理するかどうか指定します。
 
 #### `noselect_servers`
 
-配列[文字列]で、同期させない1つ以上のピアを指定します。Puppetによって`servers`配列内の一致する項目の最後に'noselect'が追加されます。デフォルト値: [ ]     
+配列[文字列]で、同期させない1つ以上のピアを指定します。Puppetによって`servers`配列内の一致する項目の最後に'noselect'が追加されます。デフォルト値: [ ]
 
 #### `restrict`
 
@@ -500,6 +500,16 @@ NTPサービスを管理するかどうか指定します。
 NTPに使用するサービスプロバイダ
 
 デフォルト値: `undef`
+
+#### `slewalways`
+
+データタイプ: Enum['no'、'yes']
+
+step動作を無効にし常にslewモードで徐々に時計を合わせるよう`xntpd`を設定するかどうかを指定します。
+
+AIXといった`xntpd`を実行するプラットフォームにのみ適用し、その他のプラットフォームにこの設定を指定しないようにしてください。
+
+デフォルト値: オペレーティングシステムによって異なります。 
 
 #### `statistics`
 
