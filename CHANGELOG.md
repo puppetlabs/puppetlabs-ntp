@@ -5,7 +5,7 @@ and this project adheres to [Semantic Versioning](http://semver.org).
 
 ## Supported Release 7.1.1
 ### Summary
-This release includes updates Japanese translations.
+This release includes updated Japanese translations.
 
 ### Added
 - Updating translations for readmes/README_ja_JP.md
