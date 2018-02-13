@@ -134,13 +134,13 @@ leapfile <%= $ntp::leapfile %>
 <%# -%>
 <% if $ntp::tos {-%>
 tos <% if $ntp::tos_minclock {-%> minclock <%= $ntp::tos_minclock %><% } %> <% if $ntp::tos_maxclock {-%> maxclock <%= $ntp::tos_maxclock %><% } %> <% if $ntp::tos_minsane {-%> minsane <%= $ntp::tos_minsane %><% } %> <% if $ntp::tos_floor {-%> floor <%= $ntp::tos_floor %><% } %> <% if $ntp::tos_ceiling {-%> ceiling <%= $ntp::tos_ceiling %><% } %> <% if $ntp::tos_cohort {-%> cohort <%= $ntp::tos_cohort %><% } %>
-<% } %>
+<% } -%>
 <%# -%>
 <% if $ntp::authprov {-%>
 authprov <%= $ntp::authprov %>
 <% } -%>
-
+<%# -%>
 <% if $ntp::slewalways {-%>
+
 slewalways <%= $ntp::slewalways -%>
 <% } -%>
-
