@@ -635,6 +635,16 @@ Specifies the cohort tos option. Valid options: 0 or 1.
 
 Default value: 0.
 
+#### `tos_orphan`
+
+Optional.
+
+Data type: Integer[1].
+
+Enables orphan mode at stated stratum level. The recommended value for tos\_orphan is 2 more than the worst-case externally-reachable source of time.
+Participing ntpd instances must be in a mesh with each others (e.g. peers).
+[ntp.org](http://support.ntp.org/bin/view/Support/OrphanMode)
+
 #### `tinker`
 
 Data type: Boolean.

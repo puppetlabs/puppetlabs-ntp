@@ -101,6 +101,10 @@ ntpsigndsocket <%= $ntp::ntpsigndsocket %>
 <% $ntp::peers.each |$peer| {-%>
 peer <%= $peer %>
 <% } -%>
+# Enable peer group orphan mode?
+<% if $ntp::tos_orphan {-%>
+tos orphan <%= $ntp::tos_orphan %>
+<% } -%>
 <% } -%>
 <% unless $ntp::pool.empty {-%>
 
