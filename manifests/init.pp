@@ -109,6 +109,10 @@
 # @param peers
 #   List of NTP servers with which to synchronise the local clock.
 #
+# @param tos_orphan
+#   Enables Orphan mode for peer group
+#   Value: Should be set to 2 more than the worst-case externally-reachable source's stratum.
+#
 # @param pool
 #   List of NTP server pools with which to synchronise the local clock.
 #
@@ -255,6 +259,7 @@ class ntp (
   Optional[Integer[1]] $tos_minsane,
   Optional[Integer[1]] $tos_floor,
   Optional[Integer[1]] $tos_ceiling,
+  Optional[Integer[1]] $tos_orphan,
   Variant[Boolean, Integer[0,1]] $tos_cohort,
   Boolean $udlc,
   Optional[Integer[1,15]] $udlc_stratum,
