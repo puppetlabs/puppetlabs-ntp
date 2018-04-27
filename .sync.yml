@@ -1,30 +1,13 @@
 ---
-appveyor.yml:
-  environment:
-  PUPPET_GEM_VERSION: "~> 4.0"
-  matrix:
-    - RUBY_VERSION: 24-x64
-      CHECK: "syntax lint"
-    - RUBY_VERSION: 24-x64
-      CHECK: metadata_lint
-    - RUBY_VERSION: 24-x64
-      CHECK: rubocop
-
 .travis.yml:
-  bundle_args: --without system_tests
   docker_sets:
     - set: docker/centos-7
-      options:
     - set: docker/ubuntu-14.04
-      options:
   docker_defaults:
     bundler_args: ""
   secure: ""
   branches:
     - release
-  extras:
-    - rvm: 2.1.9
-      script: "\"bundle exec rake release_checks\""
 
 Gemfile:
   required:
@@ -47,14 +30,6 @@ Gemfile:
         from_env: BEAKER_HOSTGENERATOR_VERSION
       - gem: beaker-rspec
         from_env: BEAKER_RSPEC_VERSION
-    ':development':
-      - gem: puppet-blacksmith
-        version: '~> 3.4'
 
-Rakefile:
-  requires:
-    - puppet_blacksmith/rake_tasks
-
-spec/spec_helper.rb:
-  spec_overrides:
-    -  "require 'spec_helper_local'"
+appveyor.yml:
+  delete: true
