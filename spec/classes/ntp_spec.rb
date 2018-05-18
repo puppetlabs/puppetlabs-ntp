@@ -90,8 +90,8 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           context 'when set' do
             let(:params) do
               {
-                servers: %w[a b c d],
-                preferred_servers: %w[a b],
+                servers: ['a', 'b', 'c', 'd'],
+                preferred_servers: ['a', 'b'],
                 iburst_enable: false,
               }
             end
@@ -103,7 +103,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           context 'when not set' do
             let(:params) do
               {
-                servers: %w[a b c d],
+                servers: ['a', 'b', 'c', 'd'],
                 preferred_servers: [],
               }
             end
@@ -118,8 +118,8 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           context 'when set' do
             let(:params) do
               {
-                servers: %w[a b c d],
-                noselect_servers: %w[a b],
+                servers: ['a', 'b', 'c', 'd'],
+                noselect_servers: ['a', 'b'],
                 iburst_enable: false,
               }
             end
@@ -131,7 +131,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           context 'when not set' do
             let(:params) do
               {
-                servers: %w[a b c d],
+                servers: ['a', 'b', 'c', 'd'],
                 noselect_servers: [],
               }
             end
@@ -145,7 +145,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           context 'when set' do
             let(:params) do
               {
-                servers: %w[a b c d],
+                servers: ['a', 'b', 'c', 'd'],
                 interfaces: ['127.0.0.1', 'a.b.c.d'],
               }
             end
@@ -157,7 +157,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           context 'when not set' do
             let(:params) do
               {
-                servers: %w[a b c d],
+                servers: ['a', 'b', 'c', 'd'],
               }
             end
 
@@ -172,7 +172,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             let(:params) do
               {
                 interfaces: ['a.b.c.d'],
-                interfaces_ignore: %w[wildcard ipv6],
+                interfaces_ignore: ['wildcard', 'ipv6'],
               }
             end
 
@@ -184,7 +184,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             let(:params) do
               {
                 interfaces: ['127.0.0.1'],
-                servers: %w[a b c d],
+                servers: ['a', 'b', 'c', 'd'],
               }
             end
 
@@ -733,7 +733,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
         context 'when set to true' do
           let(:params) do
             {
-              servers: %w[a b c d],
+              servers: ['a', 'b', 'c', 'd'],
               leapfile: '/etc/leap-seconds.3629404800',
             }
           end
@@ -746,7 +746,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
         context 'when set to false' do
           let(:params) do
             {
-              servers: %w[a b c d],
+              servers: ['a', 'b', 'c', 'd'],
             }
           end
 
@@ -760,7 +760,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
         context 'when set to true' do
           let(:params) do
             {
-              servers: %w[a b c d],
+              servers: ['a', 'b', 'c', 'd'],
               logfile: '/var/log/foobar.log',
             }
           end
@@ -773,7 +773,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
         context 'when set to false' do
           let(:params) do
             {
-              servers: %w[a b c d],
+              servers: ['a', 'b', 'c', 'd'],
             }
           end
 
@@ -787,7 +787,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
         context 'when set to true' do
           let(:params) do
             {
-              servers: %w[a b c d],
+              servers: ['a', 'b', 'c', 'd'],
               ntpsigndsocket: '/usr/local/samba/var/lib/ntp_signd',
             }
           end
@@ -800,7 +800,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
         context 'when set to false' do
           let(:params) do
             {
-              servers: %w[a b c d],
+              servers: ['a', 'b', 'c', 'd'],
             }
           end
 
@@ -814,7 +814,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
         context 'when set to true' do
           let(:params) do
             {
-              servers: %w[a b c d],
+              servers: ['a', 'b', 'c', 'd'],
               authprov: '/opt/novell/xad/lib64/libw32time.so 131072:4294967295 global',
             }
           end
@@ -827,7 +827,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
         context 'when set to false' do
           let(:params) do
             {
-              servers: %w[a b c d],
+              servers: ['a', 'b', 'c', 'd'],
             }
           end
 
@@ -879,7 +879,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
         context 'when set' do
           let(:params) do
             {
-              pool: %w[foo bar],
+              pool: ['foo', 'bar'],
             }
           end
 
@@ -908,7 +908,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
         context 'when set' do
           let(:params) do
             {
-              peers: %w[foo bar],
+              peers: ['foo', 'bar'],
             }
           end
 
