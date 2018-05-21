@@ -17,7 +17,7 @@ when 'AIX'
 when 'Solaris'
   case fact('kernelrelease')
   when '5.10'
-    packagename = ['SUNWntp4r', 'SUNWntp4u']
+    packagename = %w[SUNWntp4r SUNWntp4u]
   when '5.11'
     packagename = 'service/network/ntp'
   end
