@@ -398,20 +398,11 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
         context 'when choosing the default pool servers' do
           case f[:os]['family']
           when 'RedHat'
-            if f[:os]['name'] == 'Fedora'
-              it 'uses the fedora ntp servers' do
-                is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{server \d.fedora.pool.ntp.org})
-              end
-              it do
-                is_expected.to contain_file('/etc/ntp/step-tickers').with('content' => %r{\d.fedora.pool.ntp.org})
-              end
-            else
-              it 'uses the centos ntp servers' do
-                is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{server \d.centos.pool.ntp.org})
-              end
-              it do
-                is_expected.to contain_file('/etc/ntp/step-tickers').with('content' => %r{\d.centos.pool.ntp.org})
-              end
+            it 'uses the centos ntp servers' do
+              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{server \d.centos.pool.ntp.org})
+            end
+            it do
+              is_expected.to contain_file('/etc/ntp/step-tickers').with('content' => %r{\d.centos.pool.ntp.org})
             end
           when 'Debian'
             it 'uses the debian ntp servers' do
