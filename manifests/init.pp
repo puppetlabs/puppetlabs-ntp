@@ -180,6 +180,9 @@
 # @param tos_minclock
 #   Specifies the minclock tos option. Default value: 3.
 #
+# @param tos_maxclock
+#   Specifies the maxclock tos option. Default value: 6.
+#
 # @param tos_minsane
 #   Specifies the minsane tos option. Default value: 1.
 #

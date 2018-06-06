@@ -1,5 +1,8 @@
+# @summary
+#   This class handles ntp packages.
+#
 # @api private
-# This class handles ntp packages. Avoid modifying private classes.
+#
 class ntp::install {
 
   if $ntp::package_manage {

@@ -1,5 +1,8 @@
+# @summary
+#   This class handles the ntp service.
+#
 # @api private
-# This class handles the ntp service. Avoid modifying private classes.
+#
 class ntp::service {
 
   if $ntp::service_manage == true {
