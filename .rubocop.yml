@@ -82,6 +82,8 @@ Style/StringMethods:
   Enabled: true
 Layout/EndOfLine:
   Enabled: false
+Layout/IndentHeredoc:
+  Enabled: false
 Metrics/AbcSize:
   Enabled: false
 Metrics/BlockLength:
