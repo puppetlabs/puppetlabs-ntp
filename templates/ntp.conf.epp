@@ -62,13 +62,14 @@ broadcastclient
 
 # Set up servers for ntpd with next options:
 # server - IP address or DNS name of upstream NTP server
+# burst - send a burst of eight packets instead of the usual one.
 # iburst - allow send sync packages faster if upstream unavailable
 # prefer - select preferrable server
 # minpoll - set minimal update frequency
 # maxpoll - set maximal update frequency
 # noselect - do not sync with this server
 <% $ntp::servers.each |$server| {-%>
-server <%= $server %><% if $ntp::iburst_enable == true {%> iburst<% } %><% if ($ntp::preferred_servers).member($server) { %> prefer<% } %><% if $ntp::minpoll { %> minpoll <%= $ntp::minpoll %><% } %><% if $ntp::maxpoll { %> maxpoll <%= $ntp::maxpoll %><% } %><% if ($ntp::noselect_servers).member($server) { %> noselect<% } %>
+server <%= $server %><% if $ntp::iburst_enable == true {%> iburst<% } %><% if ($ntp::preferred_servers).member($server) { %> prefer<% } %><% if $ntp::burst == true {%> burst<% } %><% if $ntp::minpoll { %> minpoll <%= $ntp::minpoll %><% } %><% if $ntp::maxpoll { %> maxpoll <%= $ntp::maxpoll %><% } %><% if ($ntp::noselect_servers).member($server) { %> noselect<% } %>
 <% } -%>
 <%# -%>
 <% if $ntp::udlc {-%>

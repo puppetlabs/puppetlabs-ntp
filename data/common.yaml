@@ -1,6 +1,7 @@
 ---
 ntp::authprov: ~
 ntp::broadcastclient: false
+ntp::burst: false
 ntp::config_dir: ~
 ntp::config_file_mode: '0644'
 ntp::config: '/etc/ntp.conf'
