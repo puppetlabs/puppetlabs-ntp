@@ -118,6 +118,8 @@ See [REFERENCE.md](REFERENCE.md)
 
 This module has been tested on [all PE-supported platforms](https://forge.puppetlabs.com/supported#compat-matrix). Additionally, it is tested (but not supported) on Solaris 10 and Fedora 20-22.
 
+For an extensive list of supported operating systems, see [metadata.json](https://github.com/puppetlabs/puppetlabs-ntp/blob/master/metadata.json)
+
 ## Development
 
 Puppet modules on the Puppet Forge are open projects, and community contributions are essential for keeping them great. Please follow our guidelines when contributing changes.
