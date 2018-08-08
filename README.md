@@ -17,7 +17,7 @@ The ntp module installs, configures, and manages the NTP service across a range 
 
 ## Setup
 
-### Beginning with ntp
+### Begining with ntp
 
 `include ntp` is enough to get you up and running. To pass in parameters specifying which servers to use:
 
