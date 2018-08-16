@@ -8,6 +8,9 @@
 # @param broadcastclient
 #   Enables reception of broadcast server messages to any local interface. Default value: false.
 #
+# @param burst
+#   When the server is reachable, send a burst of eight packets instead of the usual one. Default value: false.
+#
 # @param config
 #   Specifies a file for NTP's configuration info. Default value: '/etc/ntp.conf' (or '/etc/inet/ntp.conf' on Solaris).
 #
@@ -52,7 +55,7 @@
 # @param interfaces
 #   Specifies one or more network interfaces for NTP to listen on. Default value: [ ].
 #
-# @param interfaces_ignore 
+# @param interfaces_ignore
 #   Specifies one or more ignore pattern for the NTP listener configuration (for example: all, wildcard, ipv6). Default value: [ ].
 #
 # @param keys
@@ -151,7 +154,7 @@
 #   Which service provider to use for NTP. Default value: 'undef'.
 #
 # @param slewalways
-#   xntpd setting to disable stepping behavior and always slew the clock to handle adjustments. 
+#   xntpd setting to disable stepping behavior and always slew the clock to handle adjustments.
 #   Only relevant for AIX. Default value: 'undef'. Allowed values: 'yes', 'no'
 #
 # @param statistics
@@ -208,6 +211,7 @@
 #
 class ntp (
   Boolean $broadcastclient,
+  Boolean $burst,
   Stdlib::Absolutepath $config,
   Optional[Stdlib::Absolutepath] $config_dir,
   String $config_file_mode,

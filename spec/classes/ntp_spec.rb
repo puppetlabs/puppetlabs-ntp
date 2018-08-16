@@ -395,6 +395,32 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
         end
 
+        describe 'with parameter burst' do
+          context 'when set to true' do
+            let(:params) do
+              {
+                burst: true,
+              }
+            end
+
+            it do
+              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{ burst\n})
+            end
+          end
+
+          context 'when set to false' do
+            let(:params) do
+              {
+                burst: false,
+              }
+            end
+
+            it do
+              is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{ burst\n})
+            end
+          end
+        end
+
         context 'when choosing the default pool servers' do
           case f[:os]['family']
           when 'RedHat'
