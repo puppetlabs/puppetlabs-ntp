@@ -110,6 +110,15 @@ class { 'ntp':
 }
 ```
 
+### Connect to an NTP server with the burst option enabled
+
+```puppet
+class { 'ntp':
+  servers => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
+  burst  => true,
+}
+```
+
 ## Reference
 
 See [REFERENCE.md](REFERENCE.md)
