@@ -1,6 +1,7 @@
 fixtures:
   repositories:
     "stdlib": "https://github.com/puppetlabs/puppetlabs-stdlib.git"
+    "augeas_core": "https://github.com/puppetlabs/puppetlabs-augeas_core.git"
   symlinks:
     "ntp": "#{source_dir}"
     "my_ntp": "#{source_dir}/spec/fixtures/my_ntp"
