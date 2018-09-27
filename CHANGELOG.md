@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [7.3.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/7.3.0) (2018-09-27)
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/7.2.0...7.3.0)
+
+### Added
+
+- pdksync - \(MODULES-6805\) metadata.json shows support for puppet 6 [\#484](https://github.com/puppetlabs/puppetlabs-ntp/pull/484) ([tphoney](https://github.com/tphoney))
+- Add burst param [\#476](https://github.com/puppetlabs/puppetlabs-ntp/pull/476) ([kobybr](https://github.com/kobybr))
+- \(MODULES-7465\) Addition of support for Ubuntu 18.04 to NTP [\#475](https://github.com/puppetlabs/puppetlabs-ntp/pull/475) ([david22swan](https://github.com/david22swan))
+
 ## [7.2.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/7.2.0) (2018-07-03)
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/7.1.1...7.2.0)
