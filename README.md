@@ -121,7 +121,7 @@ class { 'ntp':
 
 ## Reference
 
-See [REFERENCE.md](REFERENCE.md)
+See [REFERENCE.md](https://github.com/puppetlabs/puppetlabs-ntp/blob/master/REFERENCE.md)
 
 ## Limitations
 
