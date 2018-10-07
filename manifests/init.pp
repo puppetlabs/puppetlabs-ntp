@@ -272,6 +272,8 @@ class ntp (
   Optional[Integer[1,15]] $udlc_stratum,
   Optional[Stdlib::Absolutepath] $ntpsigndsocket,
   Optional[String] $authprov,
+  Optional[String] $user,
+  Optional[String] $daemon_extra_opts,
 ) {
   # defaults for tinker and panic are different, when running on virtual machines
   if $facts['is_virtual'] {

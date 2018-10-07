@@ -13,6 +13,52 @@ class ntp::config {
     }
   }
 
+  case $::osfamily
+  {
+    'redhat':
+    {
+        $daemon_config = '/etc/sysconfig/ntpd'
+        $ntpd_opts = ''
+        if $user {
+          $ntpd_opts = "$ntpd_opts -u $user:$user"
+        }
+        if $daemon_extra_opts {
+          $ntpd_opts = "$ntpd_opts $daemon_extra_opts"
+        }
+        if $ntpd_opts != '' {
+          file_line { 'Set NTPD daemon options':
+            ensure => present,
+            path   => $daemon_config,
+            line   => "OPTIONS='$ntpd_opts'",
+            match  => '^OPTIONS\=',
+          }
+        }
+    }
+    'Debian':
+    {
+        $daemon_config = '/etc/default/ntp'
+        $ntpd_opts = ''
+        if $user {
+          $ntpd_opts = "$ntpd_opts -u $user:$user"
+        }
+        if $daemon_extra_opts {
+          $ntpd_opts = "$ntpd_opts $daemon_extra_opts"
+        }
+        if $ntpd_opts != '' {
+          file_line { 'Set NTPD daemon options':
+            ensure => present,
+            path   => $daemon_config,
+            line   => "NTPD_OPTS='$ntpd_opts'",
+            match  => '^NTPD_OPTS\=',
+          }
+        }
+    }
+    #'Suse':
+    #{
+    #}
+    #default: { fail('Unsupported OS!')  }
+  }
+
   if $ntp::keys_enable {
     case $ntp::config_dir {
       '/', '/etc', undef: {}
