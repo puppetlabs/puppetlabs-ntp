@@ -51,6 +51,7 @@ branches:
     - master
     - /^v\d/
     - release
+    - /devel*/
 notifications:
   email: false
 deploy:
