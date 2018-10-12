@@ -18,38 +18,40 @@ class ntp::config {
     'redhat':
     {
         $daemon_config = '/etc/sysconfig/ntpd'
-        $ntpd_opts = ''
-        if $user {
-          $ntpd_opts = "$ntpd_opts -u $user:$user"
-        }
         if $daemon_extra_opts {
-          $ntpd_opts = "$ntpd_opts $daemon_extra_opts"
-        }
-        if $ntpd_opts != '' {
           file_line { 'Set NTPD daemon options':
             ensure => present,
             path   => $daemon_config,
-            line   => "OPTIONS='$ntpd_opts'",
+            line   => "OPTIONS='$daemon_extra_opts'",
             match  => '^OPTIONS\=',
+          }
+        }
+        if $user {
+          file_line { 'Set NTPD daemon user':
+            ensure => present,
+            path   => '/etc/systemd/system/multi-user.target.wants/ntpd.service',
+            line   => "ExecStart=/usr/sbin/ntpd -u $user:$user \$OPTIONS",
+            match  => '^ExecStart\=',
           }
         }
     }
     'Debian':
     {
         $daemon_config = '/etc/default/ntp'
-        $ntpd_opts = ''
-        if $user {
-          $ntpd_opts = "$ntpd_opts -u $user:$user"
-        }
         if $daemon_extra_opts {
-          $ntpd_opts = "$ntpd_opts $daemon_extra_opts"
-        }
-        if $ntpd_opts != '' {
           file_line { 'Set NTPD daemon options':
             ensure => present,
             path   => $daemon_config,
-            line   => "NTPD_OPTS='$ntpd_opts'",
+            line   => "NTPD_OPTS='$daemon_extra_opts'",
             match  => '^NTPD_OPTS\=',
+          }
+        }
+        if $user {
+          file_line { 'Set NTPD daemon user':
+            ensure => present,
+            path   => '/usr/lib/ntp/ntp-systemd-wrapper',
+            line   => "RUNASUSER=$user",
+            match  => '^RUNASUSER\=',
           }
         }
     }

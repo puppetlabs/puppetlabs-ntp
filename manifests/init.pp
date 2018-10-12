@@ -28,6 +28,11 @@
 #   Specifies an absolute or relative file path to an ERB template for the config file.
 #   Example value: 'ntp/ntp.conf.erb'. A validation error is thrown if both this **and** the `config_epp` parameter are specified.
 #
+# @param daemon_extra_opts
+#   Specifies any arguments to pass to ntp daemon. Default value: '-g'.
+#   Example value: '-g -i /var/lib/ntp' to enaible jaildir options.
+#   Note that user is a specific parameter handled separately.
+#
 # @param disable_auth
 #   Disables cryptographic authentication for broadcast client, multicast client, and symmetric passive associations.
 #
@@ -208,6 +213,10 @@
 #   Specifies the stratum the server should operate at when using the undisciplined local clock as the time source.
 #   This value should be set to no less than 10 if ntpd might be accessible outside your immediate, controlled network.
 #   Default value: 10.am udlc
+#
+# @param user
+#   Specifies user to run ntpd daemon. Default value: ntp.
+#   Usually set by default on Centos7 (/etc/systemd/system/multi-user.target.wants/ntpd.service) and ubuntu 18.04 (/usr/lib/ntp/ntp-systemd-wrapper)
 #
 class ntp (
   Boolean $broadcastclient,
