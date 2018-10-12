@@ -20,18 +20,17 @@ describe 'ntp class with daemon options:', unless: UNSUPPORTED_PLATFORMS.include
   end
 
   describe file(config.to_s) do
-    its(:content) { is_expected.to match(/(OPTIONS|NTPD_OPTS)='-g -i \/var\/lib\/ntp'/) }
+    its(:content) { is_expected.to match(%r{(OPTIONS|NTPD_OPTS)='-g -i \/var\/lib\/ntp'}) }
   end
 
   if fact('osfamily') == 'redhat'
     describe file('/etc/systemd/system/multi-user.target.wants/ntpd.service') do
-      its(:content) { is_expected.to match(/ntpd -u ntp:ntp/) }
+      its(:content) { is_expected.to match(%r{ntpd -u ntp:ntp}) }
     end
   end
   if fact('osfamily') == 'debian'
     describe file('/usr/lib/ntp/ntp-systemd-wrapper') do
-      its(:content) { is_expected.to match(/RUNASUSER=ntp/) }
+      its(:content) { is_expected.to match(%r{RUNASUSER=ntp}) }
     end
   end
-
 end
