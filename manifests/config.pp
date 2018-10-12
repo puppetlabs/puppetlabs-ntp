@@ -22,7 +22,7 @@ class ntp::config {
           file_line { 'Set NTPD daemon options':
             ensure => present,
             path   => $daemon_config,
-            line   => "OPTIONS='$ntp::daemon_extra_opts'",
+            line   => "OPTIONS='${ntp::daemon_extra_opts}'",
             match  => '^OPTIONS\=',
           }
         }
@@ -30,7 +30,7 @@ class ntp::config {
           file_line { 'Set NTPD daemon user':
             ensure => present,
             path   => '/etc/systemd/system/multi-user.target.wants/ntpd.service',
-            line   => "ExecStart=/usr/sbin/ntpd -u $ntp::user:$ntp::user \$OPTIONS",
+            line   => "ExecStart=/usr/sbin/ntpd -u ${ntp::user}:${ntp::user} \$OPTIONS",
             match  => '^ExecStart\=',
           }
         }
@@ -42,7 +42,7 @@ class ntp::config {
           file_line { 'Set NTPD daemon options':
             ensure => present,
             path   => $daemon_config,
-            line   => "NTPD_OPTS='$ntp::daemon_extra_opts'",
+            line   => "NTPD_OPTS='${ntp::daemon_extra_opts}'",
             match  => '^NTPD_OPTS\=',
           }
         }
@@ -50,7 +50,7 @@ class ntp::config {
           file_line { 'Set NTPD daemon user':
             ensure => present,
             path   => '/usr/lib/ntp/ntp-systemd-wrapper',
-            line   => "RUNASUSER=$ntp::user",
+            line   => "RUNASUSER=${ntp::user}",
             match  => '^RUNASUSER\=',
           }
         }
@@ -58,7 +58,7 @@ class ntp::config {
     #'Suse':
     #{
     #}
-    #default: { fail('Unsupported OS!')  }
+    default: { }
   }
 
   if $ntp::keys_enable {
