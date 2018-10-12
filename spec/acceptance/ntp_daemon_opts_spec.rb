@@ -20,7 +20,7 @@ describe 'ntp class with daemon options:', unless: UNSUPPORTED_PLATFORMS.include
   end
 
   describe file(config.to_s) do
-    its(:content) { is_expected.to match(/(OPTIONS|NTPD_OPTS)='-g -i /var/lib/ntp'/) }
+    its(:content) { is_expected.to match(/(OPTIONS|NTPD_OPTS)='-g -i \/var\/lib\/ntp'/) }
   end
 
   if fact('osfamily') == 'redhat'
