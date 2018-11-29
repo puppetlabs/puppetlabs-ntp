@@ -800,6 +800,33 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
         end
       end
 
+      describe 'with parameter logconfig' do
+        context 'when set to true' do
+          let(:params) do
+            {
+              servers: ['a', 'b', 'c', 'd'],
+              logconfig: '=syncall +peerinfo',
+            }
+          end
+
+          it 'contains logconfig setting' do
+            is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{^logconfig =syncall \+peerinfo\n})
+          end
+        end
+
+        context 'when set to false' do
+          let(:params) do
+            {
+              servers: ['a', 'b', 'c', 'd'],
+            }
+          end
+
+          it 'does not contain a logconfig line' do
+            is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{logconfig })
+          end
+        end
+      end
+
       describe 'with parameter ntpsigndsocket' do
         context 'when set to true' do
           let(:params) do

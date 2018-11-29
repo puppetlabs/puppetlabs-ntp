@@ -90,6 +90,12 @@ driftfile <%= $ntp::driftfile %>
 logfile <%= $ntp::logfile %>
 <% } -%>
 <%# -%>
+<% if $ntp::logconfig {-%>
+
+# Logconfig
+logconfig <%= $ntp::logconfig %>
+<% } -%>
+<%# -%>
 <% if $ntp::ntpsigndsocket {-%>
 
 # Enable signed packets
