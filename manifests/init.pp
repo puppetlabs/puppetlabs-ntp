@@ -226,6 +226,7 @@ class ntp (
   Stdlib::Absolutepath $driftfile,
   Optional[Stdlib::Absolutepath] $leapfile,
   Optional[Stdlib::Absolutepath] $logfile,
+  Optional[String] $logconfig,
   Boolean $iburst_enable,
   Array[String] $keys,
   Boolean $keys_enable,
