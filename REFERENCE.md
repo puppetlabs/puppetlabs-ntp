@@ -39,6 +39,12 @@ Data type: `Boolean`
 
 Enables reception of broadcast server messages to any local interface. Default value: false.
 
+##### `burst`
+
+Data type: `Boolean`
+
+When the server is reachable, send a burst of eight packets instead of the usual one. Default value: false.
+
 ##### `config`
 
 Data type: `Stdlib::Absolutepath`
@@ -179,6 +185,12 @@ Specifies a leap second file for NTP to use. Default value: ' '.
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Specifies a log file for NTP to use instead of syslog. Default value: ' '.
+
+##### `logconfig`
+
+Data type: `Optional[String]`
+
+Specifies the logconfig for NTP to use. Default value: ' '.
 
 ##### `minpoll`
 
