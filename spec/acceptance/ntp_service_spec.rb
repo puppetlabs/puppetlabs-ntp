@@ -14,7 +14,7 @@ when 'Solaris'
 when 'AIX'
   servicename = 'xntpd'
 else
-  servicename = if fact('operatingsystem') == 'SLES' && fact('operatingsystemmajrelease') == '12'
+  servicename = if fact('operatingsystem') == 'SLES' && ['12', '15'].include?(fact('operatingsystemmajrelease'))
                   'ntpd'
                 else
                   'ntp'
@@ -22,7 +22,7 @@ else
 end
 shared_examples 'running' do
   describe service(servicename) do
-    if !(fact('operatingsystem') == 'SLES' && fact('operatingsystemmajrelease') == '12')
+    if !(fact('operatingsystem') == 'SLES' && ['12', '15'].include?(fact('operatingsystemmajrelease')))
       it { is_expected.to be_running }
       if fact('operatingsystem') == 'Debian' && fact('operatingsystemmajrelease') == '8'
         pending 'Should be enabled - Bug 760616 on Debian 8'
@@ -84,7 +84,7 @@ describe 'service tests' do
     end
 
     describe service(servicename) do
-      if !(fact('operatingsystem') == 'SLES' && fact('operatingsystemmajrelease') == '12')
+      if !(fact('operatingsystem') == 'SLES' && ['12', '15'].include?(fact('operatingsystemmajrelease')))
         it { is_expected.to be_running }
         if fact('operatingsystem') == 'Debian' && fact('operatingsystemmajrelease') == '8'
           pending 'Should be enabled - Bug 760616 on Debian 8'
