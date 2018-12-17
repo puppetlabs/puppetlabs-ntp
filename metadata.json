@@ -103,6 +103,6 @@
   ],
   "description": "NTP Module for Debian, Ubuntu, CentOS, RHEL, OEL, Fedora, FreeBSD, ArchLinux, Amazon Linux and Gentoo.",
   "template-url": "https://github.com/puppetlabs/pdk-templates",
-  "template-ref": "heads/master-0-gabccfb1",
-  "pdk-version": "1.7.0"
+  "template-ref": "heads/master-0-gbf720df",
+  "pdk-version": "1.8.0"
 }
