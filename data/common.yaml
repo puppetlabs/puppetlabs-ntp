@@ -47,6 +47,8 @@ ntp::service_ensure: running
 ntp::service_manage: true
 ntp::service_name: ntpd
 ntp::service_provider: ~
+ntp::service_hasstatus: true
+ntp::service_hasrestart: true
 ntp::slewalways: ~
 ntp::statistics: []
 ntp::statsdir: '/var/log/ntpstats'

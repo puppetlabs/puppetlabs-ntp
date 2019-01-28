@@ -11,8 +11,8 @@ class ntp::service {
       enable     => $ntp::service_enable,
       name       => $ntp::service_name,
       provider   => $ntp::service_provider,
-      hasstatus  => true,
-      hasrestart => true,
+      hasstatus  => $ntp::service_hasstatus,
+      hasrestart => $ntp::service_hasrestart,
     }
   }
 
