@@ -14,15 +14,6 @@ when 'RedHat'
          end
 when 'Suse'
   line = '0.opensuse.pool.ntp.org'
-when 'Gentoo'
-  line = '0.gentoo.pool.ntp.org'
-when 'Linux'
-  case fact('operatingsystem')
-  when 'ArchLinux'
-    line = '0.arch.pool.ntp.org'
-  when 'Gentoo'
-    line = '0.gentoo.pool.ntp.org'
-  end
 when 'Solaris'
   line = '0.pool.ntp.org'
 when 'AIX'

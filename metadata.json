@@ -81,18 +81,6 @@
         "6.1",
         "7.1"
       ]
-    },
-    {
-      "operatingsystem": "Amazon",
-      "operatingsystemrelease": [
-        "2013.09",
-        "2014.03",
-        "2014.09",
-        "2015.03"
-      ]
-    },
-    {
-      "operatingsystem": "Archlinux"
     }
   ],
   "requirements": [
