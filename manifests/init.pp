@@ -262,6 +262,8 @@ class ntp (
   Boolean $service_manage,
   String $service_name,
   Optional[String] $service_provider,
+  Boolean $service_hasstatus,
+  Boolean $service_hasrestart,
   Optional[Enum['yes','no']] $slewalways,
   Optional[Array] $statistics,
   Optional[Stdlib::Absolutepath] $statsdir,
