@@ -2,7 +2,7 @@ require 'spec_helper_acceptance'
 require 'specinfra'
 
 case fact('osfamily')
-when 'RedHat', 'FreeBSD', 'Linux', 'Gentoo'
+when 'RedHat', 'FreeBSD', 'Linux'
   servicename = 'ntpd'
 when 'Solaris'
   case fact('kernelrelease')

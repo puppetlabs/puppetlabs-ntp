@@ -442,11 +442,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             it 'uses the freebsd ntp servers' do
               is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{server \d.freebsd.pool.ntp.org iburst maxpoll 9})
             end
-          when 'Archlinux'
-            it 'uses the Archlinux NTP servers' do
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{server \d.arch.pool.ntp.org})
-            end
-          when 'Solaris', 'Gentoo'
+          when 'Solaris'
             it 'uses the generic NTP pool servers' do
               is_expected.to contain_file('/etc/inet/ntp.conf').with('content' => %r{server \d.pool.ntp.org})
             end
