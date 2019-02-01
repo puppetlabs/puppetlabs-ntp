@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [7.4.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/7.4.0) (2019-02-01)
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/7.3.0...7.4.0)
+
+### Added
+
+- \(MODULES-8139\) - Add SLES 15 support [\#492](https://github.com/puppetlabs/puppetlabs-ntp/pull/492) ([eimlav](https://github.com/eimlav))
+- \(MODULES-8098\) - Add logconfig option to config file [\#491](https://github.com/puppetlabs/puppetlabs-ntp/pull/491) ([eimlav](https://github.com/eimlav))
+
+### Fixed
+
+- \(FM-7719\) - Remove Amazon Linux and Arch Linux testing/support for ntp module [\#498](https://github.com/puppetlabs/puppetlabs-ntp/pull/498) ([david22swan](https://github.com/david22swan))
+- pdksync - \(FM-7655\) Fix rubygems-update for ruby \< 2.3 [\#495](https://github.com/puppetlabs/puppetlabs-ntp/pull/495) ([tphoney](https://github.com/tphoney))
+
 ## [7.3.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/7.3.0) (2018-09-27)
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/7.2.0...7.3.0)
