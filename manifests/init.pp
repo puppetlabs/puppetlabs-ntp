@@ -156,6 +156,12 @@
 # @param service_provider
 #   Which service provider to use for NTP. Default value: 'undef'.
 #
+# @param service_hasstatus
+#   Whether service has a functional status command. Default value: true.
+#
+# @param service_hasrestart
+#   Whether service has a restart command. Default value: true.
+#
 # @param slewalways
 #   xntpd setting to disable stepping behavior and always slew the clock to handle adjustments.
 #   Only relevant for AIX. Default value: 'undef'. Allowed values: 'yes', 'no'
@@ -256,6 +262,8 @@ class ntp (
   Boolean $service_manage,
   String $service_name,
   Optional[String] $service_provider,
+  Boolean $service_hasstatus,
+  Boolean $service_hasrestart,
   Optional[Enum['yes','no']] $slewalways,
   Optional[Array] $statistics,
   Optional[Stdlib::Absolutepath] $statsdir,

@@ -538,6 +538,8 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
               enable: true,
               ensure: 'running',
               name: 'ntp',
+              hasstatus: true,
+              hasrestart: true,
             )
           }
         end
@@ -547,6 +549,22 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             let(:params) { { service_name: 'ntp', service_ensure: 'stopped' } }
 
             it { is_expected.to contain_service('ntp').with_ensure('stopped') }
+          end
+        end
+
+        describe 'service_hasstatus' do
+          describe 'when overridden' do
+            let(:params) { { service_name: 'ntp', service_hasstatus: false } }
+
+            it { is_expected.to contain_service('ntp').with_hasstatus(false) }
+          end
+        end
+
+        describe 'service_hasrestart' do
+          describe 'when overridden' do
+            let(:params) { { service_name: 'ntp', service_hasrestart: false } }
+
+            it { is_expected.to contain_service('ntp').with_hasrestart(false) }
           end
         end
 
