@@ -1,20 +1,20 @@
 require 'spec_helper_acceptance'
 require 'specinfra'
 
-case fact('osfamily')
-when 'RedHat', 'FreeBSD', 'Linux'
+case os[:family]
+when 'redhat', 'freebsd', 'linux'
   servicename = 'ntpd'
-when 'Solaris'
+when 'solaris'
   case fact('kernelrelease')
   when '5.10'
     servicename = 'network/ntp4'
   when '5.11'
     servicename = 'network/ntp'
   end
-when 'AIX'
+when 'aix'
   servicename = 'xntpd'
 else
-  servicename = if fact('operatingsystem') == 'SLES' && ['12', '15'].include?(fact('operatingsystemmajrelease'))
+  servicename = if os[:family] == 'suse' && ['12', '15'].include?(os[:release])
                   'ntpd'
                 else
                   'ntp'
@@ -22,9 +22,9 @@ else
 end
 shared_examples 'running' do
   describe service(servicename) do
-    if !(fact('operatingsystem') == 'SLES' && ['12', '15'].include?(fact('operatingsystemmajrelease')))
+    if !(os[:family] == 'suse' && ['12', '15'].include?(os[:release]))
       it { is_expected.to be_running }
-      if fact('operatingsystem') == 'Debian' && fact('operatingsystemmajrelease') == '8'
+      if os[:family] == 'debian' && os[:release] == '8'
         pending 'Should be enabled - Bug 760616 on Debian 8'
       else
         it { is_expected.to be_enabled }
@@ -43,7 +43,7 @@ shared_examples 'running' do
   end
 end
 describe 'service tests' do
-  describe 'ntp::service class', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
+  describe 'ntp::service class', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) do
     context 'with a basic test' do
       it 'sets up the service' do
         apply_manifest(%(
@@ -84,9 +84,9 @@ describe 'service tests' do
     end
 
     describe service(servicename) do
-      if !(fact('operatingsystem') == 'SLES' && ['12', '15'].include?(fact('operatingsystemmajrelease')))
+      if !(os[:family] == 'suse' && ['12', '15'].include?(os[:release]))
         it { is_expected.to be_running }
-        if fact('operatingsystem') == 'Debian' && fact('operatingsystemmajrelease') == '8'
+        if os[:family] == 'debian' && os[:release] == '8'
           pending 'Should be enabled - Bug 760616 on Debian 8'
         else
           it { is_expected.to be_enabled }

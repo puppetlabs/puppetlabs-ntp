@@ -1,12 +1,12 @@
 require 'spec_helper_acceptance'
 
-config = if fact('osfamily') == 'Solaris'
+config = if os[:family] == 'solaris'
            '/etc/inet/ntp.conf'
          else
            '/etc/ntp.conf'
          end
 
-describe 'ntp class with statistics:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
+describe 'ntp class with statistics:', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) do
   context 'when successful' do
     let(:pp) { "class { 'ntp': statistics => ['loopstats'], disable_monitor => false}" }
 

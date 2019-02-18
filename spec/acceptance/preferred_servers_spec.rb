@@ -1,12 +1,12 @@
 require 'spec_helper_acceptance'
 
-config = if fact('osfamily') == 'Solaris'
+config = if os[:family] == 'solaris'
            '/etc/inet/ntp.conf'
          else
            '/etc/ntp.conf'
          end
 
-describe 'preferred servers', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
+describe 'preferred servers', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) do
   pp = <<-MANIFEST
     class { '::ntp':
       servers           => ['a', 'b', 'c', 'd'],

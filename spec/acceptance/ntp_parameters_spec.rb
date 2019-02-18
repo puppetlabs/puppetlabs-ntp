@@ -1,11 +1,11 @@
 require 'spec_helper_acceptance'
 
-case fact('osfamily')
-when 'FreeBSD'
+case os[:family]
+when 'freebsd'
   packagename = 'net/ntp'
-when 'AIX'
+when 'aix'
   packagename = 'bos.net.tcp.client'
-when 'Solaris'
+when 'solaris'
   case fact('kernelrelease')
   when '5.10'
     packagename = ['SUNWntp4r', 'SUNWntp4u']
@@ -13,30 +13,30 @@ when 'Solaris'
     packagename = 'service/network/ntp'
   end
 else
-  if fact('operatingsystem') == 'SLES' && fact('operatingsystemmajrelease') == '12'
+  if os[:family] == 'suse' && os[:release] == '12'
     'ntpd'
   else
     'ntp'
   end
 end
 
-keysfile = if fact('osfamily') == 'RedHat'
+keysfile = if os[:family] == 'redhat'
              '/etc/ntp/keys'
-           elsif fact('osfamily') == 'Solaris'
+           elsif os[:family] == 'solaris'
              '/etc/inet/ntp.keys'
            else
              '/etc/ntp.keys'
            end
 
-config = if fact('osfamily') == 'Solaris'
+config = if os[:family] == 'solaris'
            '/etc/inet/ntp.conf'
          else
            '/etc/ntp.conf'
          end
 
-describe 'ntp class:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
+describe 'ntp class:', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) do
   # FM-5470, this was added to reset failed count and work around puppet 3.x
-  if (fact('operatingsystem') == 'SLES' && fact('operatingsystemmajrelease') == '12') || (fact('operatingsystem') == 'Scientific' && fact('operatingsystemmajrelease') == '7')
+  if (os[:family] == 'suse' && os[:release] == '12') || (os[:family] == 'scientific' && os[:release] == '7')
     after :each do
       shell('systemctl reset-failed ntpd.service')
     end
