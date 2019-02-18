@@ -19,11 +19,8 @@ describe 'ntp::install class', unless: UNSUPPORTED_PLATFORMS.include?(os[:family
     apply_manifest(%(
       class { 'ntp': }
     ), catch_failures: true)
-  end
-
-  Array(packagename).each do |package|
-    describe package(package) do
-      it { is_expected.to be_installed }
+    Array(packagename).each do |package|
+      expect(package(package)).to be_installed
     end
   end
 end

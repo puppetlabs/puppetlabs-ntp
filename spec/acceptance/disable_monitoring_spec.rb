@@ -10,26 +10,18 @@ describe 'ntp class with disable_monitor:', unless: UNSUPPORTED_PLATFORMS.includ
   context 'with should disable' do
     let(:pp) { "class { 'ntp': disable_monitor => true }" }
 
-    it 'runs twice' do
-      apply_manifest(pp, catch_failures: true)
-      apply_manifest(pp, catch_changes: true)
-    end
-
-    describe file(config.to_s) do
-      its(:content) { is_expected.to match('disable monitor') }
+    it 'idempotent apply, file matches' do
+      idempotent_apply(default, pp)
+      expect(file(config.to_s).content).to match 'disable monitor'
     end
   end
 
   context 'when enabled' do
     let(:pp) { "class { 'ntp': disable_monitor => false }" }
 
-    it 'runs twice' do
-      apply_manifest(pp, catch_failures: true)
-      apply_manifest(pp, catch_changes: true)
-    end
-
-    describe file(config.to_s) do
-      its(:content) { is_expected.not_to match('disable monitor') }
+    it 'idempotent apply, file matches' do
+      idempotent_apply(default, pp)
+      expect(file(config.to_s).content).not_to match 'disable monitor'
     end
   end
 end

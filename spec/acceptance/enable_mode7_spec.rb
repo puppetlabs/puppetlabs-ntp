@@ -10,26 +10,18 @@ describe 'ntp class with enable_mode7:', unless: UNSUPPORTED_PLATFORMS.include?(
   context 'with enable' do
     let(:pp) { "class { 'ntp': enable_mode7 => true }" }
 
-    it 'runs twice' do
-      apply_manifest(pp, catch_failures: true)
-      apply_manifest(pp, catch_changes: true)
-    end
-
-    describe file(config.to_s) do
-      its(:content) { is_expected.to match('enable mode7') }
+    it 'idempotent apply, file matches' do
+      idempotent_apply(default, pp)
+      expect(file(config.to_s).content).to match 'enable mode7'
     end
   end
 
   context 'with disable' do
     let(:pp) { "class { 'ntp': enable_mode7 => false }" }
 
-    it 'runs twice' do
-      apply_manifest(pp, catch_failures: true)
-      apply_manifest(pp, catch_changes: true)
-    end
-
-    describe file(config.to_s) do
-      its(:content) { is_expected.not_to match('enable mode7') }
+    it 'idempotent apply, file matches' do
+      idempotent_apply(default, pp)
+      expect(file(config.to_s).content).not_to match 'enable mode7'
     end
   end
 end

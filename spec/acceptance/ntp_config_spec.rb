@@ -28,10 +28,7 @@ describe 'ntp::config class', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]
     apply_manifest(%(
       class { 'ntp': }
     ), catch_failures: true)
-  end
-
-  describe file(config.to_s) do
-    it { is_expected.to be_file }
-    its(:content) { is_expected.to match line }
+    expect(file(config.to_s)).to be_file
+    expect(file(config.to_s).content).to match line
   end
 end

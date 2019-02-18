@@ -11,15 +11,12 @@ describe 'ntp class with restrict:', unless: UNSUPPORTED_PLATFORMS.include?(os[:
     let(:pp) { "class { 'ntp': restrict => ['test restrict']}" }
 
     it 'runs twice' do
-      2.times do
-        apply_manifest(pp, catch_failures: true) do |r|
-          expect(r.stderr).not_to match(%r{error}i)
-        end
+      apply_manifest(pp, catch_failures: true) do |r|
+        expect(r.stderr).not_to match(%r{error}i)
       end
+      apply_manifest(pp, catch_changes: true)
+      expect(file(config.to_s)).to be_file
+      expect(file(config.to_s).content).to match 'test restrict'
     end
-  end
-
-  describe file(config.to_s) do
-    its(:content) { is_expected.to match('test restrict') }
   end
 end

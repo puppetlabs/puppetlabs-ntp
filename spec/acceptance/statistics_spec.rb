@@ -11,19 +11,12 @@ describe 'ntp class with statistics:', unless: UNSUPPORTED_PLATFORMS.include?(os
     let(:pp) { "class { 'ntp': statistics => ['loopstats'], disable_monitor => false}" }
 
     it 'runs twice' do
-      2.times do
-        apply_manifest(pp, catch_failures: true) do |r|
-          expect(r.stderr).not_to match(%r{error}i)
-        end
+      apply_manifest(pp, catch_failures: true) do |r|
+        expect(r.stderr).not_to match(%r{error}i)
       end
+      apply_manifest(pp, catch_changes: true)
+      expect(file(config.to_s).content).to match 'filegen loopstats file loopstats type day enable'
+      expect(file(config.to_s).content).to match 'statsdir /var/log/ntpstats'
     end
-  end
-
-  describe file(config.to_s) do
-    its(:content) { is_expected.to match('filegen loopstats file loopstats type day enable') }
-  end
-
-  describe file(config.to_s) do
-    its(:content) { is_expected.to match('statsdir /var/log/ntpstats') }
   end
 end
