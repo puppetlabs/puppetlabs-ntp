@@ -1,8 +1,16 @@
 require 'spec_helper'
 
-on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
+on_supported_os.each do |os, f|
   describe 'ntp' do
     let(:facts) { { is_virtual: false } }
+
+    let(:conf_path) do
+      if os =~ %r{solaris}
+        '/etc/inet/ntp.conf'
+      else
+        '/etc/ntp.conf'
+      end
+    end
 
     context "on #{os}" do
       let(:facts) do
@@ -16,9 +24,9 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
       it { is_expected.to contain_class('ntp::service') }
 
       describe 'ntp::config' do
-        it { is_expected.to contain_file('/etc/ntp.conf').with_owner('0') }
-        it { is_expected.to contain_file('/etc/ntp.conf').with_group('0') }
-        it { is_expected.to contain_file('/etc/ntp.conf').with_mode('0644') }
+        it { is_expected.to contain_file(conf_path).with_owner('0') }
+        it { is_expected.to contain_file(conf_path).with_group('0') }
+        it { is_expected.to contain_file(conf_path).with_mode('0644') }
 
         if f[:os]['family'] == 'RedHat'
           it { is_expected.to contain_file('/etc/ntp/step-tickers').with_owner('0') }
@@ -33,13 +41,13 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
         describe 'allows template to be overridden with erb template' do
           let(:params) { { config_template: 'my_ntp/ntp.conf.erb' } }
 
-          it { is_expected.to contain_file('/etc/ntp.conf').with_content(%r{erbserver1}) }
+          it { is_expected.to contain_file(conf_path).with_content(%r{erbserver1}) }
         end
 
         describe 'allows template to be overridden with epp template' do
           let(:params) { { config_epp: 'my_ntp/ntp.conf.epp' } }
 
-          it { is_expected.to contain_file('/etc/ntp.conf').with_content(%r{eppserver1}) }
+          it { is_expected.to contain_file(conf_path).with_content(%r{eppserver1}) }
         end
 
         describe 'keys' do
@@ -54,13 +62,13 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it {
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{trustedkey 1 2 3})
+              is_expected.to contain_file(conf_path).with('content' => %r{trustedkey 1 2 3})
             }
             it {
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{controlkey 2})
+              is_expected.to contain_file(conf_path).with('content' => %r{controlkey 2})
             }
             it {
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{requestkey 3})
+              is_expected.to contain_file(conf_path).with('content' => %r{requestkey 3})
             }
           end
         end
@@ -76,13 +84,13 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
 
           it {
-            is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{trustedkey 1 2 3})
+            is_expected.not_to contain_file(conf_path).with('content' => %r{trustedkey 1 2 3})
           }
           it {
-            is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{controlkey 2})
+            is_expected.not_to contain_file(conf_path).with('content' => %r{controlkey 2})
           }
           it {
-            is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{requestkey 3})
+            is_expected.not_to contain_file(conf_path).with('content' => %r{requestkey 3})
           }
         end
 
@@ -97,7 +105,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it {
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{server a prefer( maxpoll 9)?\nserver b prefer( maxpoll 9)?\nserver c( maxpoll 9)?\nserver d( maxpoll 9)?})
+              is_expected.to contain_file(conf_path).with('content' => %r{server a prefer( maxpoll 9)?\nserver b prefer( maxpoll 9)?\nserver c( maxpoll 9)?\nserver d( maxpoll 9)?})
             }
           end
           context 'when not set' do
@@ -109,7 +117,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it {
-              is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{server a prefer})
+              is_expected.not_to contain_file(conf_path).with('content' => %r{server a prefer})
             }
           end
         end
@@ -125,7 +133,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it {
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{server a (maxpoll 9 )?noselect\nserver b (maxpoll 9 )?noselect\nserver c( maxpoll 9)?\nserver d( maxpoll 9)?})
+              is_expected.to contain_file(conf_path).with('content' => %r{server a (maxpoll 9 )?noselect\nserver b (maxpoll 9 )?noselect\nserver c( maxpoll 9)?\nserver d( maxpoll 9)?})
             }
           end
           context 'when not set' do
@@ -137,7 +145,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it {
-              is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{server a noselect})
+              is_expected.not_to contain_file(conf_path).with('content' => %r{server a noselect})
             }
           end
         end
@@ -151,7 +159,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it {
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{interface ignore wildcard\ninterface listen 127.0.0.1\ninterface listen a.b.c.d})
+              is_expected.to contain_file(conf_path).with('content' => %r{interface ignore wildcard\ninterface listen 127.0.0.1\ninterface listen a.b.c.d})
             }
           end
           context 'when not set' do
@@ -162,7 +170,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it {
-              is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{interface ignore wildcard})
+              is_expected.not_to contain_file(conf_path).with('content' => %r{interface ignore wildcard})
             }
           end
         end
@@ -177,7 +185,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it {
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{interface ignore wildcard\ninterface ignore ipv6\ninterface listen a.b.c.d})
+              is_expected.to contain_file(conf_path).with('content' => %r{interface ignore wildcard\ninterface ignore ipv6\ninterface listen a.b.c.d})
             }
           end
           context 'when not set' do
@@ -189,7 +197,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it {
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{interface ignore wildcard\ninterface listen 127.0.0.1})
+              is_expected.to contain_file(conf_path).with('content' => %r{interface ignore wildcard\ninterface listen 127.0.0.1})
             }
           end
         end
@@ -203,7 +211,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it 'contains disable auth setting' do
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{^disable auth\n})
+              is_expected.to contain_file(conf_path).with('content' => %r{^disable auth\n})
             end
           end
           context 'when set to false' do
@@ -214,7 +222,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it 'does not contain disable auth setting' do
-              is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{^disable auth\n})
+              is_expected.not_to contain_file(conf_path).with('content' => %r{^disable auth\n})
             end
           end
         end
@@ -261,7 +269,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it 'contains disable kernel setting' do
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{^disable kernel\n})
+              is_expected.to contain_file(conf_path).with('content' => %r{^disable kernel\n})
             end
           end
           context 'when set to false' do
@@ -272,7 +280,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it 'does not contain disable kernel setting' do
-              is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{^disable kernel\n})
+              is_expected.not_to contain_file(conf_path).with('content' => %r{^disable kernel\n})
             end
           end
         end
@@ -284,7 +292,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it 'contains disable monitor setting' do
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{^disable monitor\n})
+              is_expected.to contain_file(conf_path).with('content' => %r{^disable monitor\n})
             end
           end
           context 'when set to true' do
@@ -295,7 +303,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it 'contains disable monitor setting' do
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{^disable monitor\n})
+              is_expected.to contain_file(conf_path).with('content' => %r{^disable monitor\n})
             end
           end
           context 'when set to false' do
@@ -306,7 +314,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it 'does not contain disable monitor setting' do
-              is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{^disable monitor\n})
+              is_expected.not_to contain_file(conf_path).with('content' => %r{^disable monitor\n})
             end
           end
         end
@@ -318,7 +326,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it 'does not contain enable mode7 setting' do
-              is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{^enable mode7\n})
+              is_expected.not_to contain_file(conf_path).with('content' => %r{^enable mode7\n})
             end
           end
           context 'when set to true' do
@@ -329,7 +337,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it 'contains enable mode7 setting' do
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{^enable mode7\n})
+              is_expected.to contain_file(conf_path).with('content' => %r{^enable mode7\n})
             end
           end
           context 'when set to false' do
@@ -340,7 +348,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it 'does not contain enable mode7 setting' do
-              is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{^enable mode7\n})
+              is_expected.not_to contain_file(conf_path).with('content' => %r{^enable mode7\n})
             end
           end
         end
@@ -353,7 +361,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it 'contains broadcastclient setting' do
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{^broadcastclient\n})
+              is_expected.to contain_file(conf_path).with('content' => %r{^broadcastclient\n})
             end
           end
           context 'when set to false' do
@@ -364,7 +372,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it 'does not contain broadcastclient setting' do
-              is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{^broadcastclient\n})
+              is_expected.not_to contain_file(conf_path).with('content' => %r{^broadcastclient\n})
             end
           end
           context 'when setting custom config_dir' do
@@ -390,7 +398,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it 'contains file mode of 0777' do
-              is_expected.to contain_file('/etc/ntp.conf').with_mode('0777')
+              is_expected.to contain_file(conf_path).with_mode('0777')
             end
           end
         end
@@ -404,7 +412,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it do
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{ burst\n})
+              is_expected.to contain_file(conf_path).with('content' => %r{ burst\n})
             end
           end
 
@@ -416,7 +424,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it do
-              is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{ burst\n})
+              is_expected.not_to contain_file(conf_path).with('content' => %r{ burst\n})
             end
           end
         end
@@ -459,11 +467,11 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           context 'when absent' do
             if f[:kernel] == 'AIX'
               it 'on AIX does contain "slewalways no"' do
-                is_expected.to contain_file('/etc/ntp.conf').with_content(%r{^slewalways no})
+                is_expected.to contain_file(conf_path).with_content(%r{^slewalways no})
               end
             else
               it 'on non-AIX does not contain a slewalways' do
-                is_expected.to contain_file('/etc/ntp.conf').without_content(%r{^slewalways})
+                is_expected.to contain_file(conf_path).without_content(%r{^slewalways})
               end
             end
           end
@@ -476,7 +484,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it 'does contain "slewalways no"' do
-              is_expected.to contain_file('/etc/ntp.conf').with_content(%r{^slewalways no})
+              is_expected.to contain_file(conf_path).with_content(%r{^slewalways no})
             end
           end
 
@@ -488,7 +496,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it 'does contain "slewalways yes"' do
-              is_expected.to contain_file('/etc/ntp.conf').with_content(%r{^slewalways yes})
+              is_expected.to contain_file(conf_path).with_content(%r{^slewalways yes})
             end
           end
         end
@@ -595,7 +603,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
 
           it do
-            is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{iburst})
+            is_expected.to contain_file(conf_path).with('content' => %r{iburst})
           end
         end
 
@@ -607,7 +615,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
 
           it do
-            is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{iburst\n})
+            is_expected.not_to contain_file(conf_path).with('content' => %r{iburst\n})
           end
         end
       end
@@ -622,7 +630,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it do
-              is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{^tinker })
+              is_expected.not_to contain_file(conf_path).with('content' => %r{^tinker })
             end
           end
 
@@ -635,7 +643,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it do
-              is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{^tinker })
+              is_expected.not_to contain_file(conf_path).with('content' => %r{^tinker })
             end
           end
 
@@ -648,7 +656,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it do
-              is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{^tinker })
+              is_expected.not_to contain_file(conf_path).with('content' => %r{^tinker })
             end
           end
 
@@ -662,7 +670,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it do
-              is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{^tinker })
+              is_expected.not_to contain_file(conf_path).with('content' => %r{^tinker })
             end
           end
         end
@@ -675,7 +683,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it do
-              is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{^tinker })
+              is_expected.not_to contain_file(conf_path).with('content' => %r{^tinker })
             end
           end
 
@@ -688,7 +696,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it do
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{^tinker panic 257\n})
+              is_expected.to contain_file(conf_path).with('content' => %r{^tinker panic 257\n})
             end
           end
 
@@ -701,7 +709,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it do
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{^tinker stepout 5\n})
+              is_expected.to contain_file(conf_path).with('content' => %r{^tinker stepout 5\n})
             end
           end
 
@@ -715,7 +723,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
             end
 
             it do
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{^tinker panic 257 stepout 5\n})
+              is_expected.to contain_file(conf_path).with('content' => %r{^tinker panic 257 stepout 5\n})
             end
           end
         end
@@ -730,7 +738,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
 
           it do
-            is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{minpoll 6})
+            is_expected.to contain_file(conf_path).with('content' => %r{minpoll 6})
           end
         end
 
@@ -742,7 +750,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
 
           it do
-            is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{maxpoll 12\n})
+            is_expected.to contain_file(conf_path).with('content' => %r{maxpoll 12\n})
           end
         end
 
@@ -755,7 +763,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
 
           it do
-            is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{minpoll 6 maxpoll 12\n})
+            is_expected.to contain_file(conf_path).with('content' => %r{minpoll 6 maxpoll 12\n})
           end
         end
       end
@@ -770,7 +778,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
 
           it 'contains leapfile setting' do
-            is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{^leapfile \/etc\/leap-seconds\.3629404800\n})
+            is_expected.to contain_file(conf_path).with('content' => %r{^leapfile \/etc\/leap-seconds\.3629404800\n})
           end
         end
 
@@ -782,7 +790,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
 
           it 'does not contain a leapfile line' do
-            is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{leapfile })
+            is_expected.not_to contain_file(conf_path).with('content' => %r{leapfile })
           end
         end
       end
@@ -797,7 +805,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
 
           it 'contains logfile setting' do
-            is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{^logfile \/var\/log\/foobar\.log\n})
+            is_expected.to contain_file(conf_path).with('content' => %r{^logfile \/var\/log\/foobar\.log\n})
           end
         end
 
@@ -809,7 +817,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
 
           it 'does not contain a logfile line' do
-            is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{logfile })
+            is_expected.not_to contain_file(conf_path).with('content' => %r{logfile })
           end
         end
       end
@@ -824,7 +832,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
 
           it 'contains logconfig setting' do
-            is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{^logconfig =syncall \+peerinfo\n})
+            is_expected.to contain_file(conf_path).with('content' => %r{^logconfig =syncall \+peerinfo\n})
           end
         end
 
@@ -836,7 +844,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
 
           it 'does not contain a logconfig line' do
-            is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{logconfig })
+            is_expected.not_to contain_file(conf_path).with('content' => %r{logconfig })
           end
         end
       end
@@ -851,7 +859,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
 
           it 'contains ntpsigndsocket setting' do
-            is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{^ntpsigndsocket /usr/local/samba/var/lib/ntp_signd\n})
+            is_expected.to contain_file(conf_path).with('content' => %r{^ntpsigndsocket /usr/local/samba/var/lib/ntp_signd\n})
           end
         end
 
@@ -863,7 +871,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
 
           it 'does not contain a ntpsigndsocket line' do
-            is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{ntpsigndsocket })
+            is_expected.not_to contain_file(conf_path).with('content' => %r{ntpsigndsocket })
           end
         end
       end
@@ -878,7 +886,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
 
           it 'contains authprov setting' do
-            is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{^authprov /opt/novell/xad/lib64/libw32time.so 131072:4294967295 global\n})
+            is_expected.to contain_file(conf_path).with('content' => %r{^authprov /opt/novell/xad/lib64/libw32time.so 131072:4294967295 global\n})
           end
         end
 
@@ -890,7 +898,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
 
           it 'does not contain a authprov line' do
-            is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{authprov })
+            is_expected.not_to contain_file(conf_path).with('content' => %r{authprov })
           end
         end
       end
@@ -904,7 +912,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
 
           it 'contains tos setting' do
-            is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{^tos})
+            is_expected.to contain_file(conf_path).with('content' => %r{^tos})
           end
         end
 
@@ -916,7 +924,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
 
           it 'does not contain tos setting' do
-            is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{^tos})
+            is_expected.not_to contain_file(conf_path).with('content' => %r{^tos})
           end
         end
       end
@@ -930,7 +938,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
 
           it 'does not contain a pool line' do
-            is_expected.to contain_file('/etc/ntp.conf').without_content(%r{^pool})
+            is_expected.to contain_file(conf_path).without_content(%r{^pool})
           end
         end
 
@@ -942,10 +950,10 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
 
           it 'contains the pool lines - expectation one' do
-            is_expected.to contain_file('/etc/ntp.conf').with_content(%r{pool foo})
+            is_expected.to contain_file(conf_path).with_content(%r{pool foo})
           end
           it 'contains the pool lines - expectation two' do
-            is_expected.to contain_file('/etc/ntp.conf').with_content(%r{pool bar})
+            is_expected.to contain_file(conf_path).with_content(%r{pool bar})
           end
         end
       end
@@ -959,7 +967,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
 
           it 'does not contain a peer line' do
-            is_expected.to contain_file('/etc/ntp.conf').without_content(%r{^peer})
+            is_expected.to contain_file(conf_path).without_content(%r{^peer})
           end
         end
 
@@ -971,10 +979,10 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
           end
 
           it 'contains the peer lines - expectation one' do
-            is_expected.to contain_file('/etc/ntp.conf').with_content(%r{peer foo})
+            is_expected.to contain_file(conf_path).with_content(%r{peer foo})
           end
           it 'contains the peer lines - expectation two' do
-            is_expected.to contain_file('/etc/ntp.conf').with_content(%r{peer bar})
+            is_expected.to contain_file(conf_path).with_content(%r{peer bar})
           end
         end
       end
@@ -985,11 +993,11 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
         end
 
         it 'does not use local clock as a time source' do
-          is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{server.*127.127.1.0.*fudge.*127.127.1.0 stratum 10})
+          is_expected.not_to contain_file(conf_path).with('content' => %r{server.*127.127.1.0.*fudge.*127.127.1.0 stratum 10})
         end
 
         it 'allows large clock skews' do
-          is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{tinker panic 0})
+          is_expected.to contain_file(conf_path).with('content' => %r{tinker panic 0})
         end
       end
 
@@ -999,7 +1007,7 @@ on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
         end
 
         it 'disallows large clock skews' do
-          is_expected.not_to contain_file('/etc/ntp.conf').with('content' => %r{tinker panic 0})
+          is_expected.not_to contain_file(conf_path).with('content' => %r{tinker panic 0})
         end
       end
     end
