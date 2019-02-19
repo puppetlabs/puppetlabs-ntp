@@ -12,6 +12,7 @@ describe 'ntp class with disable_monitor:', unless: UNSUPPORTED_PLATFORMS.includ
 
     it 'idempotent apply, file matches' do
       idempotent_apply(default, pp)
+      expect(file(config.to_s)).to be_file
       expect(file(config.to_s).content).to match 'disable monitor'
     end
   end
@@ -21,6 +22,7 @@ describe 'ntp class with disable_monitor:', unless: UNSUPPORTED_PLATFORMS.includ
 
     it 'idempotent apply, file matches' do
       idempotent_apply(default, pp)
+      expect(file(config.to_s)).to be_file
       expect(file(config.to_s).content).not_to match 'disable monitor'
     end
   end

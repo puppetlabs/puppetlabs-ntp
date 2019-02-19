@@ -15,6 +15,7 @@ describe 'ntp class with statistics:', unless: UNSUPPORTED_PLATFORMS.include?(os
         expect(r.stderr).not_to match(%r{error}i)
       end
       apply_manifest(pp, catch_changes: true)
+      expect(file(config.to_s)).to be_file
       expect(file(config.to_s).content).to match 'filegen loopstats file loopstats type day enable'
       expect(file(config.to_s).content).to match 'statsdir /var/log/ntpstats'
     end

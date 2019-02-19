@@ -12,6 +12,7 @@ describe 'ntp class with enable_mode7:', unless: UNSUPPORTED_PLATFORMS.include?(
 
     it 'idempotent apply, file matches' do
       idempotent_apply(default, pp)
+      expect(file(config.to_s)).to be_file
       expect(file(config.to_s).content).to match 'enable mode7'
     end
   end
@@ -21,6 +22,7 @@ describe 'ntp class with enable_mode7:', unless: UNSUPPORTED_PLATFORMS.include?(
 
     it 'idempotent apply, file matches' do
       idempotent_apply(default, pp)
+      expect(file(config.to_s)).to be_file
       expect(file(config.to_s).content).not_to match 'enable mode7'
     end
   end
