@@ -5,7 +5,7 @@ case os[:family]
 when 'redhat', 'freebsd', 'linux'
   servicename = 'ntpd'
 when 'solaris'
-  case linux_kernel_parameter('kernel.osrelease')
+  case linux_kernel_parameter('kernel.osrelease').value
   when %r{^5.10}
     servicename = 'network/ntp4'
   when %r{^5.11}
