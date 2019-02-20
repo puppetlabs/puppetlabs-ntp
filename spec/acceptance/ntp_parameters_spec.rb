@@ -27,13 +27,6 @@ config = if os[:family] == 'solaris'
          end
 
 describe 'ntp class', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) do
-  # FM-5470, this was added to reset failed count and work around puppet 3.x
-  if (os[:family] == 'sles' && os[:release] == '12') || (os[:family] == 'scientific' && os[:release] == '7')
-    after :each do
-      shell('systemctl reset-failed ntpd.service')
-    end
-  end
-
   it 'applies successfully' do
     pp = "class { 'ntp': }"
 
