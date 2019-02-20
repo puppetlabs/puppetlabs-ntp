@@ -14,7 +14,7 @@ when 'solaris'
 when 'aix'
   servicename = 'xntpd'
 else
-  servicename = if os[:family] == 'sles' && ['12', '15'].include?(os[:release])
+  servicename = if os[:family] == 'sles' && os[:release].start_with?('12', '15')
                   'ntpd'
                 else
                   'ntp'

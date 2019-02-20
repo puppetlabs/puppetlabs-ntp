@@ -13,7 +13,7 @@ when 'solaris'
     packagename = 'service/network/ntp'
   end
 else
-  if os[:family] == 'sles' && os[:release] == '12'
+  if os[:family] == 'sles' && os[:release].start_with?('12', '15')
     'ntpd'
   else
     'ntp'
