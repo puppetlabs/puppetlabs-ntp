@@ -20,14 +20,6 @@ else
   end
 end
 
-keysfile = if os[:family] == 'redhat'
-             '/etc/ntp/keys'
-           elsif os[:family] == 'solaris'
-             '/etc/inet/ntp.keys'
-           else
-             '/etc/ntp.keys'
-           end
-
 config = if os[:family] == 'solaris'
            '/etc/inet/ntp.conf'
          else
@@ -100,39 +92,6 @@ describe 'ntp class:', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) do
     end
   end
 
-  describe 'driftfile' do
-    it 'sets the driftfile location' do
-      pp = "class { 'ntp': driftfile => '/tmp/driftfile' }"
-      apply_manifest(pp, catch_failures: true)
-      expect(file(config.to_s)).to be_file
-      expect(file(config.to_s).content).to match 'driftfile /tmp/driftfile'
-    end
-  end
-
-  describe 'keys' do
-    pp = <<-MANIFEST
-    class { 'ntp':
-      keys_enable     => true,
-      keys_controlkey => 1,
-      keys_requestkey => 1,
-      keys_trusted    => [ 1, 2 ],
-      keys            => [ '1 M AAAABBBB' ],
-    }
-    MANIFEST
-
-    it 'enables the key parameters' do
-      apply_manifest(pp, catch_failures: true)
-      expect(file(config.to_s)).to be_file
-      expect(file(config.to_s).content).to match "keys #{keysfile}"
-      expect(file(config.to_s).content).to match 'controlkey 1'
-      expect(file(config.to_s).content).to match 'requestkey 1'
-      expect(file(config.to_s).content).to match 'trustedkey 1 2'
-
-      expect(file(keysfile)).to be_file
-      expect(file(keysfile).content).to match '1 M AAAABBBB'
-    end
-  end
-
   describe 'package' do
     pp = <<-MANIFEST
     class { 'ntp':
@@ -146,52 +105,6 @@ describe 'ntp class:', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) do
       Array(packagename).each do |package|
         expect(package(package)).to be_installed
       end
-    end
-  end
-
-  describe 'panic => 0' do
-    pp = <<-MANIFEST
-    class { 'ntp':
-      panic => 0,
-    }
-    MANIFEST
-
-    it 'disables the tinker panic setting' do
-      apply_manifest(pp, catch_failures: true)
-      expect(file(config.to_s)).to be_file
-      expect(file(config.to_s).content).to match 'tinker panic 0'
-    end
-  end
-
-  describe 'panic => 1' do
-    pp = <<-MANIFEST
-    class { 'ntp':
-      panic => 1,
-    }
-    MANIFEST
-
-    it 'enables the tinker panic setting' do
-      apply_manifest(pp, catch_failures: true)
-      expect(file(config.to_s)).to be_file
-      expect(file(config.to_s).content).to match 'tinker panic 1'
-    end
-  end
-
-  describe 'udlc' do
-    it 'adds a udlc' do
-      pp = "class { 'ntp': udlc => true }"
-      apply_manifest(pp, catch_failures: true)
-      expect(file(config.to_s)).to be_file
-      expect(file(config.to_s).content).to match '127.127.1.0'
-    end
-  end
-
-  describe 'udlc_stratum' do
-    it 'sets the stratum value when using udlc' do
-      pp = "class { 'ntp': udlc => true, udlc_stratum => 10 }"
-      apply_manifest(pp, catch_failures: true)
-      expect(file(config.to_s)).to be_file
-      expect(file(config.to_s).content).to match 'stratum 10'
     end
   end
 end

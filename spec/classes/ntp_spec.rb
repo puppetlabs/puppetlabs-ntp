@@ -58,7 +58,18 @@ on_supported_os.each do |os, f|
                 keys_trusted: [1, 2, 3],
                 keys_controlkey: 2,
                 keys_requestkey: 3,
+                keys: [ '1 M AAAABBBB' ],
               }
+            end
+
+            let(:keys_file) do
+              if os =~ %r{redhat|centos|oracle|scientific} 
+                '/etc/ntp/keys'
+              elsif os =~ %r{solaris}
+                '/etc/inet/ntp.keys'
+              else
+                '/etc/ntp.keys'
+              end
             end
 
             it {
@@ -70,6 +81,10 @@ on_supported_os.each do |os, f|
             it {
               is_expected.to contain_file(conf_path).with('content' => %r{requestkey 3})
             }
+            it {
+              is_expected.to contain_file(keys_file).with('content' => %r{1 M AAAABBBB})
+            }
+
           end
         end
 
@@ -318,6 +333,27 @@ on_supported_os.each do |os, f|
             end
           end
         end
+
+        describe 'with parameter driftfile' do
+          context 'when not set' do
+            it 'contains default driftfile' do
+              is_expected.to contain_file(conf_path).with('content' => %r{^driftfile})
+            end
+          end
+
+          context 'when set' do
+            let(:params) do
+              {
+                driftfile: '/tmp/driftfile',
+              }
+            end
+
+            it 'contains driftfile value' do
+              is_expected.to contain_file(conf_path).with('content' => %r{^driftfile /tmp/driftfile\n})
+            end
+          end
+        end
+
         describe 'with parameter enable_mode7' do
           context 'when default' do
             let(:params) do
@@ -497,6 +533,111 @@ on_supported_os.each do |os, f|
 
             it 'does contain "slewalways yes"' do
               is_expected.to contain_file(conf_path).with_content(%r{^slewalways yes})
+            end
+          end
+        end
+
+        describe 'restrict' do
+          context 'when not set' do
+            it 'does not contain restrict value' do
+              is_expected.to contain_file(conf_path).without_content(%r{^restrict test restrict})
+            end
+          end
+
+          context 'when set' do
+            let(:params) do
+              {
+                restrict: ['test restrict'],
+              }
+            end
+
+            it 'contains restrict value' do
+              is_expected.to contain_file(conf_path).with_content(%r{^restrict test restrict})
+            end
+          end
+        end
+
+        describe 'statistics' do
+          context 'when not set' do
+            it 'does not contain statistics' do
+              is_expected.to contain_file(conf_path).without_content(%r{^filegen loopstats file loopstats type day enable})
+            end
+          end
+
+          context 'when set' do
+            let(:params) do
+              {
+                statistics: ['loopstats'], 
+                disable_monitor: false,
+              }
+            end
+
+            it 'contains statistics value' do
+              is_expected.to contain_file(conf_path).with_content(%r{^filegen loopstats file loopstats type day enable})
+              is_expected.to contain_file(conf_path).with_content(%r{^statsdir /var/log/ntpstats})
+            end
+          end
+        end
+
+        describe 'statistics' do
+          context 'when not set' do
+            it 'does not contain statistics' do
+              is_expected.to contain_file(conf_path).without_content(%r{^filegen loopstats file loopstats type day enable})
+            end
+          end
+
+          context 'when set' do
+            let(:params) do
+              {
+                statistics: ['loopstats'], 
+                disable_monitor: false,
+              }
+            end
+
+            it 'contains statistics value' do
+              is_expected.to contain_file(conf_path).with_content(%r{^filegen loopstats file loopstats type day enable})
+              is_expected.to contain_file(conf_path).with_content(%r{^statsdir /var/log/ntpstats})
+            end
+          end
+        end
+
+        describe 'udlc' do
+          context 'when not set' do
+            it 'does not contain udlc' do
+              is_expected.to contain_file(conf_path).without_content(%r{127.127.1.0})
+            end
+          end
+
+          context 'when set' do
+            let(:params) do
+              {
+                udlc: true,
+              }
+            end
+
+            it 'contains udlc value' do
+              is_expected.to contain_file(conf_path).with_content(%r{127.127.1.0})
+            end
+          end
+        end
+
+        describe 'udlc_stratum' do
+          context 'when not set' do
+            it 'does not contain udlc_stratum' do
+              is_expected.to contain_file(conf_path).without_content(%r{stratum 10})
+            end
+          end
+
+          context 'when set' do
+            let(:params) do
+              {
+                udlc: true,
+                udlc_stratum: 10,
+              }
+            end
+
+            it 'contains udlc_stratum value' do
+              is_expected.to contain_file(conf_path).with_content(%r{stratum 10})
             end
           end
         end
