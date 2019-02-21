@@ -1,6 +1,6 @@
 require 'spec_helper_acceptance'
 
-describe 'ntp class:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
+describe 'ntp class:', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) do
   context 'with ntp' do
     let(:pp) { "class { 'ntp': }" }
 

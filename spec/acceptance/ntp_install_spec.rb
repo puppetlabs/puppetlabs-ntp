@@ -1,11 +1,11 @@
 require 'spec_helper_acceptance'
 
-case fact('osfamily')
-when 'FreeBSD'
+case os[:family]
+when 'freebsd'
   packagename = 'net/ntp'
-when 'AIX'
+when 'aix'
   packagename = 'bos.net.tcp.client'
-when 'Solaris'
+when 'solaris'
   case fact('kernelrelease')
   when '5.10'
     packagename = ['SUNWntp4r', 'SUNWntp4u']
@@ -14,16 +14,13 @@ when 'Solaris'
   end
 end
 
-describe 'ntp::install class', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
+describe 'ntp::install class', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) do
   it 'installs the package' do
     apply_manifest(%(
       class { 'ntp': }
     ), catch_failures: true)
-  end
-
-  Array(packagename).each do |package|
-    describe package(package) do
-      it { is_expected.to be_installed }
+    Array(packagename).each do |package|
+      expect(package(package)).to be_installed
     end
   end
 end

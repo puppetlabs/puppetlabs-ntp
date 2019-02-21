@@ -1,47 +1,32 @@
 require 'spec_helper_acceptance'
 
-case fact('osfamily')
-when 'FreeBSD'
+case os[:family]
+when 'freebsd'
   packagename = 'net/ntp'
-when 'AIX'
+when 'aix'
   packagename = 'bos.net.tcp.client'
-when 'Solaris'
-  case fact('kernelrelease')
-  when '5.10'
+when 'solaris'
+  case linux_kernel_parameter('kernel.osrelease').value
+  when %r{^5.10}
     packagename = ['SUNWntp4r', 'SUNWntp4u']
-  when '5.11'
+  when %r{^5.11}
     packagename = 'service/network/ntp'
   end
 else
-  if fact('operatingsystem') == 'SLES' && fact('operatingsystemmajrelease') == '12'
+  if os[:family] == 'sles' && os[:release].start_with?('12', '15')
     'ntpd'
   else
     'ntp'
   end
 end
 
-keysfile = if fact('osfamily') == 'RedHat'
-             '/etc/ntp/keys'
-           elsif fact('osfamily') == 'Solaris'
-             '/etc/inet/ntp.keys'
-           else
-             '/etc/ntp.keys'
-           end
-
-config = if fact('osfamily') == 'Solaris'
+config = if os[:family] == 'solaris'
            '/etc/inet/ntp.conf'
          else
            '/etc/ntp.conf'
          end
 
-describe 'ntp class:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
-  # FM-5470, this was added to reset failed count and work around puppet 3.x
-  if (fact('operatingsystem') == 'SLES' && fact('operatingsystemmajrelease') == '12') || (fact('operatingsystem') == 'Scientific' && fact('operatingsystemmajrelease') == '7')
-    after :each do
-      shell('systemctl reset-failed ntpd.service')
-    end
-  end
-
+describe 'ntp class', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) do
   it 'applies successfully' do
     pp = "class { 'ntp': }"
 
@@ -54,10 +39,7 @@ describe 'ntp class:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) 
     it 'sets the ntp.conf location' do
       pp = "class { 'ntp': config => '/etc/antp.conf' }"
       apply_manifest(pp, catch_failures: true)
-    end
-
-    describe file('/etc/antp.conf') do
-      it { is_expected.to be_file }
+      expect(file('/etc/antp.conf')).to be_file
     end
   end
 
@@ -72,11 +54,8 @@ describe 'ntp class:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) 
     it 'sets the ntp.conf erb template location' do
       pp = "class { 'ntp': config_template => 'test/ntp.conf.erb' }"
       apply_manifest(pp, catch_failures: true)
-    end
-
-    describe file(config.to_s) do
-      it { is_expected.to be_file }
-      its(:content) { is_expected.to match 'erbserver1' }
+      expect(file(config.to_s)).to be_file
+      expect(file(config.to_s).content).to match 'erbserver1'
     end
 
     it 'sets the ntp.conf epp template location and the ntp.conf erb template location which should fail' do
@@ -96,57 +75,13 @@ describe 'ntp class:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) 
     it 'sets the ntp.conf epp template location' do
       pp = "class { 'ntp': config_epp => 'test/ntp.conf.epp' }"
       apply_manifest(pp, catch_failures: true)
-    end
-
-    describe file(config.to_s) do
-      it { is_expected.to be_file }
-      its(:content) { is_expected.to match 'eppserver1' }
+      expect(file(config.to_s)).to be_file
+      expect(file(config.to_s).content).to match 'eppserver1'
     end
 
     it 'sets the ntp.conf epp template location and the ntp.conf erb template location which should fail' do
       pp = "class { 'ntp': config_template => 'test/ntp.conf.erb', config_epp => 'test/ntp.conf.epp' }"
       expect(apply_manifest(pp, expect_failures: true).stderr).to match(%r{Cannot supply both config_epp and config_template}i)
-    end
-  end
-
-  describe 'driftfile' do
-    it 'sets the driftfile location' do
-      pp = "class { 'ntp': driftfile => '/tmp/driftfile' }"
-      apply_manifest(pp, catch_failures: true)
-    end
-
-    describe file(config.to_s) do
-      it { is_expected.to be_file }
-      its(:content) { is_expected.to match 'driftfile /tmp/driftfile' }
-    end
-  end
-
-  describe 'keys' do
-    pp = <<-MANIFEST
-    class { 'ntp':
-      keys_enable     => true,
-      keys_controlkey => 1,
-      keys_requestkey => 1,
-      keys_trusted    => [ 1, 2 ],
-      keys            => [ '1 M AAAABBBB' ],
-    }
-    MANIFEST
-
-    it 'enables the key parameters' do
-      apply_manifest(pp, catch_failures: true)
-    end
-
-    describe file(config.to_s) do
-      it { is_expected.to be_file }
-      its(:content) { is_expected.to match "keys #{keysfile}" }
-      its(:content) { is_expected.to match 'controlkey 1' }
-      its(:content) { is_expected.to match 'requestkey 1' }
-      its(:content) { is_expected.to match 'trustedkey 1 2' }
-    end
-
-    describe file(keysfile) do
-      it { is_expected.to be_file }
-      its(:content) { is_expected.to match '1 M AAAABBBB' }
     end
   end
 
@@ -160,68 +95,9 @@ describe 'ntp class:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) 
 
     it 'installs the right package' do
       apply_manifest(pp, catch_failures: true)
-    end
-
-    Array(packagename).each do |package|
-      describe package(package) do
-        it { is_expected.to be_installed }
+      Array(packagename).each do |package|
+        expect(package(package)).to be_installed
       end
-    end
-  end
-
-  describe 'panic => 0' do
-    pp = <<-MANIFEST
-    class { 'ntp':
-      panic => 0,
-    }
-    MANIFEST
-
-    it 'disables the tinker panic setting' do
-      apply_manifest(pp, catch_failures: true)
-    end
-
-    describe file(config.to_s) do
-      its(:content) { is_expected.to match 'tinker panic 0' }
-    end
-  end
-
-  describe 'panic => 1' do
-    pp = <<-MANIFEST
-    class { 'ntp':
-      panic => 1,
-    }
-    MANIFEST
-
-    it 'enables the tinker panic setting' do
-      apply_manifest(pp, catch_failures: true)
-    end
-
-    describe file(config.to_s) do
-      its(:content) { is_expected.to match 'tinker panic 1' }
-    end
-  end
-
-  describe 'udlc' do
-    it 'adds a udlc' do
-      pp = "class { 'ntp': udlc => true }"
-      apply_manifest(pp, catch_failures: true)
-    end
-
-    describe file(config.to_s) do
-      it { is_expected.to be_file }
-      its(:content) { is_expected.to match '127.127.1.0' }
-    end
-  end
-
-  describe 'udlc_stratum' do
-    it 'sets the stratum value when using udlc' do
-      pp = "class { 'ntp': udlc => true, udlc_stratum => 10 }"
-      apply_manifest(pp, catch_failures: true)
-    end
-
-    describe file(config.to_s) do
-      it { is_expected.to be_file }
-      its(:content) { is_expected.to match 'stratum 10' }
     end
   end
 end
