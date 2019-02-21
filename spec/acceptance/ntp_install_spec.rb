@@ -6,10 +6,10 @@ when 'freebsd'
 when 'aix'
   packagename = 'bos.net.tcp.client'
 when 'solaris'
-  case linux_kernel_parameter('kernel.osrelease').value
-  when %r{^5.10}
+  case fact('kernelrelease')
+  when '5.10'
     packagename = ['SUNWntp4r', 'SUNWntp4u']
-  when %r{^5.11}
+  when '5.11'
     packagename = 'service/network/ntp'
   end
 end
