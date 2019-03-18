@@ -8,7 +8,7 @@ config = if fact('osfamily') == 'redhat'
 
 describe 'ntp class with daemon options:', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   context 'when successful' do
-    let(:pp) { "class { 'ntp': user => 'ntp', options => '-g -i /var/lib/ntp' }" }
+    let(:pp) { "class { 'ntp': user => 'ntp', daemon_extra_opts => '-g -i /var/lib/ntp' }" }
 
     it 'runs twice' do
       2.times do
