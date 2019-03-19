@@ -10,7 +10,7 @@ describe 'ntp' do
       notify => Service["ntp"] }'
   end
 
-  on_supported_os.reject { |_, f| f[:os]['family'] == 'Solaris' }.each do |os, f|
+  on_supported_os.each do |os, f|
     context "on #{os}" do
       let(:facts) do
         f.merge(super())

@@ -4,7 +4,7 @@ require 'beaker-rspec'
 require 'beaker/puppet_install_helper'
 require 'beaker/module_install_helper'
 
-UNSUPPORTED_PLATFORMS = ['windows', 'Darwin'].freeze
+UNSUPPORTED_PLATFORMS = ['windows', 'darwin'].freeze
 
 run_puppet_install_helper
 configure_type_defaults_on(hosts)
@@ -37,5 +37,19 @@ RSpec.configure do |c|
     hosts.each do |host|
       copy_module_to(host, source: proj_root, module_name: 'ntp')
     end
+  end
+end
+
+def idempotent_apply(hosts, manifest, opts = {}, &block)
+  block_on hosts, opts do |host|
+    file_path = host.tmpfile('apply_manifest.pp')
+    create_remote_file(host, file_path, manifest + "\n")
+
+    puppet_apply_opts = { :verbose => nil, 'detailed-exitcodes' => nil }
+    on_options = { acceptable_exit_codes: [0, 2] }
+    on host, puppet('apply', file_path, puppet_apply_opts), on_options, &block
+    puppet_apply_opts2 = { :verbose => nil, 'detailed-exitcodes' => nil }
+    on_options2 = { acceptable_exit_codes: [0] }
+    on host, puppet('apply', file_path, puppet_apply_opts2), on_options2, &block
   end
 end

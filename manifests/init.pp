@@ -88,6 +88,9 @@
 # @param logfile
 #   Specifies a log file for NTP to use instead of syslog. Default value: ' '.
 #
+# @param logconfig
+#   Specifies the logconfig for NTP to use. Default value: ' '.
+#
 # @param minpoll
 #   Sets Puppet to non-standard minimal poll interval of upstream servers.
 #   Values: 3 to 16. Default: undef.
@@ -157,6 +160,12 @@
 #
 # @param service_provider
 #   Which service provider to use for NTP. Default value: 'undef'.
+#
+# @param service_hasstatus
+#   Whether service has a functional status command. Default value: true.
+#
+# @param service_hasrestart
+#   Whether service has a restart command. Default value: true.
 #
 # @param slewalways
 #   xntpd setting to disable stepping behavior and always slew the clock to handle adjustments.
@@ -235,6 +244,7 @@ class ntp (
   Stdlib::Absolutepath $driftfile,
   Optional[Stdlib::Absolutepath] $leapfile,
   Optional[Stdlib::Absolutepath] $logfile,
+  Optional[String] $logconfig,
   Boolean $iburst_enable,
   Array[String] $keys,
   Boolean $keys_enable,
@@ -261,6 +271,8 @@ class ntp (
   Boolean $service_manage,
   String $service_name,
   Optional[String] $service_provider,
+  Boolean $service_hasstatus,
+  Boolean $service_hasrestart,
   Optional[Enum['yes','no']] $slewalways,
   Optional[Array] $statistics,
   Optional[Stdlib::Absolutepath] $statsdir,

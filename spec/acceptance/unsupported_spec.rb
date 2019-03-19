@@ -1,6 +1,6 @@
 require 'spec_helper_acceptance'
 
-describe 'unsupported distributions and OSes', if: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
+describe 'unsupported distributions and OSes', if: UNSUPPORTED_PLATFORMS.include?(os[:family]) do
   it 'fails' do
     pp = <<-MANIFEST
     class { 'ntp': }

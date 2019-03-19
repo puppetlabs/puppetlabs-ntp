@@ -1,12 +1,12 @@
 require 'spec_helper_acceptance'
 
-config = if fact('osfamily') == 'Solaris'
+config = if os[:family] == 'solaris'
            '/etc/inet/ntp.conf'
          else
            '/etc/ntp.conf'
          end
 
-describe 'preferred servers', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
+describe 'preferred servers', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) do
   pp = <<-MANIFEST
     class { '::ntp':
       servers           => ['a', 'b', 'c', 'd'],
@@ -18,13 +18,10 @@ describe 'preferred servers', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfam
     apply_manifest(pp, catch_failures: true) do |r|
       expect(r.stderr).not_to match(%r{error}i)
     end
-  end
-
-  describe file(config.to_s) do
-    it { is_expected.to be_file }
-    its(:content) { is_expected.to match 'server a' }
-    its(:content) { is_expected.to match 'server b' }
-    its(:content) { is_expected.to match %r{server c (iburst\s|)prefer} }
-    its(:content) { is_expected.to match %r{server d (iburst\s|)prefer} }
+    expect(file(config.to_s)).to be_file
+    expect(file(config.to_s).content).to match 'server a'
+    expect(file(config.to_s).content).to match 'server b'
+    expect(file(config.to_s).content).to match %r{server c (iburst\s|)prefer}
+    expect(file(config.to_s).content).to match %r{server d (iburst\s|)prefer}
   end
 end
