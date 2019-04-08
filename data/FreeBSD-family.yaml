@@ -1,4 +1,5 @@
 ntp::driftfile: '/var/db/ntpd.drift'
+ntp::leapfile: '/var/db/ntpd.leap-seconds.list'
 ntp::package_name: ['net/ntp']
 ntp::restrict:
   - 'default kod nomodify notrap nopeer noquery'
