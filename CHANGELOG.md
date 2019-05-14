@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v8.0.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v8.0.0) (2019-05-14)
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/7.4.0...v8.0.0)
+
+### Changed
+
+- pdksync - \(MODULES-8444\) - Raise lower Puppet bound [\#510](https://github.com/puppetlabs/puppetlabs-ntp/pull/510) ([david22swan](https://github.com/david22swan))
+
+### Fixed
+
+- Service hasstatus and hasrestart atributes [\#499](https://github.com/puppetlabs/puppetlabs-ntp/pull/499) ([ffapitalle](https://github.com/ffapitalle))
+
 ## [7.4.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/7.4.0) (2019-02-01)
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/7.3.0...7.4.0)
