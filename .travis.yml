@@ -25,7 +25,7 @@ matrix:
     -
       bundler_args: 
       dist: trusty
-      env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=docker/centos-7 BEAKER_TESTMODE=apply
+      env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_PUPPET_COLLECTION="" PUPPET_INSTALL_VERSION=6.4.0 BEAKER_set=docker/centos-7 BEAKER_TESTMODE=apply
       rvm: 2.5.3
       script: bundle exec rake beaker
       services: docker
