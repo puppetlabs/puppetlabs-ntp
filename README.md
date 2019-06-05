@@ -138,7 +138,7 @@ For an extensive list of supported operating systems, see [metadata.json](https:
 
 Puppet modules on the Puppet Forge are open projects, and community contributions are essential for keeping them great. Please follow our guidelines when contributing changes.
 
-For more information, see our [module contribution guide.](https://docs.puppetlabs.com/forge/contributing.html)
+For more information, see our [module contribution guide.](https://puppet.com/docs/puppet/latest/contributing.html)
 
 ### Contributors
 
