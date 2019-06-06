@@ -136,6 +136,8 @@ For an extensive list of supported operating systems, see [metadata.json](https:
 <a id="development"></a> 
 ## Development
 
+We are experimenting with a new tool for running acceptance tests. It's name is [puppet_litmus](https://github.com/puppetlabs/puppet_litmus) this replaces beaker as the test runner. To run the acceptance tests follow the instructions [here](https://github.com/puppetlabs/puppet_litmus/wiki/Tutorial:-use-Litmus-to-execute-acceptance-tests-with-a-sample-module-(MoTD)#install-the-necessary-gems-for-the-module).
+
 Puppet modules on the Puppet Forge are open projects, and community contributions are essential for keeping them great. Please follow our guidelines when contributing changes.
 
 For more information, see our [module contribution guide.](https://puppet.com/docs/puppet/latest/contributing.html)
