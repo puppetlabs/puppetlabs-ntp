@@ -26,6 +26,7 @@ config = if os[:family] == 'solaris'
            '/etc/ntp.conf'
          end
 
+modulepath = run_shell('puppet config print modulepath').stdout.split(':')[0]
 describe 'ntp class', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) do
   it 'applies successfully' do
     pp = "class { 'ntp': }"
@@ -45,7 +46,6 @@ describe 'ntp class', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) do
 
   describe 'config_template' do
     before :all do
-      modulepath = run_shell('puppet config print modulepath').stdout.split(':')[0]
       run_shell("mkdir -p #{modulepath}/test/templates")
       # Add spurious template logic to verify the use of the correct template rendering engine
       run_shell("echo '<% [1].each do |i| %>erbserver<%= i %><%end %>' >> #{modulepath}/test/templates/ntp.conf.erb")
@@ -66,7 +66,6 @@ describe 'ntp class', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) do
 
   describe 'config_epp' do
     before :all do
-      modulepath = run_shell('puppet config print modulepath').stdout.split(':')[0]
       run_shell("mkdir -p #{modulepath}/test/templates")
       # Add spurious template logic to verify the use of the correct template rendering engine
       run_shell("echo '<% [1].each |$i| { -%>eppserver<%= $i %><% } -%>' >> #{modulepath}/test/templates/ntp.conf.epp")
