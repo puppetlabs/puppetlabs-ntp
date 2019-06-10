@@ -26,6 +26,7 @@ config = if os[:family] == 'solaris'
            '/etc/ntp.conf'
          end
 
+modulepath = run_shell('puppet config print modulepath').stdout.split(':')[0]
 describe 'ntp class', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) do
   it 'applies successfully' do
     pp = "class { 'ntp': }"
@@ -45,10 +46,9 @@ describe 'ntp class', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) do
 
   describe 'config_template' do
     before :all do
-      modulepath = default['distmoduledir']
-      shell("mkdir -p #{modulepath}/test/templates")
+      run_shell("mkdir -p #{modulepath}/test/templates")
       # Add spurious template logic to verify the use of the correct template rendering engine
-      shell("echo '<% [1].each do |i| %>erbserver<%= i %><%end %>' >> #{modulepath}/test/templates/ntp.conf.erb")
+      run_shell("echo '<% [1].each do |i| %>erbserver<%= i %><%end %>' >> #{modulepath}/test/templates/ntp.conf.erb")
     end
 
     it 'sets the ntp.conf erb template location' do
@@ -66,10 +66,9 @@ describe 'ntp class', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) do
 
   describe 'config_epp' do
     before :all do
-      modulepath = default['distmoduledir']
-      shell("mkdir -p #{modulepath}/test/templates")
+      run_shell("mkdir -p #{modulepath}/test/templates")
       # Add spurious template logic to verify the use of the correct template rendering engine
-      shell("echo '<% [1].each |$i| { -%>eppserver<%= $i %><% } -%>' >> #{modulepath}/test/templates/ntp.conf.epp")
+      run_shell("echo '<% [1].each |$i| { -%>eppserver<%= $i %><% } -%>' >> #{modulepath}/test/templates/ntp.conf.epp")
     end
 
     it 'sets the ntp.conf epp template location' do
