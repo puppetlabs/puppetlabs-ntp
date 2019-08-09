@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v8.1.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v8.1.0) (2019-08-09)
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v8.0.0...v8.1.0)
+
+### Added
+
+- \(FM-8188\) convert ntp to use litmus [\#517](https://github.com/puppetlabs/puppetlabs-ntp/pull/517) ([tphoney](https://github.com/tphoney))
+
+### Fixed
+
+- Fix disable\_dhclient [\#521](https://github.com/puppetlabs/puppetlabs-ntp/pull/521) ([raphink](https://github.com/raphink))
+
 ## [v8.0.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v8.0.0) (2019-05-14)
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/7.4.0...v8.0.0)
