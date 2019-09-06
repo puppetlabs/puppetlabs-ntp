@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-on_supported_os(facterversion: '3.14.0').each do |os, f|
+on_supported_os(facterversion: '3.14').each do |os, f|
   describe 'ntp' do
     let(:facts) { { is_virtual: false } }
 
