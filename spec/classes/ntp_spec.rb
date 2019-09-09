@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-on_supported_os(facterversion: '3.9.0').each do |os, f|
+on_supported_os.each do |os, f|
   describe 'ntp' do
     let(:facts) { { is_virtual: false } }
 
@@ -157,10 +157,6 @@ on_supported_os(facterversion: '3.9.0').each do |os, f|
           when 'Solaris'
             it 'uses the generic NTP pool servers' do
               is_expected.to contain_file('/etc/inet/ntp.conf').with('content' => %r{server \d.pool.ntp.org})
-            end
-          when 'AIX'
-            it 'uses the generic NTP pool servers on AIX' do
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{server \d.pool.ntp.org})
             end
           else
             it {
