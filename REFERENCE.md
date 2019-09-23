@@ -15,6 +15,11 @@ _Private Classes_
 * `ntp::install`: This class handles ntp packages.
 * `ntp::service`: This class handles the ntp service.
 
+**Data types**
+
+* [`Ntp::Key_id`](#ntpkey_id): See http://doc.ntp.org/4.2.6/authopt.html#controlkey for documentation Alternatively: type Ntp::Key_id = Variant[Integer, Pattern['']]
+* [`Ntp::Poll_interval`](#ntppoll_interval): See http://doc.ntp.org/4.2.6/clockopt.html#server for documentation Alternatively: type Ntp::Poll_interval = Variant[Integer, Pattern['']]
+
 ## Classes
 
 ### ntp
@@ -319,6 +324,18 @@ Data type: `Optional[String]`
 
 Which service provider to use for NTP. Default value: 'undef'.
 
+##### `service_hasstatus`
+
+Data type: `Boolean`
+
+Whether service has a functional status command. Default value: true.
+
+##### `service_hasrestart`
+
+Data type: `Boolean`
+
+Whether service has a restart command. Default value: true.
+
 ##### `slewalways`
 
 Data type: `Optional[Enum['yes','no']]`
@@ -425,4 +442,20 @@ Data type: `Optional[Integer[1,15]]`
 Specifies the stratum the server should operate at when using the undisciplined local clock as the time source.
 This value should be set to no less than 10 if ntpd might be accessible outside your immediate, controlled network.
 Default value: 10.am udlc
+
+## Data types
+
+### Ntp::Key_id
+
+See http://doc.ntp.org/4.2.6/authopt.html#controlkey for documentation
+Alternatively: type Ntp::Key_id = Variant[Integer, Pattern['']]
+
+Alias of `Integer[1, 65534]`
+
+### Ntp::Poll_interval
+
+See http://doc.ntp.org/4.2.6/clockopt.html#server for documentation
+Alternatively: type Ntp::Poll_interval = Variant[Integer, Pattern['']]
+
+Alias of `Integer[4, 17]`
 
