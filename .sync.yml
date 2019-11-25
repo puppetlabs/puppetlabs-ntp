@@ -83,6 +83,7 @@
     services: docker
     sudo: required
     stage: acceptance
+  simplecov: true
 appveyor.yml:
   delete: true
 Gemfile:
