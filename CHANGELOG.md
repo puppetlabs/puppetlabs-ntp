@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v8.2.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v8.2.0) (2019-12-09)
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v8.1.0...v8.2.0)
+
+### Added
+
+- FM-8407 - Add support on Debian 10 [\#528](https://github.com/puppetlabs/puppetlabs-ntp/pull/528) ([lionce](https://github.com/lionce))
+
 ## [v8.1.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v8.1.0) (2019-09-23)
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v8.0.0...v8.1.0)
