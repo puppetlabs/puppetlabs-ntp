@@ -30,7 +30,7 @@
 #
 # @param daemon_extra_opts
 #   Specifies any arguments to pass to ntp daemon. Default value: '-g'.
-#   Example value: '-g -i /var/lib/ntp' to enaible jaildir options.
+#   Example value: '-g -i /var/lib/ntp' to enable jaildir options.
 #   Note that user is a specific parameter handled separately.
 #
 # @param disable_auth
@@ -226,6 +226,7 @@
 # @param user
 #   Specifies user to run ntpd daemon. Default value: ntp.
 #   Usually set by default on Centos7 (/etc/systemd/system/multi-user.target.wants/ntpd.service) and ubuntu 18.04 (/usr/lib/ntp/ntp-systemd-wrapper)
+#   This is currently restricted to Redhat based systems of version 7 and above and Ubuntu 18.04.
 #
 class ntp (
   Boolean $broadcastclient,

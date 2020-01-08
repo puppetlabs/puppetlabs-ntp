@@ -82,6 +82,14 @@ Data type: `Optional[String]`
 Specifies an absolute or relative file path to an ERB template for the config file.
 Example value: 'ntp/ntp.conf.erb'. A validation error is thrown if both this **and** the `config_epp` parameter are specified.
 
+##### `daemon_extra_opts`
+
+Data type: `Optional[String]`
+
+Specifies any arguments to pass to ntp daemon. Default value: '-g'.
+Example value: '-g -i /var/lib/ntp' to enable jaildir options.
+Note that user is a specific parameter handled separately.
+
 ##### `disable_auth`
 
 Data type: `Boolean`
@@ -442,6 +450,14 @@ Data type: `Optional[Integer[1,15]]`
 Specifies the stratum the server should operate at when using the undisciplined local clock as the time source.
 This value should be set to no less than 10 if ntpd might be accessible outside your immediate, controlled network.
 Default value: 10.am udlc
+
+##### `user`
+
+Data type: `Optional[String]`
+
+Specifies user to run ntpd daemon. Default value: ntp.
+Usually set by default on Centos7 (/etc/systemd/system/multi-user.target.wants/ntpd.service) and ubuntu 18.04 (/usr/lib/ntp/ntp-systemd-wrapper)
+This is currently restricted to Redhat based systems of version 7 and above and Ubuntu 18.04.
 
 ## Data types
 
