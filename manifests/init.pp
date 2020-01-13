@@ -28,6 +28,11 @@
 #   Specifies an absolute or relative file path to an ERB template for the config file.
 #   Example value: 'ntp/ntp.conf.erb'. A validation error is thrown if both this **and** the `config_epp` parameter are specified.
 #
+# @param daemon_extra_opts
+#   Specifies any arguments to pass to ntp daemon. Default value: '-g'.
+#   Example value: '-g -i /var/lib/ntp' to enable jaildir options.
+#   Note that user is a specific parameter handled separately.
+#
 # @param disable_auth
 #   Disables cryptographic authentication for broadcast client, multicast client, and symmetric passive associations.
 #
@@ -218,6 +223,11 @@
 #   This value should be set to no less than 10 if ntpd might be accessible outside your immediate, controlled network.
 #   Default value: 10.am udlc
 #
+# @param user
+#   Specifies user to run ntpd daemon. Default value: ntp.
+#   Usually set by default on Centos7 (/etc/systemd/system/multi-user.target.wants/ntpd.service) and ubuntu 18.04 (/usr/lib/ntp/ntp-systemd-wrapper)
+#   This is currently restricted to Redhat based systems of version 7 and above and Ubuntu 18.04.
+#
 class ntp (
   Boolean $broadcastclient,
   Boolean $burst,
@@ -284,6 +294,8 @@ class ntp (
   Optional[Integer[1,15]] $udlc_stratum,
   Optional[Stdlib::Absolutepath] $ntpsigndsocket,
   Optional[String] $authprov,
+  Optional[String] $user,
+  Optional[String] $daemon_extra_opts,
 ) {
   # defaults for tinker and panic are different, when running on virtual machines
   if $facts['is_virtual'] {
