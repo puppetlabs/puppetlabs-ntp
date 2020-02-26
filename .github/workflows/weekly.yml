@@ -2,10 +2,13 @@ name: "weekly"
 
 on:
   schedule:
-    - cron: '0 0 * * 6'
+    - cron: '0 7 * * 6'
 
 jobs:
   LitmusAcceptance:
+    env:
+      HONEYCOMB_WRITEKEY: 7f3c63a70eecc61d635917de46bea4e6
+      HONEYCOMB_DATASET: litmus tests
     runs-on: self-hosted
     strategy:
       matrix:
