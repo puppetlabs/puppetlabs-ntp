@@ -2,6 +2,7 @@
 ".gitlab-ci.yml":
   delete: true
 ".travis.yml":
+  dist: 'bionic'
   global_env: 
     - HONEYCOMB_WRITEKEY="7f3c63a70eecc61d635917de46bea4e6",HONEYCOMB_DATASET="litmus tests"
   deploy_to_forge:
