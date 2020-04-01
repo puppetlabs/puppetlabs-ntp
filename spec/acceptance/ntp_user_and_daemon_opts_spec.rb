@@ -26,7 +26,7 @@ config = if os[:family] == 'redhat'
          else
            '/etc/default/ntp'
          end
-describe 'ntp class with daemon options:', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) do
+describe 'ntp class with daemon options:', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) || (os[:release].start_with?('5') && os[:family] == 'redhat') do
   let(:pp) { "class { 'ntp': service_enable => true, service_ensure => running, service_manage => true, service_name => '#{servicename}', user => 'ntp', daemon_extra_opts => '-g -i /var/lib/ntp' }" }
 
   context 'when run' do
