@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v8.3.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v8.3.0) (2020-04-01)
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v8.2.0...v8.3.0)
+
+### Added
+
+- \(MAINT\) Add Solaris family Hiera data [\#554](https://github.com/puppetlabs/puppetlabs-ntp/pull/554) ([paescuj](https://github.com/paescuj))
+- pdksync - \(FM-8581\) - Debian 10 added to travis and provision file refactored [\#552](https://github.com/puppetlabs/puppetlabs-ntp/pull/552) ([david22swan](https://github.com/david22swan))
+- \(MODULES-10413\) Allow custom ntp user and daemon options  [\#551](https://github.com/puppetlabs/puppetlabs-ntp/pull/551) ([david22swan](https://github.com/david22swan))
+
 ## [v8.2.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v8.2.0) (2019-12-09)
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v8.1.0...v8.2.0)
