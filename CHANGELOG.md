@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v8.4.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v8.4.0) (2020-09-11)
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v8.3.0...v8.4.0)
+
+### Added
+
+- pdksync - \(IAC-973\) - Update travis/appveyor to run on new default branch `main` [\#579](https://github.com/puppetlabs/puppetlabs-ntp/pull/579) ([david22swan](https://github.com/david22swan))
+- \(IAC-746\) - Add ubuntu 20.04 support [\#575](https://github.com/puppetlabs/puppetlabs-ntp/pull/575) ([david22swan](https://github.com/david22swan))
+
 ## [v8.3.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v8.3.0) (2020-04-01)
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v8.2.0...v8.3.0)
@@ -52,6 +61,7 @@ All notable changes to this project will be documented in this file. The format 
 
 - \(MODULES-8139\) - Add SLES 15 support [\#492](https://github.com/puppetlabs/puppetlabs-ntp/pull/492) ([eimlav](https://github.com/eimlav))
 - \(MODULES-8098\) - Add logconfig option to config file [\#491](https://github.com/puppetlabs/puppetlabs-ntp/pull/491) ([eimlav](https://github.com/eimlav))
+- Add SLES 15 hiera data [\#472](https://github.com/puppetlabs/puppetlabs-ntp/pull/472) ([mattiasgiese](https://github.com/mattiasgiese))
 
 ### Fixed
 
@@ -78,7 +88,6 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
-- Add SLES 15 hiera data [\#472](https://github.com/puppetlabs/puppetlabs-ntp/pull/472) ([mattiasgiese](https://github.com/mattiasgiese))
 - \(FM-7038\) Add support for Debian 9 [\#470](https://github.com/puppetlabs/puppetlabs-ntp/pull/470) ([david22swan](https://github.com/david22swan))
 - add tos\_orphan parameter [\#452](https://github.com/puppetlabs/puppetlabs-ntp/pull/452) ([disklord](https://github.com/disklord))
 
