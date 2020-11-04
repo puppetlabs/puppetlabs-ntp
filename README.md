@@ -124,14 +124,14 @@ class { 'ntp':
 <a id="reference"></a>
 ## Reference
 
-See [REFERENCE.md](https://github.com/puppetlabs/puppetlabs-ntp/blob/master/REFERENCE.md)
+See [REFERENCE.md](https://github.com/puppetlabs/puppetlabs-ntp/blob/main/REFERENCE.md)
 
 <a id="limitations"></a>
 ## Limitations
 
 This module has been tested on [all PE-supported platforms](https://forge.puppetlabs.com/supported#compat-matrix). Additionally, it is tested (but not supported) on Solaris 10 and Fedora 20-22.
 
-For an extensive list of supported operating systems, see [metadata.json](https://github.com/puppetlabs/puppetlabs-ntp/blob/master/metadata.json)
+For an extensive list of supported operating systems, see [metadata.json](https://github.com/puppetlabs/puppetlabs-ntp/blob/main/metadata.json)
 
 <a id="development"></a> 
 ## Development
