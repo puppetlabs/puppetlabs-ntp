@@ -141,7 +141,7 @@ class ntp::config {
       ensure => file,
       owner  => 'ntp',
       group  => 'ntp',
-      mode   => '0664',
+      mode   => $ntp::logfile_mode,
     }
   }
 
