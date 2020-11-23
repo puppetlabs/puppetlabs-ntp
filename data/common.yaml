@@ -26,6 +26,7 @@ ntp::keys_trusted: []
 ntp::keys: []
 ntp::leapfile: ~
 ntp::logfile: ~
+ntp::logfile_mode: '0664'
 ntp::logconfig: ~
 ntp::ntpsigndsocket: ~
 ntp::maxpoll: ~
