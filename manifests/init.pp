@@ -89,7 +89,7 @@
 #   Specifies a log file for NTP to use instead of syslog. Default value: ' '.
 
 # @param logfile_mode
-#   Specifies the permission fot the NTP log file. Default is 0664.
+#   Specifies the permission for the NTP log file. Default is 0664.
 #
 # @param logconfig
 #   Specifies the logconfig for NTP to use. Default value: ' '.
