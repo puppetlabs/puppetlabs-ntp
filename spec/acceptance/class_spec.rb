@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper_acceptance'
 
 describe 'ntp class:', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # To check the correct dependancies are set up for NTP.
 
 require 'spec_helper'
