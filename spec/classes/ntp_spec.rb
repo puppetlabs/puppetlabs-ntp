@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 on_supported_os.each do |os, f|
@@ -5,7 +7,7 @@ on_supported_os.each do |os, f|
     let(:facts) { { is_virtual: false } }
 
     let(:conf_path) do
-      if os =~ %r{solaris}
+      if os.match?(%r{solaris})
         '/etc/inet/ntp.conf'
       else
         '/etc/ntp.conf'
@@ -411,9 +413,9 @@ on_supported_os.each do |os, f|
             end
 
             let(:keys_file) do
-              if os =~ %r{redhat|centos|oracle|scientific}
+              if os.match?(%r{redhat|centos|oracle|scientific})
                 '/etc/ntp/keys'
-              elsif os =~ %r{solaris}
+              elsif os.match?(%r{solaris})
                 '/etc/inet/ntp.keys'
               else
                 '/etc/ntp.keys'
