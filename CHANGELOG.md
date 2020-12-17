@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v8.5.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v8.5.0) (2020-12-16)
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v8.4.0...v8.5.0)
+
+### Added
+
+- pdksync - \(feat\) - Add support for Puppet 7 [\#594](https://github.com/puppetlabs/puppetlabs-ntp/pull/594) ([daianamezdrea](https://github.com/daianamezdrea))
+- \(MAINT\) Make mode for logfile configurable [\#590](https://github.com/puppetlabs/puppetlabs-ntp/pull/590) ([tmanninger](https://github.com/tmanninger))
+- \(IAC-997\) Removal of inappropriate terminology [\#587](https://github.com/puppetlabs/puppetlabs-ntp/pull/587) ([pmcmaw](https://github.com/pmcmaw))
+
 ## [v8.4.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v8.4.0) (2020-09-11)
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v8.3.0...v8.4.0)
@@ -60,8 +70,6 @@ All notable changes to this project will be documented in this file. The format 
 ### Added
 
 - \(MODULES-8139\) - Add SLES 15 support [\#492](https://github.com/puppetlabs/puppetlabs-ntp/pull/492) ([eimlav](https://github.com/eimlav))
-- \(MODULES-8098\) - Add logconfig option to config file [\#491](https://github.com/puppetlabs/puppetlabs-ntp/pull/491) ([eimlav](https://github.com/eimlav))
-- Add SLES 15 hiera data [\#472](https://github.com/puppetlabs/puppetlabs-ntp/pull/472) ([mattiasgiese](https://github.com/mattiasgiese))
 
 ### Fixed
 
@@ -74,6 +82,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
+- \(MODULES-8098\) - Add logconfig option to config file [\#491](https://github.com/puppetlabs/puppetlabs-ntp/pull/491) ([eimlav](https://github.com/eimlav))
 - pdksync - \(MODULES-6805\) metadata.json shows support for puppet 6 [\#484](https://github.com/puppetlabs/puppetlabs-ntp/pull/484) ([tphoney](https://github.com/tphoney))
 - Add burst param [\#476](https://github.com/puppetlabs/puppetlabs-ntp/pull/476) ([kobybr](https://github.com/kobybr))
 - \(MODULES-7465\) Addition of support for Ubuntu 18.04 to NTP [\#475](https://github.com/puppetlabs/puppetlabs-ntp/pull/475) ([david22swan](https://github.com/david22swan))
@@ -88,6 +97,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
+- Add SLES 15 hiera data [\#472](https://github.com/puppetlabs/puppetlabs-ntp/pull/472) ([mattiasgiese](https://github.com/mattiasgiese))
 - \(FM-7038\) Add support for Debian 9 [\#470](https://github.com/puppetlabs/puppetlabs-ntp/pull/470) ([david22swan](https://github.com/david22swan))
 - add tos\_orphan parameter [\#452](https://github.com/puppetlabs/puppetlabs-ntp/pull/452) ([disklord](https://github.com/disklord))
 
