@@ -7,7 +7,7 @@ on_supported_os.each do |os, f|
     let(:facts) { { is_virtual: false } }
 
     let(:conf_path) do
-      if os.match?(%r{solaris})
+      if os.include?('solaris')
         '/etc/inet/ntp.conf'
       else
         '/etc/ntp.conf'
@@ -135,7 +135,7 @@ on_supported_os.each do |os, f|
           end
         end
 
-        context 'default pool servers' do
+        context 'default pool servers' do # rubocop:disable RSpec/EmptyExampleGroup
           case f[:os]['family']
           when 'RedHat'
             it 'uses the centos ntp servers' do
@@ -415,7 +415,7 @@ on_supported_os.each do |os, f|
             let(:keys_file) do
               if os.match?(%r{redhat|centos|oracle|scientific})
                 '/etc/ntp/keys'
-              elsif os.match?(%r{solaris})
+              elsif os.include?('solaris')
                 '/etc/inet/ntp.keys'
               else
                 '/etc/ntp.keys'
