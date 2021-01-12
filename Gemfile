@@ -25,11 +25,15 @@ group :development do
   gem "puppet-module-win-default-r#{minor_version}", '~> 1.0',   require: false, platforms: [:mswin, :mingw, :x64_mingw], source: 'https://dl.cloudsmith.io/public/ptest/testing/ruby/'
   gem "puppet-module-win-dev-r#{minor_version}", '~> 1.0',       require: false, platforms: [:mswin, :mingw, :x64_mingw], source: 'https://dl.cloudsmith.io/public/ptest/testing/ruby/'
   gem "github_changelog_generator",                              require: false
+  gem "puppet_litmus", git: 'https://github.com/pmcmaw/puppet_litmus/', ref: '832ab552be194fbf8a6674241aa2d5445b985637'
+
 end
 group :system_tests do
   gem "puppet-module-posix-system-r#{minor_version}", '~> 1.0', require: false, platforms: [:ruby], source: 'https://dl.cloudsmith.io/public/ptest/testing/ruby/'
   gem "puppet-module-win-system-r#{minor_version}", '~> 1.0',   require: false, platforms: [:mswin, :mingw, :x64_mingw], source: 'https://dl.cloudsmith.io/public/ptest/testing/ruby/'
+  gem "puppet_litmus", git: 'https://github.com/pmcmaw/puppet_litmus/', ref: '832ab552be194fbf8a6674241aa2d5445b985637'
 end
+
 
 puppet_version = ENV['PUPPET_GEM_VERSION']
 facter_version = ENV['FACTER_GEM_VERSION']
