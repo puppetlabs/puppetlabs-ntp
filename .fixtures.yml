@@ -5,6 +5,7 @@ fixtures:
     "stdlib": "https://github.com/puppetlabs/puppetlabs-stdlib.git"
     provision: "https://github.com/puppetlabs/provision.git"
     puppet_agent: 'https://github.com/puppetlabs/puppetlabs-puppet_agent.git'
+    package: "https://github.com/puppetlabs/puppetlabs-package.git"
   symlinks:
     "ntp": "#{source_dir}"
     "my_ntp": "#{source_dir}/spec/fixtures/my_ntp"
