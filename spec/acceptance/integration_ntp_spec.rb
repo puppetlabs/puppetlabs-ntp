@@ -7,6 +7,11 @@ require 'pry'
 describe 'we are able to setup an ntp server, and connect a client to it', :integration do
   context 'set up the server' do
     before(:all) { change_target_host('ntpserver') }
+    servicename = if os[:family] == 'sles' && os[:release].start_with?('12', '15')
+      'ntpd'
+    else
+      'ntp'
+    end
     describe 'set up ntpserver' do
       it 'check the date is 2021' do
         result = run_shell('date')
@@ -17,8 +22,8 @@ describe 'we are able to setup an ntp server, and connect a client to it', :inte
       MANIFEST
       it 'sets up the service' do
         idempotent_apply(pp)
-        expect(service('ntp')).to be_running
-        expect(service('ntp')).to be_enabled
+        expect(service(servicename)).to be_running
+        expect(service(servicename)).to be_enabled
       end
     end
   end
@@ -31,8 +36,7 @@ describe 'we are able to setup an ntp server, and connect a client to it', :inte
         expect(result.stdout).to match(%r{2021})
       end
       it 'install ntpdate' do
-        result = run_shell('apt-get install ntpdate -y')
-        expect(result.exit_code).to eq(0)
+        apply_manifest("package { 'ntpdate': ensure => present }")
       end
       it 'disable ntp auto-sync' do
         result = run_shell('timedatectl set-ntp false')
