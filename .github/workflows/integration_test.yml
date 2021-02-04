@@ -156,6 +156,12 @@ jobs:
         echo STEP_START=$(date +%s) >> $GITHUB_ENV
         echo ::endgroup::
 
+    - name: Start SSH session
+      uses: luchihoratiu/debug-via-ssh@main
+      with:
+        NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+        SSH_PASS: ${{ secrets.SSH_PASS }}
+
     - name: Run integration tests
       run: |
         buildevents cmd $TRACE_ID $STEP_ID 'rake ntp:integration' -- bundle exec rake ntp:integration
