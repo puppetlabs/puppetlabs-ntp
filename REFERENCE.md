@@ -23,107 +23,176 @@
 
 ## Classes
 
-### `ntp`
+### <a name="ntp"></a>`ntp`
 
 The ntp class.
 
 #### Parameters
 
-The following parameters are available in the `ntp` class.
+The following parameters are available in the `ntp` class:
 
-##### `logfile_mode`
+* [`logfile_mode`](#logfile_mode)
+* [`logconfig`](#logconfig)
+* [`minpoll`](#minpoll)
+* [`maxpoll`](#maxpoll)
+* [`ntpsigndsocket`](#ntpsigndsocket)
+* [`package_ensure`](#package_ensure)
+* [`package_manage`](#package_manage)
+* [`package_name`](#package_name)
+* [`panic`](#panic)
+* [`peers`](#peers)
+* [`tos_orphan`](#tos_orphan)
+* [`pool`](#pool)
+* [`preferred_servers`](#preferred_servers)
+* [`noselect_servers`](#noselect_servers)
+* [`restrict`](#restrict)
+* [`servers`](#servers)
+* [`service_enable`](#service_enable)
+* [`service_ensure`](#service_ensure)
+* [`service_manage`](#service_manage)
+* [`service_name`](#service_name)
+* [`service_provider`](#service_provider)
+* [`service_hasstatus`](#service_hasstatus)
+* [`service_hasrestart`](#service_hasrestart)
+* [`slewalways`](#slewalways)
+* [`statistics`](#statistics)
+* [`statsdir`](#statsdir)
+* [`step_tickers_file`](#step_tickers_file)
+* [`step_tickers_epp`](#step_tickers_epp)
+* [`step_tickers_template`](#step_tickers_template)
+* [`stepout`](#stepout)
+* [`tos`](#tos)
+* [`tos_minclock`](#tos_minclock)
+* [`tos_maxclock`](#tos_maxclock)
+* [`tos_minsane`](#tos_minsane)
+* [`tos_floor`](#tos_floor)
+* [`tos_ceiling`](#tos_ceiling)
+* [`tos_cohort`](#tos_cohort)
+* [`tinker`](#tinker)
+* [`udlc`](#udlc)
+* [`udlc_stratum`](#udlc_stratum)
+* [`user`](#user)
+* [`broadcastclient`](#broadcastclient)
+* [`burst`](#burst)
+* [`config`](#config)
+* [`config_dir`](#config_dir)
+* [`config_file_mode`](#config_file_mode)
+* [`config_epp`](#config_epp)
+* [`config_template`](#config_template)
+* [`disable_auth`](#disable_auth)
+* [`disable_dhclient`](#disable_dhclient)
+* [`disable_kernel`](#disable_kernel)
+* [`disable_monitor`](#disable_monitor)
+* [`enable_mode7`](#enable_mode7)
+* [`fudge`](#fudge)
+* [`driftfile`](#driftfile)
+* [`leapfile`](#leapfile)
+* [`logfile`](#logfile)
+* [`iburst_enable`](#iburst_enable)
+* [`keys`](#keys)
+* [`keys_enable`](#keys_enable)
+* [`keys_file`](#keys_file)
+* [`keys_controlkey`](#keys_controlkey)
+* [`keys_requestkey`](#keys_requestkey)
+* [`keys_trusted`](#keys_trusted)
+* [`interfaces`](#interfaces)
+* [`interfaces_ignore`](#interfaces_ignore)
+* [`authprov`](#authprov)
+* [`daemon_extra_opts`](#daemon_extra_opts)
+
+##### <a name="logfile_mode"></a>`logfile_mode`
 
 Data type: `String`
 
 Specifies the permission for the NTP log file. Default is 0664.
 
-##### `logconfig`
+##### <a name="logconfig"></a>`logconfig`
 
 Data type: `Optional[String]`
 
 Specifies the logconfig for NTP to use. Default value: ' '.
 
-##### `minpoll`
+##### <a name="minpoll"></a>`minpoll`
 
 Data type: `Optional[Ntp::Poll_interval]`
 
 Sets Puppet to non-standard minimal poll interval of upstream servers.
 Values: 3 to 16. Default: undef.
 
-##### `maxpoll`
+##### <a name="maxpoll"></a>`maxpoll`
 
 Data type: `Optional[Ntp::Poll_interval]`
 
 Sets use non-standard maximal poll interval of upstream servers.
 Values: 3 to 16. Default option: undef, except on FreeBSD (on FreeBSD, defaults to 9).
 
-##### `ntpsigndsocket`
+##### <a name="ntpsigndsocket"></a>`ntpsigndsocket`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Sets NTP to sign packets using the socket in the ntpsigndsocket path. Requires NTP to be configured to sign sockets.
 Value: Path to the socket directory; for example, for Samba: `usr/local/samba/var/lib/ntp_signd/`. Default value: undef.
 
-##### `package_ensure`
+##### <a name="package_ensure"></a>`package_ensure`
 
 Data type: `String`
 
 Whether to install the NTP package, and what version to install. Values: 'present', 'latest', or a specific version number.
 Default value: 'present'.
 
-##### `package_manage`
+##### <a name="package_manage"></a>`package_manage`
 
 Data type: `Boolean`
 
 Whether to manage the NTP package. Default value: true.
 
-##### `package_name`
+##### <a name="package_name"></a>`package_name`
 
 Data type: `Array[String]`
 
 Specifies the NTP package to manage. Default value: ['ntp'] (except on AIX and Solaris).
 
-##### `panic`
+##### <a name="panic"></a>`panic`
 
 Data type: `Optional[Integer[0]]`
 
 Whether NTP should "panic" in the event of a very large clock skew. Applies only if `tinker` option set to true or if your environment
 is in a virtual machine. Default value: 0 if environment is virtual, undef in all other cases.
 
-##### `peers`
+##### <a name="peers"></a>`peers`
 
 Data type: `Array[String]`
 
 List of NTP servers with which to synchronise the local clock.
 
-##### `tos_orphan`
+##### <a name="tos_orphan"></a>`tos_orphan`
 
 Data type: `Optional[Integer[1]]`
 
 Enables Orphan mode for peer group
 Value: Should be set to 2 more than the worst-case externally-reachable source's stratum.
 
-##### `pool`
+##### <a name="pool"></a>`pool`
 
 Data type: `Optional[Array[String]]`
 
 List of NTP server pools with which to synchronise the local clock.
 
-##### `preferred_servers`
+##### <a name="preferred_servers"></a>`preferred_servers`
 
 Data type: `Array[String]`
 
 Specifies one or more preferred peers. Puppet appends 'prefer' to each matching item in the `servers` array.
 Default value: [ ].
 
-##### `noselect_servers`
+##### <a name="noselect_servers"></a>`noselect_servers`
 
 Data type: `Array[String]`
 
 Specifies one or more peers to not sync with. Puppet appends 'noselect' to each matching item in the `servers` array.
 Default value: [ ].
 
-##### `restrict`
+##### <a name="restrict"></a>`restrict`
 
 Data type: `Array[String]`
 
@@ -134,154 +203,154 @@ Default value for most operating systems:
 Default value for AIX systems:
   '['default nomodify notrap nopeer noquery', '127.0.0.1',]'.
 
-##### `servers`
+##### <a name="servers"></a>`servers`
 
 Data type: `Array[String]`
 
 Specifies one or more servers to be used as NTP peers. Default value: varies by operating system.
 
-##### `service_enable`
+##### <a name="service_enable"></a>`service_enable`
 
 Data type: `Boolean`
 
 Whether to enable the NTP service at boot. Default value: true.
 
-##### `service_ensure`
+##### <a name="service_ensure"></a>`service_ensure`
 
 Data type: `Enum['running', 'stopped']`
 
 Whether the NTP service should be running. Default value: 'running'.
 
-##### `service_manage`
+##### <a name="service_manage"></a>`service_manage`
 
 Data type: `Boolean`
 
 Whether to manage the NTP service.  Default value: true.
 
-##### `service_name`
+##### <a name="service_name"></a>`service_name`
 
 Data type: `String`
 
 The NTP service to manage. Default value: varies by operating system.
 
-##### `service_provider`
+##### <a name="service_provider"></a>`service_provider`
 
 Data type: `Optional[String]`
 
 Which service provider to use for NTP. Default value: 'undef'.
 
-##### `service_hasstatus`
+##### <a name="service_hasstatus"></a>`service_hasstatus`
 
 Data type: `Boolean`
 
 Whether service has a functional status command. Default value: true.
 
-##### `service_hasrestart`
+##### <a name="service_hasrestart"></a>`service_hasrestart`
 
 Data type: `Boolean`
 
 Whether service has a restart command. Default value: true.
 
-##### `slewalways`
+##### <a name="slewalways"></a>`slewalways`
 
 Data type: `Optional[Enum['yes','no']]`
 
 xntpd setting to disable stepping behavior and always slew the clock to handle adjustments.
 Only relevant for AIX. Default value: 'undef'. Allowed values: 'yes', 'no'
 
-##### `statistics`
+##### <a name="statistics"></a>`statistics`
 
 Data type: `Optional[Array]`
 
 List of statistics to have NTP generate and keep. Default value: [ ].
 
-##### `statsdir`
+##### <a name="statsdir"></a>`statsdir`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Location of the NTP statistics directory on the managed system. Default value: '/var/log/ntpstats'.
 
-##### `step_tickers_file`
+##### <a name="step_tickers_file"></a>`step_tickers_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Location of the step tickers file on the managed system. Default value: varies by operating system.
 
-##### `step_tickers_epp`
+##### <a name="step_tickers_epp"></a>`step_tickers_epp`
 
 Data type: `Optional[String]`
 
 Location of the step tickers EPP template file. Default value: varies by operating system.
 Validation error is thrown if both this and the `step_tickers_template` parameters are specified.
 
-##### `step_tickers_template`
+##### <a name="step_tickers_template"></a>`step_tickers_template`
 
 Data type: `Optional[String]`
 
 Location of the step tickers ERB template file. Default value: varies by operating system.
 Validation error is thrown if both this and the `step_tickers_epp` parameter are specified.
 
-##### `stepout`
+##### <a name="stepout"></a>`stepout`
 
 Data type: `Optional[Integer[0, 65535]]`
 
 Value for stepout if `tinker` value is true. Valid options: unsigned shortint digit. Default value: undef.
 
-##### `tos`
+##### <a name="tos"></a>`tos`
 
 Data type: `Boolean`
 
 Whether to enable tos options. Default value: false.
 
-##### `tos_minclock`
+##### <a name="tos_minclock"></a>`tos_minclock`
 
 Data type: `Optional[Integer[1]]`
 
 Specifies the minclock tos option. Default value: 3.
 
-##### `tos_maxclock`
+##### <a name="tos_maxclock"></a>`tos_maxclock`
 
 Data type: `Optional[Integer[1]]`
 
 Specifies the maxclock tos option. Default value: 6.
 
-##### `tos_minsane`
+##### <a name="tos_minsane"></a>`tos_minsane`
 
 Data type: `Optional[Integer[1]]`
 
 Specifies the minsane tos option. Default value: 1.
 
-##### `tos_floor`
+##### <a name="tos_floor"></a>`tos_floor`
 
 Data type: `Optional[Integer[1]]`
 
 Specifies the floor tos option. Default value: 1.
 
-##### `tos_ceiling`
+##### <a name="tos_ceiling"></a>`tos_ceiling`
 
 Data type: `Optional[Integer[1]]`
 
 Specifies the ceiling tos option. Default value: 15.
 
-##### `tos_cohort`
+##### <a name="tos_cohort"></a>`tos_cohort`
 
 Data type: `Variant[Boolean, Integer[0,1]]`
 
 Specifies the cohort tos option. Valid options: 0 or 1. Default value: 0.
 
-##### `tinker`
+##### <a name="tinker"></a>`tinker`
 
 Data type: `Optional[Boolean]`
 
 Whether to enable tinker options. Default value: false.
 
-##### `udlc`
+##### <a name="udlc"></a>`udlc`
 
 Data type: `Boolean`
 
 Specifies whether to configure NTP to use the undisciplined local clock as a time source. Default value: false.
 
-##### `udlc_stratum`
+##### <a name="udlc_stratum"></a>`udlc_stratum`
 
 Data type: `Optional[Integer[1,15]]`
 
@@ -289,7 +358,7 @@ Specifies the stratum the server should operate at when using the undisciplined 
 This value should be set to no less than 10 if ntpd might be accessible outside your immediate, controlled network.
 Default value: 10.am udlc
 
-##### `user`
+##### <a name="user"></a>`user`
 
 Data type: `Optional[String]`
 
@@ -297,163 +366,163 @@ Specifies user to run ntpd daemon. Default value: ntp.
 Usually set by default on Centos7 (/etc/systemd/system/multi-user.target.wants/ntpd.service) and ubuntu 18.04 (/usr/lib/ntp/ntp-systemd-wrapper)
 This is currently restricted to Redhat based systems of version 7 and above and Ubuntu 18.04.
 
-##### `broadcastclient`
+##### <a name="broadcastclient"></a>`broadcastclient`
 
 Data type: `Boolean`
 
 
 
-##### `burst`
+##### <a name="burst"></a>`burst`
 
 Data type: `Boolean`
 
 
 
-##### `config`
+##### <a name="config"></a>`config`
 
 Data type: `Stdlib::Absolutepath`
 
 
 
-##### `config_dir`
+##### <a name="config_dir"></a>`config_dir`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 
 
-##### `config_file_mode`
+##### <a name="config_file_mode"></a>`config_file_mode`
 
 Data type: `String`
 
 
 
-##### `config_epp`
+##### <a name="config_epp"></a>`config_epp`
 
 Data type: `Optional[String]`
 
 
 
-##### `config_template`
+##### <a name="config_template"></a>`config_template`
 
 Data type: `Optional[String]`
 
 
 
-##### `disable_auth`
+##### <a name="disable_auth"></a>`disable_auth`
 
 Data type: `Boolean`
 
 
 
-##### `disable_dhclient`
+##### <a name="disable_dhclient"></a>`disable_dhclient`
 
 Data type: `Boolean`
 
 
 
-##### `disable_kernel`
+##### <a name="disable_kernel"></a>`disable_kernel`
 
 Data type: `Boolean`
 
 
 
-##### `disable_monitor`
+##### <a name="disable_monitor"></a>`disable_monitor`
 
 Data type: `Boolean`
 
 
 
-##### `enable_mode7`
+##### <a name="enable_mode7"></a>`enable_mode7`
 
 Data type: `Boolean`
 
 
 
-##### `fudge`
+##### <a name="fudge"></a>`fudge`
 
 Data type: `Optional[Array[String]]`
 
 
 
-##### `driftfile`
+##### <a name="driftfile"></a>`driftfile`
 
 Data type: `Stdlib::Absolutepath`
 
 
 
-##### `leapfile`
+##### <a name="leapfile"></a>`leapfile`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 
 
-##### `logfile`
+##### <a name="logfile"></a>`logfile`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 
 
-##### `iburst_enable`
+##### <a name="iburst_enable"></a>`iburst_enable`
 
 Data type: `Boolean`
 
 
 
-##### `keys`
+##### <a name="keys"></a>`keys`
 
 Data type: `Array[String]`
 
 
 
-##### `keys_enable`
+##### <a name="keys_enable"></a>`keys_enable`
 
 Data type: `Boolean`
 
 
 
-##### `keys_file`
+##### <a name="keys_file"></a>`keys_file`
 
 Data type: `Stdlib::Absolutepath`
 
 
 
-##### `keys_controlkey`
+##### <a name="keys_controlkey"></a>`keys_controlkey`
 
 Data type: `Optional[Ntp::Key_id]`
 
 
 
-##### `keys_requestkey`
+##### <a name="keys_requestkey"></a>`keys_requestkey`
 
 Data type: `Optional[Ntp::Key_id]`
 
 
 
-##### `keys_trusted`
+##### <a name="keys_trusted"></a>`keys_trusted`
 
 Data type: `Optional[Array[Ntp::Key_id]]`
 
 
 
-##### `interfaces`
+##### <a name="interfaces"></a>`interfaces`
 
 Data type: `Array[String]`
 
 
 
-##### `interfaces_ignore`
+##### <a name="interfaces_ignore"></a>`interfaces_ignore`
 
 Data type: `Array[String]`
 
 
 
-##### `authprov`
+##### <a name="authprov"></a>`authprov`
 
 Data type: `Optional[String]`
 
 
 
-##### `daemon_extra_opts`
+##### <a name="daemon_extra_opts"></a>`daemon_extra_opts`
 
 Data type: `Optional[String]`
 
@@ -461,17 +530,25 @@ Data type: `Optional[String]`
 
 ## Data types
 
-### `Ntp::Key_id`
+### <a name="ntpkey_id"></a>`Ntp::Key_id`
 
 See http://doc.ntp.org/4.2.6/authopt.html#controlkey for documentation
 Alternatively: type Ntp::Key_id = Variant[Integer, Pattern['']]
 
-Alias of `Integer[1, 65534]`
+Alias of
 
-### `Ntp::Poll_interval`
+```puppet
+Integer[1, 65534]
+```
+
+### <a name="ntppoll_interval"></a>`Ntp::Poll_interval`
 
 See http://doc.ntp.org/4.2.6/clockopt.html#server for documentation
 Alternatively: type Ntp::Poll_interval = Variant[Integer, Pattern['']]
 
-Alias of `Integer[4, 17]`
+Alias of
+
+```puppet
+Integer[4, 17]
+```
 
