@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
-## [v9.0.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v9.0.0) (2021-02-27)
+## [v9.0.1](https://github.com/puppetlabs/puppetlabs-ntp/tree/v9.0.1) (2021-03-29)
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v9.0.0...v9.0.1)
+
+### Fixed
+
+- Allow setting user and group permissions of the NTP logfile [\#615](https://github.com/puppetlabs/puppetlabs-ntp/pull/615) ([Kristijan](https://github.com/Kristijan))
+
+## [v9.0.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v9.0.0) (2021-03-01)
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v8.5.0...v9.0.0)
 
