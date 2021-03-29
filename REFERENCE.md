@@ -8,7 +8,7 @@
 
 #### Public Classes
 
-* [`ntp`](#ntp)
+* [`ntp`](#ntp): ntp  Main class, includes all other classes.
 
 #### Private Classes
 
@@ -25,13 +25,44 @@
 
 ### <a name="ntp"></a>`ntp`
 
-The ntp class.
+ntp
+
+Main class, includes all other classes.
 
 #### Parameters
 
 The following parameters are available in the `ntp` class:
 
+* [`authprov`](#authprov)
+* [`broadcastclient`](#broadcastclient)
+* [`burst`](#burst)
+* [`config`](#config)
+* [`config_dir`](#config_dir)
+* [`config_epp`](#config_epp)
+* [`config_file_mode`](#config_file_mode)
+* [`config_template`](#config_template)
+* [`daemon_extra_opts`](#daemon_extra_opts)
+* [`disable_auth`](#disable_auth)
+* [`disable_dhclient`](#disable_dhclient)
+* [`disable_kernel`](#disable_kernel)
+* [`disable_monitor`](#disable_monitor)
+* [`driftfile`](#driftfile)
+* [`enable_mode7`](#enable_mode7)
+* [`fudge`](#fudge)
+* [`iburst_enable`](#iburst_enable)
+* [`interfaces`](#interfaces)
+* [`interfaces_ignore`](#interfaces_ignore)
+* [`keys`](#keys)
+* [`keys_controlkey`](#keys_controlkey)
+* [`keys_enable`](#keys_enable)
+* [`keys_file`](#keys_file)
+* [`keys_requestkey`](#keys_requestkey)
+* [`keys_trusted`](#keys_trusted)
+* [`leapfile`](#leapfile)
+* [`logfile`](#logfile)
+* [`logfile_group`](#logfile_group)
 * [`logfile_mode`](#logfile_mode)
+* [`logfile_user`](#logfile_user)
 * [`logconfig`](#logconfig)
 * [`minpoll`](#minpoll)
 * [`maxpoll`](#maxpoll)
@@ -72,39 +103,191 @@ The following parameters are available in the `ntp` class:
 * [`udlc`](#udlc)
 * [`udlc_stratum`](#udlc_stratum)
 * [`user`](#user)
-* [`broadcastclient`](#broadcastclient)
-* [`burst`](#burst)
-* [`config`](#config)
-* [`config_dir`](#config_dir)
-* [`config_file_mode`](#config_file_mode)
-* [`config_epp`](#config_epp)
-* [`config_template`](#config_template)
-* [`disable_auth`](#disable_auth)
-* [`disable_dhclient`](#disable_dhclient)
-* [`disable_kernel`](#disable_kernel)
-* [`disable_monitor`](#disable_monitor)
-* [`enable_mode7`](#enable_mode7)
-* [`fudge`](#fudge)
-* [`driftfile`](#driftfile)
-* [`leapfile`](#leapfile)
-* [`logfile`](#logfile)
-* [`iburst_enable`](#iburst_enable)
-* [`keys`](#keys)
-* [`keys_enable`](#keys_enable)
-* [`keys_file`](#keys_file)
-* [`keys_controlkey`](#keys_controlkey)
-* [`keys_requestkey`](#keys_requestkey)
-* [`keys_trusted`](#keys_trusted)
-* [`interfaces`](#interfaces)
-* [`interfaces_ignore`](#interfaces_ignore)
-* [`authprov`](#authprov)
-* [`daemon_extra_opts`](#daemon_extra_opts)
+
+##### <a name="authprov"></a>`authprov`
+
+Data type: `Optional[String]`
+
+Enables compatibility with W32Time in some versions of NTPd (such as Novell DSfW). Default value: undef.
+
+##### <a name="broadcastclient"></a>`broadcastclient`
+
+Data type: `Boolean`
+
+Enables reception of broadcast server messages to any local interface. Default value: false.
+
+##### <a name="burst"></a>`burst`
+
+Data type: `Boolean`
+
+When the server is reachable, send a burst of eight packets instead of the usual one. Default value: false.
+
+##### <a name="config"></a>`config`
+
+Data type: `Stdlib::Absolutepath`
+
+Specifies a file for NTP's configuration info. Default value: '/etc/ntp.conf' (or '/etc/inet/ntp.conf' on Solaris).
+
+##### <a name="config_dir"></a>`config_dir`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Specifies a directory for the NTP configuration files. Default value: undef.
+
+##### <a name="config_epp"></a>`config_epp`
+
+Data type: `Optional[String]`
+
+Specifies an absolute or relative file path to an EPP template for the config file.
+Example value: 'ntp/ntp.conf.epp'. A validation error is thrown if both this **and** the `config_template` parameter are specified.
+
+##### <a name="config_file_mode"></a>`config_file_mode`
+
+Data type: `String`
+
+Specifies a file mode for the ntp configuration file. Default value: '0664'.
+
+##### <a name="config_template"></a>`config_template`
+
+Data type: `Optional[String]`
+
+Specifies an absolute or relative file path to an ERB template for the config file.
+Example value: 'ntp/ntp.conf.erb'. A validation error is thrown if both this **and** the `config_epp` parameter are specified.
+
+##### <a name="daemon_extra_opts"></a>`daemon_extra_opts`
+
+Data type: `Optional[String]`
+
+Specifies any arguments to pass to ntp daemon. Default value: '-g'.
+Example value: '-g -i /var/lib/ntp' to enable jaildir options.
+Note that user is a specific parameter handled separately.
+
+##### <a name="disable_auth"></a>`disable_auth`
+
+Data type: `Boolean`
+
+Disables cryptographic authentication for broadcast client, multicast client, and symmetric passive associations.
+
+##### <a name="disable_dhclient"></a>`disable_dhclient`
+
+Data type: `Boolean`
+
+Disables `ntp-servers` in `dhclient.conf` to prevent Dhclient from managing the NTP configuration.
+
+##### <a name="disable_kernel"></a>`disable_kernel`
+
+Data type: `Boolean`
+
+Disables kernel time discipline.
+
+##### <a name="disable_monitor"></a>`disable_monitor`
+
+Data type: `Boolean`
+
+Disables the monitoring facility in NTP. Default value: true.
+
+##### <a name="driftfile"></a>`driftfile`
+
+Data type: `Stdlib::Absolutepath`
+
+Specifies an NTP driftfile. Default value: '/var/lib/ntp/drift' (except on AIX and Solaris).
+
+##### <a name="enable_mode7"></a>`enable_mode7`
+
+Data type: `Boolean`
+
+Enables processing of NTP mode 7 implementation-specific requests which are used by the deprecated ntpdc program. Default value: false.
+
+##### <a name="fudge"></a>`fudge`
+
+Data type: `Optional[Array[String]]`
+
+Provides additional information for individual clock drivers. Default value: [ ]
+
+##### <a name="iburst_enable"></a>`iburst_enable`
+
+Data type: `Boolean`
+
+Specifies whether to enable the iburst option for every NTP peer. Default value: false (true on AIX and Debian).
+
+##### <a name="interfaces"></a>`interfaces`
+
+Data type: `Array[String]`
+
+Specifies one or more network interfaces for NTP to listen on. Default value: [ ].
+
+##### <a name="interfaces_ignore"></a>`interfaces_ignore`
+
+Data type: `Array[String]`
+
+Specifies one or more ignore pattern for the NTP listener configuration (for example: all, wildcard, ipv6). Default value: [ ].
+
+##### <a name="keys"></a>`keys`
+
+Data type: `Array[String]`
+
+Distributes keys to keys file. Default value: [ ].
+
+##### <a name="keys_controlkey"></a>`keys_controlkey`
+
+Data type: `Optional[Ntp::Key_id]`
+
+Specifies the key identifier to use with the ntpq utility. Value in the range of 1 to 65,534 inclusive. Default value: ' '.
+
+##### <a name="keys_enable"></a>`keys_enable`
+
+Data type: `Boolean`
+
+Whether to enable key-based authentication. Default value: false.
+
+##### <a name="keys_file"></a>`keys_file`
+
+Data type: `Stdlib::Absolutepath`
+
+Specifies the complete path and location of the MD5 key file containing the keys and key identifiers used by ntpd, ntpq and ntpdc
+when operating with symmetric key cryptography. Default value: `/etc/ntp.keys` (on RedHat and Amazon, `/etc/ntp/keys`).
+
+##### <a name="keys_requestkey"></a>`keys_requestkey`
+
+Data type: `Optional[Ntp::Key_id]`
+
+Specifies the key identifier to use with the ntpdc utility program. Value in the range of 1 to 65,534. Default value: ' '.
+
+##### <a name="keys_trusted"></a>`keys_trusted`
+
+Data type: `Optional[Array[Ntp::Key_id]]`
+
+Provides one or more keys to be trusted by NTP. Default value: [ ].
+
+##### <a name="leapfile"></a>`leapfile`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Specifies a leap second file for NTP to use. Default value: ' '.
+
+##### <a name="logfile"></a>`logfile`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Specifies a log file for NTP to use instead of syslog. Default value: ' '.
+
+##### <a name="logfile_group"></a>`logfile_group`
+
+Data type: `Optional[Variant[String, Integer]]`
+
+Specifies the group for the NTP log file. Default is 'ntp'.
 
 ##### <a name="logfile_mode"></a>`logfile_mode`
 
 Data type: `String`
 
 Specifies the permission for the NTP log file. Default is 0664.
+
+##### <a name="logfile_user"></a>`logfile_user`
+
+Data type: `Optional[Variant[String, Integer]]`
+
+Specifies the user for the NTP log file. Default is 'ntp'.
 
 ##### <a name="logconfig"></a>`logconfig`
 
@@ -365,168 +548,6 @@ Data type: `Optional[String]`
 Specifies user to run ntpd daemon. Default value: ntp.
 Usually set by default on Centos7 (/etc/systemd/system/multi-user.target.wants/ntpd.service) and ubuntu 18.04 (/usr/lib/ntp/ntp-systemd-wrapper)
 This is currently restricted to Redhat based systems of version 7 and above and Ubuntu 18.04.
-
-##### <a name="broadcastclient"></a>`broadcastclient`
-
-Data type: `Boolean`
-
-
-
-##### <a name="burst"></a>`burst`
-
-Data type: `Boolean`
-
-
-
-##### <a name="config"></a>`config`
-
-Data type: `Stdlib::Absolutepath`
-
-
-
-##### <a name="config_dir"></a>`config_dir`
-
-Data type: `Optional[Stdlib::Absolutepath]`
-
-
-
-##### <a name="config_file_mode"></a>`config_file_mode`
-
-Data type: `String`
-
-
-
-##### <a name="config_epp"></a>`config_epp`
-
-Data type: `Optional[String]`
-
-
-
-##### <a name="config_template"></a>`config_template`
-
-Data type: `Optional[String]`
-
-
-
-##### <a name="disable_auth"></a>`disable_auth`
-
-Data type: `Boolean`
-
-
-
-##### <a name="disable_dhclient"></a>`disable_dhclient`
-
-Data type: `Boolean`
-
-
-
-##### <a name="disable_kernel"></a>`disable_kernel`
-
-Data type: `Boolean`
-
-
-
-##### <a name="disable_monitor"></a>`disable_monitor`
-
-Data type: `Boolean`
-
-
-
-##### <a name="enable_mode7"></a>`enable_mode7`
-
-Data type: `Boolean`
-
-
-
-##### <a name="fudge"></a>`fudge`
-
-Data type: `Optional[Array[String]]`
-
-
-
-##### <a name="driftfile"></a>`driftfile`
-
-Data type: `Stdlib::Absolutepath`
-
-
-
-##### <a name="leapfile"></a>`leapfile`
-
-Data type: `Optional[Stdlib::Absolutepath]`
-
-
-
-##### <a name="logfile"></a>`logfile`
-
-Data type: `Optional[Stdlib::Absolutepath]`
-
-
-
-##### <a name="iburst_enable"></a>`iburst_enable`
-
-Data type: `Boolean`
-
-
-
-##### <a name="keys"></a>`keys`
-
-Data type: `Array[String]`
-
-
-
-##### <a name="keys_enable"></a>`keys_enable`
-
-Data type: `Boolean`
-
-
-
-##### <a name="keys_file"></a>`keys_file`
-
-Data type: `Stdlib::Absolutepath`
-
-
-
-##### <a name="keys_controlkey"></a>`keys_controlkey`
-
-Data type: `Optional[Ntp::Key_id]`
-
-
-
-##### <a name="keys_requestkey"></a>`keys_requestkey`
-
-Data type: `Optional[Ntp::Key_id]`
-
-
-
-##### <a name="keys_trusted"></a>`keys_trusted`
-
-Data type: `Optional[Array[Ntp::Key_id]]`
-
-
-
-##### <a name="interfaces"></a>`interfaces`
-
-Data type: `Array[String]`
-
-
-
-##### <a name="interfaces_ignore"></a>`interfaces_ignore`
-
-Data type: `Array[String]`
-
-
-
-##### <a name="authprov"></a>`authprov`
-
-Data type: `Optional[String]`
-
-
-
-##### <a name="daemon_extra_opts"></a>`daemon_extra_opts`
-
-Data type: `Optional[String]`
-
-
 
 ## Data types
 
