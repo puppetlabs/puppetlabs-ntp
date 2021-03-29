@@ -139,8 +139,8 @@ class ntp::config {
   if $ntp::logfile {
     file { $ntp::logfile:
       ensure => file,
-      owner  => 'ntp',
-      group  => 'ntp',
+      owner  => $ntp::logfile_user,
+      group  => $ntp::logfile_group,
       mode   => $ntp::logfile_mode,
     }
   }

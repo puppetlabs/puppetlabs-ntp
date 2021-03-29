@@ -87,9 +87,15 @@
 #
 # @param logfile
 #   Specifies a log file for NTP to use instead of syslog. Default value: ' '.
-
+#
+# @param logfile_group
+#   Specifies the group for the NTP log file. Default is 'ntp'.
+#
 # @param logfile_mode
 #   Specifies the permission for the NTP log file. Default is 0664.
+#
+# @param logfile_user
+#   Specifies the user for the NTP log file. Default is 'ntp'.
 #
 # @param logconfig
 #   Specifies the logconfig for NTP to use. Default value: ' '.
@@ -248,7 +254,9 @@ class ntp (
   Stdlib::Absolutepath $driftfile,
   Optional[Stdlib::Absolutepath] $leapfile,
   Optional[Stdlib::Absolutepath] $logfile,
+  Optional[Variant[String, Integer]] $logfile_group,
   String $logfile_mode,
+  Optional[Variant[String, Integer]] $logfile_user,
   Optional[String] $logconfig,
   Boolean $iburst_enable,
   Array[String] $keys,
