@@ -36,14 +36,14 @@ process as easy as possible.
 - [x] my commit includes tests for the bug I fixed or feature I added
 
 - [x] my commit includes appropriate documentation changes if it is introducing a new feature or changing existing functionality
-    
+
 - [x] my code passes existing test suites
 
 ### The Commit Message
 
 - [x] the first line of my commit message includes:
 
-  - [x] an issue number (if applicable), e.g. "(MODULES-xxxx) This is the first line" 
+  - [x] an issue number (if applicable), e.g. "(MODULES-xxxx) This is the first line"
   
   - [x] a short description (50 characters is the soft limit, excluding ticket number(s))
 
@@ -69,7 +69,11 @@ process as easy as possible.
 
 - [Open a Pull Request](https://help.github.com/articles/creating-a-pull-request-from-a-fork/) against the repository in the puppetlabs organization
 
-## More about commits 
+### Adding a label
+
+- We encourage contributors to add a label to your PR, this will help with categorising your changes when making a release. The label can be *maintaince, bugfix, feature, backwards incompatible.*
+
+## More about commits
 
   1.  Make separate commits for logically separate changes.
 
@@ -163,7 +167,25 @@ If you already have those gems installed, make sure they are up-to-date:
 % bundle update
 ```
 
-## Running Tests
+## Checking your PR automated test results
+
+When you create a PR, our automated test suite will automatically pick up your changes and run tests against them. 
+This will highlight and regressions that you change may have introduced.
+
+### How do I know the status of the automated tests?
+
+Within your PR if you click on the commits you will one of 3 tiny icons beside the SHA of your commit.
+
+- A green tick (Tests have passed)
+- A red cross (Tests have failed)
+- A yellow dot (Tests are still running)
+
+A PR will not be merged with failing tests, if you click on the small red cross icon it will give you additional information
+on what has actually failed. Once this is addressed you can commit your fix and continue working. If your fix is difficult and
+you need to do additional debugging check out the section in this document called **Running tests on your local machine** as this 
+will allow you to run interactive debugging sessions using pry.
+
+## Running Tests on your local machine
 
 With all dependencies in place and up-to-date, run the tests:
 
@@ -173,26 +195,39 @@ With all dependencies in place and up-to-date, run the tests:
 % bundle exec rake spec
 ```
 
-This executes all the [rspec tests](http://rspec-puppet.com/) in the directories defined [here](https://github.com/puppetlabs/puppetlabs_spec_helper/blob/699d9fbca1d2489bff1736bb254bb7b7edb32c74/lib/puppetlabs_spec_helper/rake_tasks.rb#L17) and so on. 
+This executes all the [rspec tests](http://rspec-puppet.com/) in the directories defined [here](https://github.com/puppetlabs/puppetlabs_spec_helper/blob/699d9fbca1d2489bff1736bb254bb7b7edb32c74/lib/puppetlabs_spec_helper/rake_tasks.rb#L17) and so on.
 rspec tests may have the same kind of dependencies as the module they are testing. Although the module defines these dependencies in its [metadata.json](./metadata.json),
 rspec tests define them in [.fixtures.yml](./fixtures.yml).
 
 ### Acceptance Tests
 
-Some Puppet modules also come with acceptance tests, which use [beaker][]. These tests spin up a virtual machine under
-[VirtualBox](https://www.virtualbox.org/), controlled with [Vagrant](http://www.vagrantup.com/), to simulate scripted test
-scenarios. In order to run these, you need both Virtualbox and Vagrant installed on your system.
+All Puppet Supported modules come with acceptance tests, which use [puppet litmus][puppet-litmus].
+Litmus supports multiple provisioners, that exist in the [provision module][provision-module].
+When using litmus it is built up of different rake tasks, this allows you to remain in control when testing.
+When running your tests locally there will be 5 main steps you will be interested in.
 
-Run the tests by issuing the following command
+1) Installing your bundle
+2) Provisioning your machine(s)
+3) Installing your agent
+4) Installing the module
+5) Running your tests
+
+In order to complete the above you run the following commands:
+*(Note this specific set up is running tests on centos7 and puppet agent version 6, the commands will need altered depending on your specific needs)*
 
 ```shell
-% bundle exec rake spec_clean
-% bundle exec rspec spec/acceptance
+% bundle install
+% bundle exec rake 'litmus:provision[provision::docker,litmusimage/centos:7]'
+% bundle exec rake 'litmus:install_agent[puppet6]'
+% bundle exec rake litmus:install_module
+% bundle exec rake parallel_spec
 ```
 
-This will now download a pre-fabricated image configured in the [default node-set](./spec/acceptance/nodesets/default.yml),
-install Puppet, copy this module, and install its dependencies per [spec/spec_helper_acceptance.rb](./spec/spec_helper_acceptance.rb)
-and then run all the tests under [spec/acceptance](./spec/acceptance).
+If you would like to run tests on a collection of OS you can use the command:
+```shell
+% bundle exec rake 'litmus:provision_list[release_checks]'
+```
+*release_checks* refers to the machines listed under the key release checks in the module **provision.yaml** file located in the root of the module directory.
 
 ## Writing Tests
 
@@ -221,7 +256,7 @@ end
 
 ### Acceptance Tests
 
-Writing acceptance tests for Puppet involves [beaker][] and its cousin [beaker-rspec][]. A common pattern for acceptance tests is to create a test manifest, apply it
+A common pattern for acceptance tests is to create a test manifest, apply it
 twice to check for idempotency or errors, then run expectations.
 
 ```ruby
@@ -243,7 +278,6 @@ describe file("/etc/sample") do
 end
 
 ```
-
 # If you have commit access to the repository
 
 Even if you have commit access to the repository, you still need to go through the process above, and have someone else review and merge
@@ -254,18 +288,11 @@ The record of someone performing the merge is the record that they performed the
 
 # Get Help
 
-### On the web
-* [Puppet help messageboard](http://puppet.com/community/get-help)
-* [Writing tests](https://docs.puppet.com/guides/module_guides/bgtm.html#step-three-module-testing)
-* [General GitHub documentation](http://help.github.com/)
-* [GitHub pull request documentation](http://help.github.com/send-pull-requests/)
-
-### On chat
-* Slack (slack.puppet.com) #forge-modules, #puppet-dev, #windows, #voxpupuli
-* IRC (freenode) #puppet-dev, #voxpupuli
-
+Check out our [blog post][reaching-out-blog] on how to reach the team if your having issues.
 
 [rspec-puppet]: http://rspec-puppet.com/
 [rspec-puppet_docs]: http://rspec-puppet.com/documentation/
-[beaker]: https://github.com/puppetlabs/beaker
 [beaker-rspec]: https://github.com/puppetlabs/beaker-rspec
+[puppet-litmus]: https://puppet.com/blog/litmus-new-module-acceptance-testing-tool/
+[provision-module]: https://github.com/puppetlabs/provision
+[reaching-out-blog]: https://puppetlabs.github.io/iac/team/2021/01/20/reaching-out.html
