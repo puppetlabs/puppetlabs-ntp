@@ -23,6 +23,11 @@ process as easy as possible.
 
 ## Commit Checklist
 
+### The PR Title
+
+Our CHANGELOGs when releasing are automated and to do this, we make use of the PR title. This means that it is super important that your PR title always reflects the
+changes contained within the PR. Anything you think would be useful for an end user to know should be included.
+
 ### The Basics
 
 - [x] my commit is a single logical unit of work
@@ -222,12 +227,6 @@ In order to complete the above you run the following commands:
 % bundle exec rake litmus:install_module
 % bundle exec rake parallel_spec
 ```
-
-If you would like to run tests on a collection of OS you can use the command:
-```shell
-% bundle exec rake 'litmus:provision_list[release_checks]'
-```
-*release_checks* refers to the machines listed under the key release checks in the module **provision.yaml** file located in the root of the module directory.
 
 ## Writing Tests
 
