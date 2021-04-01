@@ -66,17 +66,11 @@ changes contained within the PR. Anything you think would be useful for an end u
 
 - Make sure you have a [GitHub account](https://github.com/join)
 
-- [Create a ticket](https://tickets.puppet.com/secure/CreateIssue!default.jspa), or [watch the ticket](https://tickets.puppet.com/browse/) you are patching for.
-
 ### Push and PR
 
 - Push your changes to your fork
 
 - [Open a Pull Request](https://help.github.com/articles/creating-a-pull-request-from-a-fork/) against the repository in the puppetlabs organization
-
-### Adding a label
-
-- We encourage contributors to add a label to your PR, this will help with categorising your changes when making a release. The label can be *maintaince, bugfix, feature, backwards incompatible.*
 
 ## More about commits
 
@@ -208,25 +202,7 @@ rspec tests define them in [.fixtures.yml](./fixtures.yml).
 
 All Puppet Supported modules come with acceptance tests, which use [puppet litmus][puppet-litmus].
 Litmus supports multiple provisioners, that exist in the [provision module][provision-module].
-When using litmus it is built up of different rake tasks, this allows you to remain in control when testing.
-When running your tests locally there will be 5 main steps you will be interested in.
-
-1) Installing your bundle
-2) Provisioning your machine(s)
-3) Installing your agent
-4) Installing the module
-5) Running your tests
-
-In order to complete the above you run the following commands:
-*(Note this specific set up is running tests on centos7 and puppet agent version 6, the commands will need altered depending on your specific needs)*
-
-```shell
-% bundle install
-% bundle exec rake 'litmus:provision[provision::docker,litmusimage/centos:7]'
-% bundle exec rake 'litmus:install_agent[puppet6]'
-% bundle exec rake litmus:install_module
-% bundle exec rake parallel_spec
-```
+For information on how you can run your tests using litmus please check out the [litmus docs section][litmus-docs]
 
 ## Writing Tests
 
@@ -266,9 +242,9 @@ it 'does an end-to-end thing' do
       path    => "/etc/sample",
       content => "test string",
     }
+  pp=<<-EOF
     
-  apply_manifest(pp, :catch_failures => true)
-  apply_manifest(pp, :catch_changes => true)
+  idempotent_apply(pp)
   
 end
 
@@ -277,7 +253,7 @@ describe file("/etc/sample") do
 end
 
 ```
-# If you have commit access to the repository
+# As as Trusted
 
 Even if you have commit access to the repository, you still need to go through the process above, and have someone else review and merge
 in your changes.  The rule is that **all changes must be reviewed by a project developer that did not write the code to ensure that
@@ -292,6 +268,7 @@ Check out our [blog post][reaching-out-blog] on how to reach the team if your ha
 [rspec-puppet]: http://rspec-puppet.com/
 [rspec-puppet_docs]: http://rspec-puppet.com/documentation/
 [beaker-rspec]: https://github.com/puppetlabs/beaker-rspec
+[litmus-docs]: https://puppetlabs.github.io/litmus/Running-acceptance-tests.html
 [puppet-litmus]: https://puppet.com/blog/litmus-new-module-acceptance-testing-tool/
 [provision-module]: https://github.com/puppetlabs/provision
 [reaching-out-blog]: https://puppetlabs.github.io/iac/team/2021/01/20/reaching-out.html
