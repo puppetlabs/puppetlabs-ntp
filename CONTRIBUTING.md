@@ -253,13 +253,22 @@ describe file("/etc/sample") do
 end
 
 ```
-# As as Trusted
+# As as Trusted Contributor
 
 Even if you have commit access to the repository, you still need to go through the process above, and have someone else review and merge
 in your changes.  The rule is that **all changes must be reviewed by a project developer that did not write the code to ensure that
 all changes go through a code review process.**
 
 The record of someone performing the merge is the record that they performed the code review. Again, this should be someone other than the author of the topic branch.
+
+# Getting your PR reviewed
+
+If you would like information about:
+- How to get your PR reviewed
+- What does a review consist of?
+- Who can merge my PR?
+
+Please check out a document we have published on our [IAC Documentation Site](https://puppetlabs.github.io/iac/docs/).
 
 # Get Help
 
