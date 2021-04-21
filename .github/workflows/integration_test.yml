@@ -55,7 +55,7 @@ jobs:
       id: get-matrix
       run: |
         if [ '${{ github.repository_owner }}' == 'puppetlabs' ]; then
-          buildevents cmd $TRACE_ID $STEP_ID matrix_from_metadata -- bundle exec matrix_from_metadata
+          echo  "::set-output name=matrix::{'platform':['centos-7'],'collection':['puppet6-nightly']}"
         else
           echo  "::set-output name=matrix::{}"
         fi
@@ -126,22 +126,29 @@ jobs:
 
     - name: Provision test environment
       run: |
-        buildevents cmd $TRACE_ID $STEP_ID 'rake litmus:provision ${{ matrix.platform }}' -- bundle exec bolt --modulepath spec/fixtures/modules plan run ntp::provision_gcp gcp_image=${{ matrix.platform }}
+        buildevents cmd $TRACE_ID $STEP_ID 'rake litmus:provision ${{ matrix.platform }}' -- bundle exec bolt --modulepath spec/fixtures/modules plan run ntp::provision_gcp image=${{ matrix.platform }}
         echo ::group::=== REQUEST ===
         cat request.json || true
         echo
         echo ::endgroup::
         echo ::group::=== INVENTORY ===
-        sed -e 's/password: .*/password: "[redacted]"/' < inventory.yaml || true
+        if [ -f 'spec/fixtures/litmus_inventory.yaml' ];
+        then
+          FILE='spec/fixtures/litmus_inventory.yaml'
+        elif [ -f 'inventory.yaml' ];
+        then
+          FILE='inventory.yaml'
+        fi
+        sed -e 's/password: .*/password: "[redacted]"/' < $FILE || true
         echo ::endgroup::
 
-    - name: Install agent
-      uses: nick-invision/retry@v1
-      with:
-        timeout_minutes: 30
-        max_attempts: 5
-        retry_wait_seconds: 60
-        command: buildevents cmd $TRACE_ID $STEP_ID 'rake litmus:install_agent ${{ matrix.collection }}' -- bundle exec rake 'litmus:install_agent[${{ matrix.collection }}]'
+    - name: Install PE
+      run: |
+        bundle exec bolt --modulepath spec/fixtures/modules -i ./spec/fixtures/litmus_inventory.yaml plan run ntp::pe_server
+
+    - name: Install Agents
+      run: |
+        bundle exec bolt --modulepath spec/fixtures/modules -i ./spec/fixtures/litmus_inventory.yaml plan run ntp::pe_agent
 
     - name: Install module
       run: |
