@@ -8,11 +8,6 @@ describe 'we are able to setup an ntp server, and connect a client to it', :inte
   context 'set up the server' do
     before(:all) { change_target_host('ntpserver') }
     after(:all) { reset_target_host }
-    servicename = if os[:family] == 'sles' && os[:release].start_with?('12', '15')
-                    'ntpd'
-                  else
-                    'ntp'
-                  end
     describe 'set up ntpserver' do
       it 'check the date is 2021' do
         result = run_shell('date')
@@ -23,8 +18,6 @@ describe 'we are able to setup an ntp server, and connect a client to it', :inte
       MANIFEST
       it 'sets up the service' do
         idempotent_apply(pp)
-        expect(service(servicename)).to be_running
-        expect(service(servicename)).to be_enabled
       end
     end
   end
