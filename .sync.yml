@@ -13,7 +13,7 @@ Rakefile:
   extras:
     - |
       require 'rspec/core/rake_task'
-      namespace :kubernetes do
+      namespace :ntp do
         RSpec::Core::RakeTask.new(:integration) do |t|
           t.pattern = 'spec/acceptance/**{,/*/**}/*_spec.rb'
           t.rspec_opts = "--tag integration"

@@ -174,17 +174,17 @@ jobs:
         echo STEP_ID=${{ matrix.platform }}-${{ matrix.collection }}-4 >> $GITHUB_ENV
         echo STEP_START=$(date +%s) >> $GITHUB_ENV
 
-    - name: Remove test environment
-      if: ${{ always() }}
-      continue-on-error: true
-      run: |
-        if [ -f inventory.yaml ]; then
-          buildevents cmd $TRACE_ID $STEP_ID 'rake litmus:tear_down' -- bundle exec rake 'litmus:tear_down'
-          echo ::group::=== REQUEST ===
-          cat request.json || true
-          echo
-          echo ::endgroup::
-        fi
+#    - name: Remove test environment
+#      if: ${{ always() }}
+#      continue-on-error: true
+#      run: |
+#        if [ -f inventory.yaml ]; then
+#          buildevents cmd $TRACE_ID $STEP_ID 'rake litmus:tear_down' -- bundle exec rake 'litmus:tear_down'
+#          echo ::group::=== REQUEST ===
+#          cat request.json || true
+#          echo
+#          echo ::endgroup::
+#        fi
 
     - name: "Honeycomb: Record removal times"
       if: ${{ always() }}
