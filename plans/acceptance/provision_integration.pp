@@ -3,8 +3,8 @@
 # Provisions machines for integration testing
 #
 # @example
-#   ntp::provision_integration
-plan ntp::provision_gcp(
+#   ntp::acceptance::provision_integration
+plan ntp::acceptance::provision_integration(
   Optional[String] $image = 'centos-7',
   Optional[String] $provision_type = 'provision_service',
 ) {
