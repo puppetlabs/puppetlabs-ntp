@@ -3,8 +3,8 @@
 # Install PE Server
 #
 # @example
-#   ntp::pe_server
-plan ntp::pe_server(
+#   ntp::acceptance::pe_server
+plan ntp::acceptance::pe_server(
   Optional[String] $version = '2019.8.5',
   Optional[Hash] $pe_settings = {password => 'puppetlabs'}
 ) {

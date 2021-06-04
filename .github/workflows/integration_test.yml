@@ -126,7 +126,7 @@ jobs:
 
     - name: Provision test environment
       run: |
-        buildevents cmd $TRACE_ID $STEP_ID 'rake litmus:provision ${{ matrix.platform }}' -- bundle exec bolt --modulepath spec/fixtures/modules plan run ntp::provision_gcp image=${{ matrix.platform }}
+        buildevents cmd $TRACE_ID $STEP_ID 'rake litmus:provision ${{ matrix.platform }}' -- bundle exec bolt --modulepath spec/fixtures/modules plan run ntp::acceptance::provision_integration image=${{ matrix.platform }}
         echo ::group::=== REQUEST ===
         cat request.json || true
         echo
@@ -144,11 +144,11 @@ jobs:
 
     - name: Install PE
       run: |
-        bundle exec bolt --modulepath spec/fixtures/modules -i ./spec/fixtures/litmus_inventory.yaml plan run ntp::pe_server
+        bundle exec bolt --modulepath spec/fixtures/modules -i ./spec/fixtures/litmus_inventory.yaml plan run ntp::acceptance::pe_server
 
     - name: Install Agents
       run: |
-        bundle exec bolt --modulepath spec/fixtures/modules -i ./spec/fixtures/litmus_inventory.yaml plan run ntp::pe_agent
+        bundle exec bolt --modulepath spec/fixtures/modules -i ./spec/fixtures/litmus_inventory.yaml plan run ntp::acceptance::pe_agent
 
     - name: Install module
       run: |
