@@ -86,3 +86,10 @@ EOM
   end
 end
 
+require 'rspec/core/rake_task'
+namespace :ntp do
+  RSpec::Core::RakeTask.new(:integration) do |t|
+    t.pattern = 'spec/acceptance/**{,/*/**}/*_spec.rb'
+    t.rspec_opts = "--tag integration"
+  end
+end
