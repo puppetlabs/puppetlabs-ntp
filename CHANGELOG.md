@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v9.1.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v9.1.0) (2021-08-26)
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v9.0.1...v9.1.0)
+
+### Added
+
+- pdksync - \(IAC-1709\) - Add Support for Debian 11 [\#632](https://github.com/puppetlabs/puppetlabs-ntp/pull/632) ([david22swan](https://github.com/david22swan))
+
+### Fixed
+
+- \(maint\) Allow stdlib 8.0.0 [\#633](https://github.com/puppetlabs/puppetlabs-ntp/pull/633) ([smortex](https://github.com/smortex))
+
 ## [v9.0.1](https://github.com/puppetlabs/puppetlabs-ntp/tree/v9.0.1) (2021-03-29)
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v9.0.0...v9.0.1)
