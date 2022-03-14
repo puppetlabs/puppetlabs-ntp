@@ -9,9 +9,9 @@ describe 'we are able to setup an ntp server, and connect a client to it', :inte
     before(:all) { change_target_host('ntpserver') }
     after(:all) { reset_target_host }
     describe 'set up ntpserver' do
-      it 'check the date is 2021' do
+      it 'check the date is 2022' do
         result = run_shell('date')
-        expect(result.stdout).to match(%r{2021})
+        expect(result.stdout).to match(%r{2022})
       end
       pp = <<-MANIFEST
       class { 'ntp': }
@@ -25,9 +25,9 @@ describe 'we are able to setup an ntp server, and connect a client to it', :inte
     before(:all) { change_target_host('ntpclient') }
     after(:all) { reset_target_host }
     describe 'go to the future' do
-      it 'its 2021' do
+      it 'its 2022' do
         result = run_shell('date')
-        expect(result.stdout).to match(%r{2021})
+        expect(result.stdout).to match(%r{2022})
       end
       it 'install ntpdate' do
         apply_manifest("package { 'ntpdate': ensure => present }")
@@ -36,14 +36,14 @@ describe 'we are able to setup an ntp server, and connect a client to it', :inte
         result = run_shell('timedatectl set-ntp false')
         expect(result.exit_code).to eq(0)
       end
-      it 'go forward to 2022' do
+      it 'go forward to 2023' do
         result = run_shell('date --set="$(date --date="next year")"')
-        expect(result.stdout).to match(%r{2022})
+        expect(result.stdout).to match(%r{2023})
         expect(result.exit_code).to eq(0)
       end
-      it 'changed 2022' do
+      it 'changed 2023' do
         result = run_shell('date')
-        expect(result.stdout).to match(%r{2022})
+        expect(result.stdout).to match(%r{2023})
       end
     end
   end
