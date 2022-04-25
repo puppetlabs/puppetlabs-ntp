@@ -1,5 +1,4 @@
 node default {
-
   notify { 'enduser-before': }
   notify { 'enduser-after': }
 
@@ -7,5 +6,4 @@ node default {
     require => Notify['enduser-before'],
     before  => Notify['enduser-after'],
   }
-
 }
