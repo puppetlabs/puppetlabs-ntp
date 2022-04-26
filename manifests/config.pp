@@ -4,19 +4,16 @@
 # @api private
 #
 class ntp::config {
-
   #The servers-netconfig file overrides NTP config on SLES 12, interfering with our configuration.
   if ($facts['operatingsystem'] == 'SLES' and $facts['operatingsystemmajrelease'] == '12') or
-    ($facts['operatingsystem'] == 'OpenSuSE' and $facts['operatingsystemmajrelease'] == '42') {
+  ($facts['operatingsystem'] == 'OpenSuSE' and $facts['operatingsystemmajrelease'] == '42') {
     file { '/var/run/ntp/servers-netconfig':
-      ensure => 'absent'
+      ensure => 'absent',
     }
   }
 
-  case $::osfamily
-  {
-    'redhat':
-    {
+  case $::osfamily {
+    'redhat': {
       $daemon_config = '/etc/sysconfig/ntpd'
       if $ntp::daemon_extra_opts {
         file_line { 'Set NTPD daemon options':
@@ -35,8 +32,7 @@ class ntp::config {
         }
       }
     }
-    'Debian':
-    {
+    'Debian': {
       $daemon_config = '/etc/default/ntp'
       if $ntp::daemon_extra_opts {
         file_line { 'Set NTPD daemon options':
@@ -55,8 +51,7 @@ class ntp::config {
         }
       }
     }
-    'Suse':
-    {
+    'Suse': {
       $daemon_config = '/etc/sysconfig/ntp'
       if $ntp::daemon_extra_opts {
         file_line { 'Set NTPD daemon options':
@@ -67,7 +62,9 @@ class ntp::config {
         }
       }
     }
-    default: { }
+    default: {
+      # Empty
+    }
   }
 
   if $ntp::keys_enable {
@@ -123,7 +120,7 @@ class ntp::config {
       $step_ticker_content = template($ntp::step_tickers_template)
     } elsif $::ntp::step_tickers_epp {
       $step_ticker_content = epp($::ntp::step_tickers_epp)
-    } else{
+    } else {
       $step_ticker_content = epp('ntp/step-tickers.epp')
     }
 

@@ -19,6 +19,12 @@ Rakefile:
           t.rspec_opts = "--tag integration"
         end
       end
+  extra_disabled_lint_checks:
+    - legacy_facts
+    - top_scope_facts
+    - topscope_variable
+    - relative_classname_reference
+    - variables_not_enclosed
 spec/spec_helper.rb:
   mock_with: ":rspec"
   coverage_report: true

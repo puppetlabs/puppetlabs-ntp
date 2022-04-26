@@ -1,1 +1,6 @@
 --relative
+--no-legacy_facts-check
+--no-top_scope_facts-check
+--no-topscope_variable-check
+--no-relative_classname_reference-check
+--no-variables_not_enclosed-check

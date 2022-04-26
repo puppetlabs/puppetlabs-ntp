@@ -4,7 +4,6 @@
 # @api private
 #
 class ntp::service {
-
   if $ntp::service_manage == true {
     service { 'ntp':
       ensure     => $ntp::service_ensure,
@@ -15,5 +14,4 @@ class ntp::service {
       hasrestart => $ntp::service_hasrestart,
     }
   }
-
 }
