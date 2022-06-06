@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v9.1.1](https://github.com/puppetlabs/puppetlabs-ntp/tree/v9.1.1) (2022-06-06)
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v9.1.0...v9.1.1)
+
+### Fixed
+
+- pdksync - \(GH-iac-334\) Remove Support for Ubuntu 14.04/16.04 [\#639](https://github.com/puppetlabs/puppetlabs-ntp/pull/639) ([david22swan](https://github.com/david22swan))
+- pdksync - \(IAC-1787\) Remove Support for CentOS 6 [\#637](https://github.com/puppetlabs/puppetlabs-ntp/pull/637) ([david22swan](https://github.com/david22swan))
+- pdksync - \(IAC-1598\) - Remove Support for Debian 8 [\#635](https://github.com/puppetlabs/puppetlabs-ntp/pull/635) ([david22swan](https://github.com/david22swan))
+
 ## [v9.1.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v9.1.0) (2021-08-26)
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v9.0.1...v9.1.0)
@@ -125,7 +135,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
-- Add SLES 15 hiera data [\#472](https://github.com/puppetlabs/puppetlabs-ntp/pull/472) ([mattiasgiese](https://github.com/mattiasgiese))
+- Add SLES 15 hiera data [\#472](https://github.com/puppetlabs/puppetlabs-ntp/pull/472) ([mattiascockburn](https://github.com/mattiascockburn))
 - \(FM-7038\) Add support for Debian 9 [\#470](https://github.com/puppetlabs/puppetlabs-ntp/pull/470) ([david22swan](https://github.com/david22swan))
 - add tos\_orphan parameter [\#452](https://github.com/puppetlabs/puppetlabs-ntp/pull/452) ([disklord](https://github.com/disklord))
 
