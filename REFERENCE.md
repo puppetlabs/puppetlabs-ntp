@@ -21,6 +21,12 @@
 * [`Ntp::Key_id`](#ntpkey_id): See http://doc.ntp.org/4.2.6/authopt.html#controlkey for documentation Alternatively: type Ntp::Key_id = Variant[Integer, Pattern['']]
 * [`Ntp::Poll_interval`](#ntppoll_interval): See http://doc.ntp.org/4.2.6/clockopt.html#server for documentation Alternatively: type Ntp::Poll_interval = Variant[Integer, Pattern['']]
 
+### Plans
+
+* [`ntp::acceptance::pe_agent`](#ntpacceptancepe_agent): Install PE
+* [`ntp::acceptance::pe_server`](#ntpacceptancepe_server): Install PE Server
+* [`ntp::acceptance::provision_integration`](#ntpacceptanceprovision_integration): Provisions machines
+
 ## Classes
 
 ### <a name="ntp"></a>`ntp`
@@ -572,4 +578,88 @@ Alias of
 ```puppet
 Integer[4, 17]
 ```
+
+## Plans
+
+### <a name="ntpacceptancepe_agent"></a>`ntp::acceptance::pe_agent`
+
+Install PE Agent
+
+#### Examples
+
+##### 
+
+```puppet
+ntp::acceptance::pe_agent
+```
+
+### <a name="ntpacceptancepe_server"></a>`ntp::acceptance::pe_server`
+
+Install PE Server
+
+#### Examples
+
+##### 
+
+```puppet
+ntp::acceptance::pe_server
+```
+
+#### Parameters
+
+The following parameters are available in the `ntp::acceptance::pe_server` plan:
+
+* [`version`](#version)
+* [`pe_settings`](#pe_settings)
+
+##### <a name="version"></a>`version`
+
+Data type: `Optional[String]`
+
+
+
+Default value: `'2019.8.5'`
+
+##### <a name="pe_settings"></a>`pe_settings`
+
+Data type: `Optional[Hash]`
+
+
+
+Default value: `{ password => 'puppetlabs' }`
+
+### <a name="ntpacceptanceprovision_integration"></a>`ntp::acceptance::provision_integration`
+
+Provisions machines for integration testing
+
+#### Examples
+
+##### 
+
+```puppet
+ntp::acceptance::provision_integration
+```
+
+#### Parameters
+
+The following parameters are available in the `ntp::acceptance::provision_integration` plan:
+
+* [`image`](#image)
+* [`provision_type`](#provision_type)
+
+##### <a name="image"></a>`image`
+
+Data type: `Optional[String]`
+
+
+
+Default value: `'centos-7'`
+
+##### <a name="provision_type"></a>`provision_type`
+
+Data type: `Optional[String]`
+
+
+
+Default value: `'provision_service'`
 
