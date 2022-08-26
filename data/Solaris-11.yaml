@@ -7,5 +7,5 @@ ntp::restrict:
   - '-6 default kod nomodify notrap nopeer noquery'
   - '127.0.0.1'
   - '-6 ::1'
-ntp::service_name: 'network/ntp'
+ntp::service_name: 'network/ntp:default'
 ntp::iburst_enable: false
