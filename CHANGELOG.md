@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v9.2.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v9.2.0) (2022-08-30)
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v9.1.1...v9.2.0)
+
+### Added
+
+- pdksync - \(GH-cat-11\) Certify Support for Ubuntu 22.04 [\#648](https://github.com/puppetlabs/puppetlabs-ntp/pull/648) ([david22swan](https://github.com/david22swan))
+
+### Fixed
+
+- SMF service instance change in Oracle Solaris 11.4 SRU 45.119.2 [\#647](https://github.com/puppetlabs/puppetlabs-ntp/pull/647) ([Kristijan](https://github.com/Kristijan))
+
 ## [v9.1.1](https://github.com/puppetlabs/puppetlabs-ntp/tree/v9.1.1) (2022-06-06)
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v9.1.0...v9.1.1)
