@@ -32,7 +32,7 @@ jobs:
       uses: actions/checkout@v2
       if: ${{ github.repository_owner == 'puppetlabs' }}
 
-    - name: Activate Ruby 2.7
+    - name: Activate Ruby 3.1
       uses: ruby/setup-ruby@v1
       if: ${{ github.repository_owner == 'puppetlabs' }}
       with:
