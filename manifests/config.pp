@@ -5,14 +5,14 @@
 #
 class ntp::config {
   #The servers-netconfig file overrides NTP config on SLES 12, interfering with our configuration.
-  if ($facts['operatingsystem'] == 'SLES' and $facts['operatingsystemmajrelease'] == '12') or
-  ($facts['operatingsystem'] == 'OpenSuSE' and $facts['operatingsystemmajrelease'] == '42') {
+  if ($facts['os']['name'] == 'SLES' and $facts['os']['release']['major'] == '12') or
+  ($facts['os']['name'] == 'OpenSuSE' and $facts['os']['release']['major'] == '42') {
     file { '/var/run/ntp/servers-netconfig':
       ensure => 'absent',
     }
   }
 
-  case $::osfamily {
+  case $facts['os']['family'] {
     'redhat': {
       $daemon_config = '/etc/sysconfig/ntpd'
       if $ntp::daemon_extra_opts {
@@ -23,7 +23,7 @@ class ntp::config {
           match  => '^OPTIONS\=',
         }
       }
-      if $ntp::user and $facts['operatingsystemmajrelease'] != '6' {
+      if $ntp::user and $facts['os']['release']['major'] != '6' {
         file_line { 'Set NTPD daemon user':
           ensure => present,
           path   => '/etc/systemd/system/multi-user.target.wants/ntpd.service',
@@ -42,7 +42,7 @@ class ntp::config {
           match  => '^NTPD_OPTS\=',
         }
       }
-      if $ntp::user and $facts['operatingsystemmajrelease'] == '18.04' {
+      if $ntp::user and $facts['os']['release']['major'] == '18.04' {
         file_line { 'Set NTPD daemon user':
           ensure => present,
           path   => '/usr/lib/ntp/ntp-systemd-wrapper',
@@ -106,29 +106,29 @@ class ntp::config {
     ensure  => file,
     owner   => 0,
     group   => 0,
-    mode    => $::ntp::config_file_mode,
+    mode    => $ntp::config_file_mode,
     content => $config_content,
   }
 
   #If both epp and erb are defined, throw validation error.
   #Otherwise use the defined erb/epp template, or use default
 
-  if $::ntp::step_tickers_file {
-    if $::ntp::step_tickers_template and $::ntp::step_tickers_epp {
+  if $ntp::step_tickers_file {
+    if $ntp::step_tickers_template and $ntp::step_tickers_epp {
       fail('Cannot supply both step_tickers_file and step_tickers_epp templates for step ticker file')
-    } elsif $::ntp::step_tickers_template {
+    } elsif $ntp::step_tickers_template {
       $step_ticker_content = template($ntp::step_tickers_template)
-    } elsif $::ntp::step_tickers_epp {
-      $step_ticker_content = epp($::ntp::step_tickers_epp)
+    } elsif $ntp::step_tickers_epp {
+      $step_ticker_content = epp($ntp::step_tickers_epp)
     } else {
       $step_ticker_content = epp('ntp/step-tickers.epp')
     }
 
-    file { $::ntp::step_tickers_file:
+    file { $ntp::step_tickers_file:
       ensure  => file,
       owner   => 0,
       group   => 0,
-      mode    => $::ntp::config_file_mode,
+      mode    => $ntp::config_file_mode,
       content => $step_ticker_content,
     }
   }
