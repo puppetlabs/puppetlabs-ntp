@@ -8,12 +8,13 @@ Gemfile:
   optional:
     ":development":
     - gem: github_changelog_generator
+      version: '= 1.15.2'
 Rakefile:
   changelog_user: puppetlabs
   extras:
     - |
       require 'rspec/core/rake_task'
-      namespace :kubernetes do
+      namespace :ntp do
         RSpec::Core::RakeTask.new(:integration) do |t|
           t.pattern = 'spec/acceptance/**{,/*/**}/*_spec.rb'
           t.rspec_opts = "--tag integration"
