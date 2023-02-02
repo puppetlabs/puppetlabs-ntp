@@ -1,3 +1,3 @@
-# See http://doc.ntp.org/4.2.6/clockopt.html#server for documentation
+# See https://doc.ntp.org/documentation/4.2.6-series/confopt/#command-options for documentation
 # Alternatively: type Ntp::Poll_interval = Variant[Integer, Pattern['']]
-type Ntp::Poll_interval = Integer[4, 17]
+type Ntp::Poll_interval = Integer[3, 17]
