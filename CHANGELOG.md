@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v9.2.1](https://github.com/puppetlabs/puppetlabs-ntp/tree/v9.2.1) (2023-02-03)
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v9.2.0...v9.2.1)
+
+### Fixed
+
+- minimum value for poll interval should be 3, not 4 [\#665](https://github.com/puppetlabs/puppetlabs-ntp/pull/665) ([johnwarburton](https://github.com/johnwarburton))
+- \(CONT-360\) Syntax update [\#663](https://github.com/puppetlabs/puppetlabs-ntp/pull/663) ([LukasAud](https://github.com/LukasAud))
+- pdksync - \(CONT-189\) Remove support for RedHat6 / OracleLinux6 / Scientific6 [\#655](https://github.com/puppetlabs/puppetlabs-ntp/pull/655) ([david22swan](https://github.com/david22swan))
+- pdksync - \(CONT-130\) - Dropping Support for Debian 9 [\#652](https://github.com/puppetlabs/puppetlabs-ntp/pull/652) ([jordanbreen28](https://github.com/jordanbreen28))
+
 ## [v9.2.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v9.2.0) (2022-08-30)
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v9.1.1...v9.2.0)
@@ -69,7 +80,6 @@ All notable changes to this project will be documented in this file. The format 
 ### Added
 
 - pdksync - \(IAC-973\) - Update travis/appveyor to run on new default branch `main` [\#579](https://github.com/puppetlabs/puppetlabs-ntp/pull/579) ([david22swan](https://github.com/david22swan))
-- \(IAC-746\) - Add ubuntu 20.04 support [\#575](https://github.com/puppetlabs/puppetlabs-ntp/pull/575) ([david22swan](https://github.com/david22swan))
 
 ## [v8.3.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v8.3.0) (2020-04-01)
 
@@ -77,6 +87,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
+- \(IAC-746\) - Add ubuntu 20.04 support [\#575](https://github.com/puppetlabs/puppetlabs-ntp/pull/575) ([david22swan](https://github.com/david22swan))
 - \(MAINT\) Add Solaris family Hiera data [\#554](https://github.com/puppetlabs/puppetlabs-ntp/pull/554) ([paescuj](https://github.com/paescuj))
 - pdksync - \(FM-8581\) - Debian 10 added to travis and provision file refactored [\#552](https://github.com/puppetlabs/puppetlabs-ntp/pull/552) ([david22swan](https://github.com/david22swan))
 - \(MODULES-10413\) Allow custom ntp user and daemon options  [\#551](https://github.com/puppetlabs/puppetlabs-ntp/pull/551) ([david22swan](https://github.com/david22swan))
