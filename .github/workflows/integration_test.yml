@@ -55,9 +55,9 @@ jobs:
       id: get-matrix
       run: |
         if [ '${{ github.repository_owner }}' == 'puppetlabs' ]; then
-          echo  "::set-output name=matrix::{'platform':['centos-7'],'collection':['puppet6-nightly']}"
+          echo  "matrix={'platform':['centos-7'],'collection':['puppet6-nightly']}" >> $GITHUB_OUTPUT
         else
-          echo  "::set-output name=matrix::{}"
+          echo  "matrix={}"  >> $GITHUB_OUTPUT
         fi
 
     - name: "Honeycomb: Record Setup Test Matrix time"
