@@ -260,8 +260,7 @@ on_supported_os.each do |os, f|
         describe 'disable_monitor' do
           context 'when default' do
             let(:params) do
-              {
-              }
+              {}
             end
 
             it 'contains disable monitor setting' do
@@ -315,8 +314,7 @@ on_supported_os.each do |os, f|
         describe 'enable_mode7' do
           context 'when default' do
             let(:params) do
-              {
-              }
+              {}
             end
 
             it 'does not contain enable mode7 setting' do
@@ -1005,7 +1003,7 @@ on_supported_os.each do |os, f|
           it 'when set to false' do
             is_expected.not_to contain_service('ntp').with('enable' => true,
                                                            'ensure' => 'running',
-                                                           'name'   => 'ntpd')
+                                                           'name' => 'ntpd')
           end
         end
 

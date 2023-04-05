@@ -21,9 +21,8 @@ describe 'preferred servers', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]
       expect(r.stderr).not_to match(%r{error}i)
     end
     expect(file(config.to_s)).to be_file
-    expect(file(config.to_s).content).to match 'server a'
-    expect(file(config.to_s).content).to match 'server b'
-    expect(file(config.to_s).content).to match %r{server c (iburst\s|)prefer}
-    expect(file(config.to_s).content).to match %r{server d (iburst\s|)prefer}
+    ['server a', 'server b', %r{server c (iburst\s|)prefer}, %r{server d (iburst\s|)prefer}].each do |check|
+      expect(file(config.to_s).content).to match(check)
+    end
   end
 end
