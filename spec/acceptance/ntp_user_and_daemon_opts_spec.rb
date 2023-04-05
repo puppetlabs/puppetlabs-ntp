@@ -39,6 +39,7 @@ describe 'ntp class with daemon options:', unless: UNSUPPORTED_PLATFORMS.include
     describe file(config.to_s) do
       its(:content) { is_expected.to match(%r{(OPTIONS|NTPD_OPTS)='-g -i \/var\/lib\/ntp'}) }
     end
+
     if os[:family] == 'redhat' && !os[:release].start_with?('6')
       describe file('/etc/systemd/system/multi-user.target.wants/ntpd.service') do
         its(:content) { is_expected.to match(%r{ntpd -u ntp:ntp}) }

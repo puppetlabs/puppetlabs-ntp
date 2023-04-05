@@ -61,9 +61,10 @@ on_supported_os.each do |os, f|
             end
 
             it 'contains broadcastclient setting' do
-              is_expected.to contain_file(conf_path).with('content' => %r{^broadcastclient\n})
+              expect(subject).to contain_file(conf_path).with('content' => %r{^broadcastclient\n})
             end
           end
+
           context 'when set to false' do
             let(:params) do
               {
@@ -72,7 +73,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'does not contain broadcastclient setting' do
-              is_expected.not_to contain_file(conf_path).with('content' => %r{^broadcastclient\n})
+              expect(subject).not_to contain_file(conf_path).with('content' => %r{^broadcastclient\n})
             end
           end
         end
@@ -86,7 +87,7 @@ on_supported_os.each do |os, f|
             end
 
             it do
-              is_expected.to contain_file(conf_path).with('content' => %r{ burst\n})
+              expect(subject).to contain_file(conf_path).with('content' => %r{ burst\n})
             end
           end
 
@@ -98,7 +99,7 @@ on_supported_os.each do |os, f|
             end
 
             it do
-              is_expected.not_to contain_file(conf_path).with('content' => %r{ burst\n})
+              expect(subject).not_to contain_file(conf_path).with('content' => %r{ burst\n})
             end
           end
         end
@@ -114,7 +115,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'contains custom config directory' do
-              is_expected.to contain_file('/tmp/foo').with(
+              expect(subject).to contain_file('/tmp/foo').with(
                 'ensure' => 'directory', 'owner' => '0', 'group' => '0', 'mode' => '0775', 'recurse' => 'false',
               )
             end
@@ -130,39 +131,40 @@ on_supported_os.each do |os, f|
             end
 
             it 'contains file mode of 0777' do
-              is_expected.to contain_file(conf_path).with_mode('0777')
+              expect(subject).to contain_file(conf_path).with_mode('0777')
             end
           end
         end
 
-        context 'default pool servers' do # rubocop:disable RSpec/EmptyExampleGroup
+        context 'default pool servers' do
           case f[:os]['family']
           when 'RedHat'
             it 'uses the centos ntp servers' do
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{server \d.centos.pool.ntp.org})
+              expect(subject).to contain_file('/etc/ntp.conf').with('content' => %r{server \d.centos.pool.ntp.org})
             end
+
             it do
-              is_expected.to contain_file('/etc/ntp/step-tickers').with('content' => %r{\d.centos.pool.ntp.org})
+              expect(subject).to contain_file('/etc/ntp/step-tickers').with('content' => %r{\d.centos.pool.ntp.org})
             end
           when 'Debian'
             it 'uses the debian ntp servers' do
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{server \d.debian.pool.ntp.org iburst\n})
+              expect(subject).to contain_file('/etc/ntp.conf').with('content' => %r{server \d.debian.pool.ntp.org iburst\n})
             end
           when 'Suse'
             it 'uses the opensuse ntp servers' do
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{server \d.opensuse.pool.ntp.org})
+              expect(subject).to contain_file('/etc/ntp.conf').with('content' => %r{server \d.opensuse.pool.ntp.org})
             end
           when 'FreeBSD'
             it 'uses the freebsd ntp servers' do
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{server \d.freebsd.pool.ntp.org iburst maxpoll 9})
+              expect(subject).to contain_file('/etc/ntp.conf').with('content' => %r{server \d.freebsd.pool.ntp.org iburst maxpoll 9})
             end
           when 'Solaris'
             it 'uses the generic NTP pool servers' do
-              is_expected.to contain_file('/etc/inet/ntp.conf').with('content' => %r{server \d.pool.ntp.org})
+              expect(subject).to contain_file('/etc/inet/ntp.conf').with('content' => %r{server \d.pool.ntp.org})
             end
           when 'AIX'
             it 'uses the generic NTP pool servers on AIX' do
-              is_expected.to contain_file('/etc/ntp.conf').with('content' => %r{server \d.pool.ntp.org})
+              expect(subject).to contain_file('/etc/ntp.conf').with('content' => %r{server \d.pool.ntp.org})
             end
           else
             it {
@@ -182,9 +184,10 @@ on_supported_os.each do |os, f|
             end
 
             it 'contains disable auth setting' do
-              is_expected.to contain_file(conf_path).with('content' => %r{^disable auth\n})
+              expect(subject).to contain_file(conf_path).with('content' => %r{^disable auth\n})
             end
           end
+
           context 'when set to false' do
             let(:params) do
               {
@@ -193,7 +196,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'does not contain disable auth setting' do
-              is_expected.not_to contain_file(conf_path).with('content' => %r{^disable auth\n})
+              expect(subject).not_to contain_file(conf_path).with('content' => %r{^disable auth\n})
             end
           end
         end
@@ -207,15 +210,18 @@ on_supported_os.each do |os, f|
             end
 
             it 'contains disable ntp-servers setting' do
-              is_expected.to contain_augeas('disable ntp-servers in dhclient.conf')
+              expect(subject).to contain_augeas('disable ntp-servers in dhclient.conf')
             end
+
             it 'contains dhcp file' do
-              is_expected.to contain_file('/var/lib/ntp/ntp.conf.dhcp').with_ensure('absent')
+              expect(subject).to contain_file('/var/lib/ntp/ntp.conf.dhcp').with_ensure('absent')
             end
+
             it 'contains ntp.sh file' do
-              is_expected.to contain_file('/etc/dhcp/dhclient.d/ntp.sh').with_ensure('absent')
+              expect(subject).to contain_file('/etc/dhcp/dhclient.d/ntp.sh').with_ensure('absent')
             end
           end
+
           context 'when set to false' do
             let(:params) do
               {
@@ -224,10 +230,11 @@ on_supported_os.each do |os, f|
             end
 
             it 'does not contain disable ntp-servers setting' do
-              is_expected.not_to contain_augeas('disable ntp-servers in dhclient.conf')
+              expect(subject).not_to contain_augeas('disable ntp-servers in dhclient.conf')
             end
+
             it 'does not contain dhcp file' do
-              is_expected.not_to contain_file('/var/lib/ntp/ntp.conf.dhcp').with_ensure('absent')
+              expect(subject).not_to contain_file('/var/lib/ntp/ntp.conf.dhcp').with_ensure('absent')
             end
           end
         end
@@ -241,9 +248,10 @@ on_supported_os.each do |os, f|
             end
 
             it 'contains disable kernel setting' do
-              is_expected.to contain_file(conf_path).with('content' => %r{^disable kernel\n})
+              expect(subject).to contain_file(conf_path).with('content' => %r{^disable kernel\n})
             end
           end
+
           context 'when set to false' do
             let(:params) do
               {
@@ -252,7 +260,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'does not contain disable kernel setting' do
-              is_expected.not_to contain_file(conf_path).with('content' => %r{^disable kernel\n})
+              expect(subject).not_to contain_file(conf_path).with('content' => %r{^disable kernel\n})
             end
           end
         end
@@ -264,9 +272,10 @@ on_supported_os.each do |os, f|
             end
 
             it 'contains disable monitor setting' do
-              is_expected.to contain_file(conf_path).with('content' => %r{^disable monitor\n})
+              expect(subject).to contain_file(conf_path).with('content' => %r{^disable monitor\n})
             end
           end
+
           context 'when set to true' do
             let(:params) do
               {
@@ -275,9 +284,10 @@ on_supported_os.each do |os, f|
             end
 
             it 'contains disable monitor setting' do
-              is_expected.to contain_file(conf_path).with('content' => %r{^disable monitor\n})
+              expect(subject).to contain_file(conf_path).with('content' => %r{^disable monitor\n})
             end
           end
+
           context 'when set to false' do
             let(:params) do
               {
@@ -286,7 +296,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'does not contain disable monitor setting' do
-              is_expected.not_to contain_file(conf_path).with('content' => %r{^disable monitor\n})
+              expect(subject).not_to contain_file(conf_path).with('content' => %r{^disable monitor\n})
             end
           end
         end
@@ -294,7 +304,7 @@ on_supported_os.each do |os, f|
         describe 'driftfile' do
           context 'when not set' do
             it 'contains default driftfile' do
-              is_expected.to contain_file(conf_path).with('content' => %r{^driftfile})
+              expect(subject).to contain_file(conf_path).with('content' => %r{^driftfile})
             end
           end
 
@@ -306,7 +316,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'contains driftfile value' do
-              is_expected.to contain_file(conf_path).with('content' => %r{^driftfile /tmp/driftfile\n})
+              expect(subject).to contain_file(conf_path).with('content' => %r{^driftfile /tmp/driftfile\n})
             end
           end
         end
@@ -318,9 +328,10 @@ on_supported_os.each do |os, f|
             end
 
             it 'does not contain enable mode7 setting' do
-              is_expected.not_to contain_file(conf_path).with('content' => %r{^enable mode7\n})
+              expect(subject).not_to contain_file(conf_path).with('content' => %r{^enable mode7\n})
             end
           end
+
           context 'when set to true' do
             let(:params) do
               {
@@ -329,9 +340,10 @@ on_supported_os.each do |os, f|
             end
 
             it 'contains enable mode7 setting' do
-              is_expected.to contain_file(conf_path).with('content' => %r{^enable mode7\n})
+              expect(subject).to contain_file(conf_path).with('content' => %r{^enable mode7\n})
             end
           end
+
           context 'when set to false' do
             let(:params) do
               {
@@ -340,7 +352,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'does not contain enable mode7 setting' do
-              is_expected.not_to contain_file(conf_path).with('content' => %r{^enable mode7\n})
+              expect(subject).not_to contain_file(conf_path).with('content' => %r{^enable mode7\n})
             end
           end
         end
@@ -355,9 +367,10 @@ on_supported_os.each do |os, f|
             end
 
             it {
-              is_expected.to contain_file(conf_path).with('content' => %r{interface ignore wildcard\ninterface listen 127.0.0.1\ninterface listen a.b.c.d})
+              expect(subject).to contain_file(conf_path).with('content' => %r{interface ignore wildcard\ninterface listen 127.0.0.1\ninterface listen a.b.c.d})
             }
           end
+
           context 'when not set' do
             let(:params) do
               {
@@ -366,7 +379,7 @@ on_supported_os.each do |os, f|
             end
 
             it {
-              is_expected.not_to contain_file(conf_path).with('content' => %r{interface ignore wildcard})
+              expect(subject).not_to contain_file(conf_path).with('content' => %r{interface ignore wildcard})
             }
           end
         end
@@ -381,9 +394,10 @@ on_supported_os.each do |os, f|
             end
 
             it {
-              is_expected.to contain_file(conf_path).with('content' => %r{interface ignore wildcard\ninterface ignore ipv6\ninterface listen a.b.c.d})
+              expect(subject).to contain_file(conf_path).with('content' => %r{interface ignore wildcard\ninterface ignore ipv6\ninterface listen a.b.c.d})
             }
           end
+
           context 'when not set' do
             let(:params) do
               {
@@ -393,7 +407,7 @@ on_supported_os.each do |os, f|
             end
 
             it {
-              is_expected.to contain_file(conf_path).with('content' => %r{interface ignore wildcard\ninterface listen 127.0.0.1})
+              expect(subject).to contain_file(conf_path).with('content' => %r{interface ignore wildcard\ninterface listen 127.0.0.1})
             }
           end
         end
@@ -421,16 +435,19 @@ on_supported_os.each do |os, f|
             end
 
             it {
-              is_expected.to contain_file(conf_path).with('content' => %r{trustedkey 1 2 3})
+              expect(subject).to contain_file(conf_path).with('content' => %r{trustedkey 1 2 3})
             }
+
             it {
-              is_expected.to contain_file(conf_path).with('content' => %r{controlkey 2})
+              expect(subject).to contain_file(conf_path).with('content' => %r{controlkey 2})
             }
+
             it {
-              is_expected.to contain_file(conf_path).with('content' => %r{requestkey 3})
+              expect(subject).to contain_file(conf_path).with('content' => %r{requestkey 3})
             }
+
             it {
-              is_expected.to contain_file(keys_file).with('content' => %r{1 M AAAABBBB})
+              expect(subject).to contain_file(keys_file).with('content' => %r{1 M AAAABBBB})
             }
           end
         end
@@ -446,13 +463,15 @@ on_supported_os.each do |os, f|
           end
 
           it {
-            is_expected.not_to contain_file(conf_path).with('content' => %r{trustedkey 1 2 3})
+            expect(subject).not_to contain_file(conf_path).with('content' => %r{trustedkey 1 2 3})
           }
+
           it {
-            is_expected.not_to contain_file(conf_path).with('content' => %r{controlkey 2})
+            expect(subject).not_to contain_file(conf_path).with('content' => %r{controlkey 2})
           }
+
           it {
-            is_expected.not_to contain_file(conf_path).with('content' => %r{requestkey 3})
+            expect(subject).not_to contain_file(conf_path).with('content' => %r{requestkey 3})
           }
         end
 
@@ -467,9 +486,10 @@ on_supported_os.each do |os, f|
             end
 
             it {
-              is_expected.to contain_file(conf_path).with('content' => %r{server a (maxpoll 9 )?noselect\nserver b (maxpoll 9 )?noselect\nserver c( maxpoll 9)?\nserver d( maxpoll 9)?})
+              expect(subject).to contain_file(conf_path).with('content' => %r{server a (maxpoll 9 )?noselect\nserver b (maxpoll 9 )?noselect\nserver c( maxpoll 9)?\nserver d( maxpoll 9)?})
             }
           end
+
           context 'when not set' do
             let(:params) do
               {
@@ -479,7 +499,7 @@ on_supported_os.each do |os, f|
             end
 
             it {
-              is_expected.not_to contain_file(conf_path).with('content' => %r{server a noselect})
+              expect(subject).not_to contain_file(conf_path).with('content' => %r{server a noselect})
             }
           end
         end
@@ -495,9 +515,10 @@ on_supported_os.each do |os, f|
             end
 
             it {
-              is_expected.to contain_file(conf_path).with('content' => %r{server a prefer( maxpoll 9)?\nserver b prefer( maxpoll 9)?\nserver c( maxpoll 9)?\nserver d( maxpoll 9)?})
+              expect(subject).to contain_file(conf_path).with('content' => %r{server a prefer( maxpoll 9)?\nserver b prefer( maxpoll 9)?\nserver c( maxpoll 9)?\nserver d( maxpoll 9)?})
             }
           end
+
           context 'when not set' do
             let(:params) do
               {
@@ -507,7 +528,7 @@ on_supported_os.each do |os, f|
             end
 
             it {
-              is_expected.not_to contain_file(conf_path).with('content' => %r{server a prefer})
+              expect(subject).not_to contain_file(conf_path).with('content' => %r{server a prefer})
             }
           end
         end
@@ -515,7 +536,7 @@ on_supported_os.each do |os, f|
         describe 'restrict' do
           context 'when not set' do
             it 'does not contain restrict value' do
-              is_expected.to contain_file(conf_path).without_content(%r{^restrict test restrict})
+              expect(subject).to contain_file(conf_path).without_content(%r{^restrict test restrict})
             end
           end
 
@@ -527,7 +548,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'contains restrict value' do
-              is_expected.to contain_file(conf_path).with_content(%r{^restrict test restrict})
+              expect(subject).to contain_file(conf_path).with_content(%r{^restrict test restrict})
             end
           end
         end
@@ -536,11 +557,11 @@ on_supported_os.each do |os, f|
           context 'when absent' do
             if f[:kernel] == 'AIX'
               it 'on AIX does contain "slewalways no"' do
-                is_expected.to contain_file(conf_path).with_content(%r{^slewalways no})
+                expect(subject).to contain_file(conf_path).with_content(%r{^slewalways no})
               end
             else
               it 'on non-AIX does not contain a slewalways' do
-                is_expected.to contain_file(conf_path).without_content(%r{^slewalways})
+                expect(subject).to contain_file(conf_path).without_content(%r{^slewalways})
               end
             end
           end
@@ -553,7 +574,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'does contain "slewalways no"' do
-              is_expected.to contain_file(conf_path).with_content(%r{^slewalways no})
+              expect(subject).to contain_file(conf_path).with_content(%r{^slewalways no})
             end
           end
 
@@ -565,7 +586,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'does contain "slewalways yes"' do
-              is_expected.to contain_file(conf_path).with_content(%r{^slewalways yes})
+              expect(subject).to contain_file(conf_path).with_content(%r{^slewalways yes})
             end
           end
         end
@@ -573,7 +594,7 @@ on_supported_os.each do |os, f|
         describe 'statistics' do
           context 'when not set' do
             it 'does not contain statistics' do
-              is_expected.to contain_file(conf_path).without_content(%r{^filegen loopstats file loopstats type day enable})
+              expect(subject).to contain_file(conf_path).without_content(%r{^filegen loopstats file loopstats type day enable})
             end
           end
 
@@ -586,8 +607,8 @@ on_supported_os.each do |os, f|
             end
 
             it 'contains statistics value' do
-              is_expected.to contain_file(conf_path).with_content(%r{^filegen loopstats file loopstats type day enable})
-              is_expected.to contain_file(conf_path).with_content(%r{^statsdir /var/log/ntpstats})
+              expect(subject).to contain_file(conf_path).with_content(%r{^filegen loopstats file loopstats type day enable})
+              expect(subject).to contain_file(conf_path).with_content(%r{^statsdir /var/log/ntpstats})
             end
           end
         end
@@ -595,7 +616,7 @@ on_supported_os.each do |os, f|
         describe 'udlc' do
           context 'when not set' do
             it 'does not contain udlc' do
-              is_expected.to contain_file(conf_path).without_content(%r{127.127.1.0})
+              expect(subject).to contain_file(conf_path).without_content(%r{127.127.1.0})
             end
           end
 
@@ -607,7 +628,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'contains udlc value' do
-              is_expected.to contain_file(conf_path).with_content(%r{127.127.1.0})
+              expect(subject).to contain_file(conf_path).with_content(%r{127.127.1.0})
             end
           end
         end
@@ -615,7 +636,7 @@ on_supported_os.each do |os, f|
         describe 'udlc_stratum' do
           context 'when not set' do
             it 'does not contain udlc_stratum' do
-              is_expected.to contain_file(conf_path).without_content(%r{stratum 10})
+              expect(subject).to contain_file(conf_path).without_content(%r{stratum 10})
             end
           end
 
@@ -628,7 +649,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'contains udlc_stratum value' do
-              is_expected.to contain_file(conf_path).with_content(%r{stratum 10})
+              expect(subject).to contain_file(conf_path).with_content(%r{stratum 10})
             end
           end
         end
@@ -638,7 +659,7 @@ on_supported_os.each do |os, f|
         let(:params) { { package_ensure: 'present', package_name: ['ntp'], package_manage: true } }
 
         it {
-          is_expected.to contain_package('ntp').with(
+          expect(subject).to contain_package('ntp').with(
             ensure: 'present',
           )
         }
@@ -674,7 +695,7 @@ on_supported_os.each do |os, f|
 
         describe 'with defaults' do
           it {
-            is_expected.to contain_service('ntp').with(
+            expect(subject).to contain_service('ntp').with(
               enable: true,
               ensure: 'running',
               name: 'ntp',
@@ -694,7 +715,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'contains authprov setting' do
-              is_expected.to contain_file(conf_path).with('content' => %r{^authprov /opt/novell/xad/lib64/libw32time.so 131072:4294967295 global\n})
+              expect(subject).to contain_file(conf_path).with('content' => %r{^authprov /opt/novell/xad/lib64/libw32time.so 131072:4294967295 global\n})
             end
           end
 
@@ -706,7 +727,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'does not contain a authprov line' do
-              is_expected.not_to contain_file(conf_path).with('content' => %r{authprov })
+              expect(subject).not_to contain_file(conf_path).with('content' => %r{authprov })
             end
           end
         end
@@ -717,7 +738,7 @@ on_supported_os.each do |os, f|
           end
 
           it 'disallows large clock skews' do
-            is_expected.not_to contain_file(conf_path).with('content' => %r{tinker panic 0})
+            expect(subject).not_to contain_file(conf_path).with('content' => %r{tinker panic 0})
           end
         end
 
@@ -727,11 +748,11 @@ on_supported_os.each do |os, f|
           end
 
           it 'does not use local clock as a time source' do
-            is_expected.not_to contain_file(conf_path).with('content' => %r{server.*127.127.1.0.*fudge.*127.127.1.0 stratum 10})
+            expect(subject).not_to contain_file(conf_path).with('content' => %r{server.*127.127.1.0.*fudge.*127.127.1.0 stratum 10})
           end
 
           it 'allows large clock skews' do
-            is_expected.to contain_file(conf_path).with('content' => %r{tinker panic 0})
+            expect(subject).to contain_file(conf_path).with('content' => %r{tinker panic 0})
           end
         end
 
@@ -744,7 +765,7 @@ on_supported_os.each do |os, f|
             end
 
             it do
-              is_expected.to contain_file(conf_path).with('content' => %r{iburst})
+              expect(subject).to contain_file(conf_path).with('content' => %r{iburst})
             end
           end
 
@@ -756,7 +777,7 @@ on_supported_os.each do |os, f|
             end
 
             it do
-              is_expected.not_to contain_file(conf_path).with('content' => %r{iburst\n})
+              expect(subject).not_to contain_file(conf_path).with('content' => %r{iburst\n})
             end
           end
         end
@@ -771,7 +792,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'contains leapfile setting' do
-              is_expected.to contain_file(conf_path).with('content' => %r{^leapfile \/etc\/leap-seconds\.3629404800\n})
+              expect(subject).to contain_file(conf_path).with('content' => %r{^leapfile \/etc\/leap-seconds\.3629404800\n})
             end
           end
 
@@ -783,7 +804,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'does not contain a leapfile line' do
-              is_expected.not_to contain_file(conf_path).with('content' => %r{leapfile })
+              expect(subject).not_to contain_file(conf_path).with('content' => %r{leapfile })
             end
           end
         end
@@ -798,7 +819,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'contains logfile setting' do
-              is_expected.to contain_file(conf_path).with('content' => %r{^logfile \/var\/log\/foobar\.log\n})
+              expect(subject).to contain_file(conf_path).with('content' => %r{^logfile \/var\/log\/foobar\.log\n})
             end
           end
 
@@ -810,7 +831,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'does not contain a logfile line' do
-              is_expected.not_to contain_file(conf_path).with('content' => %r{logfile })
+              expect(subject).not_to contain_file(conf_path).with('content' => %r{logfile })
             end
           end
         end
@@ -825,7 +846,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'contains logconfig setting' do
-              is_expected.to contain_file(conf_path).with('content' => %r{^logconfig =syncall \+peerinfo\n})
+              expect(subject).to contain_file(conf_path).with('content' => %r{^logconfig =syncall \+peerinfo\n})
             end
           end
 
@@ -837,7 +858,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'does not contain a logconfig line' do
-              is_expected.not_to contain_file(conf_path).with('content' => %r{logconfig })
+              expect(subject).not_to contain_file(conf_path).with('content' => %r{logconfig })
             end
           end
         end
@@ -851,7 +872,7 @@ on_supported_os.each do |os, f|
             end
 
             it do
-              is_expected.to contain_file(conf_path).with('content' => %r{minpoll 6})
+              expect(subject).to contain_file(conf_path).with('content' => %r{minpoll 6})
             end
           end
 
@@ -863,7 +884,7 @@ on_supported_os.each do |os, f|
             end
 
             it do
-              is_expected.to contain_file(conf_path).with('content' => %r{maxpoll 12\n})
+              expect(subject).to contain_file(conf_path).with('content' => %r{maxpoll 12\n})
             end
           end
 
@@ -876,7 +897,7 @@ on_supported_os.each do |os, f|
             end
 
             it do
-              is_expected.to contain_file(conf_path).with('content' => %r{minpoll 6 maxpoll 12\n})
+              expect(subject).to contain_file(conf_path).with('content' => %r{minpoll 6 maxpoll 12\n})
             end
           end
         end
@@ -891,7 +912,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'contains ntpsigndsocket setting' do
-              is_expected.to contain_file(conf_path).with('content' => %r{^ntpsigndsocket /usr/local/samba/var/lib/ntp_signd\n})
+              expect(subject).to contain_file(conf_path).with('content' => %r{^ntpsigndsocket /usr/local/samba/var/lib/ntp_signd\n})
             end
           end
 
@@ -903,7 +924,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'does not contain a ntpsigndsocket line' do
-              is_expected.not_to contain_file(conf_path).with('content' => %r{ntpsigndsocket })
+              expect(subject).not_to contain_file(conf_path).with('content' => %r{ntpsigndsocket })
             end
           end
         end
@@ -917,7 +938,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'does not contain a peer line' do
-              is_expected.to contain_file(conf_path).without_content(%r{^peer})
+              expect(subject).to contain_file(conf_path).without_content(%r{^peer})
             end
           end
 
@@ -929,10 +950,11 @@ on_supported_os.each do |os, f|
             end
 
             it 'contains the peer lines - expectation one' do
-              is_expected.to contain_file(conf_path).with_content(%r{peer foo})
+              expect(subject).to contain_file(conf_path).with_content(%r{peer foo})
             end
+
             it 'contains the peer lines - expectation two' do
-              is_expected.to contain_file(conf_path).with_content(%r{peer bar})
+              expect(subject).to contain_file(conf_path).with_content(%r{peer bar})
             end
           end
         end
@@ -946,7 +968,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'does not contain a pool line' do
-              is_expected.to contain_file(conf_path).without_content(%r{^pool})
+              expect(subject).to contain_file(conf_path).without_content(%r{^pool})
             end
           end
 
@@ -958,10 +980,11 @@ on_supported_os.each do |os, f|
             end
 
             it 'contains the pool lines - expectation one' do
-              is_expected.to contain_file(conf_path).with_content(%r{pool foo})
+              expect(subject).to contain_file(conf_path).with_content(%r{pool foo})
             end
+
             it 'contains the pool lines - expectation two' do
-              is_expected.to contain_file(conf_path).with_content(%r{pool bar})
+              expect(subject).to contain_file(conf_path).with_content(%r{pool bar})
             end
           end
         end
@@ -1001,9 +1024,9 @@ on_supported_os.each do |os, f|
           end
 
           it 'when set to false' do
-            is_expected.not_to contain_service('ntp').with('enable' => true,
-                                                           'ensure' => 'running',
-                                                           'name' => 'ntpd')
+            expect(subject).not_to contain_service('ntp').with('enable' => true,
+                                                               'ensure' => 'running',
+                                                               'name' => 'ntpd')
           end
         end
 
@@ -1017,7 +1040,7 @@ on_supported_os.each do |os, f|
               end
 
               it do
-                is_expected.not_to contain_file(conf_path).with('content' => %r{^tinker })
+                expect(subject).not_to contain_file(conf_path).with('content' => %r{^tinker })
               end
             end
 
@@ -1030,7 +1053,7 @@ on_supported_os.each do |os, f|
               end
 
               it do
-                is_expected.not_to contain_file(conf_path).with('content' => %r{^tinker })
+                expect(subject).not_to contain_file(conf_path).with('content' => %r{^tinker })
               end
             end
 
@@ -1043,7 +1066,7 @@ on_supported_os.each do |os, f|
               end
 
               it do
-                is_expected.not_to contain_file(conf_path).with('content' => %r{^tinker })
+                expect(subject).not_to contain_file(conf_path).with('content' => %r{^tinker })
               end
             end
 
@@ -1057,7 +1080,7 @@ on_supported_os.each do |os, f|
               end
 
               it do
-                is_expected.not_to contain_file(conf_path).with('content' => %r{^tinker })
+                expect(subject).not_to contain_file(conf_path).with('content' => %r{^tinker })
               end
             end
           end
@@ -1071,7 +1094,7 @@ on_supported_os.each do |os, f|
               end
 
               it do
-                is_expected.not_to contain_file(conf_path).with('content' => %r{^tinker })
+                expect(subject).not_to contain_file(conf_path).with('content' => %r{^tinker })
               end
             end
 
@@ -1084,7 +1107,7 @@ on_supported_os.each do |os, f|
               end
 
               it do
-                is_expected.to contain_file(conf_path).with('content' => %r{^tinker panic 257\n})
+                expect(subject).to contain_file(conf_path).with('content' => %r{^tinker panic 257\n})
               end
             end
 
@@ -1097,7 +1120,7 @@ on_supported_os.each do |os, f|
               end
 
               it do
-                is_expected.to contain_file(conf_path).with('content' => %r{^tinker stepout 5\n})
+                expect(subject).to contain_file(conf_path).with('content' => %r{^tinker stepout 5\n})
               end
             end
 
@@ -1111,7 +1134,7 @@ on_supported_os.each do |os, f|
               end
 
               it do
-                is_expected.to contain_file(conf_path).with('content' => %r{^tinker panic 257 stepout 5\n})
+                expect(subject).to contain_file(conf_path).with('content' => %r{^tinker panic 257 stepout 5\n})
               end
             end
           end
@@ -1126,7 +1149,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'contains tos setting' do
-              is_expected.to contain_file(conf_path).with('content' => %r{^tos})
+              expect(subject).to contain_file(conf_path).with('content' => %r{^tos})
             end
           end
 
@@ -1138,7 +1161,7 @@ on_supported_os.each do |os, f|
             end
 
             it 'does not contain tos setting' do
-              is_expected.not_to contain_file(conf_path).with('content' => %r{^tos})
+              expect(subject).not_to contain_file(conf_path).with('content' => %r{^tos})
             end
           end
         end

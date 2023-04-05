@@ -27,7 +27,7 @@ RSpec.configure do |config|
 end
 
 def change_target_host(role)
-  @orig_target_host = ENV['TARGET_HOST']
+  @orig_target_host = ENV.fetch('TARGET_HOST', nil)
   ENV['TARGET_HOST'] = target_roles(role)[0][:name]
 end
 
