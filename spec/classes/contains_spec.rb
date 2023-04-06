@@ -13,12 +13,13 @@ describe 'ntp' do
   end
 
   on_supported_os.each do |os, f|
-    context "on #{os}" do
+    context "when on #{os}" do
       let(:facts) do
         f.merge(super())
       end
 
       it { is_expected.to compile.with_all_deps }
+
       describe 'Testing the dependancies between the classes' do
         it { is_expected.to contain_class('ntp::install') }
         it { is_expected.to contain_class('ntp::config') }

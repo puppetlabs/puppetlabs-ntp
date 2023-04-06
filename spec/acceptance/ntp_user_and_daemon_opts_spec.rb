@@ -32,13 +32,14 @@ describe 'ntp class with daemon options:', unless: UNSUPPORTED_PLATFORMS.include
   let(:pp) { "class { 'ntp': service_enable => true, service_ensure => running, service_manage => true, service_name => '#{servicename}', user => 'ntp', daemon_extra_opts => '-g -i /var/lib/ntp' }" }
 
   context 'when run' do
-    it 'is successful' do
+    it 'is successful' do # rubocop:disable RSpec/NoExpectationExample
       apply_manifest(pp, catch_failures: true)
     end
 
     describe file(config.to_s) do
-      its(:content) { is_expected.to match(%r{(OPTIONS|NTPD_OPTS)='-g -i \/var\/lib\/ntp'}) }
+      its(:content) { is_expected.to match(%r{(OPTIONS|NTPD_OPTS)='-g -i /var/lib/ntp'}) }
     end
+
     if os[:family] == 'redhat' && !os[:release].start_with?('6')
       describe file('/etc/systemd/system/multi-user.target.wants/ntpd.service') do
         its(:content) { is_expected.to match(%r{ntpd -u ntp:ntp}) }

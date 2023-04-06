@@ -9,13 +9,11 @@ def inventory_hash
 end
 
 def target_roles(roles)
-  # rubocop:disable Style/MultilineBlockChain
   inventory_hash['groups'].map { |group|
-    group['targets'].map { |node|
+    group['targets'].filter_map do |node|
       { name: node['uri'], role: node['vars']['role'] } if roles.include? node['vars']['role']
-    }.reject { |val| val.nil? }
+    end
   }.flatten
-  # rubocop:enable Style/MultilineBlockChain
 end
 
 RSpec.configure do |config|
@@ -27,7 +25,7 @@ RSpec.configure do |config|
 end
 
 def change_target_host(role)
-  @orig_target_host = ENV['TARGET_HOST']
+  @orig_target_host = ENV.fetch('TARGET_HOST', nil)
   ENV['TARGET_HOST'] = target_roles(role)[0][:name]
 end
 
