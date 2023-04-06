@@ -14,7 +14,7 @@ on_supported_os.each do |os, f|
       end
     end
 
-    context "on #{os}" do
+    context "when on #{os}" do
       let(:facts) do
         f.merge(super())
       end
@@ -102,7 +102,7 @@ on_supported_os.each do |os, f|
           end
         end
 
-        context 'config_dir' do
+        context 'with config_dir' do
           context 'when set to custom dir' do
             let(:params) do
               {
@@ -120,7 +120,7 @@ on_supported_os.each do |os, f|
           end
         end
 
-        context 'config_file_mode' do
+        context 'with config_file_mode' do
           context 'when set to custom mode' do
             let(:params) do
               {
@@ -134,7 +134,7 @@ on_supported_os.each do |os, f|
           end
         end
 
-        context 'default pool servers' do
+        context 'with default pool servers' do
           case f[:os]['family']
           when 'RedHat'
             it 'uses the centos ntp servers' do

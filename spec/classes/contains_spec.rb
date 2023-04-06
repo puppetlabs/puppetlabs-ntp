@@ -13,7 +13,7 @@ describe 'ntp' do
   end
 
   on_supported_os.each do |os, f|
-    context "on #{os}" do
+    context "when on #{os}" do
       let(:facts) do
         f.merge(super())
       end

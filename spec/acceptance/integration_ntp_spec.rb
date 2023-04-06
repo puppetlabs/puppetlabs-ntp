@@ -5,7 +5,7 @@ require 'json'
 require 'pry'
 
 describe 'we are able to setup an ntp server, and connect a client to it', :integration do
-  context 'set up the server' do
+  context 'when setting up the server' do
     before(:all) { change_target_host('ntpserver') }
     after(:all) { reset_target_host }
 
@@ -22,7 +22,7 @@ describe 'we are able to setup an ntp server, and connect a client to it', :inte
     end
   end
 
-  context 'set up the client' do
+  context 'when setting up the client' do
     before(:all) { change_target_host('ntpclient') }
     after(:all) { reset_target_host }
 

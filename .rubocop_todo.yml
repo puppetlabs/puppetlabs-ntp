@@ -6,15 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 7
-# Configuration parameters: Prefixes, AllowedPatterns.
-# Prefixes: when, with, without
-RSpec/ContextWording:
-  Exclude:
-    - 'spec/acceptance/integration_ntp_spec.rb'
-    - 'spec/classes/contains_spec.rb'
-    - 'spec/classes/ntp_spec.rb'
-
 # Offense count: 9
 # Configuration parameters: IgnoredMetadata.
 RSpec/DescribeClass:
