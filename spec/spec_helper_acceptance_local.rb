@@ -10,9 +10,9 @@ end
 
 def target_roles(roles)
   inventory_hash['groups'].map { |group|
-    group['targets'].map { |node|
+    group['targets'].filter_map do |node|
       { name: node['uri'], role: node['vars']['role'] } if roles.include? node['vars']['role']
-    }.reject(&:nil?)
+    end
   }.flatten
 end
 

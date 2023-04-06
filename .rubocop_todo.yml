@@ -54,12 +54,6 @@ RSpec/NoExpectationExample:
     - 'spec/acceptance/integration_ntp_spec.rb'
     - 'spec/acceptance/ntp_user_and_daemon_opts_spec.rb'
 
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Style/CollectionCompact:
-  Exclude:
-    - 'spec/spec_helper_acceptance_local.rb'
-
 # Offense count: 3
 Style/MixinUsage:
   Exclude:
