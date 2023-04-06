@@ -32,7 +32,7 @@ describe 'ntp class with daemon options:', unless: UNSUPPORTED_PLATFORMS.include
   let(:pp) { "class { 'ntp': service_enable => true, service_ensure => running, service_manage => true, service_name => '#{servicename}', user => 'ntp', daemon_extra_opts => '-g -i /var/lib/ntp' }" }
 
   context 'when run' do
-    it 'is successful' do
+    it 'is successful' do # rubocop:disable RSpec/NoExpectationExample
       apply_manifest(pp, catch_failures: true)
     end
 

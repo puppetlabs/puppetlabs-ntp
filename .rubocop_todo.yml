@@ -47,14 +47,6 @@ RSpec/NamedSubject:
     - 'spec/classes/ntp_spec.rb'
 
 # Offense count: 3
-# Configuration parameters: AllowedPatterns.
-# AllowedPatterns: ^expect_, ^assert_
-RSpec/NoExpectationExample:
-  Exclude:
-    - 'spec/acceptance/integration_ntp_spec.rb'
-    - 'spec/acceptance/ntp_user_and_daemon_opts_spec.rb'
-
-# Offense count: 3
 Style/MixinUsage:
   Exclude:
     - 'spec/spec_helper.rb'

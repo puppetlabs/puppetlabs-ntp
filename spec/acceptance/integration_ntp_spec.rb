@@ -10,16 +10,14 @@ describe 'we are able to setup an ntp server, and connect a client to it', :inte
     after(:all) { reset_target_host }
 
     describe 'set up ntpserver' do
-      it 'check the date is 2023' do
-        result = run_shell('date')
-        expect(result.stdout).to match(%r{2023})
-      end
-
       pp = <<-MANIFEST
       class { 'ntp': }
       MANIFEST
-      it 'sets up the service' do
+
+      it 'check the date is 2023 and set up the service' do
         idempotent_apply(pp)
+        result = run_shell('date')
+        expect(result.stdout).to match(%r{2023})
       end
     end
   end
@@ -29,13 +27,10 @@ describe 'we are able to setup an ntp server, and connect a client to it', :inte
     after(:all) { reset_target_host }
 
     describe 'go to the future' do
-      it 'its 2023' do
+      it 'install ntpdate and check its 2023' do
+        apply_manifest("package { 'ntpdate': ensure => present }")
         result = run_shell('date')
         expect(result.stdout).to match(%r{2023})
-      end
-
-      it 'install ntpdate' do
-        apply_manifest("package { 'ntpdate': ensure => present }")
       end
 
       it 'disable ntp auto-sync' do
