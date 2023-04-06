@@ -17,9 +17,7 @@ describe 'preferred servers', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]
   MANIFEST
 
   it 'applies cleanly' do
-    apply_manifest(pp, catch_failures: true) do |r|
-      expect(r.stderr).not_to match(%r{error}i)
-    end
+    idempotent_apply(pp)
     expect(file(config.to_s)).to be_file
     ['server a', 'server b', %r{server c (iburst\s|)prefer}, %r{server d (iburst\s|)prefer}].each do |check|
       expect(file(config.to_s).content).to match(check)

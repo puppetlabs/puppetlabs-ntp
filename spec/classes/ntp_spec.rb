@@ -694,11 +694,8 @@ on_supported_os.each do |os, f|
         describe 'with defaults' do
           it {
             expect(subject).to contain_service('ntp').with(
-              enable: true,
-              ensure: 'running',
-              name: 'ntp',
-              hasstatus: true,
-              hasrestart: true,
+              enable: true, ensure: 'running', name: 'ntp',
+              hasstatus: true, hasrestart: true
             )
           }
         end

@@ -34,11 +34,6 @@ RSpec/DescribeClass:
     - 'spec/acceptance/unsupported_spec.rb'
     - 'spec/classes/contains_spec.rb'
 
-# Offense count: 3
-# Configuration parameters: CountAsOne.
-RSpec/ExampleLength:
-  Max: 7
-
 # Offense count: 95
 # Configuration parameters: EnforcedStyle, IgnoreSharedExamples.
 # SupportedStyles: always, named_only
