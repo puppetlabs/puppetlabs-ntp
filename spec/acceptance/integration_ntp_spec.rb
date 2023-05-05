@@ -40,7 +40,7 @@ describe 'we are able to setup an ntp server, and connect a client to it', :inte
 
       it 'go forward to to next year' do
         result = run_shell('date --set="$(date --date="next year")"')
-        expect(result.stdout).to match(%r{#{Time.now.year.succ}})
+        expect(result.stdout).to match(%r{#{Time.now.year+1}})
         expect(result.exit_code).to eq(0)
       end
 
