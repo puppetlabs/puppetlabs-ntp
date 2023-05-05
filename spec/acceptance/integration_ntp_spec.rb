@@ -46,7 +46,7 @@ describe 'we are able to setup an ntp server, and connect a client to it', :inte
 
       it 'changed to next year' do
         result = run_shell('date')
-        expect(result.stdout).to match(%r{#{Time.now.year.succ}})
+        expect(result.stdout).to match(%r{#{Time.now.year+1}})
       end
     end
   end
