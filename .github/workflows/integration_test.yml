@@ -32,7 +32,7 @@ jobs:
       id: get-matrix
       run: |
         if [ '${{ github.repository_owner }}' == 'puppetlabs' ]; then
-          echo  "matrix={'platform':['centos-7'],'collection':['puppet6-nightly']}" >> $GITHUB_OUTPUT
+          echo  "matrix={'platform':['centos-7'],'collection':['puppet7-nightly']}" >> $GITHUB_OUTPUT
         else
           echo  "matrix={}"  >> $GITHUB_OUTPUT
         fi
