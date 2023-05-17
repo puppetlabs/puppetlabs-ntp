@@ -1,6 +1,11 @@
 name: "Integration Testing"
 
-on: [pull_request]
+on: 
+  pull_request:
+    branches:
+      - "main"
+  workflow_call:
+  workflow_dispatch:
 
 jobs:
   setup_matrix:
@@ -32,7 +37,7 @@ jobs:
       id: get-matrix
       run: |
         if [ '${{ github.repository_owner }}' == 'puppetlabs' ]; then
-          echo  "matrix={'platform':['centos-7'],'collection':['puppet6-nightly']}" >> $GITHUB_OUTPUT
+          echo  "matrix={'platform':['centos-7'],'collection':['puppet7-nightly', 'puppet8-nightly']}" >> $GITHUB_OUTPUT
         else
           echo  "matrix={}"  >> $GITHUB_OUTPUT
         fi
@@ -46,6 +51,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix: ${{fromJson(needs.setup_matrix.outputs.matrix)}}
+
+    env:
+      PUPPET_GEM_VERSION: '~> 7.24'
+      FACTER_GEM_VERSION: 'https://github.com/puppetlabs/facter#main'  # why is this set?
 
     steps:
 
