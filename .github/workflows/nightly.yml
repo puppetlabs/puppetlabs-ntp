@@ -18,3 +18,9 @@ jobs:
     with:
       runs_on: "ubuntu-20.04"
     secrets: "inherit"
+
+  Integration:
+    needs: Acceptance
+    uses: "./.github/workflows/integration_test.yml"
+    with:
+      runs_on: "ubuntu-20.04"
