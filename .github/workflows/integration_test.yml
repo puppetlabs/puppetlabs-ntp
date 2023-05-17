@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - name: Checkout Source
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       if: ${{ github.repository_owner == 'puppetlabs' }}
 
     - name: Activate Ruby 2.7
@@ -50,7 +50,7 @@ jobs:
     steps:
 
     - name: Checkout Source
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Activate Ruby 2.7
       uses: ruby/setup-ruby@v1
