@@ -14,10 +14,10 @@ describe 'we are able to setup an ntp server, and connect a client to it', :inte
       class { 'ntp': }
       MANIFEST
 
-      it 'check the date is 2023 and set up the service' do
+      it 'check the date is current and set up the service' do
         idempotent_apply(pp)
         result = run_shell('date')
-        expect(result.stdout).to match(%r{2023})
+        expect(result.stdout).to match(%r{#{Time.now.year}})
       end
     end
   end
@@ -27,10 +27,10 @@ describe 'we are able to setup an ntp server, and connect a client to it', :inte
     after(:all) { reset_target_host }
 
     describe 'go to the future' do
-      it 'install ntpdate and check its 2023' do
+      it 'install ntpdate and check the year is current' do
         apply_manifest("package { 'ntpdate': ensure => present }")
         result = run_shell('date')
-        expect(result.stdout).to match(%r{2023})
+        expect(result.stdout).to match(%r{#{Time.now.year}})
       end
 
       it 'disable ntp auto-sync' do
@@ -38,15 +38,15 @@ describe 'we are able to setup an ntp server, and connect a client to it', :inte
         expect(result.exit_code).to eq(0)
       end
 
-      it 'go forward to 2024' do
+      it 'go forward to to next year' do
         result = run_shell('date --set="$(date --date="next year")"')
-        expect(result.stdout).to match(%r{2024})
+        expect(result.stdout).to match(%r{#{Time.now.year + 1}})
         expect(result.exit_code).to eq(0)
       end
 
-      it 'changed 2024' do
+      it 'changed to next year' do
         result = run_shell('date')
-        expect(result.stdout).to match(%r{2024})
+        expect(result.stdout).to match(%r{#{Time.now.year + 1}})
       end
     end
   end
