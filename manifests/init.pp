@@ -19,7 +19,7 @@
 #
 # @param config_epp
 #   Specifies an absolute or relative file path to an EPP template for the config file.
-#   Example value: 'ntp/ntp.conf.epp'. A validation error is thrown if both this **and** the `config_template` parameter are specified.
+#   Example value: 'ntp/ntp.conf.epp'. A validation error is thrown if `config_epp` parameter is not specified.
 #
 # @param config_file_mode
 #   Specifies a file mode for the ntp configuration file. Default value: '0664'.

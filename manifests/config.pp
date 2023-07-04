@@ -90,17 +90,7 @@ class ntp::config {
     }
   }
 
-  #If both epp and erb are defined, throw validation error.
-  #Otherwise use the defined erb/epp template, or use default
-  if $ntp::config_epp and $ntp::config_template {
-    fail('Cannot supply both config_epp and config_template templates for ntp config file.')
-  } elsif $ntp::config_template {
-    $config_content = template($ntp::config_template)
-  } elsif $ntp::config_epp {
-    $config_content = epp($ntp::config_epp)
-  } else {
-    $config_content = epp('ntp/ntp.conf.epp')
-  }
+  $config_content = epp('ntp/ntp.conf.epp')
 
   file { $ntp::config:
     ensure  => file,

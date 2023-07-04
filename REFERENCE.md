@@ -46,7 +46,6 @@ The following parameters are available in the `ntp` class:
 * [`config_dir`](#-ntp--config_dir)
 * [`config_epp`](#-ntp--config_epp)
 * [`config_file_mode`](#-ntp--config_file_mode)
-* [`config_template`](#-ntp--config_template)
 * [`daemon_extra_opts`](#-ntp--daemon_extra_opts)
 * [`disable_auth`](#-ntp--disable_auth)
 * [`disable_dhclient`](#-ntp--disable_dhclient)
@@ -145,7 +144,7 @@ Specifies a directory for the NTP configuration files. Default value: undef.
 Data type: `Optional[String]`
 
 Specifies an absolute or relative file path to an EPP template for the config file.
-Example value: 'ntp/ntp.conf.epp'. A validation error is thrown if both this **and** the `config_template` parameter are specified.
+Example value: 'ntp/ntp.conf.epp'. A validation error is thrown if `config_epp` parameter is not specified.
 
 ##### <a name="-ntp--config_file_mode"></a>`config_file_mode`
 
