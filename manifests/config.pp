@@ -90,7 +90,11 @@ class ntp::config {
     }
   }
 
-  $config_content = epp('ntp/ntp.conf.epp')
+  if $ntp::config_epp {
+    $config_content = epp($ntp::config_epp)
+  } else {
+    $config_content = epp('ntp/ntp.conf.epp')
+  }
 
   file { $ntp::config:
     ensure  => file,
