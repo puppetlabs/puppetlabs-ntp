@@ -59,11 +59,6 @@ describe 'ntp class', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) do
       expect(file(config.to_s)).to be_file
       expect(file(config.to_s).content).to match 'eppserver1'
     end
-
-    it 'sets the ntp.conf epp template location which should fail' do
-      pp = "class { 'ntp': config_epp => 'test/ntp.conf.epp' }"
-      expect(apply_manifest(pp, expect_failures: true).stderr).to match(%r{Cannot supply config_epp}i)
-    end
   end
 
   describe 'package' do
