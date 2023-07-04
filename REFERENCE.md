@@ -153,13 +153,6 @@ Data type: `String`
 
 Specifies a file mode for the ntp configuration file. Default value: '0664'.
 
-##### <a name="-ntp--config_template"></a>`config_template`
-
-Data type: `Optional[String]`
-
-Specifies an absolute or relative file path to an ERB template for the config file.
-Example value: 'ntp/ntp.conf.erb'. A validation error is thrown if both this **and** the `config_epp` parameter are specified.
-
 ##### <a name="-ntp--daemon_extra_opts"></a>`daemon_extra_opts`
 
 Data type: `Optional[String]`

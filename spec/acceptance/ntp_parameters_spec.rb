@@ -46,26 +46,6 @@ describe 'ntp class', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) do
     end
   end
 
-  describe 'config_template' do
-    before :all do
-      run_shell("mkdir -p #{modulepath}/test/templates")
-      # Add spurious template logic to verify the use of the correct template rendering engine
-      run_shell("echo '<% [1].each do |i| %>erbserver<%= i %><%end %>' >> #{modulepath}/test/templates/ntp.conf.erb")
-    end
-
-    it 'sets the ntp.conf erb template location' do
-      pp = "class { 'ntp': config_template => 'test/ntp.conf.erb' }"
-      apply_manifest(pp, catch_failures: true)
-      expect(file(config.to_s)).to be_file
-      expect(file(config.to_s).content).to match 'erbserver1'
-    end
-
-    it 'sets the ntp.conf epp template location and the ntp.conf erb template location which should fail' do
-      pp = "class { 'ntp': config_template => 'test/ntp.conf.erb', config_epp => 'test/ntp.conf.epp' }"
-      expect(apply_manifest(pp, expect_failures: true).stderr).to match(%r{Cannot supply both config_epp and config_template}i)
-    end
-  end
-
   describe 'config_epp' do
     before :all do
       run_shell("mkdir -p #{modulepath}/test/templates")
@@ -80,9 +60,9 @@ describe 'ntp class', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) do
       expect(file(config.to_s).content).to match 'eppserver1'
     end
 
-    it 'sets the ntp.conf epp template location and the ntp.conf erb template location which should fail' do
-      pp = "class { 'ntp': config_template => 'test/ntp.conf.erb', config_epp => 'test/ntp.conf.epp' }"
-      expect(apply_manifest(pp, expect_failures: true).stderr).to match(%r{Cannot supply both config_epp and config_template}i)
+    it 'sets the ntp.conf epp template location which should fail' do
+      pp = "class { 'ntp': config_epp => 'test/ntp.conf.epp' }"
+      expect(apply_manifest(pp, expect_failures: true).stderr).to match(%r{Cannot supply config_epp}i)
     end
   end
 

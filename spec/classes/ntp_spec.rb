@@ -38,12 +38,6 @@ on_supported_os.each do |os, f|
 
         it { is_expected.to contain_file('/var/run/ntp/servers-netconfig').with_ensure_absent } if f[:os]['family'] == 'Suse' && f[:os]['release']['major'] == '12'
 
-        describe 'allows template to be overridden with erb template' do
-          let(:params) { { config_template: 'my_ntp/ntp.conf.erb' } }
-
-          it { is_expected.to contain_file(conf_path).with_content(%r{erbserver1}) }
-        end
-
         describe 'allows template to be overridden with epp template' do
           let(:params) { { config_epp: 'my_ntp/ntp.conf.epp' } }
 

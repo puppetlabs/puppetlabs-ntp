@@ -24,10 +24,6 @@
 # @param config_file_mode
 #   Specifies a file mode for the ntp configuration file. Default value: '0664'.
 #
-# @param config_template
-#   Specifies an absolute or relative file path to an ERB template for the config file.
-#   Example value: 'ntp/ntp.conf.erb'. A validation error is thrown if both this **and** the `config_epp` parameter are specified.
-#
 # @param daemon_extra_opts
 #   Specifies any arguments to pass to ntp daemon. Default value: '-g'.
 #   Example value: '-g -i /var/lib/ntp' to enable jaildir options.
