@@ -230,7 +230,8 @@
 #
 # @param user
 #   Specifies user to run ntpd daemon. Default value: ntp.
-#   Usually set by default on Centos7 (/etc/systemd/system/multi-user.target.wants/ntpd.service) and ubuntu 18.04 (/usr/lib/ntp/ntp-systemd-wrapper)
+#   Usually set by default on Centos7 (/etc/systemd/system/multi-user.target.wants/ntpd.service) and 
+#   ubuntu 18.04 (/usr/lib/ntp/ntp-systemd-wrapper)
 #   This is currently restricted to Redhat based systems of version 7 and above and Ubuntu 18.04.
 #
 class ntp (
@@ -240,7 +241,6 @@ class ntp (
   Optional[Stdlib::Absolutepath]      $config_dir,
   String                              $config_file_mode,
   Optional[String]                    $config_epp,
-  Optional[String]                    $config_template,
   Boolean                             $disable_auth,
   Boolean                             $disable_dhclient,
   Boolean                             $disable_kernel,
