@@ -35,6 +35,8 @@ group :development do
   gem "rubocop-rspec", '= 2.19.0',                 require: false
   gem "rb-readline", '= 0.5.5',                    require: false, platforms: [:mswin, :mingw, :x64_mingw]
   gem "github_changelog_generator", '= 1.15.2',    require: false
+  gem 'puppet-commit', :github => '/Users/gavin/go/src/github.com/GSPatton/puppetlabs/puppet-commit', :branch => 'main'
+  # gem 'ruby-openai', '~> 4.0'
 end
 group :system_tests do
   gem "puppet_litmus", '< 1.0.0', require: false, platforms: [:ruby, :x64_mingw]
