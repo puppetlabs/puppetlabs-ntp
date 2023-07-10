@@ -19,14 +19,10 @@
 #
 # @param config_epp
 #   Specifies an absolute or relative file path to an EPP template for the config file.
-#   Example value: 'ntp/ntp.conf.epp'. A validation error is thrown if both this **and** the `config_template` parameter are specified.
+#   Example value: 'ntp/ntp.conf.epp'. A validation error is thrown if `config_epp` parameter is not specified.
 #
 # @param config_file_mode
 #   Specifies a file mode for the ntp configuration file. Default value: '0664'.
-#
-# @param config_template
-#   Specifies an absolute or relative file path to an ERB template for the config file.
-#   Example value: 'ntp/ntp.conf.erb'. A validation error is thrown if both this **and** the `config_epp` parameter are specified.
 #
 # @param daemon_extra_opts
 #   Specifies any arguments to pass to ntp daemon. Default value: '-g'.
@@ -234,7 +230,8 @@
 #
 # @param user
 #   Specifies user to run ntpd daemon. Default value: ntp.
-#   Usually set by default on Centos7 (/etc/systemd/system/multi-user.target.wants/ntpd.service) and ubuntu 18.04 (/usr/lib/ntp/ntp-systemd-wrapper)
+#   Usually set by default on Centos7 (/etc/systemd/system/multi-user.target.wants/ntpd.service) and 
+#   ubuntu 18.04 (/usr/lib/ntp/ntp-systemd-wrapper)
 #   This is currently restricted to Redhat based systems of version 7 and above and Ubuntu 18.04.
 #
 class ntp (
@@ -244,7 +241,6 @@ class ntp (
   Optional[Stdlib::Absolutepath]      $config_dir,
   String                              $config_file_mode,
   Optional[String]                    $config_epp,
-  Optional[String]                    $config_template,
   Boolean                             $disable_auth,
   Boolean                             $disable_dhclient,
   Boolean                             $disable_kernel,
