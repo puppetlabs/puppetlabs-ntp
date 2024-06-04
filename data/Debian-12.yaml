@@ -1,0 +1,3 @@
+---
+ntp::service_name: 'ntpsec'
+ntp::package_name: [ 'ntpsec' ]
