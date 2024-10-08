@@ -5,7 +5,7 @@
 # @example
 #   ntp::acceptance::pe_server
 plan ntp::acceptance::pe_server(
-  Optional[String] $version = '2019.8.5',
+  Optional[String] $version = '2021.7.9',
   Optional[Hash] $pe_settings = { password => 'puppetlabs' }
 ) {
   #identify pe server node
