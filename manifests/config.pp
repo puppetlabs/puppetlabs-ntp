@@ -33,7 +33,11 @@ class ntp::config {
       }
     }
     'Debian': {
-      $daemon_config = '/etc/default/ntp'
+      if $facts['os']['release']['major'] == '12' {
+        $daemon_config = '/etc/default/ntpsec'
+      } else {
+        $daemon_config = '/etc/default/ntp'
+      }
       if $ntp::daemon_extra_opts {
         file_line { 'Set NTPD daemon options':
           ensure => present,
