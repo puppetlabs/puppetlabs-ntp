@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v11.1.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v11.1.0) - 2024-12-10
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v10.1.0...v11.1.0)
+
+### Changed
+
+- (CONT-1151) erb to epp template conversion [#691](https://github.com/puppetlabs/puppetlabs-ntp/pull/691) ([praj1001](https://github.com/praj1001))
+
+### Other
+
+- (CAT-2158) Upgrade rexml to address CVE-2024-49761 [#720](https://github.com/puppetlabs/puppetlabs-ntp/pull/720) ([amitkarsale](https://github.com/amitkarsale))
+- (CAT-2090) Replace centos-7 with ubuntu-2204-amd for integration tests [#718](https://github.com/puppetlabs/puppetlabs-ntp/pull/718) ([shubhamshinde360](https://github.com/shubhamshinde360))
+- (CAT-2100) Add support for Debian-12 [#717](https://github.com/puppetlabs/puppetlabs-ntp/pull/717) ([shubhamshinde360](https://github.com/shubhamshinde360))
+
 ## [v10.1.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v10.1.0) - 2023-06-20
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v10.0.0...v10.1.0)
@@ -18,6 +32,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v9.2.2...v10.0.0)
 
 ### Changed
+
 - (CONT-790) Add Support for Puppet 8 / Drop Support for Puppet 6 [#674](https://github.com/puppetlabs/puppetlabs-ntp/pull/674) ([david22swan](https://github.com/david22swan))
 
 ## [v9.2.2](https://github.com/puppetlabs/puppetlabs-ntp/tree/v9.2.2) - 2023-04-06
@@ -86,6 +101,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v8.5.0...v9.0.0)
 
 ### Changed
+
 - pdksync - Remove Puppet 5 from testing and bump minimal version to 6.0.0 [#605](https://github.com/puppetlabs/puppetlabs-ntp/pull/605) ([carabasdaniel](https://github.com/carabasdaniel))
 
 ## [v8.5.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v8.5.0) - 2020-12-17
@@ -142,6 +158,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/7.4.0...v8.0.0)
 
 ### Changed
+
 - pdksync - (MODULES-8444) - Raise lower Puppet bound [#510](https://github.com/puppetlabs/puppetlabs-ntp/pull/510) ([david22swan](https://github.com/david22swan))
 
 ### Fixed
@@ -176,14 +193,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/7.1.1...7.2.0)
 
+### Changed
+
+- (FM-6955) Remove unsupported OS: F24, F25, Debian 7 [#462](https://github.com/puppetlabs/puppetlabs-ntp/pull/462) ([david22swan](https://github.com/david22swan))
+
 ### Added
 
 - Add SLES 15 hiera data [#472](https://github.com/puppetlabs/puppetlabs-ntp/pull/472) ([mattiascockburn](https://github.com/mattiascockburn))
 - (FM-7038) Add support for Debian 9 [#470](https://github.com/puppetlabs/puppetlabs-ntp/pull/470) ([david22swan](https://github.com/david22swan))
 - add tos_orphan parameter [#452](https://github.com/puppetlabs/puppetlabs-ntp/pull/452) ([disklord](https://github.com/disklord))
-
-### Changed
-- (FM-6955) Remove unsupported OS: F24, F25, Debian 7 [#462](https://github.com/puppetlabs/puppetlabs-ntp/pull/462) ([david22swan](https://github.com/david22swan))
 
 ### Fixed
 
@@ -192,11 +210,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ## [7.1.1](https://github.com/puppetlabs/puppetlabs-ntp/tree/7.1.1) - 2018-02-09
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/7.1.0...7.1.1)
-
-### Other
-
-- (MODULES-6619) - Release Prep 7.1.1 [#447](https://github.com/puppetlabs/puppetlabs-ntp/pull/447) ([pmcmaw](https://github.com/pmcmaw))
-- Release 7.1.0 merge back [#446](https://github.com/puppetlabs/puppetlabs-ntp/pull/446) ([pmcmaw](https://github.com/pmcmaw))
 
 ## [7.1.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/7.1.0) - 2018-01-25
 
@@ -209,28 +222,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Other
 
 - reword slewalways setting for clarity [#445](https://github.com/puppetlabs/puppetlabs-ntp/pull/445) ([jbondpdx](https://github.com/jbondpdx))
-- (MODULES-6486) - Release prep 7.1.0 [#444](https://github.com/puppetlabs/puppetlabs-ntp/pull/444) ([pmcmaw](https://github.com/pmcmaw))
 - (MODULES-6326) - PDK convert ntp [#443](https://github.com/puppetlabs/puppetlabs-ntp/pull/443) ([pmcmaw](https://github.com/pmcmaw))
-- (maint) modulesync 65530a4 Update Travis [#440](https://github.com/puppetlabs/puppetlabs-ntp/pull/440) ([michaeltlombardi](https://github.com/michaeltlombardi))
 - Avoid collision between OS and OS family name [#437](https://github.com/puppetlabs/puppetlabs-ntp/pull/437) ([jonhattan](https://github.com/jonhattan))
-- (maint) - modulesync 384f4c1 [#436](https://github.com/puppetlabs/puppetlabs-ntp/pull/436) ([tphoney](https://github.com/tphoney))
 - strip data types out of puppet-strings comments [#435](https://github.com/puppetlabs/puppetlabs-ntp/pull/435) ([jbondpdx](https://github.com/jbondpdx))
-- FM-6634 fix up rubocop errors [#434](https://github.com/puppetlabs/puppetlabs-ntp/pull/434) ([tphoney](https://github.com/tphoney))
 - Make documentation more readable. [#433](https://github.com/puppetlabs/puppetlabs-ntp/pull/433) ([AlexanderSalmin](https://github.com/AlexanderSalmin))
-- (maint) -modulesync 1d81b6a [#432](https://github.com/puppetlabs/puppetlabs-ntp/pull/432) ([pmcmaw](https://github.com/pmcmaw))
 - Don't use 'inherits' in config, install and service [#431](https://github.com/puppetlabs/puppetlabs-ntp/pull/431) ([antaflos](https://github.com/antaflos))
-- 7.0.0 Release back [#430](https://github.com/puppetlabs/puppetlabs-ntp/pull/430) ([pmcmaw](https://github.com/pmcmaw))
 - is_virtual fact is boolean and can't be given to str2bool [#421](https://github.com/puppetlabs/puppetlabs-ntp/pull/421) ([zivis](https://github.com/zivis))
 
 ## [7.0.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/7.0.0) - 2017-10-30
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/6.4.1...7.0.0)
-
-### Other
-
-- (MODULES-5831) - Release Prep for NTP 7.0.0 [#429](https://github.com/puppetlabs/puppetlabs-ntp/pull/429) ([pmcmaw](https://github.com/pmcmaw))
-- Update yaml to version 5 [#428](https://github.com/puppetlabs/puppetlabs-ntp/pull/428) ([pmcmaw](https://github.com/pmcmaw))
-- 6.4.1 Mergeback from release [#427](https://github.com/puppetlabs/puppetlabs-ntp/pull/427) ([pmcmaw](https://github.com/pmcmaw))
 
 ## [6.4.1](https://github.com/puppetlabs/puppetlabs-ntp/tree/6.4.1) - 2017-10-27
 
@@ -238,9 +239,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Other
 
-- Release Prep for 6.4.1 [#426](https://github.com/puppetlabs/puppetlabs-ntp/pull/426) ([pmcmaw](https://github.com/pmcmaw))
 - Revert "Update yaml to version 5" [#425](https://github.com/puppetlabs/puppetlabs-ntp/pull/425) ([pmcmaw](https://github.com/pmcmaw))
-- Release mergeback 6.4.0 [#424](https://github.com/puppetlabs/puppetlabs-ntp/pull/424) ([pmcmaw](https://github.com/pmcmaw))
 
 ## [6.4.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/6.4.0) - 2017-10-25
 
@@ -248,10 +247,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Other
 
-- 6.4 Pre-Release [#423](https://github.com/puppetlabs/puppetlabs-ntp/pull/423) ([david22swan](https://github.com/david22swan))
-- quick-fix-to-sles [#422](https://github.com/puppetlabs/puppetlabs-ntp/pull/422) ([david22swan](https://github.com/david22swan))
 - MODULES-5690: Implementing Rubocop in the module [#418](https://github.com/puppetlabs/puppetlabs-ntp/pull/418) ([david22swan](https://github.com/david22swan))
-- (maint) 6.3.0 release merge back [#417](https://github.com/puppetlabs/puppetlabs-ntp/pull/417) ([HAIL9000](https://github.com/HAIL9000))
 
 ## [6.3.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/6.3.0) - 2017-10-04
 
@@ -452,6 +448,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/3.3.0...4.0.0)
 
 ### Changed
+
 - Bump stdlib to 4.5.0 [#248](https://github.com/puppetlabs/puppetlabs-ntp/pull/248) ([hunner](https://github.com/hunner))
 - No Undisciplined Local Clock by default [#247](https://github.com/puppetlabs/puppetlabs-ntp/pull/247) ([hunner](https://github.com/hunner))
 

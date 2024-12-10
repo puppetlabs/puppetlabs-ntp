@@ -544,7 +544,8 @@ Default value: 10.am udlc
 Data type: `Optional[String]`
 
 Specifies user to run ntpd daemon. Default value: ntp.
-Usually set by default on Centos7 (/etc/systemd/system/multi-user.target.wants/ntpd.service) and ubuntu 18.04 (/usr/lib/ntp/ntp-systemd-wrapper)
+Usually set by default on Centos7 (/etc/systemd/system/multi-user.target.wants/ntpd.service) and
+ubuntu 18.04 (/usr/lib/ntp/ntp-systemd-wrapper)
 This is currently restricted to Redhat based systems of version 7 and above and Ubuntu 18.04.
 
 ## Data types
@@ -602,7 +603,7 @@ Data type: `Optional[String]`
 
 
 
-Default value: `'2019.8.5'`
+Default value: `'2021.7.9'`
 
 ##### <a name="-ntp--acceptance--pe_server--pe_settings"></a>`pe_settings`
 
