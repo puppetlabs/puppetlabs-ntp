@@ -1,0 +1,11 @@
+---
+ntp::config: /etc/ntpsec/ntp.conf
+ntp::driftfile: /var/lib/ntpsec/ntp.drift
+ntp::package_name:
+  - ntpsec
+ntp::restrict:
+  - 'default kod nomodify nopeer noquery limited'
+  - '127.0.0.1'
+  - '::1'
+ntp::service_name: ntpsec
+ntp::statsdir: /var/log/ntpsec
