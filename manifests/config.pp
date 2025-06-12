@@ -46,13 +46,11 @@ class ntp::config {
             match  => '^RUNASUSER\=',
           }
         }
+      }
+      if 'ntpsec' in $ntp::package_name {
+        $daemon_config = '/etc/ntpsec/ntp.conf'
       } else {
-        # Assume all other distros in Debian family follow Debian version numbering
-        if versioncmp($facts['os']['release']['full'], '12') >= 0 {
-          $daemon_config = '/etc/ntpsec/ntp.conf'
-        } else {
-          $daemon_config = '/etc/default/ntp'
-        }
+        $daemon_config = '/etc/default/ntp'
       }
       if $ntp::daemon_extra_opts {
         file_line { 'Set NTPD daemon options':
