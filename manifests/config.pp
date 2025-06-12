@@ -34,7 +34,11 @@ class ntp::config {
     }
     'Debian': {
       if $facts['os']['name'] == 'Ubuntu' {
-        if $ntp::user and $facts['os']['release']['major'] == '18.04' {
+        # This ugly indentation is forced upon me by puppet-lint.  I disclaim
+        # any responsibility for damage to your eyes.
+        if (versioncmp($facts['os']['release']['major'], '18.04') >= 0 and
+          versioncmp($facts['os']['release']['major'], '24.04') < 0 and
+        $ntp::user) {
           file_line { 'Set NTPD daemon user':
             ensure => present,
             path   => '/usr/lib/ntp/ntp-systemd-wrapper',
