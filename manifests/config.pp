@@ -48,7 +48,7 @@ class ntp::config {
         }
       }
       if 'ntpsec' in $ntp::package_name {
-        $daemon_config = '/etc/ntpsec/ntp.conf'
+        $daemon_config = '/etc/default/ntpsec'
       } else {
         $daemon_config = '/etc/default/ntp'
       }
