@@ -38,7 +38,7 @@ if os[:family] == 'debian' && os[:release].start_with?('12')
   chroot_dir = '/var/lib/ntpsec'
 else
   ntpd_opts_match = %r{(OPTIONS|NTPD_OPTS)='-g -i /var/lib/ntp'}
-  chroot_dir = '/var/lib/ntp'
+  chroot_dir = '/var/lib/ntpsec'
 end
 
 describe 'ntp class with daemon options:', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) || (os[:release].start_with?('5') && os[:family] == 'redhat') do

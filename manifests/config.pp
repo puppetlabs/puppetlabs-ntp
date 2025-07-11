@@ -36,7 +36,7 @@ class ntp::config {
       if $facts['os']['release']['major'] == '12' {
         $daemon_config = '/etc/ntpsec/ntp.conf'
       } else {
-        $daemon_config = '/etc/default/ntp'
+        $daemon_config = '/etc/default/ntpsec'
       }
       if $ntp::daemon_extra_opts {
         file_line { 'Set NTPD daemon options':
