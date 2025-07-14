@@ -33,7 +33,7 @@ config = if os[:family] == 'redhat'
            '/etc/default/ntp'
          end
 
-if os[:family] == 'debian' && os[:release].start_with?('12')
+if os[:family] == 'debian' && (os[:release].start_with?('12') || os[:release].start_with?('24.04'))
   ntpd_opts_match = %r{(OPTIONS|NTPD_OPTS)='-g -i /var/lib/ntpsec'}
   chroot_dir = '/var/lib/ntpsec'
 else

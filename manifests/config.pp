@@ -35,7 +35,10 @@ class ntp::config {
     'Debian': {
       if $facts['os']['release']['major'] == '12' {
         $daemon_config = '/etc/ntpsec/ntp.conf'
-      } else {
+      } elsif $facts['os']['release']['major'] == '24.04' {
+        $daemon_config = '/etc/ntpsec/ntpsec'
+      }
+      else {
         $daemon_config = '/etc/default/ntp'
       }
       if $ntp::daemon_extra_opts {
