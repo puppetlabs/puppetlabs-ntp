@@ -36,7 +36,7 @@ class ntp::config {
       if $facts['os']['release']['major'] == '12' {
         $daemon_config = '/etc/ntpsec/ntp.conf'
       } elsif $facts['os']['release']['major'] == '24.04' {
-        $daemon_config = '/etc/ntpsec/ntpsec'
+        $daemon_config = '/etc/default/ntpsec'
       }
       else {
         $daemon_config = '/etc/default/ntp'
