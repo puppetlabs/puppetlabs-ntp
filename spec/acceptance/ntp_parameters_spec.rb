@@ -24,6 +24,8 @@ end
 
 config = if os[:family] == 'solaris'
            '/etc/inet/ntp.conf'
+         elsif os[:family] == 'ubuntu' && os[:release].start_with?('24')
+           '/etc/ntpsec/ntp.conf'
          else
            '/etc/ntp.conf'
          end
