@@ -28,22 +28,27 @@ config = if os[:family] == 'redhat'
          elsif os[:family] == 'sles'
            '/etc/sysconfig/ntp'
          elsif os[:family] == 'debian' && os[:release].start_with?('12')
-           '/etc/ntpsec/ntp.conf'
+           '/etc/default/ntpsec'
+         elsif os[:family] == 'ubuntu' && os[:release].start_with?('24')
+           '/etc/default/ntpsec'
          else
            '/etc/default/ntp'
          end
 
-if os[:family] == 'debian' && os[:release].start_with?('12')
-  ntpd_opts_match = %r{(OPTIONS|NTPD_OPTS)='-g -i /var/lib/ntpsec'}
-  chroot_dir = '/var/lib/ntpsec'
+if os[:family] == 'debian' && os[:release].to_i >= 12
+  ntpd_opts_match = %r{(OPTIONS|NTPD_OPTS)='-g '}
+  chroot_opt = ''
+elsif os[:family] == 'ubuntu' && os[:release].to_f >= 24.04
+  ntpd_opts_match = %r{(OPTIONS|NTPD_OPTS)='-g '}
+  chroot_opt = ''
 else
   ntpd_opts_match = %r{(OPTIONS|NTPD_OPTS)='-g -i /var/lib/ntp'}
-  chroot_dir = '/var/lib/ntp'
+  chroot_opt = '-i /var/lib/ntp'
 end
 
 describe 'ntp class with daemon options:', unless: UNSUPPORTED_PLATFORMS.include?(os[:family]) || (os[:release].start_with?('5') && os[:family] == 'redhat') do
   let(:pp) do
-    "class { 'ntp': service_enable => true, service_ensure => running, service_manage => true, service_name => '#{servicename}', user => 'ntp', daemon_extra_opts => '-g -i #{chroot_dir}' }"
+    "class { 'ntp': service_enable => true, service_ensure => running, service_manage => true, service_name => '#{servicename}', user => 'ntp', daemon_extra_opts => '-g #{chroot_opt}' }"
   end
 
   context 'when run' do

@@ -33,8 +33,20 @@ class ntp::config {
       }
     }
     'Debian': {
-      if $facts['os']['release']['major'] == '12' {
-        $daemon_config = '/etc/ntpsec/ntp.conf'
+      if $facts['os']['name'] == 'Ubuntu' {
+        if (versioncmp($facts['os']['release']['major'], '18.04') >= 0 and
+          versioncmp($facts['os']['release']['major'], '24.04') < 0 and
+        $ntp::user) {
+          file_line { 'Set NTPD daemon user':
+            ensure => present,
+            path   => '/usr/lib/ntp/ntp-systemd-wrapper',
+            line   => "RUNASUSER=${ntp::user}",
+            match  => '^RUNASUSER\=',
+          }
+        }
+      }
+      if 'ntpsec' in $ntp::package_name {
+        $daemon_config = '/etc/default/ntpsec'
       } else {
         $daemon_config = '/etc/default/ntp'
       }
@@ -44,14 +56,6 @@ class ntp::config {
           path   => $daemon_config,
           line   => "NTPD_OPTS='${ntp::daemon_extra_opts}'",
           match  => '^NTPD_OPTS\=',
-        }
-      }
-      if $ntp::user and $facts['os']['release']['major'] == '18.04' {
-        file_line { 'Set NTPD daemon user':
-          ensure => present,
-          path   => '/usr/lib/ntp/ntp-systemd-wrapper',
-          line   => "RUNASUSER=${ntp::user}",
-          match  => '^RUNASUSER\=',
         }
       }
     }
