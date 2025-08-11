@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v11.1.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v11.1.0) - 2025-08-11
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v11.0.0...v11.1.0)
+
+### Added
+
+- Add ubuntu 24 support [#731](https://github.com/puppetlabs/puppetlabs-ntp/pull/731) ([shubhamshinde360](https://github.com/shubhamshinde360))
+
+### Other
+
+- (CAT-2296) Update github runner image to ubuntu-24.04 [#725](https://github.com/puppetlabs/puppetlabs-ntp/pull/725) ([shubhamshinde360](https://github.com/shubhamshinde360))
+
 ## [v11.0.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v11.0.0) - 2024-12-17
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v10.1.0...v11.0.0)
