@@ -11,6 +11,7 @@ jobs:
     uses: "puppetlabs/cat-github-actions/.github/workflows/module_ci.yml@main"
     with:
       runs_on: "ubuntu-24.04"
+      flags: "--nightly"
     secrets: "inherit"
 
   Acceptance:
