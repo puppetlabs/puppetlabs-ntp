@@ -13,15 +13,6 @@ Gemfile:
       version: '= 1.15.2'
 Rakefile:
   changelog_user: puppetlabs
-  extras:
-    - |
-      require 'rspec/core/rake_task'
-      namespace :ntp do
-        RSpec::Core::RakeTask.new(:integration) do |t|
-          t.pattern = 'spec/acceptance/**{,/*/**}/*_spec.rb'
-          t.rspec_opts = "--tag integration"
-        end
-      end
 spec/spec_helper.rb:
   mock_with: ":rspec"
   coverage_report: true

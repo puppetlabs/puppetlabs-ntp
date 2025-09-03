@@ -15,12 +15,3 @@ PuppetLint.configuration.send('disable_documentation')
 PuppetLint.configuration.send('disable_single_quote_string_with_variables')
 PuppetLint.configuration.fail_on_warnings = true
 PuppetLint.configuration.ignore_paths = [".vendor/**/*.pp", ".bundle/**/*.pp", "pkg/**/*.pp", "spec/**/*.pp", "tests/**/*.pp", "types/**/*.pp", "vendor/**/*.pp"]
-
-require 'rspec/core/rake_task'
-namespace :ntp do
-  RSpec::Core::RakeTask.new(:integration) do |t|
-    t.pattern = 'spec/acceptance/**{,/*/**}/*_spec.rb'
-    t.rspec_opts = "--tag integration"
-  end
-end
-
