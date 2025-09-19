@@ -17,7 +17,7 @@ when 'aix'
 else
   servicename = if os[:family] == 'sles' && os[:release].start_with?('12', '15')
                   'ntpd'
-                elsif os[:family] == 'debian' && os[:release].start_with?('12')
+                elsif os[:family] == 'debian' && os[:release].start_with?('12', '13')
                   'ntpsec'
                 else
                   'ntp'
@@ -27,7 +27,7 @@ config = if os[:family] == 'redhat'
            '/etc/sysconfig/ntpd'
          elsif os[:family] == 'sles'
            '/etc/sysconfig/ntp'
-         elsif os[:family] == 'debian' && os[:release].start_with?('12')
+         elsif os[:family] == 'debian' && os[:release].start_with?('12', '13')
            '/etc/default/ntpsec'
          elsif os[:family] == 'ubuntu' && os[:release].start_with?('24')
            '/etc/default/ntpsec'
