@@ -52,9 +52,13 @@ jobs:
 
     env:
       PUPPET_GEM_VERSION: '~> 8.11'
-      FACTER_GEM_VERSION: 'https://github.com/puppetlabs/facter#main'  # why is this set?
+      FACTER_GEM_VERSION: 'https://github.com/puppetlabs/facter#main'
+      PUPPET_FORGE_TOKEN: ${{ secrets.PUPPET_FORGE_TOKEN_PUBLIC }}
 
     steps:
+
+    - name: Checkout Source
+      uses: actions/checkout@v3
 
     - name: "Install Twingate"
       uses: "twingate/github-action@v1"
@@ -79,14 +83,10 @@ jobs:
         echo "=== Test DNS resolution ==="
         nslookup artifactory.delivery.puppetlabs.net
 
-
-    - name: Checkout Source
-      uses: actions/checkout@v3
-
-    - name: Activate Ruby 3.1
+    - name: Activate Ruby 3.2
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: "3.1"
+        ruby-version: "3.2"
         bundler-cache: true
 
     - name: Print bundle environment
