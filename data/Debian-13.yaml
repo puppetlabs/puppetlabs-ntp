@@ -1,0 +1,4 @@
+---
+ntp::package_name:
+  - ntpsec
+ntp::config: '/etc/ntpsec/ntp.conf'
