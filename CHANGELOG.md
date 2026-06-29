@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v11.1.1](https://github.com/puppetlabs/puppetlabs-ntp/tree/v11.1.1) - 2026-06-25
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v11.1.0...v11.1.1)
+
+### Other
+
+- (MODULES-11840) Allow puppetlabs/stdlib 10.x [#742](https://github.com/puppetlabs/puppetlabs-ntp/pull/742) ([imaqsood](https://github.com/imaqsood))
+- Configure Mend for GitHub.com [#724](https://github.com/puppetlabs/puppetlabs-ntp/pull/724) ([mend-for-github-com](https://github.com/mend-for-github-com))
+
 ## [v11.1.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v11.1.0) - 2025-08-11
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v11.0.0...v11.1.0)

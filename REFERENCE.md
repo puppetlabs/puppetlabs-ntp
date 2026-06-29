@@ -21,12 +21,6 @@
 * [`Ntp::Key_id`](#Ntp--Key_id): See http://doc.ntp.org/4.2.6/authopt.html#controlkey for documentation Alternatively: type Ntp::Key_id = Variant[Integer, Pattern['']]
 * [`Ntp::Poll_interval`](#Ntp--Poll_interval): See https://doc.ntp.org/documentation/4.2.6-series/confopt/#command-options for documentation Alternatively: type Ntp::Poll_interval = Varian
 
-### Plans
-
-* [`ntp::acceptance::pe_agent`](#ntp--acceptance--pe_agent): Install PE
-* [`ntp::acceptance::pe_server`](#ntp--acceptance--pe_server): Install PE Server
-* [`ntp::acceptance::provision_integration`](#ntp--acceptance--provision_integration): Provisions machines
-
 ## Classes
 
 ### <a name="ntp"></a>`ntp`
@@ -563,88 +557,4 @@ See https://doc.ntp.org/documentation/4.2.6-series/confopt/#command-options for 
 Alternatively: type Ntp::Poll_interval = Variant[Integer, Pattern['']]
 
 Alias of `Integer[3, 17]`
-
-## Plans
-
-### <a name="ntp--acceptance--pe_agent"></a>`ntp::acceptance::pe_agent`
-
-Install PE Agent
-
-#### Examples
-
-##### 
-
-```puppet
-ntp::acceptance::pe_agent
-```
-
-### <a name="ntp--acceptance--pe_server"></a>`ntp::acceptance::pe_server`
-
-Install PE Server
-
-#### Examples
-
-##### 
-
-```puppet
-ntp::acceptance::pe_server
-```
-
-#### Parameters
-
-The following parameters are available in the `ntp::acceptance::pe_server` plan:
-
-* [`version`](#-ntp--acceptance--pe_server--version)
-* [`pe_settings`](#-ntp--acceptance--pe_server--pe_settings)
-
-##### <a name="-ntp--acceptance--pe_server--version"></a>`version`
-
-Data type: `Optional[String]`
-
-
-
-Default value: `'2021.7.9'`
-
-##### <a name="-ntp--acceptance--pe_server--pe_settings"></a>`pe_settings`
-
-Data type: `Optional[Hash]`
-
-
-
-Default value: `{ password => 'puppetlabs' }`
-
-### <a name="ntp--acceptance--provision_integration"></a>`ntp::acceptance::provision_integration`
-
-Provisions machines for integration testing
-
-#### Examples
-
-##### 
-
-```puppet
-ntp::acceptance::provision_integration
-```
-
-#### Parameters
-
-The following parameters are available in the `ntp::acceptance::provision_integration` plan:
-
-* [`image`](#-ntp--acceptance--provision_integration--image)
-* [`provision_type`](#-ntp--acceptance--provision_integration--provision_type)
-
-##### <a name="-ntp--acceptance--provision_integration--image"></a>`image`
-
-Data type: `Optional[String]`
-
-
-
-Default value: `'centos-7'`
-
-##### <a name="-ntp--acceptance--provision_integration--provision_type"></a>`provision_type`
-
-Data type: `Optional[String]`
-
-
-
-Default value: `'provision_service'`
 
