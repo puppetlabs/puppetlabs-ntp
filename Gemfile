@@ -55,8 +55,8 @@ group :development do
   gem "rubocop", '~> 1.50.0',                    require: false
   gem "rubocop-performance", '= 1.16.0',         require: false
   gem "rubocop-rspec", '= 2.19.0',               require: false
-  gem "rb-readline", '= 0.5.5',                  require: false, platforms: [:mswin, :mingw, :x64_mingw]
-  gem "bigdecimal", '< 3.2.2',                   require: false, platforms: [:mswin, :mingw, :x64_mingw]
+  gem "rb-readline", '= 0.5.5',                  require: false, platforms: [:windows]
+  gem "bigdecimal", '< 3.2.2',                   require: false, platforms: [:windows]
   gem "github_changelog_generator", '= 1.15.2',  require: false
 end
 group :development, :release_prep do
@@ -67,7 +67,7 @@ end
 group :system_tests do
   gem "puppet_litmus", '~> 2.5',   require: false
   gem "faraday", '~> 2.5',         require: false
-  gem "CFPropertyList", '< 3.0.7', require: false, platforms: [:mswin, :mingw, :x64_mingw]
+  gem "CFPropertyList", '< 3.0.7', require: false, platforms: [:windows]
   gem "serverspec", '~> 2.41',     require: false
 end
 
