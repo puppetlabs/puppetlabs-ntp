@@ -4,9 +4,7 @@ require 'spec_helper_acceptance'
 
 config = if os[:family] == 'solaris'
            '/etc/inet/ntp.conf'
-         elsif os[:family] == 'debian' && os[:release].start_with?('12')
-           '/etc/ntpsec/ntp.conf'
-         elsif os[:family] == 'ubuntu' && os[:release].start_with?('24')
+         elsif os[:family] == 'debian' && os[:release].to_f >= 12 || os[:family] == 'ubuntu' && os[:release].to_f >= 24.04
            '/etc/ntpsec/ntp.conf'
          else
            '/etc/ntp.conf'
