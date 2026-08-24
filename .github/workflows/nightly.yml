@@ -11,6 +11,12 @@ jobs:
     with:
       runs_on: "ubuntu-24.04"
       flags: "--nightly"
+      # patron (a faraday-patron/faraday_middleware transitive dep pulled in by
+      # puppet_litmus's winrm chain) needs libcurl dev headers to build its native extension.
+      additional_packages: "libcurl4-openssl-dev"
+      # voxpupuli-puppet-lint-plugins is unconditionally ~> 7.0, which needs Ruby >= 3.2;
+      # the Setup Test Matrix job's own bundle install needs the same bump.
+      ruby_version: "3.2"
     secrets: "inherit"
 
   Acceptance:
@@ -18,5 +24,19 @@ jobs:
     uses: "puppetlabs/cat-github-actions/.github/workflows/module_acceptance.yml@main"
     with:
       runs_on: "ubuntu-24.04"
-      flags: "--nightly --platform-exclude centos-7 --platform-exclude oraclelinux-7 --platform-exclude scientific-7"
+      # centos-7/oraclelinux-7/scientific-7 are dropped from every lane (no acceptance image
+      # maintained for them); the collection-platform-exclude entries below instead keep
+      # redhat-7/sles-12/debian-10/ubuntu-18.04/ubuntu-20.04 in the Puppet 8 lane while dropping
+      # them from Puppet 9, since Puppet 9 ships no agent build for these EOL platforms.
+      flags: >-
+        --nightly
+        --platform-exclude centos-7
+        --platform-exclude oraclelinux-7
+        --platform-exclude scientific-7
+        --collection-platform-exclude 9:redhat-7
+        --collection-platform-exclude 9:sles-12
+        --collection-platform-exclude 9:debian-10
+        --collection-platform-exclude 9:ubuntu-18.04
+        --collection-platform-exclude 9:ubuntu-20.04
+      ruby_version: "3.2"
     secrets: "inherit"
