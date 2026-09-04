@@ -5,7 +5,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
-## [v11.1.1](https://github.com/puppetlabs/puppetlabs-ntp/tree/v11.1.1) - 2026-06-25
+## [v11.2.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v11.2.0) - 2026-09-04
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v11.1.1...v11.2.0)
+
+### Added
+
+- (MODULES-11705) Add Puppet 9 support [#745](https://github.com/puppetlabs/puppetlabs-ntp/pull/745) ([skyamgarp](https://github.com/skyamgarp))
+
+## [v11.1.1](https://github.com/puppetlabs/puppetlabs-ntp/tree/v11.1.1) - 2026-06-29
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v11.1.0...v11.1.1)
 
