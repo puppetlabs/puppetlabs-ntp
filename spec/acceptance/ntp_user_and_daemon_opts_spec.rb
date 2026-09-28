@@ -17,7 +17,7 @@ when 'aix'
 else
   servicename = if os[:family] == 'sles' && os[:release].start_with?('12', '15')
                   'ntpd'
-                elsif os[:family] == 'debian' && os[:release].start_with?('12')
+                elsif stdlib.os_version_gte('Debian', '12')
                   'ntpsec'
                 else
                   'ntp'
@@ -27,18 +27,18 @@ config = if os[:family] == 'redhat'
            '/etc/sysconfig/ntpd'
          elsif os[:family] == 'sles'
            '/etc/sysconfig/ntp'
-         elsif os[:family] == 'debian' && os[:release].start_with?('12')
+         elsif stdlib.os_version_gte('Debian', '12')
            '/etc/default/ntpsec'
-         elsif os[:family] == 'ubuntu' && os[:release].start_with?('24')
+         elsif stdlib.os_version_gte('Ubuntu', '24.04')
            '/etc/default/ntpsec'
          else
            '/etc/default/ntp'
          end
 
-if os[:family] == 'debian' && os[:release].to_i >= 12
+if stdlib.os_version_gte('Debian', '12')
   ntpd_opts_match = %r{(OPTIONS|NTPD_OPTS)='-g '}
   chroot_opt = ''
-elsif os[:family] == 'ubuntu' && os[:release].to_f >= 24.04
+elsif stdlib.os_version_gte('Ubuntu', '24.04')
   ntpd_opts_match = %r{(OPTIONS|NTPD_OPTS)='-g '}
   chroot_opt = ''
 else
