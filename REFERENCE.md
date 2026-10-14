@@ -69,6 +69,7 @@ The following parameters are available in the `ntp` class:
 * [`package_ensure`](#-ntp--package_ensure)
 * [`package_manage`](#-ntp--package_manage)
 * [`package_name`](#-ntp--package_name)
+* [`sles_legacy_repo_manage`](#-ntp--sles_legacy_repo_manage)
 * [`panic`](#-ntp--panic)
 * [`peers`](#-ntp--peers)
 * [`tos_orphan`](#-ntp--tos_orphan)
@@ -326,6 +327,15 @@ Whether to manage the NTP package. Default value: true.
 Data type: `Array[String]`
 
 Specifies the NTP package to manage. Default value: ['ntp'] (except on AIX and Solaris).
+
+##### <a name="-ntp--sles_legacy_repo_manage"></a>`sles_legacy_repo_manage`
+
+Data type: `Boolean`
+
+Whether to activate the SLES 15 Legacy module (which provides the ntp package) with SUSEConnect.
+Only applies on SLES 15 when `package_manage` is true, and is skipped automatically when SUSEConnect
+is missing or the host isn't registered with SCC. Set to false if you provide the package from
+your own repository. Default value: true.
 
 ##### <a name="-ntp--panic"></a>`panic`
 

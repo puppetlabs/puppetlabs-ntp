@@ -677,6 +677,43 @@ on_supported_os.each do |os, f|
 
           it { is_expected.not_to contain_package('ntp') }
         end
+
+        if f[:os]['name'] == 'SLES' && f[:os]['release']['major'] == '15'
+          describe 'SLES 15 legacy module' do
+            [['15.5', 'x86_64'], ['15.6', 'x86_64'], ['15.6', 'aarch64']].each do |release, arch|
+              context "when on SP #{release} #{arch}" do
+                let(:facts) do
+                  super().merge(os: f[:os].merge('architecture' => arch,
+                                                 'release' => f[:os]['release'].merge('full' => release, 'minor' => release.split('.').last)))
+                end
+
+                it {
+                  expect(subject).to contain_exec('Enable legacy repos').with(
+                    provider: 'shell',
+                    command: "SUSEConnect --product sle-module-legacy/#{release}/#{arch}",
+                    unless: "SUSEConnect --status-text | grep -q sle-module-legacy/#{release}/#{arch}",
+                    onlyif: 'test -x /usr/bin/SUSEConnect && test -f /etc/zypp/credentials.d/SCCcredentials',
+                  )
+                }
+              end
+            end
+
+            context 'when sles_legacy_repo_manage is false' do
+              let(:params) { { sles_legacy_repo_manage: false } }
+
+              it { is_expected.not_to contain_exec('Enable legacy repos') }
+              it { is_expected.to contain_package('ntp') }
+            end
+
+            context 'when package_manage is false' do
+              let(:params) { { package_manage: false } }
+
+              it { is_expected.not_to contain_exec('Enable legacy repos') }
+            end
+          end
+        else
+          it { is_expected.not_to contain_exec('Enable legacy repos') }
+        end
       end
 
       describe 'ntp::service' do
