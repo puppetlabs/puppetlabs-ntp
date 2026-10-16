@@ -35,6 +35,7 @@ ntp::minpoll: ~
 ntp::package_ensure: present
 ntp::package_manage: true
 ntp::package_name: [ 'ntp' ]
+ntp::sles_legacy_repo_manage: true
 ntp::panic: ~
 ntp::peers: []
 ntp::pool: []

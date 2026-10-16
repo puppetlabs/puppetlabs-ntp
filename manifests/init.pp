@@ -118,6 +118,12 @@
 # @param package_name
 #   Specifies the NTP package to manage. Default value: ['ntp'] (except on AIX and Solaris).
 #
+# @param sles_legacy_repo_manage
+#   Whether to activate the SLES 15 Legacy module (which provides the ntp package) with SUSEConnect.
+#   Only applies on SLES 15 when `package_manage` is true, and is skipped automatically when SUSEConnect
+#   is missing or the host isn't registered with SCC. Set to false if you provide the package from
+#   your own repository. Default value: true.
+#
 # @param panic
 #   Whether NTP should "panic" in the event of a very large clock skew. Applies only if `tinker` option set to true or if your environment
 #   is in a virtual machine. Default value: 0 if environment is virtual, undef in all other cases.
@@ -266,6 +272,7 @@ class ntp (
   String                              $package_ensure,
   Boolean                             $package_manage,
   Array[String]                       $package_name,
+  Boolean                             $sles_legacy_repo_manage,
   Optional[Integer[0]]                $panic,
   Array[String]                       $peers,
   Optional[Array[String]]             $pool,
