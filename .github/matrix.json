@@ -1,0 +1,195 @@
+{
+  "collections": [
+    {
+      "puppet": 8.0,
+      "ruby": 3.2
+    },
+    {
+      "puppet": 9.0,
+      "ruby": 4.0
+    }
+  ],
+  "provisioners": {
+    "provision_service": {
+      "AlmaLinux": {
+        "8": {
+          "x86_64": "almalinux-cloud/almalinux-8"
+        },
+        "9": {
+          "x86_64": "almalinux-cloud/almalinux-9"
+        }
+      },
+      "CentOS": {
+        "7": {
+          "x86_64": "centos-7"
+        },
+        "8": {
+          "x86_64": "centos-stream-8"
+        },
+        "9": {
+          "x86_64": "centos-stream-9"
+        }
+      },
+      "Rocky": {
+        "8": {
+          "x86_64": "rocky-linux-cloud/rocky-linux-8"
+        },
+        "9": {
+          "x86_64": "rocky-linux-cloud/rocky-linux-9"
+        }
+      },
+      "Debian": {
+        "10": {
+          "x86_64": "debian-10"
+        },
+        "11": {
+          "x86_64": "debian-11"
+        },
+        "12": {
+          "x86_64": "debian-12",
+          "arm": "debian-12-arm64"
+        },
+        "13": {
+          "x86_64": "debian-13"
+        }
+      },
+      "RedHat": {
+        "7": {
+          "x86_64": "rhel-7"
+        },
+        "8": {
+          "x86_64": "rhel-8"
+        },
+        "9": {
+          "x86_64": "rhel-9",
+          "arm": "rhel-9-arm64"
+        },
+        "10": {
+          "x86_64": "rhel-10",
+          "arm": "rhel-10-arm64"
+        }
+      },
+      "SLES": {
+        "12": {
+          "x86_64": "sles-12"
+        },
+        "15": {
+          "x86_64": "sles-15"
+        }
+      },
+      "Ubuntu": {
+        "20.04": {
+          "x86_64": "ubuntu-2004-lts"
+        },
+        "22.04": {
+          "x86_64": "ubuntu-2204-lts",
+          "arm": "ubuntu-2204-lts-arm64"
+        },
+        "24.04": {
+          "x86_64": "ubuntu-2404-lts",
+          "arm": "ubuntu-2404-lts-arm64"
+        }
+      },
+      "Windows": {
+        "2016": {
+          "x86_64": "windows-2016"
+        },
+        "2019": {
+          "x86_64": "windows-2019"
+        },
+        "2022": {
+          "x86_64": "windows-2022"
+        },
+        "2025": {
+          "x86_64": "windows-2025"
+        }
+      }
+    },
+    "docker": {
+      "AmazonLinux": {
+        "2": {
+          "x86_64": "litmusimage/amazonlinux:2"
+        },
+        "2023": {
+          "x86_64": "litmusimage/amazonlinux:2023"
+        }
+      },
+      "CentOS": {
+        "7": {
+          "x86_64": "litmusimage/centos:7"
+        },
+        "8": {
+          "x86_64": "litmusimage/centos:stream8"
+        },
+        "9": {
+          "x86_64": "litmusimage/centos:stream9"
+        }
+      },
+      "Rocky": {
+        "8": {
+          "x86_64": "litmusimage/rockylinux:8"
+        },
+        "9": {
+          "x86_64": "litmusimage/rockylinux:9"
+        }
+      },
+      "AlmaLinux": {
+        "8": {
+          "x86_64": "litmusimage/almalinux:8"
+        },
+        "9": {
+          "x86_64": "litmusimage/almalinux:9"
+        }
+      },
+      "Debian": {
+        "10": {
+          "x86_64": "litmusimage/debian:10"
+        },
+        "11": {
+          "x86_64": "litmusimage/debian:11"
+        },
+        "12": {
+          "x86_64": "litmusimage/debian:12"
+        },
+        "13": {
+          "x86_64": "litmusimage/debian:13"
+        }
+      },
+      "OracleLinux": {
+        "7": {
+          "x86_64": "litmusimage/oraclelinux:7"
+        },
+        "8": {
+          "x86_64": "litmusimage/oraclelinux:8"
+        },
+        "9": {
+          "x86_64": "litmusimage/oraclelinux:9"
+        }
+      },
+      "Scientific": {
+        "7": {
+          "x86_64": "litmusimage/scientificlinux:7"
+        }
+      },
+      "Ubuntu": {
+        "18.04": {
+          "x86_64": "litmusimage/ubuntu:18.04"
+        },
+        "20.04": {
+          "x86_64": "litmusimage/ubuntu:20.04"
+        },
+        "22.04": {
+          "x86_64": "litmusimage/ubuntu:22.04"
+        },
+        "24.04": {
+          "x86_64": "litmusimage/ubuntu:24.04"
+        }
+      }
+    }
+  },
+  "github_runner": {
+    "docker": {
+      "^(AmazonLinux-2|(CentOS|OracleLinux|Scientific)-7|(AlmaLinux|OracleLinux|Rocky|CentOS)-9|AlmaLinux-8|Fedora-36|SLES-15|Ubuntu-18|Debian-10)": "ubuntu-22.04"
+    }
+  }
+}
