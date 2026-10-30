@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v11.2.1](https://github.com/puppetlabs/puppetlabs-ntp/tree/v11.2.1) - 2026-10-27
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v11.2.0...v11.2.1)
+
+### Fixed
+
+- (MODULES-11973) Derive SLES 15 legacy module from facts and guard the exec [#755](https://github.com/puppetlabs/puppetlabs-ntp/pull/755) ([imaqsood](https://github.com/imaqsood))
+
 ## [v11.2.0](https://github.com/puppetlabs/puppetlabs-ntp/tree/v11.2.0) - 2026-09-04
 
 [Full Changelog](https://github.com/puppetlabs/puppetlabs-ntp/compare/v11.1.1...v11.2.0)
