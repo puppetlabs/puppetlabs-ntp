@@ -4,6 +4,14 @@
 # @api private
 #
 class ntp::service {
+  if 'ntpsec' in $ntp::package_name {
+    file { '/run/lock/ntpsec':
+      ensure => directory,
+      mode   => '0755',
+    }
+    -> Service['ntp']
+  }
+
   if $ntp::service_manage == true {
     service { 'ntp':
       ensure     => $ntp::service_ensure,
