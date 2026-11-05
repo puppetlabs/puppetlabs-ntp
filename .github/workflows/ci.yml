@@ -31,6 +31,7 @@ jobs:
       # them from Puppet 9, since Puppet 9 ships no agent build for these EOL platforms.
       flags: >-
         --nightly
+        --platform-include ubuntu-26.04
         --platform-exclude centos-7
         --platform-exclude oraclelinux-7
         --platform-exclude scientific-7
