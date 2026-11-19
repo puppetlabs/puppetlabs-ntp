@@ -52,7 +52,7 @@ on_supported_os.each do |os, f|
           context 'when set to true' do
             let(:params) do
               {
-                broadcastclient: true
+                broadcastclient: true,
               }
             end
 
@@ -64,7 +64,7 @@ on_supported_os.each do |os, f|
           context 'when set to false' do
             let(:params) do
               {
-                broadcastclient: false
+                broadcastclient: false,
               }
             end
 
@@ -78,7 +78,7 @@ on_supported_os.each do |os, f|
           context 'when set to true' do
             let(:params) do
               {
-                burst: true
+                burst: true,
               }
             end
 
@@ -90,7 +90,7 @@ on_supported_os.each do |os, f|
           context 'when set to false' do
             let(:params) do
               {
-                burst: false
+                burst: false,
               }
             end
 
@@ -106,7 +106,7 @@ on_supported_os.each do |os, f|
               {
                 keys_enable: true,
                 config_dir: '/tmp/foo',
-                keys_file: '/tmp/foo/ntp.keys'
+                keys_file: '/tmp/foo/ntp.keys',
               }
             end
 
@@ -122,7 +122,7 @@ on_supported_os.each do |os, f|
           context 'when set to custom mode' do
             let(:params) do
               {
-                config_file_mode: '0777'
+                config_file_mode: '0777',
               }
             end
 
@@ -175,7 +175,7 @@ on_supported_os.each do |os, f|
           context 'when set to true' do
             let(:params) do
               {
-                disable_auth: true
+                disable_auth: true,
               }
             end
 
@@ -187,7 +187,7 @@ on_supported_os.each do |os, f|
           context 'when set to false' do
             let(:params) do
               {
-                disable_auth: false
+                disable_auth: false,
               }
             end
 
@@ -201,7 +201,7 @@ on_supported_os.each do |os, f|
           context 'when set to true' do
             let(:params) do
               {
-                disable_dhclient: true
+                disable_dhclient: true,
               }
             end
 
@@ -221,7 +221,7 @@ on_supported_os.each do |os, f|
           context 'when set to false' do
             let(:params) do
               {
-                disable_dhclient: false
+                disable_dhclient: false,
               }
             end
 
@@ -239,7 +239,7 @@ on_supported_os.each do |os, f|
           context 'when set to true' do
             let(:params) do
               {
-                disable_kernel: true
+                disable_kernel: true,
               }
             end
 
@@ -251,7 +251,7 @@ on_supported_os.each do |os, f|
           context 'when set to false' do
             let(:params) do
               {
-                disable_kernel: false
+                disable_kernel: false,
               }
             end
 
@@ -275,7 +275,7 @@ on_supported_os.each do |os, f|
           context 'when set to true' do
             let(:params) do
               {
-                disable_monitor: true
+                disable_monitor: true,
               }
             end
 
@@ -287,7 +287,7 @@ on_supported_os.each do |os, f|
           context 'when set to false' do
             let(:params) do
               {
-                disable_monitor: false
+                disable_monitor: false,
               }
             end
 
@@ -307,7 +307,7 @@ on_supported_os.each do |os, f|
           context 'when set' do
             let(:params) do
               {
-                driftfile: '/tmp/driftfile'
+                driftfile: '/tmp/driftfile',
               }
             end
 
@@ -331,7 +331,7 @@ on_supported_os.each do |os, f|
           context 'when set to true' do
             let(:params) do
               {
-                enable_mode7: true
+                enable_mode7: true,
               }
             end
 
@@ -343,7 +343,7 @@ on_supported_os.each do |os, f|
           context 'when set to false' do
             let(:params) do
               {
-                enable_mode7: false
+                enable_mode7: false,
               }
             end
 
@@ -358,7 +358,7 @@ on_supported_os.each do |os, f|
             let(:params) do
               {
                 servers: ['a', 'b', 'c', 'd'],
-                interfaces: ['127.0.0.1', 'a.b.c.d']
+                interfaces: ['127.0.0.1', 'a.b.c.d'],
               }
             end
 
@@ -370,7 +370,7 @@ on_supported_os.each do |os, f|
           context 'when not set' do
             let(:params) do
               {
-                servers: ['a', 'b', 'c', 'd']
+                servers: ['a', 'b', 'c', 'd'],
               }
             end
 
@@ -385,7 +385,7 @@ on_supported_os.each do |os, f|
             let(:params) do
               {
                 interfaces: ['a.b.c.d'],
-                interfaces_ignore: ['wildcard', 'ipv6']
+                interfaces_ignore: ['wildcard', 'ipv6'],
               }
             end
 
@@ -398,7 +398,7 @@ on_supported_os.each do |os, f|
             let(:params) do
               {
                 interfaces: ['127.0.0.1'],
-                servers: ['a', 'b', 'c', 'd']
+                servers: ['a', 'b', 'c', 'd'],
               }
             end
 
@@ -416,7 +416,7 @@ on_supported_os.each do |os, f|
                 keys_trusted: [1, 2, 3],
                 keys_controlkey: 2,
                 keys_requestkey: 3,
-                keys: ['1 M AAAABBBB']
+                keys: ['1 M AAAABBBB'],
               }
             end
 
@@ -454,7 +454,7 @@ on_supported_os.each do |os, f|
               keys_enable: false,
               keys_trusted: [1, 2, 3],
               keys_controlkey: 2,
-              keys_requestkey: 3
+              keys_requestkey: 3,
             }
           end
 
@@ -477,7 +477,7 @@ on_supported_os.each do |os, f|
               {
                 servers: ['a', 'b', 'c', 'd'],
                 noselect_servers: ['a', 'b'],
-                iburst_enable: false
+                iburst_enable: false,
               }
             end
 
@@ -490,7 +490,7 @@ on_supported_os.each do |os, f|
             let(:params) do
               {
                 servers: ['a', 'b', 'c', 'd'],
-                noselect_servers: []
+                noselect_servers: [],
               }
             end
 
@@ -506,7 +506,7 @@ on_supported_os.each do |os, f|
               {
                 servers: ['a', 'b', 'c', 'd'],
                 preferred_servers: ['a', 'b'],
-                iburst_enable: false
+                iburst_enable: false,
               }
             end
 
@@ -519,7 +519,7 @@ on_supported_os.each do |os, f|
             let(:params) do
               {
                 servers: ['a', 'b', 'c', 'd'],
-                preferred_servers: []
+                preferred_servers: [],
               }
             end
 
@@ -539,7 +539,7 @@ on_supported_os.each do |os, f|
           context 'when set' do
             let(:params) do
               {
-                restrict: ['test restrict']
+                restrict: ['test restrict'],
               }
             end
 
@@ -565,7 +565,7 @@ on_supported_os.each do |os, f|
           context 'when "no"' do
             let(:params) do
               {
-                slewalways: 'no'
+                slewalways: 'no',
               }
             end
 
@@ -577,7 +577,7 @@ on_supported_os.each do |os, f|
           context 'when "yes"' do
             let(:params) do
               {
-                slewalways: 'yes'
+                slewalways: 'yes',
               }
             end
 
@@ -598,7 +598,7 @@ on_supported_os.each do |os, f|
             let(:params) do
               {
                 statistics: ['loopstats'],
-                disable_monitor: false
+                disable_monitor: false,
               }
             end
 
@@ -619,7 +619,7 @@ on_supported_os.each do |os, f|
           context 'when set' do
             let(:params) do
               {
-                udlc: true
+                udlc: true,
               }
             end
 
@@ -640,7 +640,7 @@ on_supported_os.each do |os, f|
             let(:params) do
               {
                 udlc: true,
-                udlc_stratum: 10
+                udlc_stratum: 10,
               }
             end
 
@@ -722,7 +722,7 @@ on_supported_os.each do |os, f|
             service_manage: true,
             service_enable: true,
             service_ensure: 'running',
-            service_name: 'ntp'
+            service_name: 'ntp',
           }
         end
 
@@ -740,7 +740,7 @@ on_supported_os.each do |os, f|
             let(:params) do
               {
                 servers: ['a', 'b', 'c', 'd'],
-                authprov: '/opt/novell/xad/lib64/libw32time.so 131072:4294967295 global'
+                authprov: '/opt/novell/xad/lib64/libw32time.so 131072:4294967295 global',
               }
             end
 
@@ -752,7 +752,7 @@ on_supported_os.each do |os, f|
           context 'when set to false' do
             let(:params) do
               {
-                servers: ['a', 'b', 'c', 'd']
+                servers: ['a', 'b', 'c', 'd'],
               }
             end
 
@@ -790,7 +790,7 @@ on_supported_os.each do |os, f|
           context 'when set to true' do
             let(:params) do
               {
-                iburst_enable: true
+                iburst_enable: true,
               }
             end
 
@@ -802,7 +802,7 @@ on_supported_os.each do |os, f|
           context 'when set to false' do
             let(:params) do
               {
-                iburst_enable: false
+                iburst_enable: false,
               }
             end
 
@@ -817,7 +817,7 @@ on_supported_os.each do |os, f|
             let(:params) do
               {
                 servers: ['a', 'b', 'c', 'd'],
-                leapfile: '/etc/leap-seconds.3629404800'
+                leapfile: '/etc/leap-seconds.3629404800',
               }
             end
 
@@ -829,7 +829,7 @@ on_supported_os.each do |os, f|
           context 'when set to false' do
             let(:params) do
               {
-                servers: ['a', 'b', 'c', 'd']
+                servers: ['a', 'b', 'c', 'd'],
               }
             end
 
@@ -844,7 +844,7 @@ on_supported_os.each do |os, f|
             let(:params) do
               {
                 servers: ['a', 'b', 'c', 'd'],
-                logfile: '/var/log/foobar.log'
+                logfile: '/var/log/foobar.log',
               }
             end
 
@@ -856,7 +856,7 @@ on_supported_os.each do |os, f|
           context 'when set to false' do
             let(:params) do
               {
-                servers: ['a', 'b', 'c', 'd']
+                servers: ['a', 'b', 'c', 'd'],
               }
             end
 
@@ -871,7 +871,7 @@ on_supported_os.each do |os, f|
             let(:params) do
               {
                 servers: ['a', 'b', 'c', 'd'],
-                logconfig: '=syncall +peerinfo'
+                logconfig: '=syncall +peerinfo',
               }
             end
 
@@ -883,7 +883,7 @@ on_supported_os.each do |os, f|
           context 'when set to false' do
             let(:params) do
               {
-                servers: ['a', 'b', 'c', 'd']
+                servers: ['a', 'b', 'c', 'd'],
               }
             end
 
@@ -897,7 +897,7 @@ on_supported_os.each do |os, f|
           context 'when minpoll changed from default' do
             let(:params) do
               {
-                minpoll: 6
+                minpoll: 6,
               }
             end
 
@@ -909,7 +909,7 @@ on_supported_os.each do |os, f|
           context 'when maxpoll changed from default' do
             let(:params) do
               {
-                maxpoll: 12
+                maxpoll: 12,
               }
             end
 
@@ -922,7 +922,7 @@ on_supported_os.each do |os, f|
             let(:params) do
               {
                 minpoll: 6,
-                maxpoll: 12
+                maxpoll: 12,
               }
             end
 
@@ -937,7 +937,7 @@ on_supported_os.each do |os, f|
             let(:params) do
               {
                 servers: ['a', 'b', 'c', 'd'],
-                ntpsigndsocket: '/usr/local/samba/var/lib/ntp_signd'
+                ntpsigndsocket: '/usr/local/samba/var/lib/ntp_signd',
               }
             end
 
@@ -949,7 +949,7 @@ on_supported_os.each do |os, f|
           context 'when set to false' do
             let(:params) do
               {
-                servers: ['a', 'b', 'c', 'd']
+                servers: ['a', 'b', 'c', 'd'],
               }
             end
 
@@ -963,7 +963,7 @@ on_supported_os.each do |os, f|
           context 'when empty' do
             let(:params) do
               {
-                peers: []
+                peers: [],
               }
             end
 
@@ -975,7 +975,7 @@ on_supported_os.each do |os, f|
           context 'when set' do
             let(:params) do
               {
-                peers: ['foo', 'bar']
+                peers: ['foo', 'bar'],
               }
             end
 
@@ -993,7 +993,7 @@ on_supported_os.each do |os, f|
           context 'when empty' do
             let(:params) do
               {
-                pool: []
+                pool: [],
               }
             end
 
@@ -1005,7 +1005,7 @@ on_supported_os.each do |os, f|
           context 'when set' do
             let(:params) do
               {
-                pool: ['foo', 'bar']
+                pool: ['foo', 'bar'],
               }
             end
 
@@ -1049,7 +1049,7 @@ on_supported_os.each do |os, f|
               service_manage: false,
               service_enable: true,
               service_ensure: 'running',
-              service_name: 'ntpd'
+              service_name: 'ntpd',
             }
           end
 
@@ -1065,7 +1065,7 @@ on_supported_os.each do |os, f|
             context 'when panic or stepout not overriden' do
               let(:params) do
                 {
-                  tinker: false
+                  tinker: false,
                 }
               end
 
@@ -1078,7 +1078,7 @@ on_supported_os.each do |os, f|
               let(:params) do
                 {
                   tinker: false,
-                  panic: 257
+                  panic: 257,
                 }
               end
 
@@ -1091,7 +1091,7 @@ on_supported_os.each do |os, f|
               let(:params) do
                 {
                   tinker: false,
-                  stepout: 5
+                  stepout: 5,
                 }
               end
 
@@ -1105,7 +1105,7 @@ on_supported_os.each do |os, f|
                 {
                   tinker: false,
                   panic: 257,
-                  stepout: 5
+                  stepout: 5,
                 }
               end
 
@@ -1119,7 +1119,7 @@ on_supported_os.each do |os, f|
             context 'when only tinker set to true' do
               let(:params) do
                 {
-                  tinker: true
+                  tinker: true,
                 }
               end
 
@@ -1132,7 +1132,7 @@ on_supported_os.each do |os, f|
               let(:params) do
                 {
                   tinker: true,
-                  panic: 257
+                  panic: 257,
                 }
               end
 
@@ -1145,7 +1145,7 @@ on_supported_os.each do |os, f|
               let(:params) do
                 {
                   tinker: true,
-                  stepout: 5
+                  stepout: 5,
                 }
               end
 
@@ -1159,7 +1159,7 @@ on_supported_os.each do |os, f|
                 {
                   tinker: true,
                   panic: 257,
-                  stepout: 5
+                  stepout: 5,
                 }
               end
 
@@ -1174,7 +1174,7 @@ on_supported_os.each do |os, f|
           context 'when set to true' do
             let(:params) do
               {
-                tos: true
+                tos: true,
               }
             end
 
@@ -1186,7 +1186,7 @@ on_supported_os.each do |os, f|
           context 'when set to false' do
             let(:params) do
               {
-                tos: false
+                tos: false,
               }
             end
 
