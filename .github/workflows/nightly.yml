@@ -28,8 +28,12 @@ jobs:
       # maintained for them); the collection-platform-exclude entries below instead keep
       # redhat-7/sles-12/debian-10/ubuntu-18.04/ubuntu-20.04 in the Puppet 8 lane while dropping
       # them from Puppet 9, since Puppet 9 ships no agent build for these EOL platforms.
+      # --matrix: local copy of puppet_litmus's matrix.json with the docker SLES-15 image
+      # removed, so SLES-15 falls back to the provision_service VM instead of the
+      # unregistered litmusimage/sles:15 container (which lacks SUSEConnect).
       flags: >-
         --nightly
+        --matrix .github/matrix.json
         --platform-exclude centos-7
         --platform-exclude oraclelinux-7
         --platform-exclude scientific-7
