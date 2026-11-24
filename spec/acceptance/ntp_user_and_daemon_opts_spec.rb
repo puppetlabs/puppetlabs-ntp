@@ -27,13 +27,13 @@ config = if os[:family] == 'redhat'
            '/etc/sysconfig/ntpd'
          elsif os[:family] == 'sles'
            '/etc/sysconfig/ntp'
-         elsif os[:family] == 'debian' && os[:release].to_f >= 12 || os[:family] == 'ubuntu' && os[:release].to_f >= 24.04
+         elsif (os[:family] == 'debian' && os[:release].to_f >= 12) || (os[:family] == 'ubuntu' && os[:release].to_f >= 24.04)
            '/etc/default/ntpsec'
          else
            '/etc/default/ntp'
          end
 
-if os[:family] == 'debian' && os[:release].to_i >= 12 || os[:family] == 'ubuntu' && os[:release].to_f >= 24.04
+if (os[:family] == 'debian' && os[:release].to_i >= 12) || (os[:family] == 'ubuntu' && os[:release].to_f >= 24.04)
   ntpd_opts_match = %r{(OPTIONS|NTPD_OPTS)='-g '}
   chroot_opt = ''
 else
